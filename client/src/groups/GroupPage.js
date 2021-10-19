@@ -5,16 +5,14 @@ import Newsfeed from './../post/Newsfeed'
 import Events from './Events'
 import Leaders from './Leaders'
 import Rules from './Rules'
-import Leads from './Leads'
 import Jury from './Jury'
 import Polls from './Polls'
-import Purchases from './Purchases'
+import GroupDetails from './GroupDetails'
 import ChatPage from "./../ChatPage/ChatPage"
 import Kmeans from 'node-kmeans';
 import {Image} from 'cloudinary-react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-var geodist = require('geodist')
 const mongoose = require("mongoose");
 
 
@@ -28,12 +26,21 @@ class GroupPage extends Component {
     constructor(props) {
            super(props);
            this.state = {
+
              location:"",
+             centroid:"",
              title:"",
+             allmembers:[],
+             allgroupsbelow:[],
+             higherlevelgroup:'',
+             newLowerGroupIds:[],
+             id:'',
+             inthisgroup:false,
              members:[],
-             events:[],
+             level:0,
+             group:{},
+             users:[],
              associatedlocalgroups:[],
-             rules: [],
              redirect: false,
              updating:false,
              cannotpost:false,
@@ -46,112 +53,207 @@ class GroupPage extends Component {
              cannotseegigleads:false,
              cannotvoteinjury:false
            }
+           this.updateUser=this.updateUser.bind(this)
               }
 
            componentDidMount(){
              this.getGroupData()
              }
 
+             updateUser(updatedUser){
+               console.log("update user above",updatedUser)
+                   this.setState({user:updatedUser})
+                   console.log("USER",updatedUser)
+                   let restrictions=updatedUser.restrictions
+                   console.log("RESTRICTIONS",restrictions)
+                   for (let restriction of restrictions){
+                     console.log("RESTRICTIoN",restriction)
+                     if((restriction.restriction=="cannot post")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({cannotpost:true})
+                     }
+                     if((restriction.restriction=="cannot use chat")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({cannotusechat:true})
+                     }
+                     if((restriction.restriction=="cannot see events")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({cannotseeevents:true})
+                     }
+
+                     if((restriction.restriction=="remove from group")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({removefromgroup:true})
+                     }
+                     if((restriction.restriction=="cannot create polls")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({cannotcreatepolls:true})
+                     }
+                     if((restriction.restriction=="cannot suggest rules or vote for rules")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({cannotsuggestrulesorvoteforrules:true})
+                     }
+
+                     if((restriction.restriction=="cannot vote in jury")&&(restriction.groupId==this.props.match.params.groupId)){
+                       this.setState({cannotvoteinjury:true})
+                     }
+            }}
+
            async getGroupData(){
-             await fetch(`/groups/getusers`)
+             let user=await fetch(`/groups/getuser/`+auth.isAuthenticated().user._id)
+             .then(response => response.json())
+             .catch(error=>console.log(error))
+             this.updateUser(user.data)
+
+             await fetch(`/groups/findgroup/`+this.props.match.params.groupId)
                  .then(response => response.json())
                  .then(data=>{
-                   console.log("users",data)
-                   for (let user of data){
-                     if(user._id==auth.isAuthenticated().user._id){
-                       if(user.restrictions){
-                         for (let restriction of user.restrictions){
-                           if(restriction.restriction=="cannot post"){
-                             this.setState({cannotpost:true})
-                           }
-                           if(restriction.restriction=="cannot use chat"){
-                             this.setState({cannotusechat:true})
-                           }
-                           if(restriction.restriction=="cannot see events"){
-                             this.setState({cannotseeevents:true})
-                           }
-                           if(restriction.restriction=="cannot participate in group purchases"){
-                             this.setState({cannotparticipateingrouppurchases:true})
-                           }
-                           if(restriction.restriction=="remove from group"){
-                             this.setState({removefromgroup:true})
-                           }
-                           if(restriction.restriction=="cannot create polls"){
-                             this.setState({cannotcreatepolls:true})
-                           }
-                           if(restriction.restriction=="cannot suggest rules"){
-                             this.setState({cannotsuggestrules:true})
-                           }
-                           if(restriction.restriction=="cannot see gig leads"){
-                             this.setState({cannotseegigleads:true})
-                           }
-                           if(restriction.restriction=="cannot vote in jury"){
-                             this.setState({cannotvoteinjury:true})
-                           }
-                         }
-                       }
-                     }
-                   }
-
-                   this.setState({users:data})
+                   console.log("group!!!!!!!!!!",data['data'][0])
+                   this.setState({
+                   users:data['data'][0]['members'],
+                   group:data['data'][0],
+                   level:data['data'][0]['level']
                  })
-
-
-
+                 })
            }
+
+leave(e){
+  var memberscopy=JSON.parse(JSON.stringify(this.state.users))
+  var filteredarray = memberscopy.filter(function( obj ) {
+  return obj._id !== auth.isAuthenticated().user._id;
+  });
+  this.setState({users:filteredarray});
+
+const options = {
+  method: 'put',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+     body: ''
+}
+
+fetch("/groups/leave/"+this.props.match.params.groupId+"/"+ auth.isAuthenticated().user._id, options
+)  .then(res => {
+console.log(res);
+}).catch(err => {
+console.log(err);
+})
+}
+
+async join(e){
+  var memberscopy=JSON.parse(JSON.stringify(this.state.users))
+  memberscopy.push(auth.isAuthenticated().user)
+
+  this.setState({users:memberscopy});
+
+
+let us=await fetch("/groups/finduser/"+auth.isAuthenticated().user._id)
+.then(res => res.json())
+.then(data => data.data)
+.catch(err => {
+console.log(err);
+})
+us=us[0]
+console.log("USER",us.groupstheybelongto)
+
+const options = {
+  method: 'put',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+     body: ''
+}
+
+if(us.groupstheybelongto.length>=3){
+  let index=us.groupstheybelongto.length-1
+  fetch("/groups/leave/"+us['groupstheybelongto'][index]['_id']+"/"+ auth.isAuthenticated().user._id, options
+  )  .then(res => {
+  console.log(res);
+  }).catch(err => {
+  console.log(err);
+  })
+}
+
+fetch("/groups/join/"+this.props.match.params.groupId+"/"+ auth.isAuthenticated().user._id, options
+)  .then(res => {
+console.log(res);
+}).catch(err => {
+console.log(err);
+})
+}
+
 
   render() {
 
+    let joinOrLeave=<h1></h1>
+    var memberids=this.state.users.map(item=>{return item._id})
+    console.log(auth.isAuthenticated().user._id)
+    if(this.state.level==0){
+            if(memberids.includes(auth.isAuthenticated().user._id)){
+              joinOrLeave=<><button onClick={(e)=>this.leave(e)}>Leave Group?</button></>
+            }else{
+                joinOrLeave=<><button onClick={(e)=>this.join(e)}>Join Group?</button></>
+            }
+    }
+
     return (
       <>
-
       <Tabs className="tabs">
       <br/>
       <div className="activememberscontainer">
-      <h3 className="activemembers">Active Members</h3>
+      <h1>{this.state.group.title}</h1>
+      <h4 className="activemembers">Active Members</h4>
       {this.state.users&&this.state.users.map(item=>{return(
         <><button style={{display:"inline"}}><Link to={"/singleuser/" + item._id}>{item.name}</Link></button></>
-      )})}</div>
+      )})}
+      </div>
+      {(this.state.users.length<=50)&&joinOrLeave}
+      {(this.state.users.length>50)&&<h4 className="activemembers">This group is full, the maximum number of members in all groups is 50</h4>}
+
       {this.state.users&&<>
          <TabList >
            {!this.state.cannotpost&&<Tab>News</Tab>}
+           <Tab>Group Details</Tab>
+           <Tab>Leaders</Tab>
            {!this.state.cannotcreatepolls&&<Tab>Polls</Tab>}
-           {!this.state.cannotseegigleads&&<Tab>Gig Leads</Tab>}
            {!this.state.cannotsuggestrulesorvoteforrules&&<Tab>Rules</Tab>}
            {!this.state.cannotseeevents&&<Tab>Events</Tab>}
-           {!this.state.cannotparticipateingrouppurchases&&<Tab>Suggested Purchases</Tab>}
            {!this.state.cannotvoteinjury&&<Tab>Jury</Tab>}
            </TabList>
 
 
 
 
-        <TabPanel>
-         {!this.state.cannotpost&&<Newsfeed users={this.state.users}/>}
-         </TabPanel>
+        {!this.state.cannotpost&&<TabPanel>
+         <Newsfeed users={this.state.users} groupId={this.props.match.params.groupId} groupTitle={this.state.group.title} group={this.state.group}/>
+         </TabPanel>}
          <TabPanel>
-         {!this.state.cannotcreatepolls&&<Polls users={this.state.users}/>}
-         </TabPanel>
-         <TabPanel>
-         {!this.state.cannotseegigleads&&<Leads users={this.state.users}/>}
-         </TabPanel>
-         <TabPanel>
-         {!this.state.cannotsuggestrulesorvoteforrules&&<Rules users={this.state.users} />}
-         </TabPanel>
-         <TabPanel>
-         {!this.state.cannotseeevents&&<Events users={this.state.users}/>}
-         </TabPanel>
-         <TabPanel>
-         {!this.state.cannotparticipateingrouppurchases&&<Purchases users={this.state.users}/>}
-         </TabPanel>
-         <TabPanel>
-         {!this.state.cannotvoteinjury&&<Jury users={this.state.users}/>}
-         </TabPanel>
+          <GroupDetails users={this.state.users} group={this.state.group}/>
+          </TabPanel>
+          <TabPanel>
+           <Leaders users={this.state.users} group={this.state.group}/>
+           </TabPanel>
+         {!this.state.cannotcreatepolls&&<TabPanel>
+         <Polls users={this.state.users} groupId={this.props.match.params.groupId}/>
+         </TabPanel>}
+         {!this.state.cannotsuggestrulesorvoteforrules&&<TabPanel>
+         <Rules users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
+         </TabPanel>}
+         {!this.state.cannotseeevents&&<TabPanel>
+         <Events users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
+         </TabPanel>}
+         {!this.state.cannotvoteinjury&&<TabPanel>
+         <Jury users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} />
+         </TabPanel>}
          </>
        }
        </Tabs>
-
-       {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users}/>}
+       <br/>
+       <div style={{margin:"1vw",}}>
+       <h6>How would you improve The Democratic Social Network? What do you think should be in a web application like this?
+       This app is an experiment, surely there are ways it can be improved. Please email any constructive criticism to Julianbullmagic@gmail.com.
+       We would like to create this software in a similar way to the Cuban constitution. It was drafted from a very extensive
+       process of public consultation and discussion with the majority of the Cuban population and then submitted for approval by referendum.
+       No Capitalist country has ever done this, the constitution is usually written by elites and then imposed on the population.
+       </h6>
+       </div>
+       <br/>
+       <br/>
+       {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} groupId={this.props.match.params.groupId}/>}
       </>
     );
   }

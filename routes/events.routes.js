@@ -5,16 +5,17 @@ const Event = require("../models/event.model");
 const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 
-router.get("/", (req, res, next) => {
-    Event.find()
+
+router.get("/getevents/:groupId", (req, res, next) => {
+    Event.find({groupId:req.params.groupId})
     .populate('createdby')
       .then(rule => res.json(rule))
       .catch(err => res.status(400).json('Error: ' + err));
   })
 
-
 router.get("/:eventId", (req, res, next) => {
     Event.findById(req.params.eventId)
+    .populate('createdby')
       .then(rule => res.json(rule))
       .catch(err => res.status(400).json('Error: ' + err));
   })
@@ -52,12 +53,20 @@ router.get("/:eventId", (req, res, next) => {
     }}).exec()
     })
 
+    router.route('/marksentdown/:eventId').put((req, res) => {
+      const updatedEvent=Event.findByIdAndUpdate(req.params.eventId, {
+      sentdown:true
+    }).exec()
+    })
+
   router.route('/createevent/:eventId').post((req, res) => {
     let eventId = req.params.eventId;
     var newEvent=new Event({
       _id: eventId,
       title :req.body["title"],
       description :req.body["description"],
+      local :req.body["local"],
+      groupId :req.body["groupId"],
       createdby :req.body["createdby"],
       location:req.body["location"],
       coordinates:req.body["coordinates"],

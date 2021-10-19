@@ -6,6 +6,8 @@ const PostSchema = new mongoose.Schema({
     image:String,
     title:String
   },
+  grouptitle:String,
+  groupId:{type: mongoose.Schema.ObjectId, ref: 'Group'},
   notificationsent:{type:Boolean,default:false},
   likes: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   comments: [{type: mongoose.Schema.ObjectId, ref: 'Comment'}],

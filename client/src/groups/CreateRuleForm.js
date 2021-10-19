@@ -15,14 +15,15 @@ let socket = io(server);
 
 async function handleSubmit(e) {
 e.preventDefault()
-    var d = new Date();
-    var n = d.getTime();
-    var ruleId=mongoose.Types.ObjectId()
+    let d = new Date();
+    let n = d.getTime();
+    let ruleId=mongoose.Types.ObjectId()
     ruleId=ruleId.toString()
 
     const newRule={
       _id:ruleId,
       rule: ruleValue.current.value,
+      groupId:props.groupId,
       createdby:auth.isAuthenticated().user._id,
       explanation:explanationValue.current.value,
       timecreated:n,

@@ -21,9 +21,13 @@ export default function Jury(props) {
   let server = "http://localhost:5000";
   let socket = io(server);
 
+useEffect(()=>{
+  setSelectedUser(props.users[0])
+},[props])
+
   useEffect(() => {
 console.log("props",props)
-    fetch("/polls/getrestrictionpolls")
+    fetch("/polls/getrestrictionpolls/"+props.groupId)
     .then(res => {
       return res.json();
     }).then(restrictionpolls => {
@@ -77,7 +81,7 @@ function decidePage(e,pagenum){
         _id:restrictionPollId,
         usertorestrict: selectedUser._id,
         usertorestrictname: selectedUser.name,
-
+        groupId:props.groupId,
         restriction: restriction,
         duration:duration,
         approval: [auth.isAuthenticated().user._id],
@@ -86,6 +90,7 @@ function decidePage(e,pagenum){
       }
 
       let newRestrictionPollToRender=JSON.parse(JSON.stringify(newRestrictionPoll))
+      newRestrictionPollToRender.usertorestrict=selectedUser
 
       newRestrictionPollToRender.createdby=auth.isAuthenticated().user
 
@@ -276,12 +281,13 @@ restrictionPollApprovedNotification(item)
   restrictionId=restrictionId.toString()
   const newRestriction={
     _id:restrictionId,
-    usertorestrict:restriction.usertorestrict,
+    usertorestrict:restriction.usertorestrict._id,
     restriction:restriction.restriction,
+    groupId:props.groupId,
     duration:restriction.duration,
     timecreated:n
   }
-
+console.log("NEW RESTRICTION",newRestriction)
   const options = {
     method: 'post',
     headers: {
@@ -304,14 +310,17 @@ restrictionPollApprovedNotification(item)
     },
        body: ''
   }
-  console.log("RESTRICTION ID",restrictionid.data._id)
+  console.log("RESTRICTION ID",restriction.usertorestrict._id,restrictionid.data._id)
 
-  fetch("/groups/addrestrictiontouser/" + restriction.usertorestrict +"/"+ restrictionid.data._id, optionstwo
+  let updateduser=await fetch("/groups/addrestrictiontouser/" + restriction.usertorestrict._id +"/"+ restrictionid.data._id, optionstwo
   ).then(res => {
-  console.log(res);
+  return res.json()
   }).catch(err => {
   console.log(err);
   })
+  console.log(updateduser.data)
+  // props.updateUser(updateduser.data)
+
 }
         }
       }
@@ -448,6 +457,8 @@ restrictionPollApprovedNotification(item)
                     pol.ratificationnotificationsent=true
             }}
 
+            console.log(restrictionpollscopy)
+
             console.log("SENDING RATIFICATION NOTIFICATION")
             setRestrictionPolls(restrictionpollscopy)
             let current=restrictionpollscopy.slice((page*10-10),page*10)
@@ -469,7 +480,7 @@ restrictionPollApprovedNotification(item)
                   let notification={
                     emails:emails,
                     subject:"A restriction has been approved by group jury",
-                    message:`${item.usertorestrict.name} ${item.restriction} for ${item.duration}`
+                    message:`${item.usertorestrict.name} ${item.restriction} for ${item.duration} days in `
                   }
 
                   const options = {
@@ -510,7 +521,7 @@ restrictionPollApprovedNotification(item)
 
     var restrictionpollsmapped=currentPageData.map((item,i)=>{
       let approval=<></>
-
+      console.log("RESTRICTION POLLS",item)
       if(props.users){
         approval=Math.round((item.approval.length/props.users.length)*100)
       }
@@ -539,8 +550,8 @@ restrictionPollApprovedNotification(item)
       <>
       <div className="postbox">
       <div className="juryboxform">
-      <h4 className="ruletext"><strong>Restriction:</strong> {item.restriction} ,</h4>
-      <h4 className="ruletext"><strong>For:</strong> {item.usertorestrictname} ,</h4>
+      <h4 className="ruletext"><strong>Restriction:</strong> {item.restriction} for {item.duration} days, </h4>
+      <h4 className="ruletext"><strong>User to Restrict:</strong> {item.usertorestrictname} ,</h4>
       <h4 className="ruletext"><strong>Created By:</strong> {item.createdby.name} ,</h4>
 
       {props.users&&<h4 className="ruletext">{approval}% of members approve this restriction, {item.approval.length}/{props.users.length}</h4>}
@@ -580,10 +591,8 @@ restrictionPollApprovedNotification(item)
               <option value="cannot post">cannot post</option>
               <option value="cannot create polls">cannot create polls</option>
               <option value="cannot suggest rules or vote for rules">cannot suggest rules or vote for rules</option>
-              <option value="cannot see gig leads">cannot see gig leads</option>
               <option value="cannot use chat">cannot use chat</option>
               <option value="cannot see events">cannot see events</option>
-              <option value="cannot participate in group purchases">cannot participate in group purchases</option>
               <option value="cannot vote in jury">cannot vote in jury</option>
               <option value="remove from group">remove from group</option>
           </select>

@@ -13,9 +13,9 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
+const randomLocation = require('random-location')
 const User = require("./../models/user.model");
 const Group = require("./../models/group.model");
-const SuperGroup = require("./../models/supergroup.model");
 
 
 
@@ -27,313 +27,411 @@ let page;
 // the test suite
 describe('My test suite', async function () {
 
-  // open a new browser tab and set the page variable to point at it
-  before (async function () {
-    global.expect = expect;
-    global.browser = await puppeteer.launch( { headless: false } );
-    page = await browser.newPage();
-    page.setViewport({width: 1187, height: 1000});
-
-  });
-
-  // close the browser when the tests are finished
-  after (async function () {
-    await page.close();
-    await browser.close();
-
-  });
 
 
 
 
 
+  it("It should create 1000 users", async () =>{
 
-//
-//   it("It should create supergroup", async () =>{
-//
-//     var originalnormalgroups=await chai.request(app)
-//               .get("/groups/findgroups")
-//
-//     var users=await User.find({ })
-//     .exec()
-//           var userIds=users.map(user=>{return user._id})
-//           console.log(userIds)
-//           console.log("groupId",originalnormalgroups.body.data[0]['_id'])
-//
-//
-//
-//             var newSuperGroup=new SuperGroup({
-//               _id:mongoose.Types.ObjectId(),
-//               title:"biology",
-//               description:"a group of biologists",
-//               location:"Petersham",
-//               centroid:[-33.8962, 151.1541],
-//               allmembers:userIds
-//             });
-//
-//
-//
-//           newSuperGroup.save((err,docs) => {
-//                if(err){
-//                  console.log(err);
-//                }else{
-//                  // console.log(docs);
-//
-//                }
-//              })
-//
-//
-// })
+         var userIds=[]
+         for(var x=0;x<1000;x++){
+           var agent = chai.request.agent(app)
 
-      //     it("It should add users to groups", async () =>{
-      //
-      //       var originalnormalgroups=await chai.request(app)
-      //                 .get("/groups/findgroups")
-      //
-      //       var users=await User.find({ })
-      //       .exec()
-      //             var userIds=users.map(user=>{return user._id})
-      //             console.log(userIds)
-      //             console.log("groupId",originalnormalgroups.body.data[0]['_id'])
-      //
-      //             SuperGroup.findByIdAndUpdate(originalnormalgroups.body.data[0]['_id'], { members:userIds },
-      //                                       function (err, docs) {
-      //               if (err){
-      //                   console.log(err)
-      //               }
-      //               else{
-      //                   console.log("Updated group : ", docs);
-      //               }
-      //           })
-      // })
+              const p = {
+              latitude: -33.8963363,
+              longitude: 151.1532549
+              }
 
-      function makeid(length) {
+                       const r = 10000 // meters
+                       const randomPoint = randomLocation.randomCirclePoint(p, r)
+                       let coords=[randomPoint.latitude,randomPoint.longitude]
+                       var randnum=Math.floor(Math.random()*60)
+                       var randcoords=coords
+                       var randstring= Math.random().toString(36).substring(2, 9)
+                       var userId=mongoose.Types.ObjectId()
+                       userIds.push(userId.toString())
+                      var values={
+                        _id:userId.toString(),
+                         name: randstring,
+                         email: `${randstring}@gmail.com`,
+                         coordinates:randcoords,
+                         expertise: randstring,
+                         password: "mmmmmm",
+                       }
+
+                       console.log(values)
+
+
+                       agent.post('/groups/createuser')
+                       .send({user:values}).then(function (res) {
+                         console.log("add user to group",originalgroup._id,res.body.data._id)
+
+                     expect(res).to.have.status(201);
+
+                     agent.close()
+                   })}
+                   })
+
+
+
+
+  function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() *
+      charactersLength));
+    }
+    return result;
+  }
+
+  function shuffle(array) {
+    var currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+      }
+
+      return array;
+    }
+
+
+
+              it("It should create rules in all groups at all levels", async () =>{
+
+
+                  var originalgroups=await chai.request(app)
+                            .get("/groups/findgroups")
+
+    function makeid(length) {
       var result           = '';
       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       var charactersLength = characters.length;
       for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() *
-      charactersLength));
+        result += characters.charAt(Math.floor(Math.random() *
+    charactersLength));
+     }
+     return result;
+    }
+
+    console.log(originalgroups.body.data,"original groups")
+    for(let group of originalgroups.body.data){
+
+    async function addRulesToGroups(level,groupdata){
+      for(var x=0;x<5;x++){
+
+      var ruleId=mongoose.Types.ObjectId()
+      var randstring=makeid(5)
+      var d = new Date();
+      var n = d.getTime();
+      let local=(groupdata.type=="localgroup")?true:false
+      const res1=await chai.request(app)
+                .post('/rules/createrule/'+ruleId)
+      .send({rule:`a test rule ${randstring}`,
+      groupId:groupdata._id,local:local,timecreated:n,level:level,
+      approval:[...groupdata.members.slice(0,25)]})
+    }
+    }
+
+
+      console.log(group)
+      if(group.level==0){
+      await addRulesToGroups(0,group)
       }
-      return result;
+      if(group.level==1){
+      await addRulesToGroups(1,group)
+      }
+      if(group.level==2){
+        await addRulesToGroups(2,group)
+      }
+      if(group.level==3){
+      await addRulesToGroups(3,group)
+      }
+      if(group.level==4){
+    await addRulesToGroups(4,group)
+      }
+    }
+    })
+
+
+    it("It should create events in all groups at all levels", async () =>{
+
+      var originalgroups=await chai.request(app)
+                .get("/groups/findgroups")
+    console.log("originalgroups.body.data",originalgroups.body.data)
+    function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() *
+    charactersLength));
+    }
+    return result;
+    }
+
+
+    async function addEventsToGroups(level,groupdata){
+    for(var x=0;x<5;x++){
+
+    var eventId=mongoose.Types.ObjectId()
+    var randstring=makeid(5)
+    var d = new Date();
+    var n = d.getTime();
+    let local=false
+    if(groupdata.type=="localgroup"){
+      local=true
+    }
+    const res1=await chai.request(app)
+      .post('/events/createevent/'+eventId)
+    .send({title:`a test event ${randstring}`,description:"a fun event",
+    location:"Petersham",images:["xuafvwhugqpxevav7fjb"],groupId:groupdata._id,
+    timecreated:n,local:local,level:level,approval:[...groupdata.members.slice(0,25)]})
+    console.log("ids",groupdata._id,eventId)
+    }
+    }
+
+    for(var group of originalgroups.body.data){
+    console.log("group",group)
+    if(group.level==0){
+    await addEventsToGroups(0,group)
+    }
+
+    if(group.level==1){
+    await addEventsToGroups(1,group)
+    }
+    if(group.level==2){
+    await addEventsToGroups(2,group)
+    }
+    if(group.level==3){
+    await addEventsToGroups(3,group)
+    }
+    if(group.level==4){
+    await addEventsToGroups(4,group)
+    }
+
+
+    }
+    })
+
+
+
+              it("It should create polls in all groups at all levels", async () =>{
+
+                  var originalgroups=await chai.request(app)
+                            .get("/groups/findgroups")
+
+    function makeid(length) {
+      var result           = '';
+      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() *
+    charactersLength));
+     }
+     return result;
+    }
+
+
+    for(var group of originalgroups.body.data){
+
+    async function addPollsToGroups(level,groupdata){
+      for(var x=0;x<5;x++){
+
+      var pollId=mongoose.Types.ObjectId()
+      var randstring=makeid(5)
+      var d = new Date();
+      var n = d.getTime();
+      let local=false
+      if(groupdata.type=="localgroup"){
+        local=true
+      }
+      const res1=await chai.request(app)
+                .post('/polls/createpoll/'+pollId)
+      .send({pollquestion:`a test poll ${randstring}`,
+      groupId:groupdata._id,timecreated:n,local:local,level:level,approval:[...groupdata.members.slice(0,25)]})
+    console.log(groupdata.members.slice(0,25))
+    }
+    }
+
+
+      console.log(group)
+      if(group.level==0){
+      await addPollsToGroups(0,group)
+      }
+      if(group.level==1){
+      await addPollsToGroups(1,group)
+      }
+      if(group.level==2){
+        await addPollsToGroups(2,group)
+      }
+      if(group.level==3){
+      await addPollsToGroups(3,group)
+      }
+      if(group.level==4){
+    await addPollsToGroups(4,group)
+      }
+    }
+    })
+
+
+    it("It should create posts in all groups at all levels", async () =>{
+
+      var originalgroups=await chai.request(app)
+                .get("/groups/findgroups")
+    console.log("originalgroups.body.data",originalgroups.body.data)
+    function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() *
+    charactersLength));
+    }
+    return result;
+    }
+
+
+    async function addPostsToGroups(level,groupdata){
+    for(var x=0;x<5;x++){
+    var postId=mongoose.Types.ObjectId()
+    var randstring=makeid(5)
+    var d = new Date();
+    var n = d.getTime();
+    let local=false
+    if(groupdata.type=="localgroup"){
+      local=true
+    }
+    const res1=await chai.request(app)
+      .post('/posts/createpost/'+postId)
+    .send({post:`a test post ${randstring}`,local:local,groupId:groupdata._id,timecreated:n,createdby:"6160dba0883629822da5fe0a"})
+    console.log("ids",groupdata._id,postId)
+    }
+    }
+
+    for(var group of originalgroups.body.data){
+    console.log("group",group)
+    if(group.level==0){
+    await addPostsToGroups(0,group)
+    }
+
+    if(group.level==1){
+    await addPostsToGroups(1,group)
+    }
+    if(group.level==2){
+    await addPostsToGroups(2,group)
+    }
+    if(group.level==3){
+    await addPostsToGroups(3,group)
+    }
+    if(group.level==4){
+    await addPostsToGroups(4,group)
+    }
+    }
+    })
+
+    })
+
+    it("It should create restriction polls in all groups at all levels", async () =>{
+
+      var originalgroups=await chai.request(app)
+      .get("/groups/findgroups")
+      function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() *
+          charactersLength));
+        }
+        return result;
       }
 
-      function shuffle(array) {
-        var currentIndex = array.length,  randomIndex;
 
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
+      async function addRestrictionPollsToGroups(level,groupdata){
+        for(var x=0;x<5;x++){
+          var postId=mongoose.Types.ObjectId()
+          var randstring=makeid(5)
+          var d = new Date();
+          var n = d.getTime();
 
-          // Pick a remaining element...
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex--;
 
-          // And swap it with the current element.
-          [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
+          let restrictions=['cannot post','cannot suggest rules or vote for rules','cannot create polls',
+        'cannot use chat','cannot see events','cannot vote in jury','remove from group']
+
+        let restrictindex=Math.random()*restrictions.length
+        restrictindex=Math.floor(restrictindex)
+        let local=false
+        if(groupdata.type=="localgroup"){
+          local=true
         }
 
-        return array;
+          let id=await chai.request(app)
+          .post('/polls/createrestrictionpoll/'+postId)
+          .send({usertorestrict:groupdata['members'][0]['_id'],usertorestrictname:groupdata['members'][0]['name'],
+          restriction:restrictions[restrictindex],duration:3,approval:approval.slice(0,19),
+          timecreated:n,local:local,createdby:groupdata['members'][0]['_id'],groupId:groupdata._id})
+          console.log("IIDDD",id.body.id)
+          id=id.body.id
+
+          var restrictionId=mongoose.Types.ObjectId()
+          restrictionId=restrictionId.toString()
+  console.log({
+  _id:restrictionId,
+  usertorestrict:groupdata['members'][0]['_id'],
+  restriction:restrictions[`${restrictindex}`],
+  groupId:groupdata._id,
+  duration:3,
+  timecreated:n,
+  associatedpoll:id
+})
+          await chai.request(app)
+          .post('/groups/createuserrrestriction/')
+          .send({
+            _id:restrictionId,
+            usertorestrict:groupdata['members'][0]['_id'],
+            restriction:restrictions[`${restrictindex}`],
+            groupId:groupdata._id,
+            local:(groupdata.type=="localgroup")?true:false,
+            duration:3,
+            timecreated:n,
+            associatedpoll:id
+          })
+
+
+          await chai.request(app)
+          .put('/groups/addrestrictiontouser/'+groupdata['members'][0]['_id']+'/'+postId)
+          .send()
+           console.log(restrictions[`${restrictindex}`])
+        }
       }
 
+      for(var group of originalgroups.body.data){
+        if(group.level==0){
+          await addRestrictionPollsToGroups(0,group)
+        }
 
-      it("It should create candidates in all groups at all levels", async () =>{
-
-          var originalgroups=await chai.request(app)
-                    .get("/groups/findgroups")
-
-
-
-var count=0
-for(var group of originalgroups.body.data){
-
-async function addCandidatesToGroups(level,groupdata){
-  var shuffledusers=shuffle(groupdata.members)
-
-  var shuffledusersslice=shuffledusers.slice(0,7)
-
-for(var user of shuffledusersslice){
-  console.log("title",groupdata.title)
-var randstring=makeid(5)
-var d = new Date();
-var n = d.getTime();
-var memberids=groupdata.allmembers
-var shuffled=shuffle(memberids)
-var x=Math.random()*groupdata.allmembers.length
-var votes=shuffled.slice(0,x)
-var id=mongoose.Types.ObjectId()
-const newCandidate= {
-  _id:id,
-  userId:user._id,
-  groupId:groupdata._id,
-  grouptitle:groupdata.title||"localgroup",
-  level:level,
-  name: user.name,
-  expertise:user.name,
-  timecreated:new Date().getTime(),
-  votes:votes
-}
-console.log(newCandidate.level)
-count+=1
-const res=await chai.request(app)
-        .post('/groups/nominatecandidate')
-.send(newCandidate)
-
-await chai.request(app)
-      .put("/groups/addnomineetogroupobject/" + res.body.id + "/" +groupdata._id)
-      .send({})
-
-}
-}
-
-if(group.level==0){
-await addCandidatesToGroups(0,group)
-}
-if(group.level==1){
-await addCandidatesToGroups(1,group)
-}
-if(group.level==2){
-await addCandidatesToGroups(2,group)
-}
-if(group.level==3){
-await addCandidatesToGroups(3,group)
-}
-if(group.level==4){
-await addCandidatesToGroups(4,group)
-}
-
-
-console.log("count",count)
-
-}
-
-})
-
-//
-//           it("It should create rules in all groups at all levels", async () =>{
-//
-//
-//               var originalgroups=await chai.request(app)
-//                         .get("/groups/findgroups")
-//
-// function makeid(length) {
-//   var result           = '';
-//   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//   var charactersLength = characters.length;
-//   for ( var i = 0; i < length; i++ ) {
-//     result += characters.charAt(Math.floor(Math.random() *
-// charactersLength));
-//  }
-//  return result;
-// }
-//
-//
-// for(var group of originalgroups.body.data){
-//
-// async function addRulesToGroups(level,groupdata){
-//   for(var x=0;x<5;x++){
-//
-//   var ruleId=mongoose.Types.ObjectId()
-//   var randstring=makeid(5)
-//   var d = new Date();
-//   var n = d.getTime();
-//   const res1=await chai.request(app)
-//             .post('/rules/createrule/'+ruleId)
-//   .send({rule:`a test rule ${randstring}`,grouptitle:groupdata.title||"localgroup",group:groupdata._id,timecreated:n,level:level,approval:[...groupdata.members.slice(0,25)]})
-// console.log(groupdata.members.slice(0,25))
-//   const res2=await chai.request(app)
-//           .put('/groups/addruletogroup/'+groupdata._id+"/"+ruleId)
-//
-// }
-// }
-//
-//
-//   console.log(group)
-//   if(group.level==0){
-//   await addRulesToGroups(0,group)
-//   }
-//   if(group.level==1){
-//   await addRulesToGroups(1,group)
-//   }
-//   if(group.level==2){
-//     await addRulesToGroups(2,group)
-//   }
-//   if(group.level==3){
-//   await addRulesToGroups(3,group)
-//   }
-//   if(group.level==4){
-// await addRulesToGroups(4,group)
-//   }
-//
-//
-//
-//
-// }
-//
-//
-// })
-//
-//
-// it("It should create events in all groups at all levels", async () =>{
-//
-//   var originalgroups=await chai.request(app)
-//             .get("/groups/findgroups")
-// console.log("originalgroups.body.data",originalgroups.body.data)
-// function makeid(length) {
-// var result           = '';
-// var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-// var charactersLength = characters.length;
-// for ( var i = 0; i < length; i++ ) {
-// result += characters.charAt(Math.floor(Math.random() *
-// charactersLength));
-// }
-// return result;
-// }
-//
-//
-// async function addEventsToGroups(level,groupdata){
-// for(var x=0;x<5;x++){
-//
-// var eventId=mongoose.Types.ObjectId()
-// var randstring=makeid(5)
-// var d = new Date();
-// var n = d.getTime();
-// const res1=await chai.request(app)
-//   .post('/events/createevent/'+eventId)
-// .send({title:`a test event ${randstring}`,grouptitle:groupdata.title||"localgroup",description:"a fun event",location:"Petersham",images:["xuafvwhugqpxevav7fjb"],group:groupdata._id,timecreated:n,level:level,approval:[...groupdata.members.slice(0,25)]})
-// console.log("ids",groupdata._id,eventId)
-//   const res2=await chai.request(app)
-//   .put('/groups/addeventtogroup/'+groupdata._id+"/"+eventId)
-//
-// }
-// }
-//
-// for(var group of originalgroups.body.data){
-// console.log("group",group)
-// if(group.level==0){
-// await addEventsToGroups(0,group)
-// }
-//
-// if(group.level==1){
-// await addEventsToGroups(1,group)
-// }
-// if(group.level==2){
-// await addEventsToGroups(2,group)
-// }
-// if(group.level==3){
-// await addEventsToGroups(3,group)
-// }
-// if(group.level==4){
-// await addEventsToGroups(4,group)
-// }
-//
-//
-//
-//
-// }
-//
-//
-// })
-
-
-})
+        if(group.level==1){
+          await addRestrictionPollsToGroups(1,group)
+        }
+        if(group.level==2){
+          await addRestrictionPollsToGroups(2,group)
+        }
+        if(group.level==3){
+          await addRestrictionPollsToGroups(3,group)
+        }
+        if(group.level==4){
+          await addRestrictionPollsToGroups(4,group)
+        }
+      }
+  })

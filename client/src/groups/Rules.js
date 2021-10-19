@@ -14,6 +14,7 @@ export default class Rules extends Component {
            this.state = {
              users:props.users,
              rules: [],
+             group:props.group,
              page:1,
              pageNum:[],
              currentPageData:[],
@@ -35,6 +36,17 @@ export default class Rules extends Component {
              this.getRules()
              }
 
+
+             componentWillReceiveProps(nextProps) {
+               if (nextProps.users !== this.props.users) {
+                   this.setState({users:nextProps.users})
+             }
+                if (nextProps.group !== this.props.group) {
+                    this.setState({group:nextProps.group})
+              }
+            }
+
+
             decidePage(e,pagenum){
                console.log("decide page",(pagenum*10-10),pagenum*10)
                let currentpage=this.state.rules.slice((pagenum*10-10),pagenum*10)
@@ -43,7 +55,7 @@ export default class Rules extends Component {
              }
 
            async getRules(){
-             await fetch(`/rules`)
+             await fetch(`/rules/getrules/`+this.props.groupId)
                  .then(response => response.json())
                  .then(data=>{
                    console.log("rules",data)
@@ -162,20 +174,26 @@ for (var rule of rulescopy){
 
    if (approval>10){
        this.ruleApprovedNotification(rule)
+
+   }
+   console.log("sending down",rule,approval,this.state.group.level,this.state.group.groupsbelow)
+
+   if ((approval>75)&&(this.state.group.level>0)&&(rule.sentdown==false)){
+     console.log("sending down",rule,approval)
+
+     rule.sentdown=true
+     this.sendRuleDown(rule)
    }
  }
-
   }
 }
-
-
 
 this.setState({rules:rulescopy})
 let current=rulescopy.slice((this.state.page*10-10),this.state.page*10)
 console.log(current)
 this.setState({currentPageData:rulescopy})
 
-         const options = {
+         let options = {
            method: 'put',
            headers: {
              'Content-Type': 'application/json'
@@ -189,7 +207,48 @@ this.setState({currentPageData:rulescopy})
   }).catch(err => {
     console.log(err);
   })
+}
 
+async sendRuleDown(rule){
+  let optionsone = {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+       body: ''
+  }
+console.log("RULE",rule)
+ fetch("/rules/marksentdown/" + rule._id, optionsone
+).then(res => {
+console.log(res);
+}).catch(err => {
+console.log(err);
+})
+
+console.log("GROUPS BELOW",this.state.group.groupsbelow)
+for (let group of this.state.group.groupsbelow){
+  console.log("GROUP",group)
+  let ruleId=mongoose.Types.ObjectId()
+  ruleId=ruleId.toString()
+  let newRule={
+  _id:ruleId,
+  rule: rule.rule,
+  groupId:group._id,
+  createdby:rule.createdby,
+  explanation:rule.explanation,
+  timecreated:rule.timecreated,
+}
+console.log(newRule)
+
+const optionstwo={
+    method: "POST",
+    body: JSON.stringify(newRule),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"}}
+
+
+  await fetch("/rules/createrule/"+ruleId, optionstwo)
+          .then(response => response.json()).then(json => console.log(json))}
 }
 
 
@@ -387,7 +446,8 @@ if (this.state.rules){
         }
       }
     }
-
+    console.log("users",this.state.users)
+console.log("width",item.approval.length,this.state.users.length)
     let width=`${(item.approval.length/this.state.users.length)*100}%`
     return(
 <>
@@ -411,7 +471,7 @@ if (this.state.rules){
       <>
       <br />
       <h2>Propose a Rule</h2>
-      <CreateRuleForm updateRules={this.updateRules}/>
+      <CreateRuleForm updateRules={this.updateRules} groupId={this.props.groupId}/>
       <h2>Group Rules</h2>
       <p>Rules that have less than 75% approval and are more than a week old will be deleted</p>
       <h4 style={{display:"inline"}}>Choose Page</h4>

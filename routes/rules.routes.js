@@ -7,8 +7,8 @@ mongoose.set('useFindAndModify', false);
 
 
 
-router.get("/", (req, res, next) => {
-    Rule.find()
+router.get("/getrules/:groupId", (req, res, next) => {
+    Rule.find({groupId:req.params.groupId})
     .populate("createdby")
       .then(rule => res.json(rule))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -16,6 +16,7 @@ router.get("/", (req, res, next) => {
 
   router.get("/:ruleId", (req, res, next) => {
       Rule.findById(req.params.ruleId)
+      .populate('createdby')
         .then(rule => res.json(rule))
         .catch(err => res.status(400).json('Error: ' + err));
     })
@@ -36,6 +37,13 @@ router.get("/", (req, res, next) => {
     }).exec()
     })
 
+    router.route('/marksentdown/:ruleId').put((req, res) => {
+      let ruleId = req.params.ruleId
+      console.log("marking sent down",ruleId)
+      const updatedRule=Rule.findByIdAndUpdate(ruleId, {
+      sentdown:true
+    }).exec()
+    })
 
     router.route('/restrictionratificationnotificationsent/:ruleId').put((req, res) => {
       const updatedPoll=Rule.findByIdAndUpdate(req.params.ruleId, {
@@ -72,6 +80,8 @@ router.get("/", (req, res, next) => {
     var newRule=new Rule({
       _id: ruleId,
       rule :req.body["rule"],
+      local :req.body["local"],
+      groupId:req.body["groupId"],
       createdby :req.body["createdby"],
       explanation:req.body["explanation"],
       timecreated:req.body["timecreated"],

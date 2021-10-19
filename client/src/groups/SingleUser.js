@@ -91,7 +91,7 @@ export default function SingleUser({ match }) {
           setPolls(data.data.polls)
           setRules(data.data.rules)
           setPurchases(data.data.purchases)
-          setRestrictions(data.data.restriction)
+          setRestrictions(data.data.restrictions)
           setRulesApproved(data.data.rulesapproved)
           setRestrictionsApproved(data.data.restrictionsapproved)
         })
@@ -212,6 +212,18 @@ setUser(newuser)
     const clickSubmit = (e) => {
           updateUser()
     }
+    let d = new Date();
+    let n = d.getTime();
+
+let restrictionsmapped=<></>
+if(restrictions){
+  restrictionsmapped=restrictions.map(item=>{
+    let elapsed=n-item.timecreated
+    let dayselapsed=elapsed/86400000
+    let daysleft=item.duration-dayselapsed
+    return (<><h4 style={{textAlign:"center"}}>{item.restriction} for {daysleft} days</h4></>)})}
+
+
 
     return (
       <>
@@ -220,10 +232,7 @@ setUser(newuser)
       <div className="innersignupform">
       <h1 style={{textAlign:"center"}}>{user.name}</h1>
       <a href={user.website}><h3 style={{textAlign:"center",color:"blue"}}>Website</h3></a>
-      <a href={user.youtube}><h3 style={{textAlign:"center",color:"blue"}}>Youtube Channel</h3></a>
       <h3 style={{textAlign:"center"}}>{user.expertise}</h3>
-      <h3 style={{textAlign:"center",}}>{user.performancedescription}</h3>
-      <h3 style={{textAlign:"center"}}><strong>Rates:</strong> {user.rates}</h3>
       <h3 style={{textAlign:"center"}}>Phone Number: {user.phone}</h3>
       <h3 style={{textAlign:"center"}}>Email Address: {user.email}</h3>
       <br/>
@@ -233,15 +242,11 @@ setUser(newuser)
       {user.images&&user.images.map(item=>{return (<div><Image style={{width:"100%"}} cloudName="julianbullmagic" publicId={item} /></div>)})}
       </AwesomeSlider>
       </div>
-
-      <h3 style={{textAlign:"center"}}><strong>Youtube Videos</strong></h3>
-      <div style={{marginBottom:"40vw"}}>
-      <AwesomeSlider style={{marginLeft:"5vw",width:"50vw", zIndex: 1, position:"absolute"}}>
-      {user.promovideos&&user.promovideos.map(item=>{return (<div style={{width:"100%"}}><iframe style={{width:"100%"}} src={item}/></div>)})}
-      </AwesomeSlider>
+      <h3 style={{textAlign:"center"}}>Restrictions</h3>
+      {restrictionsmapped}
       </div>
       </div>
-      </div>)}
+      )}
 
 
       {(auth.isAuthenticated()&&auth.isAuthenticated().user._id==match.params.userId)&&(
@@ -263,14 +268,6 @@ setUser(newuser)
           </div>
 
           <div className="signininput">
-          <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Youtube Channel </h5><input id="youtube" placeHolder={user.youtube} type="youtube" label="youtube" value={values.youtube} onChange={handleChange('youtube')} margin="normal"/>
-          </div>
-
-          <div className="signininput">
-          <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Promotional Youtube Videos </h5><input id="promovideos" placeHolder={user.promovideos} type="promovideos" label="promotional videos, please add youtube url links separated by a comma" value={values.promovideos} onChange={handleChange('promovideos')} margin="normal"/>
-          </div>
-
-          <div className="signininput">
           <h5 className="ruletext" style={{marginRight:"1vw",textAlign:"left"}}>Expertise </h5><input id="expertise" placeHolder={user.expertise} type="expertise" label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/>
           </div>
 
@@ -278,13 +275,6 @@ setUser(newuser)
           <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Password </h5><input id="password" placeHolder={user.password} type="password" label="Password" value={values.password} onChange={handleChange('password')} margin="normal"/>
           </div>
 
-          <div className="signininput">
-          <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Performance Description </h5><input id="performancedescription" placeHolder={user.performancedescription} type="performancedescription" label="Performance Description" value={values.performancedescription} onChange={handleChange('performancedescription')} margin="normal"/>
-          </div>
-
-          <div className="signininput">
-          <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Rates </h5><input id="rates" placeHolder={user.rates} type="rates" label="Rates" value={values.rates} onChange={handleChange('rates')} margin="normal"/>
-          </div>
 
 <h4>Tick the boxes below to recieve email notifications about new suggestions. At least 10% of members must have voted for something before notifications will be sent in order to help prevent individuals from spamming everyone. </h4>
 

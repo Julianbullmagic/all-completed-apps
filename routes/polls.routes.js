@@ -9,9 +9,9 @@ const router = express.Router()
 
 
 
-  router.route('/getpolls').get((req, res) => {
+  router.route('/getpolls/:groupId').get((req, res) => {
     console.log("getting polls")
-    Poll.find()
+    Poll.find({groupId:req.params.groupId})
     .populate("createdby")
     .exec(function(err,docs){
       if(err){
@@ -59,9 +59,9 @@ const router = express.Router()
 
 
 
-  router.route('/getrestrictionpolls').get((req, res) => {
+  router.route('/getrestrictionpolls/:groupId').get((req, res) => {
     console.log("getting restriction polls")
-    RestrictionPoll.find()
+    RestrictionPoll.find({groupId:req.params.groupId})
     .populate("createdby")
     .populate("usertorestrict")
     .exec(function(err,docs){
@@ -113,6 +113,8 @@ router.route('/createpoll/:pollId').post((req, res) => {
 
   var newPoll=new Poll({
     _id: pollId,
+    groupId:req.body["groupId"],
+    local :req.body["local"],
     pollquestion:req.body["pollquestion"],
     timecreated:req.body["timecreated"],
     createdby:req.body["createdby"]
@@ -140,6 +142,8 @@ router.route('/createrestrictionpoll/:restrictionPollId').post((req, res) => {
 
   var newRestrictionPoll=new RestrictionPoll({
     _id: restrictionpollid,
+    groupId:req.body["groupId"],
+    local :req.body["local"],
     usertorestrict:req.body["usertorestrict"],
     usertorestrictname:req.body["usertorestrictname"],
     restriction:req.body["restriction"],
@@ -159,7 +163,8 @@ newRestrictionPoll.save((err,doc) => {
   }else{
     res.status(201).json({
       message: "Item was saved successfully",
-      data:doc
+      data:doc,
+      id:restrictionpollid
    })
   }
 })})

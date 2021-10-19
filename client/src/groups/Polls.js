@@ -21,7 +21,7 @@ export default function Polls (props) {
 
   useEffect(() => {
 console.log("props",props)
-    fetch("/polls/getpolls")
+    fetch("/polls/getpolls/"+props.groupId)
     .then(res => {
       return res.json();
     }).then(polls => {
@@ -71,6 +71,7 @@ function decidePage(e,pagenum){
       const newPoll={
         _id:pollId,
         pollquestion:pollquestion.current.value,
+        groupId:props.groupId,
         suggestions:[],
         timecreated:n,
         createdby:auth.isAuthenticated().user._id
@@ -79,6 +80,7 @@ function decidePage(e,pagenum){
       const newPollToRender={
         _id:pollId,
         suggestions:[],
+        groupId:props.groupId,
         pollquestion:pollquestion.current.value,
         timecreated:n,
         createdby:auth.isAuthenticated().user

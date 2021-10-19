@@ -27,11 +27,22 @@ constructor(props){
   }
 this.setInitialChats()
 this.handleuserchange=this.handleuserchange.bind(this)
+this.setInitialChats=this.setInitialChats.bind(this)
 
+  console.log("PROPS",props)
 }
 
 
-componentDidMount() {
+
+componentWillReceiveProps(nextProps) {
+   if (nextProps.users !== this.props.users) {
+     this.setState({
+       users: nextProps.users
+     });
+   }
+ }
+
+componentDidMount(props) {
     let server = process.env.PORT||"http://localhost:5000";
     this.props.dispatch(getChats());
     this.socket = io();
@@ -46,6 +57,8 @@ componentDidMount() {
 
         if (messageFromBackEnd[0]['recipient']){
           if(this.state.user._id==messageFromBackEnd[0]['recipient']){
+            console.log("ASDASDSADS",this.state.user._id)
+
             let usercopy=JSON.parse(JSON.stringify(this.state.user))
             usercopy.recentprivatemessages.push(messageFromBackEnd[0])
 
@@ -60,7 +73,8 @@ componentDidMount() {
                 }
               }
               console.log("USERS COPY",userscopy)
-                this.setState({users:userscopy})
+
+              this.setState({users:userscopy})
           }
         }
     })
@@ -110,7 +124,7 @@ this.setState({users:userscopy,user:usercopy})
 
 
 async setInitialChats(){
-  await fetch(`/api/chat/getChats`)
+  await fetch(`/api/chat/getChats/`+this.props.groupId)
       .then(response => response.json())
       .then(data=>{
         console.log("get chats",data)
@@ -124,12 +138,11 @@ async setInitialChats(){
             return data.data
           })
 
-      let userscopy=JSON.parse(JSON.stringify(this.state.users))
+      let userscopy=JSON.parse(JSON.stringify(this.props.users))
       userscopy=userscopy.filter(item=>!(item._id==auth.isAuthenticated().user._id))
       for (let user of userscopy){
         user.unreadmessages=0
   for (let message of us.recentprivatemessages){
-
       if(message.sender==user._id){
         user.unreadmessages+=1
       }
@@ -149,8 +162,6 @@ handleInputChange = (e) => {
 
 
 async handleuserchange(e){
-
-
   if(e.target.value=="All Group Chat"){
     this.setState({usertomessage:''})
     this.setInitialChats()
@@ -225,6 +236,7 @@ async handleuserchange(e){
         let chatMessage = this.state.chatMessage
         let userId = auth.isAuthenticated().user._id
         let userName = auth.isAuthenticated().user.name;
+        let groupId=this.props.groupId
         let nowTime = moment();
         let type = "Text"
         let recipient
@@ -247,7 +259,8 @@ console.log("recipient",recipient)
             nowTime,
             type,
             recipient,
-            room
+            room,
+            groupId
                   });
         this.setState({ chatMessage: "" })
     }
@@ -267,7 +280,6 @@ if(type==true){
       <ChatCard key={chat._id}  {...chat} />
     )
   })}
-
 
       return (
             <React.Fragment >

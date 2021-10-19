@@ -7,6 +7,11 @@ const ruleSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  local:{type:Boolean,default:false},
+  level:Number,
+  grouptitle:String,
+  groupId:{type: mongoose.Schema.ObjectId, ref: 'Group'},
+  sentdown:{type:Boolean,default:false},
   createdby:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
   explanation:String,
   approval: [{type:mongoose.Schema.Types.ObjectId,ref:"User"}],

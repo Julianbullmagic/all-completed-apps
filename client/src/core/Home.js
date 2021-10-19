@@ -11,8 +11,7 @@ import auth from './../auth/auth-helper'
 import background from "./2170171.jpg";
 import {Image} from 'cloudinary-react'
 import {Link} from "react-router-dom";
-import CreateLeadForm from '../groups/CreateLeadForm'
-
+import GroupList from '../groups/GroupList'
 const KmeansLib = require('kmeans-same-size');
 
 
@@ -25,9 +24,6 @@ export default function Home({history}){
 getGroupData()
   }, [])
 
-
-
-
   async function getGroupData(){
     await fetch(`/groups/getusers`)
         .then(response => response.json())
@@ -35,34 +31,22 @@ getGroupData()
           console.log("users",data)
           setUsers(data)
         })
-
-
-
   }
     return (
       <>
       <div className="homepage">
-      <div className="homepageexplanation">
-      <h3>We are a team of entertainers from Sydney. We perform at many different kinds of events, weddings, festivals, parties, functions. Our highly skilled and experienced entertainers
-      will keep you amazed and amused. We are an agency run by performers, allowing direct communication and better value for money. No middle men.</h3>
-      </div>
-      <div className="users">
-      {users&&users.map(user=>{return(<>
-        <Link to={"/singleuser/" + user._id}>
-        <div className="usercard">
-        <div style={{zIndex:"100",position:"absolute",paddingTop:"1vh",paddingBottom:"1vh",paddingLeft:"1vw",paddingRight:"1vw",margin:"1vw",borderRadius:"10px",background:"white",top:"17vh"}}>
-        <h2><strong>{user.name}</strong></h2>
-        <h3>{user.jobtitle||user.expertise}</h3>
-        </div>
-        <Image style={{objectFit:"cover",width:"100%",height:"100%",overflow:"hidden",position:"relative"}}
-        cloudName="julianbullmagic" publicId={user.images[0]} /></div>
-        }</Link>
-        </>)})}
-        </div>
-        <div style={{opacity:"0.9"}}>
-        <CreateLeadForm homepage="true"/>
-        </div>
-
+{auth.isAuthenticated()&&<GroupList />}
+<br/>
+<div style={{margin:"1vw"}}>
+<h6>How would you improve The Democratic Social Network? What do you think should be in a web application like this?
+This app is an experiment, surely there are ways it can be improved. Please email any constructive criticism to Julianbullmagic@gmail.com.
+We would like to create this software in a similar way to the Cuban constitution. It was drafted from a very extensive
+process of public consultation and discussion with the majority of the Cuban population and then submitted for approval by referendum.
+No Capitalist country has ever done this, the constitution is usually written by elites and then imposed on the population.
+</h6>
+</div>
+<br/>
+<br/>
       </div>
       </>
     )

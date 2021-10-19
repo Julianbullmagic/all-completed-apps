@@ -46,9 +46,6 @@ const Menu = withRouter(({history}) => (
             <button style={{marginLeft:"10px",
             marginRight:"5px"}}>My Profile</button>
           </Link>
-            <Link to={"/group"}>
-              <button>Group</button>
-            </Link>
           <button color="inherit" onClick={() => {
               auth.clearJWT(() => history.push('/'))
             }}>Sign out</button>

@@ -6,10 +6,9 @@ const Comment = require("../models/comment.model");
 const router = express.Router()
 
 
-
-  router.route('/getposts').get((req, res) => {
+  router.route('/getposts/:groupId').get((req, res) => {
     console.log("getting posts")
-    Post.find()
+    Post.find({groupId:req.params.groupId})
     .populate("createdby")
     .exec(function(err,docs){
       if(err){
@@ -68,6 +67,8 @@ router.route('/createpost/:postId').post((req, res) => {
   var newPost=new Post({
     _id: postId,
     post:req.body["post"],
+    local :req.body["local"],
+    groupId:req.body["groupId"],
     preview :req.body["preview"],
     timecreated:req.body["timecreated"],
     createdby:req.body["createdby"]

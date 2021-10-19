@@ -68,6 +68,7 @@ setUploading(true)
     const newEvent={
       _id:eventId,
       title: titleValue.current.value,
+      groupId:props.groupId,
       description:descriptionValue.current.value,
       createdby:auth.isAuthenticated().user._id,
       location:locationValue.current.value,
@@ -128,7 +129,7 @@ console.log("new event",newEvent)
   return (
     <>
     <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Event Form?</button>
-    <div className='form' style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
+    <div style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
       <form>
       <div className="eventformbox">
         <label style={{display:"block"}} htmlFor='name'>Title</label>
