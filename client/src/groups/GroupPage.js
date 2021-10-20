@@ -26,7 +26,7 @@ class GroupPage extends Component {
     constructor(props) {
            super(props);
            this.state = {
-
+             loading:false,
              location:"",
              centroid:"",
              title:"",
@@ -106,7 +106,8 @@ class GroupPage extends Component {
                    this.setState({
                    users:data['data'][0]['members'],
                    group:data['data'][0],
-                   level:data['data'][0]['level']
+                   level:data['data'][0]['level'],
+                   loading:true
                  })
                  })
            }
@@ -116,7 +117,9 @@ leave(e){
   var filteredarray = memberscopy.filter(function( obj ) {
   return obj._id !== auth.isAuthenticated().user._id;
   });
-  this.setState({users:filteredarray});
+  let groupcopy=JSON.parse(JSON.stringify(this.state.group))
+  groupcopy.members=filteredarray
+  this.setState({users:filteredarray,group:groupcopy});
 
 const options = {
   method: 'put',
@@ -135,10 +138,12 @@ console.log(err);
 }
 
 async join(e){
-  var memberscopy=JSON.parse(JSON.stringify(this.state.users))
+  let memberscopy=JSON.parse(JSON.stringify(this.state.users))
   memberscopy.push(auth.isAuthenticated().user)
+  let groupcopy=JSON.parse(JSON.stringify(this.state.group))
+  groupcopy.members=memberscopy
 
-  this.setState({users:memberscopy});
+  this.setState({users:memberscopy,group:groupcopy});
 
 
 let us=await fetch("/groups/finduser/"+auth.isAuthenticated().user._id)
@@ -184,27 +189,26 @@ console.log(err);
     console.log(auth.isAuthenticated().user._id)
     if(this.state.level==0){
             if(memberids.includes(auth.isAuthenticated().user._id)){
-              joinOrLeave=<><button onClick={(e)=>this.leave(e)}>Leave Group?</button></>
+              joinOrLeave=<><button style={{display:"block"}} onClick={(e)=>this.leave(e)}>Leave Group?</button></>
             }else{
-                joinOrLeave=<><button onClick={(e)=>this.join(e)}>Join Group?</button></>
+                joinOrLeave=<><button style={{display:"block"}} onClick={(e)=>this.join(e)}>Join Group?</button></>
             }
     }
 
     return (
       <>
+      {this.state.loading&&<>
       <Tabs className="tabs">
       <br/>
-      <div className="activememberscontainer">
       <h1>{this.state.group.title}</h1>
       <h4 className="activemembers">Active Members</h4>
       {this.state.users&&this.state.users.map(item=>{return(
         <><button style={{display:"inline"}}><Link to={"/singleuser/" + item._id}>{item.name}</Link></button></>
       )})}
-      </div>
       {(this.state.users.length<=50)&&joinOrLeave}
       {(this.state.users.length>50)&&<h4 className="activemembers">This group is full, the maximum number of members in all groups is 50</h4>}
+      <br/>
 
-      {this.state.users&&<>
          <TabList >
            {!this.state.cannotpost&&<Tab>News</Tab>}
            <Tab>Group Details</Tab>
@@ -237,13 +241,11 @@ console.log(err);
          <Events users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
          </TabPanel>}
          {!this.state.cannotvoteinjury&&<TabPanel>
-         <Jury users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} />
+         <Jury users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} group={this.state.group}/>
          </TabPanel>}
-         </>
-       }
        </Tabs>
-       <br/>
-       <div style={{margin:"1vw",}}>
+
+       <div style={{margin:"4vw"}}>
        <h6>How would you improve The Democratic Social Network? What do you think should be in a web application like this?
        This app is an experiment, surely there are ways it can be improved. Please email any constructive criticism to Julianbullmagic@gmail.com.
        We would like to create this software in a similar way to the Cuban constitution. It was drafted from a very extensive
@@ -252,8 +254,9 @@ console.log(err);
        </h6>
        </div>
        <br/>
-       <br/>
-       {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} groupId={this.props.match.params.groupId}/>}
+
+       {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} groupId={this.props.match.params.groupId}/>}</>
+     }
       </>
     );
   }

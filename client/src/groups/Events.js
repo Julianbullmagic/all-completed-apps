@@ -428,23 +428,24 @@ export default class Events extends Component {
 
 
 
-
+        let inthisgroup=this.state.group.members.map(item=>item._id)
+        inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
 
         return (
           <>
           <br/>
           <h2>Propose an Event</h2>
-          <CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId}/>
+          {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId}/>}
           <h2><strong>Group Events </strong></h2>
-          <h4 style={{display:"inline"}}>Choose Page</h4>
-          {(this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{
+          {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
+          {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{
             return (<>
               <button style={{display:"inline"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
               </>)
             })}
             {eventscomponent}
-            <h4 style={{display:"inline"}}>Choose Page</h4>
-            {(this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{
+            {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
+            {(this.state.pageNum.length>1&&this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{
               return (<>
                 <button style={{display:"inline"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
                 </>)

@@ -9,6 +9,7 @@ export default function Newsfeed (props) {
   const [viewForm, setViewForm] = useState(false);
   const postArea = React.useRef('')
   const [posts, setPosts] = useState([]);
+  const [group, setGroup] = useState(props.group);
   const [post, setPost] = useState("");
   const [page, setPage] = useState(1);
   const [pageNum, setPageNum] = useState([]);
@@ -20,6 +21,7 @@ export default function Newsfeed (props) {
 
   useEffect(() => {
     console.log("props",props)
+    setGroup(props.group)
     fetch("/posts/getposts/"+props.groupId)
     .then(res => {
       return res.json();
@@ -334,7 +336,8 @@ export default function Newsfeed (props) {
                   }
                 }
               }
-
+              let inthisgroup=group.members.map(item=>item._id)
+              inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
               return (
                 <>
                 <div key={i} className="postbox">
@@ -349,34 +352,42 @@ export default function Newsfeed (props) {
                 </div>
                 </>
               )})
+              let inthisgroup
+              if(group.members){
+                inthisgroup=group.members.map(item=>item._id)
+                inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
+              }
 
               return (
                 <>
-                <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Write Post Form?</button>
+                {inthisgroup&&<>
+                  <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Write Post Form?</button>
 
-                <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
-                <form style={{display:!viewForm?"none":"block"}}>
-                <div>
-                <label htmlFor='name'>Write Post</label>  <button onClick={(e) => handleSubmit(e)}>New Post?</button>
-                </div>
+                  <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
+                  <form style={{display:!viewForm?"none":"block"}}>
+                  <div>
+                  <label htmlFor='name'>Write Post</label>  <button onClick={(e) => handleSubmit(e)}>New Post?</button>
+                  </div>
 
-                <textarea onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
+                  <textarea onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
 
 
-                {preview&&previewmapped}
-                </form>
+                  {preview&&previewmapped}
+                  </form>
 
-                </div>
-                <h4 style={{display:"inline"}}>Choose Page</h4>
-                {(pageNum&&posts)&&pageNum.map(item=>{
+                  </div>
+                  </>}
+
+                {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
+                {(pageNum.length>1&&pageNum&&posts)&&pageNum.map(item=>{
                   return (<>
                     <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                     </>)
                   })}
                   {postsmapped}
                   <div style={{marginBottom:"5vw"}}>
-                  <h4 style={{display:"inline"}}>Choose Page</h4>
-                  {(pageNum&&posts)&&pageNum.map(item=>{
+                  {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
+                  {(pageNum.length>1&&pageNum&&posts)&&pageNum.map(item=>{
                     return (<>
                       <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                       </>)

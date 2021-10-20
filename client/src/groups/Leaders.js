@@ -52,7 +52,11 @@ export default class Leaders extends Component {
                      console.log("USER.VOTES!!!!!!",user.votes)
                  }
                  userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
-                 let leaders=userscopy.slice(0,4)
+
+
+                 let numreps=Math.round(userscopy.length/25)
+                 console.log("numreps",numreps)
+                 let leaders=userscopy.slice(0,numreps)
                  this.setState({leaders:leaders})
               }
 
@@ -60,22 +64,17 @@ export default class Leaders extends Component {
        approveofuser(e,id){
          console.log(this.state.group)
 var userscopy=JSON.parse(JSON.stringify(this.state.users))
-var userscopytwo=JSON.parse(JSON.stringify(this.state.users))
+let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
 
-for (let user of userscopytwo){
-     user.votes.push(vote)
+for (let user of userscopy){
      let splitvote=`${this.state.group.title},${this.state.group.level}`
      user.votes=user.votes.filter(item=>item.startsWith(splitvote))
   }
-let oldleaders=userscopytwo.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
-
- oldleaders.slice(0,4)
- oldleaders=oldleaders.map(item=>item._id)
- oldleaders=oldleaders.join(',')
-console.log("oldleaders",oldleaders)
+let numreps=Math.round(userscopy.length/25)
+console.log("numreps",numreps)
 
 
-  let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
+
 console.log()
 for (let user of userscopy){
   if (user._id==id){
@@ -90,7 +89,8 @@ for (let user of userscopy){
  }
 
  userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
- let leaders=userscopy.slice(0,4)
+
+ let leaders=userscopy.slice(0,numreps)
  this.setState({leaders:leaders})
 
 
@@ -102,16 +102,6 @@ for (let user of userscopy){
       body: ''
  }
 
-let newleaders=leaders.map(item=>item._id)
-newleaders=newleaders.join(',')
-console.log("newleaders",newleaders)
-console.log("/groups/addleaders/" + this.state.group.groupabove +"/"+ oldleaders +"/"+ newleaders)
- fetch("/groups/addleaders/" + this.state.group.groupabove +"/"+ oldleaders +"/"+ newleaders, options
-).then(res => {
-console.log(res);
-}).catch(err => {
-console.log(err);
-})
 
 this.setState({users:userscopy})
 
@@ -199,17 +189,19 @@ console.log("VOTEES",votees)
 )})
 }
 
-
+let inthisgroup=this.state.group.members.map(item=>item._id)
+inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
 
     return (
       <>
       <br />
-
       <h2>Group Leaders</h2>
+      {this.state.leaders.length<1&&<h4>No leaders</h4>}
       {this.state.leaders&&this.state.leaders.map(item=><><div className="leader"><h3>{item.name}</h3></div></>)}
       <hr/>
-      <h3>Vote for Members</h3>
-      {userscomponent}
+      {inthisgroup&&<><h3>Vote for Members</h3>
+            {this.state.users.length<1&&<h4>No members</h4>}
+            {userscomponent}</>}
       </>
     );
   }

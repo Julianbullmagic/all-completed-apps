@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 export default function Polls (props) {
   const [viewForm, setViewForm] = useState(false);
   const [polls, setPolls] = useState([]);
+  const [group, setGroup] = useState(props.group);
+
   const [poll, setPoll] = useState("");
   const [comment, setComment] = useState("");
   const [page, setPage] = useState(1);
@@ -20,6 +22,7 @@ export default function Polls (props) {
   let socket = io(server);
 
   useEffect(() => {
+    setGroup(props.group)
 console.log("props",props)
     fetch("/polls/getpolls/"+props.groupId)
     .then(res => {
@@ -258,10 +261,11 @@ var pollsmapped=currentPageData.map((item,i)=>{
 </div>
   </>
 )})
-
+let inthisgroup=group.members.map(item=>item._id)
+inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
     return (
   <>
-  <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Poll Form?</button>
+  {inthisgroup&&<><button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Poll Form?</button>
 
   <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
   <form style={{display:!viewForm?"none":"block"}}>
@@ -271,16 +275,17 @@ var pollsmapped=currentPageData.map((item,i)=>{
         </div>
       <textarea ref={pollquestion} id="story" rows="5"/>
         </form>
-        </div>
-        <h4 style={{display:"inline"}}>Choose Page</h4>
-        {(pageNum&&polls)&&pageNum.map(item=>{
+        </div></>}
+
+        {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
+        {(pageNum.length>1&&pageNum&&polls)&&pageNum.map(item=>{
           return (<>
             <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
             </>)
         })}
         {pollsmapped}
-        <h4 style={{display:"inline"}}>Choose Page</h4>
-        {(pageNum&&polls)&&pageNum.map(item=>{
+        {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
+        {(pageNum.length>1&&pageNum&&polls)&&pageNum.map(item=>{
           return (<>
             <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
             </>)

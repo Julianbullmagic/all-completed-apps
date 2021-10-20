@@ -229,12 +229,8 @@ input.error {
         color:#396f6b;
       }
 
-      h4{
+      h3,h5,h4,h6,h2,h1{
         color:#56a7a1;
-      }
-
-      h3,h5,h6,h2,h1{
-        color:#43827d;
       }
 
       label{
