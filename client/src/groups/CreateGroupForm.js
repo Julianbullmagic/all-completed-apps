@@ -10,7 +10,7 @@ export default function CreateGroupForm(props) {
   const titleValue = React.useRef('')
   const descriptionValue = React.useRef('')
   const higherGroup = React.useRef('616ca8782312510000c6e60a')
-  const level = React.useRef(0)
+  const levelValue = React.useRef(0)
   const selectedFile1 = React.useRef(null)
   const [levels, setLevels] = useState([]);
   const [user, setUser] = useState({});
@@ -66,7 +66,7 @@ export default function CreateGroupForm(props) {
         description:descriptionValue.current.value,
         timecreated:n,
         images:imageids,
-        level:level.current.value,
+        level:0,
         members:[],
         centroid:auth.isAuthenticated().user.coordinates,
       }
@@ -104,21 +104,21 @@ export default function CreateGroupForm(props) {
             return (
               <div className="homepageform">
               <form onSubmit={handleSubmit}>
-              <label htmlFor='name'>Title</label>
+              <label style={{display:"block"}} htmlFor='name'>Title</label>
               <input
               type='text'
               name='titleValue'
               id='titleValue'
               ref={titleValue}
               />
-              <label htmlFor='name'>Description</label>
+              <label style={{display:"block"}} htmlFor='name'>Description</label>
               <input
               type='text'
               name='descriptionValue'
               id='descriptionValue'
               ref={descriptionValue}
               />
-              <label htmlFor='name'>Image</label>
+              <label style={{display:"block"}} htmlFor='name'>Image</label>
 
               <input id="file" type="file" ref={selectedFile1}/>
               <button type="submit" value="Submit">Submit</button>
