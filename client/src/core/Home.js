@@ -34,17 +34,18 @@ getGroupData()
   }
     return (
       <>
-      <div className="homepage">
-{auth.isAuthenticated()&&<GroupList />}
-<br/>
-<div style={{margin:"1vw"}}>
-<h6>How would you improve The Democratic Social Network? Please email any constructive criticism to ......</h6>
-<Link to="https://cooperative-marketplace.herokuapp.com/">
-  <h1>https://cooperative-marketplace.herokuapp.com/</h1>
-</Link>
-</div>
-<br/>
+      {!auth.isAuthenticated()&&<img src={require('./2170171.jpg')} style={{width:"100%",height:"100%",backgroundSize:"cover"}}/>}
 
+      <div className="homepage">
+{auth.isAuthenticated()&&<><GroupList />
+  <div style={{margin:"1vw"}}>
+  <h6>How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
+  <Link to="https://cooperative-marketplace.herokuapp.com/">
+    <h1>https://cooperative-marketplace.herokuapp.com/</h1>
+  </Link>
+  </div>
+  </>}
+<br/>
       </div>
       </>
     )
