@@ -52,6 +52,7 @@ const Menu = withRouter(({history}) => (
 
         </span>)
       }
+
     </Toolbar>
   </AppBar>
 ))

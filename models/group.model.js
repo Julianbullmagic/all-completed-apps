@@ -21,6 +21,7 @@ const groupSchema = mongoose.Schema({
   images:[String],
   level:{type:Number,default:0},
   radius:Number,
+  timecreated:Number,
   groupabove:{type:mongoose.Schema.Types.ObjectId,ref:"Group"},
   groupsbelow:[{type:mongoose.Schema.Types.ObjectId,ref:"Group"}],
   associatedlocalgroups:[{type:mongoose.Schema.Types.ObjectId,ref:"Group"}],

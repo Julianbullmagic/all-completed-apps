@@ -103,12 +103,18 @@ class GroupPage extends Component {
                  .then(response => response.json())
                  .then(data=>{
                    console.log("group!!!!!!!!!!",data['data'][0])
+                   let activeusers=data['data'][0]['members']
+                   activeusers=activeusers.filter(user=>user.active)
+                   console.log("activeusers",activeusers)
                    this.setState({
-                   users:data['data'][0]['members'],
+                   users:activeusers,
                    group:data['data'][0],
                    level:data['data'][0]['level'],
                    loading:true
                  })
+                 })
+                 .catch(err => {
+                   console.log(err);
                  })
            }
 
@@ -219,9 +225,6 @@ console.log(err);
            {!this.state.cannotvoteinjury&&<Tab>Jury</Tab>}
            </TabList>
 
-
-
-
         {!this.state.cannotpost&&<TabPanel>
          <Newsfeed users={this.state.users} groupId={this.props.match.params.groupId} groupTitle={this.state.group.title} group={this.state.group}/>
          </TabPanel>}
@@ -232,7 +235,7 @@ console.log(err);
            <Leaders users={this.state.users} group={this.state.group}/>
            </TabPanel>
          {!this.state.cannotcreatepolls&&<TabPanel>
-         <Polls users={this.state.users} groupId={this.props.match.params.groupId}/>
+         <Polls users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
          </TabPanel>}
          {!this.state.cannotsuggestrulesorvoteforrules&&<TabPanel>
          <Rules users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
@@ -244,19 +247,17 @@ console.log(err);
          <Jury users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} group={this.state.group}/>
          </TabPanel>}
        </Tabs>
-
-       <div style={{margin:"4vw"}}>
-       <h6>How would you improve The Democratic Social Network? What do you think should be in a web application like this?
-       This app is an experiment, surely there are ways it can be improved. Please email any constructive criticism to Julianbullmagic@gmail.com.
-       We would like to create this software in a similar way to the Cuban constitution. It was drafted from a very extensive
-       process of public consultation and discussion with the majority of the Cuban population and then submitted for approval by referendum.
-       No Capitalist country has ever done this, the constitution is usually written by elites and then imposed on the population.
-       </h6>
-       </div>
        <br/>
-
+       <div style={{margin:"4vw"}}>
+       <h6>How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
+       <Link to="https://cooperative-marketplace.herokuapp.com/">
+         <h1>https://cooperative-marketplace.herokuapp.com/</h1>
+       </Link>
+       <br/>
+       </div>
        {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} groupId={this.props.match.params.groupId}/>}</>
      }
+
       </>
     );
   }

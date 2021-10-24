@@ -11,15 +11,22 @@ export default function Polls (props) {
   const [viewForm, setViewForm] = useState(false);
   const [polls, setPolls] = useState([]);
   const [group, setGroup] = useState(props.group);
-
   const [poll, setPoll] = useState("");
   const [comment, setComment] = useState("");
   const [page, setPage] = useState(1);
   const [pageNum, setPageNum] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const pollquestion = React.useRef('')
+
   let server = "http://localhost:5000";
-  let socket = io(server);
+  let socket
+  if(process.env.NODE_ENV=="production"){
+    socket=io();
+  }
+  if(process.env.NODE_ENV=="development"){
+    socket=io(server);
+
+  }
 
   useEffect(() => {
     setGroup(props.group)
@@ -130,7 +137,11 @@ console.log("newpoll",newPoll)
 
 
         fetch("/polls/createpoll/"+pollId, options)
-                .then(response => response.json()).then(json => console.log(json));
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => {
+                  console.log(err);
+                })
 
   }
 
@@ -175,7 +186,11 @@ console.log("newpoll",newPoll)
 
 
            fetch("/polls/deletepoll/"+item._id, options)
-                  .then(response => response.json()).then(json => console.log(json));
+                  .then(response => response.json())
+                  .then(json => console.log(json))
+                  .catch(err => {
+                    console.log(err);
+                  })
 
     }
 

@@ -128,7 +128,7 @@ class GroupDetails extends Component {
       {this.state.group.location&&<p>Location: <strong> {this.state.group.location}</strong></p>}
       <p>Level: <strong> {this.state.group.level}</strong></p>
       {this.state.group.description&&<p>Description: <strong> {this.state.group.description}</strong></p>}
-      {(this.state.group.centroid&&this.state.group.groupsbelow)&&<p>All the small circles on the map roughly show the spread of members of this whole group. The different colours
+      {(this.state.group.centroid&&this.state.group.groupsbelow&&this.state.group.type=="localgroup")&&<p>All the small circles on the map roughly show the spread of members of this whole group. The different colours
         represent each of the groups that are children of this group. The small spots do not actually show the locations
         of members but approximately show the area covered by each group.</p>}
 

@@ -38,15 +38,13 @@ getGroupData()
 {auth.isAuthenticated()&&<GroupList />}
 <br/>
 <div style={{margin:"1vw"}}>
-<h6>How would you improve The Democratic Social Network? What do you think should be in a web application like this?
-This app is an experiment, surely there are ways it can be improved. Please email any constructive criticism to Julianbullmagic@gmail.com.
-We would like to create this software in a similar way to the Cuban constitution. It was drafted from a very extensive
-process of public consultation and discussion with the majority of the Cuban population and then submitted for approval by referendum.
-No Capitalist country has ever done this, the constitution is usually written by elites and then imposed on the population.
-</h6>
+<h6>How would you improve The Democratic Social Network? Please email any constructive criticism to ......</h6>
+<Link to="https://cooperative-marketplace.herokuapp.com/">
+  <h1>https://cooperative-marketplace.herokuapp.com/</h1>
+</Link>
 </div>
 <br/>
-<br/>
+
       </div>
       </>
     )

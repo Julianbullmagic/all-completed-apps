@@ -46,6 +46,8 @@ export default function Newsfeed (props) {
       pagenums.reverse()
       console.log(pagenums)
       setPageNum(pagenums)
+    }).catch(err => {
+      console.log(err);
     })
   },[props])
 
@@ -101,7 +103,11 @@ export default function Newsfeed (props) {
 
 
         fetch("/posts/createpost/"+postId, optionstwo)
-        .then(response => response.json()).then(json => console.log(json));
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(err => {
+          console.log(err);
+        })
       }
     }
 
@@ -141,6 +147,9 @@ export default function Newsfeed (props) {
     })
     .then(res => res.json())
     .then(response => {return response})
+    .catch(err => {
+      console.log(err);
+    })
     console.log("preview",prev)
     setPreview(prev)
   }
@@ -198,7 +207,11 @@ export default function Newsfeed (props) {
           "Content-type": "application/json; charset=UTF-8"}}
 
           fetch("/posts/createpost/"+postId, options)
-          .then(response => response.json()).then(json => console.log(json));
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => {
+            console.log(err);
+          })
         }
 
 
@@ -241,7 +254,11 @@ export default function Newsfeed (props) {
                 type});
 
                 fetch("/posts/deletepost/"+id, options)
-                .then(response => response.json()).then(json => console.log(json));
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => {
+                  console.log(err);
+                })
 
               }
 
@@ -336,8 +353,7 @@ export default function Newsfeed (props) {
                   }
                 }
               }
-              let inthisgroup=group.members.map(item=>item._id)
-              inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
+
               return (
                 <>
                 <div key={i} className="postbox">

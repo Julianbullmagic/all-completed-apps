@@ -15,6 +15,7 @@ const rulesRoutes = require( './routes/rules.routes')
 const eventsRoutes = require( './routes/events.routes')
 const pollRoutes = require( './routes/polls.routes')
 const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary');
 const multer=require('multer')
 const { Chat } = require("./models/Chat");
 const { auth } = require("./middleware/auth");
@@ -36,7 +37,12 @@ var geocluster = require("geocluster");
 var geodist = require('geodist')
 
 
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.APIKEY,
+  api_secret: process.env.APISECRET,
+  secure: true
+});
 
 
 
@@ -94,12 +100,14 @@ app.use('/api/chat', require('./routes/chat'));
 
 
 
+
+
+
 cron.schedule('0 0 0 * * *', () => {
 
   (async function(){
-    var d = new Date();
-    var n = d.getTime();
-
+    let d = new Date();
+    let n = d.getTime();
     let users=await User.find().exec()
     let events=await Event.find().exec()
     let restrictions=await Restriction.find().exec()
@@ -107,10 +115,85 @@ cron.schedule('0 0 0 * * *', () => {
     let polls=await Poll.find().exec()
     let restrictionpolls=await RestrictionPoll.find().exec()
     let comments=await Comment.find().exec()
+    let groups=await Group.find().exec()
+
+
+    for (let gr of groups){
+      let elapsed=n-gr.timecreated
+      if ((gr.members.length<2)&&(elapsed>2629800000)){
+        Group.findByIdAndDelete(gr._id).exec()
+        if(gr.images){
+          for (let img of gr.images){
+            cloudinary.uploader.destroy(img, function(error,result) {
+            console.log(result, error) });
+          }
+        }
+      }
+    }
+
+  for (let user of users){
+    let recentsignins=[]
+    let thresholdtodelete=[]
+    let date = new Date(user.created); // some mock date
+    let millisecondssinceusercreated = date.getTime()
+    millisecondssinceusercreated=n-millisecondssinceusercreated
+
+
+    let index=user.signins.length-1
+    console.log('index',index)
+    console.log('most recent signing',user.signins[`${index}`])
+    let timeelapsedsincelogin=n-user.signins[`${index}`]
+    console.log("timeelapsedsincelogin",timeelapsedsincelogin)
+    if(timeelapsedsincelogin>1000){
+
+      if(user.images){
+        for (let img of user.images){
+
+          cloudinary.uploader.destroy(img, function(error,result) {
+          console.log(result, error) });
+        }
+      }
+
+      await User.findByIdAndDelete(user._id).exec()
+    }
+
+
+    for (let login of user.signins){
+      console.log("login",login)
+      let difference=n-login
+      console.log(difference)
+      if (difference<2629800000){
+        recentsignins.push(login)
+      }
+      if (difference<7889400000){
+       thresholdtodelete.push(login)
+      }
+
+      if(thresholdtodelete.length==0){
+        await User.findByIdAndDelete(user._id).exec()
+        for (let gr of groups){
+          Group.findByIdAndUpdate(gr._id, {$pull : {
+            members:user._id
+          }}).exec()
+        }
+      }
+
+      console.log(recentsignins)
+      console.log("milliseconds",millisecondssinceusercreated)
+      if(recentsignins.length<3&&millisecondssinceusercreated>2629800000){
+        await User.findByIdAndUpdate(user._id,{active:false}).exec()
+      }
+      if(recentsignins.length>3){
+        await User.findByIdAndUpdate(user._id,{active:true}).exec()
+      }
+    }
+  }
 
 for (let item of events){
   if (n-item.timecreated>2629800000){
     Event.findByIdAndDelete(item._id).exec()
+    cloudinary.v2.uploader.destroy(item.images[0],
+      function(error, result){console.log(result)});
   }
 }
 for (let item of restrictions){
@@ -143,36 +226,7 @@ for (let item of comments){
 
 
 
-
-for (let user of users){
-  let recentsignins=[]
-  let date = new Date(user.created); // some mock date
-  let millisecondssinceusercreated = date.getTime()
-  millisecondssinceusercreated=n-millisecondssinceusercreated
-  for (let login of user.signins){
-    console.log("login",login)
-    let difference=n-login
-    console.log(difference)
-    if (difference>2629800000){
-      recentsignins.push(login)
-    }
-
-
-    console.log(recentsignins)
-    console.log("milliseconds",millisecondssinceusercreated)
-    if(recentsignins.length<3&&millisecondssinceusercreated>2629800000){
-      await User.findByIdAndUpdate(user._id,{active:false}).exec()
-    }
-    if(recentsignins.length>3){
-      await User.findByIdAndUpdate(user._id,{active:true}).exec()
-    }
-  }
-}
-
 console.log(restrictions)
-var d = new Date();
-var n = d.getTime();
-console.log(n)
 for (let rest of restrictions){
   let durationinmilli=rest.duration*86400000
   let timesincecreation=n-rest.timecreated

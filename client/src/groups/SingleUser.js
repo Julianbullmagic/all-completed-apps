@@ -95,6 +95,9 @@ export default function SingleUser({ match }) {
           setRulesApproved(data.data.rulesapproved)
           setRestrictionsApproved(data.data.restrictionsapproved)
         })
+        .catch(err => {
+          console.log(err);
+        })
   }
 
 

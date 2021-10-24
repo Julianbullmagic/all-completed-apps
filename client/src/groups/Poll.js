@@ -15,6 +15,9 @@ console.log("props",props)
     }).then(suggestions => {
       console.log("suggestions!!!!!!!!!!!!!!!!!!",suggestions)
   setSuggestions(suggestions.data)})
+  .catch(err => {
+    console.log(err);
+  })
 },[props])
 
 
@@ -48,7 +51,11 @@ console.log("newpollsuggestion",newPollSuggestion)
 
 
         fetch("/polls/createpollsuggestion/"+pollSuggestionId, options)
-                .then(response => response.json()).then(json => console.log(json));
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => {
+                  console.log(err);
+                })
   }
 
 
@@ -69,7 +76,11 @@ console.log("newpollsuggestion",newPollSuggestion)
 
 
            fetch("/polls/deletesuggestion/"+id, options)
-                  .then(response => response.json()).then(json => console.log(json));
+                  .then(response => response.json())
+                  .then(json => console.log(json))
+                  .catch(err => {
+                    console.log(err);
+                  })
 
     }
 

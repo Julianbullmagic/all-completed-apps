@@ -5,16 +5,23 @@ const mongoose = require("mongoose");
 
 
 export default function CreateRuleForm(props) {
-const ruleValue = React.useRef('')
-const explanationValue = React.useRef('')
-const [viewForm, setViewForm] = useState(false);
-const [toggle, setToggle] = useState(false);
-let server = "http://localhost:5000";
-let socket = io(server);
+  const ruleValue = React.useRef('')
+  const explanationValue = React.useRef('')
+  const [viewForm, setViewForm] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  let server = "http://localhost:5000";
+  let socket
+  if(process.env.NODE_ENV=="production"){
+    socket=io();
+  }
+  if(process.env.NODE_ENV=="development"){
+    socket=io(server);
+
+  }
 
 
-async function handleSubmit(e) {
-e.preventDefault()
+  async function handleSubmit(e) {
+    e.preventDefault()
     let d = new Date();
     let n = d.getTime();
     let ruleId=mongoose.Types.ObjectId()
@@ -30,15 +37,8 @@ e.preventDefault()
       approval:[auth.isAuthenticated().user._id]
     }
 
-    const newRuleToRender={
-      _id:ruleId,
-      rule: ruleValue.current.value,
-      createdby:auth.isAuthenticated().user,
-      explanation:explanationValue.current.value,
-      timecreated:n,
-      approval:[auth.isAuthenticated().user._id]
-    }
-
+    const newRuleToRender=JSON.parse(JSON.stringify(newRule))
+    newRuleToRender.createdby=auth.isAuthenticated().user
 
     let chatMessage=`created an rule; ${ruleValue.current.value}`
     let userId=auth.isAuthenticated().user._id
@@ -53,51 +53,51 @@ e.preventDefault()
       nowTime,
       type});
 
-
-
-console.log("newPost.group",newRule)
-    props.updateRules(newRuleToRender)
-    console.log(newRule)
-    const options={
+      props.updateRules(newRuleToRender)
+      const options={
         method: "POST",
         body: JSON.stringify(newRule),
         headers: {
-            "Content-type": "application/json; charset=UTF-8"}}
+          "Content-type": "application/json; charset=UTF-8"}}
 
 
-      await fetch("/rules/createrule/"+ruleId, options)
-              .then(response => response.json()).then(json => console.log(json));
-}
+          await fetch("/rules/createrule/"+ruleId, options)
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => {
+            console.log(err);
+          })
+        }
 
 
-  return (
-    <>
-    <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Rule Form?</button>
-    <div className='form'  style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
-      <form className='search-form'>
-      <div className="eventformbox">
-        <label htmlFor='name'>Rule</label>
-        <input
+        return (
+          <>
+          <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Rule Form?</button>
+          <div className='form'  style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
+          <form className='search-form'>
+          <div className="eventformbox">
+          <label htmlFor='name'>Rule</label>
+          <input
           type='text'
           name='ruleValue'
           id='ruleValue'
           ref={ruleValue}
 
-        />
-        </div>
-        <div className="eventformbox">
-        <label htmlFor='name'>Explanation</label>
-        <textarea
+          />
+          </div>
+          <div className="eventformbox">
+          <label htmlFor='name'>Explanation</label>
+          <textarea
           rows="4"
           type='text'
           name='explanationValue'
           id='explanationValue'
           ref={explanationValue}
 
-        />
-        </div>
-        <button onClick={(e) => handleSubmit(e)}>Submit Rule</button>
-      </form>
-    </div>
-    </>
-  )}
+          />
+          </div>
+          <button onClick={(e) => handleSubmit(e)}>Submit Rule</button>
+          </form>
+          </div>
+          </>
+        )}

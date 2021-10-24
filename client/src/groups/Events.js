@@ -4,6 +4,7 @@ import {Image} from 'cloudinary-react'
 import io from "socket.io-client";
 import auth from './../auth/auth-helper'
 import AwesomeSlider from 'react-awesome-slider';
+import 'leaflet/dist/leaflet.css';
 import 'react-awesome-slider/dist/styles.css';
 import { MapContainer, TileLayer,Circle} from 'react-leaflet'
 const mongoose = require("mongoose");
@@ -32,7 +33,14 @@ export default class Events extends Component {
 
   componentDidMount(){
     let server = "http://localhost:5000";
-    this.socket = io(server);
+    let socket
+    if(process.env.NODE_ENV=="production"){
+      socket=io();
+    }
+    if(process.env.NODE_ENV=="development"){
+      socket=io(server);
+
+    }
     this.getEvents()
   }
 
@@ -41,14 +49,10 @@ export default class Events extends Component {
       this.setState({users:nextProps.users})
     }
     if (nextProps.group !== this.props.group) {
-      this.setState({group:nextProps.group})
+      this.setState({group:nextProps.group,level:nextProps.group.level,groupsbelow:nextProps.group.groupsbelow})
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.group !== this.props.group) {
-      this.setState({level:nextProps.group.level,groupsbelow:nextProps.group.groupsbelow})
-    }}
 
     decidePage(e,pagenum){
       console.log("decide page",(pagenum*10-10),pagenum*10)
@@ -65,12 +69,10 @@ export default class Events extends Component {
         let events=data
         events.reverse()
         this.setState({events:events})
-
         console.log("decide events",0,10)
         let currentpage=events.slice(0,10)
         console.log("currentpage",currentpage)
         this.setState({currentPageData:currentpage})
-
         let pagenum=Math.ceil(data.length/10)
         console.log("page num",pagenum)
         let pagenums=[]
@@ -81,7 +83,8 @@ export default class Events extends Component {
         pagenums.reverse()
         console.log(pagenums)
         this.setState({pageNum:pagenums})
-
+      }).catch(err => {
+        console.log(err);
       })
     }
 
@@ -141,7 +144,12 @@ export default class Events extends Component {
 
 
           await fetch("/events/createevent/"+evId, optionstwo)
-          .then(response => response.json()).then(json => console.log(json))}
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => {
+            console.log(err);
+          })
+        }
         }
 
 
@@ -173,9 +181,7 @@ export default class Events extends Component {
 
             var filteredapproval=eventscopy.filter(checkEvent)
             console.log(filteredapproval)
-
             this.setState({events:filteredapproval})
-
             let current=filteredapproval.slice((this.state.page*10-10),this.state.page*10)
             console.log(current)
             this.setState({currentPageData:current})
@@ -189,7 +195,9 @@ export default class Events extends Component {
             }
 
             await fetch("/events/"+item._id, options)
-
+            .catch(err => {
+              console.log(err);
+            })
 
             const optionstwo = {
               method: 'put',
@@ -200,12 +208,10 @@ export default class Events extends Component {
             }
 
             await fetch("/groups/removeeventfromgroup/"+this.state.id+"/"+item._id, optionstwo)
-
+            .catch(err => {
+              console.log(err);
+            })
           }
-
-
-
-
 
 
 
@@ -229,11 +235,6 @@ export default class Events extends Component {
                 this.sendEventDown(ev)
               }
             }
-
-
-
-
-
 
             this.setState({events:eventscopy})
             let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
@@ -304,21 +305,10 @@ export default class Events extends Component {
             }}
             this.setState({events:eventscopy})
             let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
-            console.log(current)
             this.setState({currentPageData:current})
-            console.log("sending event notification",this.state.users)
             let userscopy=JSON.parse(JSON.stringify(this.state.users))
-
-            console.log(userscopy.length)
-
-
             userscopy=userscopy.filter(user=>user.events)
-
             let emails=userscopy.map(item=>{return item.email})
-            console.log(emails)
-            console.log(emails.length)
-
-            console.log(emails)
             let notification={
               emails:emails,
               subject:"New Event Suggestion",
@@ -393,6 +383,7 @@ export default class Events extends Component {
           return(
             <>
             <div className="eventbox" style={{marginBottom:"1vw"}}>
+
             <div className="eventcol1">
             <h3>{item.title}</h3>
             <h4>{item.description}</h4>
@@ -405,17 +396,19 @@ export default class Events extends Component {
             <button className="ruletext" onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>
             </div>
             <div className="eventimagemapcontainer">
-            <div className="eventcol2">
-            {item.images&&<Image style={{width:"100%",overflow:"hidden"}} cloudName="julianbullmagic" publicId={item.images[0]} />}
-            </div>
+            {item.images&&<div className="eventcol2">
+            <Image style={{width:"100%",overflow:"hidden"}} cloudName="julianbullmagic" publicId={item.images[0]} />
+            </div>}
             <div className="eventcol3">
-            {item.coordinates&&<><MapContainer center={[item.coordinates[0],item.coordinates[1]]} zoom={13} scrollWheelZoom={false}>
+            <div className="eventcol3inner">
+            {item.coordinates&&<MapContainer center={[item.coordinates[0],item.coordinates[1]]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Circle center={[item.coordinates[0],item.coordinates[1]]} radius={100} />
-            </MapContainer></>}
+            </MapContainer>}
+            </div>
             </div>
             </div>
             </div>
@@ -433,7 +426,6 @@ export default class Events extends Component {
 
         return (
           <>
-          <br/>
           <h2>Propose an Event</h2>
           {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId}/>}
           <h2><strong>Group Events </strong></h2>

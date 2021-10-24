@@ -142,6 +142,7 @@ router.get("/finduser/:userId", (req, res) => {
               level:req.body['level'],
               images:req.body['images'],
               groupabove:req.body['groupabove'],
+              timecreated:req.body['timecreated'],
               members:req.body["members"],
               allmembers:req.body["members"],
               title:req.body['title'],
