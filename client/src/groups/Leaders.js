@@ -22,12 +22,6 @@ export default class Leaders extends Component {
 }
 
 
-           componentDidMount(props){
-             let server = process.env.PORT||"http://localhost:5000";
-             this.socket = io(server);
-             }
-
-
              componentWillReceiveProps(nextProps) {
                let userscopy=JSON.parse(JSON.stringify(nextProps.users))
 
@@ -45,9 +39,9 @@ export default class Leaders extends Component {
                   });
                 }
 
-                for (var user of userscopy){
+                for (let user of userscopy){
                      let groupidentifier=`${this.state.group.title},${this.state.group.level}`
-                     console.log("groupidentifier",groupidentifier)
+                     console.log("groupidentifier",groupidentifier,user)
                      user.votes=user.votes.filter(item=>!item.startsWith(groupidentifier))
                      console.log("USER.VOTES!!!!!!",user.votes)
                  }
@@ -62,10 +56,10 @@ export default class Leaders extends Component {
 
 
        approveofuser(e,id){
-         console.log(this.state.group)
+         console.log("approving of user",this.state.group,id)
 var userscopy=JSON.parse(JSON.stringify(this.state.users))
 let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
-
+console.log(vote)
 for (let user of userscopy){
      let splitvote=`${this.state.group.title},${this.state.group.level}`
      user.votes=user.votes.filter(item=>item.startsWith(splitvote))
@@ -75,7 +69,7 @@ console.log("numreps",numreps)
 
 
 
-console.log()
+console.log(userscopy)
 for (let user of userscopy){
   if (user._id==id){
  if(!user.votes.includes(vote)){
@@ -161,6 +155,8 @@ let userscomponent
 if (this.state.users){
 
     userscomponent=this.state.users.map(item => {
+      let splitvote=`${this.state.group.title},${this.state.group.level}`
+      item.votes=item.votes.filter(item=>item.startsWith(splitvote))
       let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
 
       let votees=[]
@@ -182,8 +178,8 @@ console.log("VOTEES",votees)
   <h3 className="ruletext">{item.name}  </h3>
   {(!item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.approveofuser(e,item._id)}>Vote For This Person?</button>}
   {(item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.withdrawapprovalofuser(e,item._id)}>Withdraw Vote?</button>}
-  {votees.length>0&&<h4 style={{display:'inline'}}>People who voted: </h4>}
-  {votees&&votees.map(item=>{return(<><p style={{display:'inline'}}>{item} </p></>)})}
+  {votees.length>0&&<p style={{display:'inline'}}>People who voted: </p>}
+  {votees&&votees.map((item,index)=>{return(<><p style={{display:'inline'}}>{item}{(index<(votees.length-2))?", ":(index<(votees.length-1))?" and ":"."}</p></>)})}
   </div>
 </>
 )})
@@ -197,6 +193,13 @@ inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
       <br />
       <h2>Group Leaders</h2>
       {this.state.leaders.length<1&&<h4>No leaders</h4>}
+      {this.state.users.length<13&&<><p>The number of leaders each group gets is equal to the number of members divided by
+        25 rounded to the nearest integer. Groups with less than 13 members will not have any leaders. Between 13 and 38
+        member groups have 1 leader and between 39 and 50 member groups have 2.</p>
+        <p>You can still vote for people in this group, these will be recorded in the database and counted if the group
+        should become large enough.</p></>
+      }
+
       {this.state.leaders&&this.state.leaders.map(item=><><div className="leader"><h3>{item.name}</h3></div></>)}
       <hr/>
       {inthisgroup&&<><h3>Vote for Members</h3>
