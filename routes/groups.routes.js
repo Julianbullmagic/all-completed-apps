@@ -114,9 +114,19 @@ router.get("/finduser/:userId", (req, res) => {
         })
 
         router.route('/addlowertohigher/:lowerGroupId/:higherGroupId').put((req, res) => {
+          console.log("ADDING LOWER GROUP TO HIGHER",req.params.lowerGroupId,req.params.higherGroupId)
           Group.findByIdAndUpdate(req.params.higherGroupId, {$addToSet : {
             groupsbelow:req.params.lowerGroupId
-          }}).exec()
+          }}).exec(function(err,docs){
+                if(err){
+                  console.log(err);
+                }else{
+                  res.status(200).json({
+                    data: docs
+                  });
+                }
+
+              })
         })
 
 

@@ -491,7 +491,7 @@ render(props) {
 
     return (
       <>
-      <h2>Propose a Rule</h2>
+      {inthisgroup&&<h2>Propose a Rule</h2>}
       {inthisgroup&&<CreateRuleForm updateRules={this.updateRules} groupId={this.props.groupId}/>}
       <h2>Group Rules</h2>
       <p>Rules that have less than 75% approval and are more than a week old will be deleted</p>

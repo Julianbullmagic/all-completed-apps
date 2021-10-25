@@ -426,7 +426,7 @@ export default class Events extends Component {
 
         return (
           <>
-          <h2>Propose an Event</h2>
+          {inthisgroup&&<h2>Propose an Event</h2>}
           {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId}/>}
           <h2><strong>Group Events </strong></h2>
           {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}

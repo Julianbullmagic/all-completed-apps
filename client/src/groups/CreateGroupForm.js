@@ -10,6 +10,7 @@ export default function CreateGroupForm(props) {
   const titleValue = React.useRef('')
   const descriptionValue = React.useRef('')
   const higherGroup = React.useRef('616ca8782312510000c6e60a')
+  const [uploading, setUploading] = useState(false);
   const levelValue = React.useRef(0)
   const selectedFile1 = React.useRef(null)
   const [levels, setLevels] = useState([]);
@@ -34,6 +35,7 @@ export default function CreateGroupForm(props) {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    setUploading(true)
 
     var groupId=mongoose.Types.ObjectId()
     groupId=groupId.toString()
@@ -92,12 +94,15 @@ export default function CreateGroupForm(props) {
               .catch(err => {
                 console.log(err);
               })
+              console.log("GROUPID",groupid)
               await fetch("groups/addlowertohigher/"+groupid+"/616ca8782312510000c6e60a", optionstwo)
               .then(response => response.json())
               .then(json => console.log(json))
               .catch(err => {
                 console.log(err);
               })
+              setUploading(false)
+
             }
 
 
@@ -121,7 +126,9 @@ export default function CreateGroupForm(props) {
               <label style={{display:"block"}} htmlFor='name'>Image</label>
 
               <input id="file" type="file" ref={selectedFile1}/>
-              <button type="submit" value="Submit">Submit</button>
+              {!uploading&&<button type="submit" value="Submit">Submit</button>}
+              {uploading&&<h3>uploading!!!!!</h3>}
+
               </form>
               </div>
             )}

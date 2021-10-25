@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import auth from './../auth/auth-helper'
 import { MapContainer, TileLayer,Circle, Marker, Popup} from 'react-leaflet'
 import {Link,BrowserRouter} from "react-router-dom";
+import {Image} from 'cloudinary-react'
 
 
 
@@ -124,13 +125,24 @@ class GroupDetails extends Component {
       <React.Fragment>
       <div>
       <h2>Group Details</h2>
-      {this.state.group.title&&<p>Group Title: <strong> {this.state.group.title}</strong></p>}
-      {this.state.group.location&&<p>Location: <strong> {this.state.group.location}</strong></p>}
-      <p>Level: <strong> {this.state.group.level}</strong></p>
-      {this.state.group.description&&<p>Description: <strong> {this.state.group.description}</strong></p>}
-      {(this.state.group.centroid&&this.state.group.groupsbelow&&this.state.group.type=="localgroup")&&<p>All the small circles on the map roughly show the spread of members of this whole group. The different colours
+      {this.state.group.title&&<p><strong>Group Title: </strong> {this.state.group.title}</p>}
+      {this.state.group.location&&<p><strong>Location: </strong> {this.state.group.location}</p>}
+      <p><strong>Level: </strong> {this.state.group.level}</p>
+      {this.state.group.description&&<p><strong>Description: </strong> {this.state.group.description}</p>}
+      {this.state.group.groupabove&&
+        <><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><p><strong>Group Above: </strong>{this.state.group.groupabove.title}</p></Link></BrowserRouter></>}
+        {(this.state.group.groupsbelow&&(this.state.group.level>0))&&<p style={{display:"inline"}}><strong>Groups Below: </strong></p>}
+
+        {(this.state.group.groupsbelow&&(this.state.group.level>0))&&this.state.group.groupsbelow.map((item,index)=>
+          {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}> <p style={{display:"inline"}}>{item.title}{(index<(this.state.group.groupsbelow.length-2))?", ":(index<(this.state.group.groupsbelow.length-1))?" and ":"."}</p></Link></BrowserRouter>})}
+          {(this.state.group.centroid&&this.state.group.groupsbelow&&this.state.group.type=="localgroup")&&<p>All the small circles on the map roughly show the spread of members of this whole group. The different colours
         represent each of the groups that are children of this group. The small spots do not actually show the locations
         of members but approximately show the area covered by each group.</p>}
+        <br/>
+        <br/>
+        {this.state.group.images.length>0&&<Image style={{objectFit:"cover",width:"100%",height:"100%",overflow:"hidden",
+        position:"relative",boxShadow:"2px 2px 2px 4px #050A30"}}
+        cloudName="julianbullmagic" publicId={this.state.group.images[0]} />}
 
         {(this.state.group.centroid&&this.state.group.type=="localgroup")&&<MapContainer style={{ height: "60vw", width: "80vw" }}
         center={[this.state.group.centroid[0],this.state.group.centroid[1]]} zoom={60/this.state.group.radius} scrollWheelZoom={false}>
@@ -145,11 +157,6 @@ class GroupDetails extends Component {
 
 
         </MapContainer>}
-        {this.state.group.groupabove&&
-          <><h2>Group Above</h2><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><h4>{this.state.group.title&&this.state.group.title}{this.state.group.groupabove.location}</h4></Link></BrowserRouter></>}
-          {(this.state.group.groupsbelow&&(this.state.level>1))&&<h2>Groups below</h2>}
-          {(this.state.group.groupsbelow&&(this.state.level>1))&&this.state.group.groupsbelow.map(item=>
-            {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}> <h5>{item.title&&item.title}{item.location}</h5></Link></BrowserRouter>})}
               </div>
               </React.Fragment>
             );

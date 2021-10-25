@@ -103,6 +103,9 @@ class GroupsList extends Component {
             {item.description&&<h3>Description: {item.description}</h3>}
             {item.location&&<h2>Location: {item.location}</h2>}
             <h3>Level: {item.level}</h3>
+            {item.images.length>0&&<Image style={{objectFit:"cover",width:"100%",height:"100%",overflow:"hidden",
+            position:"relative",boxShadow:"2px 2px 2px 4px #050A30"}}
+            cloudName="julianbullmagic" publicId={item.images[0]} />}
 
             </div></Link>
             </div>
