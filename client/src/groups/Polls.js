@@ -25,7 +25,6 @@ export default function Polls (props) {
   }
   if(process.env.NODE_ENV=="development"){
     socket=io(server);
-
   }
 
   useEffect(() => {
