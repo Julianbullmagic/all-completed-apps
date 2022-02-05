@@ -1,4 +1,4 @@
-import React, {useRef,useState} from 'react'
+import React, {useRef,useState,useEffect} from 'react'
 import auth from '../auth/auth-helper'
 import Axios from 'axios'
 import io from "socket.io-client";
@@ -9,6 +9,7 @@ export default function CreateEventForm(props) {
   const [viewForm, setViewForm] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [coordError, setCoordError] = useState(false);
+  const [level, setLevel] = useState(props.level);
   const titleValue = React.useRef('')
   const descriptionValue = React.useRef('')
   const locationValue = React.useRef('')
@@ -17,6 +18,12 @@ export default function CreateEventForm(props) {
   const [numberOfImages, setNumberOfImages]=useState(1)
   let server = "http://localhost:5000";
   let socket
+
+  useEffect(()=>{
+    console.log("LEVEL in Usseeffect")
+    setLevel(props.level,"level")
+  },[props])
+
   if(process.env.NODE_ENV=="production"){
     socket=io();
   }
@@ -68,24 +75,32 @@ export default function CreateEventForm(props) {
       if(coords){
         let imageids=[]
         console.log(selectedFile1.current.files[0])
-        if(selectedFile1.current.files[0]){
-          const formData = new FormData();
-          formData.append('file', selectedFile1.current.files[0]);
-          formData.append("upload_preset", "jvm6p9qv");
-          await Axios.post(process.env.CLOUDINARY,formData)
-          .then(response => {
-            console.log("cloudinary response",response)
-            imageids.push(response.data.public_id)
-          })}
+
+
+          if(selectedFile1.current.files[0]){
+            const formData = new FormData();
+            formData.append('file', selectedFile1.current.files[0]);
+            formData.append("upload_preset", "jvm6p9qv");
+            await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+            .then(response => {
+              console.log("cloudinary response",response)
+              imageids.push(response.data.public_id)
+            })
+            .catch(err => {
+              console.log(err);
+            })
+          }
+
 
           console.log("imageids",imageids)
 
-
+console.log("LEVEL in SUBMIT",level)
 
           const newEvent={
             _id:eventId,
             title: titleValue.current.value,
-            groupId:props.groupId,
+            groupIds:[props.groupId],
+            level:level,
             description:descriptionValue.current.value,
             createdby:auth.isAuthenticated().user._id,
             location:locationValue.current.value,
@@ -105,7 +120,7 @@ export default function CreateEventForm(props) {
           var n = d.getTime();
 
 
-          let chatMessage=`created an event called ${titleValue.current.value}`
+          let chatMessage=`created an event suggestion called ${titleValue.current.value}`
           let userId=auth.isAuthenticated().user._id
           let userName=auth.isAuthenticated().user.name
           let nowTime=n

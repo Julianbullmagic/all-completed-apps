@@ -9,126 +9,227 @@ const mongoose = require("mongoose");
 export default function CreateGroupForm(props) {
   const titleValue = React.useRef('')
   const descriptionValue = React.useRef('')
-  const higherGroup = React.useRef('616ca8782312510000c6e60a')
   const [uploading, setUploading] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const [failed, setFailed] = useState(false);
+
   const levelValue = React.useRef(0)
+  const parentGroupValue = React.useRef('')
   const selectedFile1 = React.useRef(null)
   const [levels, setLevels] = useState([]);
-  const [user, setUser] = useState({});
+  const [groups, setGroups] = useState(props.groups);
+  const [subgroups,setSubgroups]=useState([]);
+  const [user, setUser] = useState(props.user);
   const [toggle, setToggle] = useState(false);
+  const [max, setMax] = useState(0);
+
 
   useEffect(()=>{
-    // fetch(`/groups/getuser/`+auth.isAuthenticated().user._id)
-    // .then(response => response.json())
-    // .then(data=>{
-    //   let user=JSON.parse(JSON.stringify(data.data))
-    //   console.log("user",user)
-    //   const levels = new Set();
-    //
-    //   for (let group of user.highergroupstheybelongto){
-    //     levels.add(group.level)
-    //   }
-    //   setLevels(levels)
-    //   })
-    // .catch(error=>console.log(error))
+    setGroups(props.groups)
+    let subgroups=props.groups.filter(item=>item.level==1)
+    let max=props.groups.sort(function(a, b){return b.level-a.level});
+    max=max[0]
+    if(max){
+      max=max.level
+    }
+    console.log("max",max)
+    console.log("SUBGROUPS",subgroups)
+    setSubgroups(subgroups)
+  },[props])
+
+  useEffect(()=>{
+    console.log("create group form")
+    fetch(`/groups/finduser/`+auth.isAuthenticated().user._id)
+    .then(response => response.json())
+    .then(data=>{
+      let user=JSON.parse(JSON.stringify(data.data))
+      console.log("user in create group form",user)
+      let levels = new Set();
+
+      for (let group of user[0].groupstheybelongto){
+        levels.add(group.level)
+      }
+      levels=[...levels]
+      levels=levels.sort((a, b) => a - b)
+      levels.pop()
+      setLevels(levels)
+      console.log("levels",levels)
+    })
+    .catch(error=>console.log(error))
+    console.log("setting uppergroup options")
+
   },[])
+
+
+  function setUpperGroupOptions(){
+    console.log("setting uppergroup options")
+    let subgroups=groups.filter(item=>item.level==(levelValue.current.value+1))
+    console.log(subgroups)
+    setSubgroups(subgroups)
+
+  }
+
+function changing(){
+  if (levelValue.current.value==2){
+
+  }
+  let errorscopy=[]
+console.log(errorscopy)
+  if(!parentGroupValue.current.value){
+    errorscopy.push("You need to choose a parent group")
+  }
+
+  if(titleValue.current.value.length==0){
+    errorscopy.push("You need a title")
+  }
+
+  if(!descriptionValue.current.value){
+    errorscopy.push("You need a group description")
+  }
+
+  if(!levelValue.current.value){
+    errorscopy.push("You need to choose a group level")
+  }
+
+  if (errorscopy.length==0){
+    setFailed(false)
+  }
+  console.log("ERRORS",errorscopy)
+
+  setErrors(errorscopy)
+
+}
 
   async function handleSubmit(e) {
     e.preventDefault()
-    setUploading(true)
+if(errors.length>0){
+  setFailed(true)
+}
+console.log("creating group")
+if (errors.length==0){
+  console.log("creating group!")
 
-    var groupId=mongoose.Types.ObjectId()
-    groupId=groupId.toString()
+  setUploading(true)
 
-    let imageids=[]
-    console.log(selectedFile1.current.files[0])
-    if(selectedFile1.current.files[0]){
-      const formData = new FormData();
-      formData.append('file', selectedFile1.current.files[0]);
-      formData.append("upload_preset", "jvm6p9qv");
-      await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
-      .then(response => {
-        console.log("cloudinary response",response)
-        imageids.push(response.data.public_id)
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    }
+  var groupId=mongoose.Types.ObjectId()
+  groupId=groupId.toString()
 
-      console.log("imageids",imageids)
+  let imageids=[]
+  console.log(selectedFile1.current.files[0])
+  if(selectedFile1.current.files[0]){
+    const formData = new FormData();
+    formData.append('file', selectedFile1.current.files[0]);
+    formData.append("upload_preset", "jvm6p9qv");
+    await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+    .then(response => {
+      console.log("cloudinary response",response)
+      imageids.push(response.data.public_id)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
-      let d = new Date();
-      let n = d.getTime();
+  console.log("imageids",imageids)
 
-      const newPost={
-        _id:groupId,
-        title: titleValue.current.value,
-        groupabove:"616ca8782312510000c6e60a",
-        description:descriptionValue.current.value,
-        timecreated:n,
-        images:imageids,
-        level:0,
-        members:[],
-        centroid:auth.isAuthenticated().user.coordinates,
-      }
+  let d = new Date();
+  let n = d.getTime();
 
-      props.updateGroups(newPost)
+  const newPost={
+    _id:groupId,
+    title: titleValue.current.value,
+    groupabove:parentGroupValue.current.value,
+    description:descriptionValue.current.value,
+    timecreated:n,
+    images:imageids,
+    level:levelValue.current.value,
+    members:[],
+    centroid:auth.isAuthenticated().user.coordinates,
+  }
 
-      console.log(auth.isAuthenticated().user.name)
-      console.log(newPost)
-      const options={
-        method: "POST",
-        body: JSON.stringify(newPost),
+  props.updateGroups(newPost)
+
+  console.log(auth.isAuthenticated().user.name)
+  console.log(newPost)
+  const options={
+    method: "POST",
+    body: JSON.stringify(newPost),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"}}
+      const optionstwo={
+        method: "PUT",
+        body: "",
         headers: {
           "Content-type": "application/json; charset=UTF-8"}}
-          const optionstwo={
-            method: "PUT",
-            body: "",
-            headers: {
-              "Content-type": "application/json; charset=UTF-8"}}
 
-              let groupid=await fetch("groups/creategroup", options)
-              .then(response => response.json())
-              .then(data=>{return data.data})
-              .catch(err => {
-                console.log(err);
-              })
-              console.log("GROUPID",groupid)
-              await fetch("groups/addlowertohigher/"+groupid+"/616ca8782312510000c6e60a", optionstwo)
-              .then(response => response.json())
-              .then(json => console.log(json))
-              .catch(err => {
-                console.log(err);
-              })
-              setUploading(false)
-
-            }
+          let groupid=await fetch("groups/creategroup", options)
+          .then(response => response.json())
+          .then(data=>{return data.data})
+          .catch(err => {
+            console.log(err);
+          })
+          console.log("GROUPID",groupid)
+          await fetch("groups/addlowertohigher/"+groupid+"/"+parentGroupValue.current.value, optionstwo)
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => {
+            console.log(err);
+          })
+          setUploading(false)
+}
+          }
 
 
-            return (
-              <div className="homepageform">
-              <form onSubmit={handleSubmit}>
-              <label style={{display:"block"}} htmlFor='name'>Title</label>
-              <input
-              type='text'
-              name='titleValue'
-              id='titleValue'
-              ref={titleValue}
-              />
-              <label style={{display:"block"}} htmlFor='name'>Description</label>
-              <input
-              type='text'
-              name='descriptionValue'
-              id='descriptionValue'
-              ref={descriptionValue}
-              />
-              <label style={{display:"block"}} htmlFor='name'>Image</label>
+          return (
+            <div className="homepageform">
+            <form onSubmit={handleSubmit} onChange={changing}>
+            <div className="titlediv">
+            <label style={{display:"inline"}} htmlFor='name'>Title</label>
+            <input
+            style={{display:"inline",width:"80vw"}}
+            type='text'
+            name='titleValue'
+            id='titleValue'
+            ref={titleValue}
+            />
+            </div>
+            <div className="titlediv">
+            <label style={{display:"inline"}} htmlFor='name'>Description</label>
+            <input
+            style={{display:"inline",width:"76vw"}}
+            type='text'
+            name='descriptionValue'
+            id='descriptionValue'
+            ref={descriptionValue}
+            />
+            </div>
+            <div style={{display:"inline"}}>
+            <label style={{display:"inline"}} style={{display:"inline"}} htmlFor='name'>Choose a Level</label>
+            <select style={{display:"inline"}} onChange={setUpperGroupOptions} ref={levelValue}>
+            <option value=""></option>
+            <option value="0">0</option>
+            {levels&&levels.map(item=><option value={item}>{item}</option>)}
+            </select>
+            </div>
+            <div style={{display:"inline"}}>
+            <label htmlFor='name'>Choose a parent group</label>
+            <select ref={parentGroupValue}>
+            <option value=""></option>
+            {subgroups&&subgroups.map(item=><option value={item._id}>{item.title}</option>)}
+            </select>
+            </div>
+            <div style={{display:"inline"}}>
+            <label style={{display:"inline"}} htmlFor='name'>Image</label>
+            <input style={{display:"inline",width:"30%"}} id="file" type="file" ref={selectedFile1}/>
+            </div>
+            <div>
+            <label>You must choose a level before you can choose a parent group. You can only create a group at a level above zero
+            if you have been elected to be a member of a higher level group.</label>
+            </div>
+            {(errors&&failed)&&errors.map(item=><p style={{color:"red"}}>{item}</p>)}
+            {(!uploading&&!failed)&&<button style={{margin:"1vw"}} type="submit" value="Submit">Submit</button>}
+            {uploading&&<h3>uploading!!!!!</h3>}
 
-              <input id="file" type="file" ref={selectedFile1}/>
-              {!uploading&&<button type="submit" value="Submit">Submit</button>}
-              {uploading&&<h3>uploading!!!!!</h3>}
-
-              </form>
-              </div>
-            )}
+            </form>
+            </div>
+          )}

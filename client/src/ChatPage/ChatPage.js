@@ -45,7 +45,7 @@ componentWillReceiveProps(nextProps) {
 componentDidMount(props) {
     let server = process.env.PORT||"http://localhost:5000";
     this.props.dispatch(getChats());
-    this.socket = io();
+    this.socket = io("http://localhost:5000");
 
     this.socket.on("Output Chat Message", messageFromBackEnd => {
         console.log("messageFromBackEnd",messageFromBackEnd)

@@ -18,9 +18,6 @@ const mongoose = require("mongoose");
 
 
 
-
-
-
 class GroupPage extends Component {
 
     constructor(props) {

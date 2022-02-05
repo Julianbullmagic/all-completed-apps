@@ -7,7 +7,7 @@ mongoose.set('useFindAndModify', false);
 
 
 router.get("/getevents/:groupId", (req, res, next) => {
-    Event.find({groupId:req.params.groupId})
+    Event.find({groupIds:req.params.groupId})
     .populate('createdby')
       .then(rule => res.json(rule))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -59,14 +59,35 @@ router.get("/:eventId", (req, res, next) => {
     }).exec()
     })
 
+    router.route('/sendeventdown/:eventId/:groupId').put((req, res) => {
+      console.log("sending event down",req.params)
+
+           Event.findByIdAndUpdate(req.params.eventId, {$addToSet : {
+            groupIds:req.params.groupId
+          }},
+          (err, updatedBoard) => {
+          if (err) {
+            res.json({
+              success: false,
+              msg: 'Failed to update event'
+            })
+          } else {
+            res.json({success: true, msg: 'group added to event'})
+          }
+        }
+      )
+    })
+
   router.route('/createevent/:eventId').post((req, res) => {
     let eventId = req.params.eventId;
+    console.log("level",req.body["level"])
     var newEvent=new Event({
       _id: eventId,
       title :req.body["title"],
       description :req.body["description"],
+      level :req.body["level"],
       local :req.body["local"],
-      groupId :req.body["groupId"],
+      groupIds :req.body["groupIds"],
       createdby :req.body["createdby"],
       location:req.body["location"],
       coordinates:req.body["coordinates"],

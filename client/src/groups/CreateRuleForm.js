@@ -30,17 +30,19 @@ export default function CreateRuleForm(props) {
     const newRule={
       _id:ruleId,
       rule: ruleValue.current.value,
-      groupId:props.groupId,
+      groupIds:[props.groupId],
+      level:props.level,
       createdby:auth.isAuthenticated().user._id,
       explanation:explanationValue.current.value,
       timecreated:n,
       approval:[auth.isAuthenticated().user._id]
     }
+    console.log("NEW RULE",newRule)
 
     const newRuleToRender=JSON.parse(JSON.stringify(newRule))
     newRuleToRender.createdby=auth.isAuthenticated().user
 
-    let chatMessage=`created an rule; ${ruleValue.current.value}`
+    let chatMessage=`created an rule suggestion ${ruleValue.current.value}`
     let userId=auth.isAuthenticated().user._id
     let userName=auth.isAuthenticated().user.name
     let nowTime=n

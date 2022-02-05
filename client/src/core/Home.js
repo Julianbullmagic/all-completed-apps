@@ -39,7 +39,7 @@ getGroupData()
       <div className="homepage">
 {auth.isAuthenticated()&&<><GroupList />
   <div style={{margin:"1vw"}}>
-  <h6>!!!!!!!!!!!!!!!!!!!!!!!How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
+  <h6>How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
   <Link to="https://cooperative-marketplace.herokuapp.com/">
     <h1>https://cooperative-marketplace.herokuapp.com/</h1>
   </Link>

@@ -74,6 +74,89 @@ export default function Jury(props) {
   }
 
 
+
+  async function leaderCreateRestriction(e){
+    e.preventDefault()
+    console.log(restriction,duration,selectedUser)
+    var d = new Date();
+    var n = d.getTime();
+
+    let chatMessage=`created a restriction for ${selectedUser.name}`
+    let userId=auth.isAuthenticated().user._id
+    let userName=auth.isAuthenticated().user.name
+    let nowTime=n
+    let type="text"
+
+    socket.emit("Input Chat Message", {
+      chatMessage,
+      userId,
+      userName,
+      nowTime,
+      type});
+
+       let rest=[]
+
+          if(selectedUser.restrictions){
+            for (let r of selectedUser.restrictions){
+              let concatenated=`${r.restriction}${r.duration}`
+              rest.push(concatenated)
+            }
+          }
+          let currentrest=`${restriction}${duration}`
+          console.log(!rest.includes(currentrest))
+
+          if(!rest.includes(currentrest)){
+            console.log("CREAtING NEW RESTRICION")
+
+            var d = new Date();
+            var n = d.getTime();
+
+            var restrictionId=mongoose.Types.ObjectId()
+            restrictionId=restrictionId.toString()
+            const newRestriction={
+              _id:restrictionId,
+              usertorestrict:selectedUser._id,
+              restriction:restriction,
+              groupId:props.groupId,
+              duration:duration,
+              timecreated:n
+            }
+            console.log("NEW RESTRICTION",newRestriction)
+            const options = {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newRestriction)
+            }
+
+            var restrictionid= await fetch("/groups/createuserrrestriction", options
+          ).then(res => {
+            return res.json()
+          }).catch(err => {
+            console.log(err);
+          })
+
+          const optionstwo = {
+            method: 'put',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: ''
+          }
+
+          let updateduser=await fetch("/groups/addrestrictiontouser/" + selectedUser._id +"/"+ restrictionid.data._id, optionstwo
+        ).then(res => {
+          return res.json()
+        }).catch(err => {
+          console.log(err);
+        })
+        console.log(updateduser.data)
+        props.updateUser(updateduser.data)
+    }
+}
+
+
   function handleSubmit(e){
     e.preventDefault()
     console.log(restriction,duration,selectedUser)
@@ -127,14 +210,12 @@ export default function Jury(props) {
         headers: {
           "Content-type": "application/json; charset=UTF-8"}}
 
-
           fetch("/polls/createrestrictionpoll/"+restrictionPollId, options)
           .then(response => response.json())
           .then(json => console.log(json))
           .catch(err => {
             console.log(err);
           })
-
         }
 
 
@@ -588,6 +669,9 @@ export default function Jury(props) {
           console.log(allusers)
           let inthisgroup=group.members.map(item=>item._id)
           inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
+
+
+          console.log("groupabove members!!!!!!!",group.groupabove.members)
           return (
             <>
             {inthisgroup&&<>  <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Restriction Poll Form?</button>
@@ -622,7 +706,14 @@ export default function Jury(props) {
             <input style={{display:"inline",width:"70vw"}} type='text' name='duration' id='duration' onChange={(e) => handleDurationChange(e)}/>
             <p htmlFor="duration"> How many days?</p>
             </div>
-            <button onClick={(e) => handleSubmit(e)}>New Restriction Poll?</button>
+            <button onClick={(e) => handleSubmit(e)}>New Restriction Poll</button>
+            {group.groupabove.members.includes(auth.isAuthenticated().user._id)&&
+              <><button onClick={(e) => leaderCreateRestriction(e)}>Create Restriction Immediately</button>
+              <p>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
+              a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on.</p>
+              </>}
+              <p>Restriction polls are activated at 75% approval.</p>
+
             </form>
             </div></>}
 

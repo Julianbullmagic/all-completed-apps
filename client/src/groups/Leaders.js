@@ -6,15 +6,26 @@ import io from "socket.io-client";
 
 const mongoose = require("mongoose");
 
+let leaders=[]
 
 export default class Leaders extends Component {
 
     constructor(props) {
            super(props);
+           for (let user of props.users){
+             if(props.group.groupabove){
+               if (props.group.groupabove.members.includes(user._id)){
+                 console.log("LEADER",user)
+                 leaders.push(user)
+               }
+             }
+            }
+            leaders=[...new Set(leaders)]
+
            this.state = {
              users:props.users,
              group:props.group,
-             leaders:[],
+             leaders:leaders,
              redirect: false,
              updating:false,
              participate:props.participate
@@ -38,20 +49,17 @@ export default class Leaders extends Component {
                     group:nextProps.group
                   });
                 }
-
-                for (let user of userscopy){
-                     let groupidentifier=`${this.state.group.title},${this.state.group.level}`
-                     console.log("groupidentifier",groupidentifier,user)
-                     user.votes=user.votes.filter(item=>!item.startsWith(groupidentifier))
-                     console.log("USER.VOTES!!!!!!",user.votes)
+                for (let user of this.state.users){
+                  if(this.state.group.groupabove){
+                    if (this.state.group.groupabove.members.includes(user._id)){
+                      leaders.push(user)
+                    }
+                  }
                  }
-                 userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
+                 console.log(leaders)
+                 leaders=[...new Set(leaders)]
 
-
-                 let numreps=Math.round(userscopy.length/25)
-                 console.log("numreps",numreps)
-                 let leaders=userscopy.slice(0,numreps)
-                 this.setState({leaders:leaders})
+                this.setState({leaders:leaders})
               }
 
 
@@ -107,7 +115,14 @@ console.log("/leaders/voteforleader/" + id +"/"+ vote)
     console.log(err);
   })
 
-
+  for (let user of this.state.users){
+    if (this.state.group.groupabove.members.includes(user._id)){
+      leaders.push(user)
+    }
+   }
+   leaders=[...new Set(leaders)]
+   console.log(leaders)
+  this.setState({leaders:leaders})
 
 }
 
@@ -187,20 +202,21 @@ console.log("VOTEES",votees)
 
 let inthisgroup=this.state.group.members.map(item=>item._id)
 inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
-
+console.log("LEADERS IN RENDER",this.state.leaders)
     return (
       <>
       <br />
       <h2>Group Leaders</h2>
-      {this.state.leaders.length<1&&<h4>No leaders</h4>}
+      {this.state.group.level==2&&<h4>The highest level group, Australia, has no singular leader, prime minister, president or chancellor</h4>}
+
+      {this.state.leaders.length>0&&this.state.leaders.map(item=><><div className="leader"><h3>{item.name}</h3></div></>)}
+      {!this.state.leaders.length==0&&<h4>No leaders</h4>}
       {this.state.users.length<13&&<><p>The number of leaders each group gets is equal to the number of members divided by
         25 rounded to the nearest integer. Groups with less than 13 members will not have any leaders. Between 13 and 38
         member groups have 1 leader and between 39 and 50 member groups have 2.</p>
         <p>You can still vote for people in this group, these will be recorded in the database and counted if the group
         should become large enough.</p></>
       }
-
-      {this.state.leaders&&this.state.leaders.map(item=><><div className="leader"><h3>{item.name}</h3></div></>)}
       <hr/>
       {inthisgroup&&<><h3>Vote for Members</h3>
             {this.state.users.length<1&&<h4>No members</h4>}

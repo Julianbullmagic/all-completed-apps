@@ -1,14 +1,31 @@
 const express =require( 'express')
 const router = express.Router();
 const Rule = require("../models/rule.model");
-
+const Group=require("../models/group.model")
 const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 
+router.route('/sendruledown/:ruleId/:groupId').put((req, res) => {
+  console.log("sending rule down",req.params)
 
+       Rule.findByIdAndUpdate(req.params.ruleId, {$addToSet : {
+        groupIds:req.params.groupId
+      }},
+      (err, updatedBoard) => {
+      if (err) {
+        res.json({
+          success: false,
+          msg: 'Failed to update rule'
+        })
+      } else {
+        res.json({success: true, msg: 'group added to rule'})
+      }
+    }
+  )
 
+})
 router.get("/getrules/:groupId", (req, res, next) => {
-    Rule.find({groupId:req.params.groupId})
+    Rule.find({groupIds:req.params.groupId})
     .populate("createdby")
       .then(rule => res.json(rule))
       .catch(err => res.status(400).json('Error: ' + err));
@@ -23,7 +40,6 @@ router.get("/getrules/:groupId", (req, res, next) => {
 
 
   router.delete("/:ruleId", (req, res, next) => {
-
       Rule.findByIdAndDelete(req.params.ruleId)
       .exec()
     })
@@ -76,12 +92,13 @@ router.get("/getrules/:groupId", (req, res, next) => {
 
   router.route('/createrule/:ruleId').post((req, res) => {
     let ruleId = req.params.ruleId;
-    console.log("req.body",req.body)
+    console.log("req.body, creating rule",req.body)
     var newRule=new Rule({
       _id: ruleId,
       rule :req.body["rule"],
       local :req.body["local"],
-      groupId:req.body["groupId"],
+      level :req.body["level"],
+      groupIds:req.body["groupIds"],
       createdby :req.body["createdby"],
       explanation:req.body["explanation"],
       timecreated:req.body["timecreated"],

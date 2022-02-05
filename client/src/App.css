@@ -4,6 +4,7 @@
   width:93vw;
 }
 .homepageform{
+  width:90vw;
   background:#f6f6f6;
   border:#eaeaea;
   border-style:solid;
@@ -11,6 +12,28 @@
   display:flex;
   justify-content:space-between;
   padding:1vw;
+}
+
+
+
+.homepageform input{
+  display:inline;
+}
+
+.homepageform label{
+  display:inline;
+  margin:1vw;
+}
+
+.homepageform select{
+  display:inline;
+}
+.homepageform div{
+  margin:1vw;
+}
+
+.titlediv{
+  width:100%;
 }
 .group{
   margin-top:1vw;

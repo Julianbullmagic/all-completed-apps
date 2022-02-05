@@ -222,7 +222,7 @@ let restrictionsmapped=<></>
 if(restrictions){
   restrictionsmapped=restrictions.map(item=>{
     let elapsed=n-item.timecreated
-    let dayselapsed=elapsed/86400000
+    let dayselapsed=Math.round(elapsed/86400000)
     let daysleft=item.duration-dayselapsed
     return (<><h4 style={{textAlign:"center"}}>{item.restriction} for {daysleft} days</h4></>)})}
 

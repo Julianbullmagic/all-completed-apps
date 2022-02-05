@@ -117,39 +117,22 @@ export default class Events extends Component {
     })
 
     console.log("GROUPS BELOW",this.state.group.groupsbelow)
+    let lowergroupids=[]
     for (let group of this.state.group.groupsbelow){
-      console.log("GROUP",group)
-      let evId=mongoose.Types.ObjectId()
-      evId=evId.toString()
-      let newEvent={
-        _id:evId,
-        title: ev.title,
-        groupId:group._id,
-        createdby:ev.createdby,
-        description:ev.explanation,
-        location:ev.location,
-        coordinates:ev.coordinates,
-        images:ev.images,
-        timecreated:ev.timecreated,
-        approval:ev.approval
+      console.log("GROUP",group,ev)
+      if(group.groupsbelow){
+        lowergroupids.push(...group.groupsbelow)
       }
-
-      console.log(newEvent)
-
-      const optionstwo={
-        method: "POST",
-        body: JSON.stringify(newEvent),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"}}
-
-
-          await fetch("/events/createevent/"+evId, optionstwo)
-          .then(response => response.json())
-          .then(json => console.log(json))
-          .catch(err => {
-            console.log(err);
-          })
+  lowergroupids.push(group._id)
         }
+        console.log("lowergroupids",lowergroupids)
+  for (let gr of lowergroupids){
+    console.log("Lower GROUP",gr,ev._id)
+    fetch("/events/sendeventdown/"+ev._id+"/"+gr,  optionsone)
+   .catch(err => {
+     console.log(err);
+   })
+  }
         }
 
 
@@ -229,7 +212,7 @@ export default class Events extends Component {
               }
               let approval=Math.round((ev.approval.length/this.state.users.length)*100)
               console.log("sending down",ev,approval,this.state)
-              if ((approval>0.1)&&(this.state.group.level>0)&&(ev.sentdown==false)){
+              if ((approval>0.75)&&(this.state.group.level>0)&&(ev.sentdown==false)){
                 console.log("sending down",ev,approval)
                 ev.sentdown=true
                 this.sendEventDown(ev)
@@ -383,17 +366,14 @@ export default class Events extends Component {
           return(
             <>
             <div className="eventbox" style={{marginBottom:"1vw"}}>
-
             <div className="eventcol1">
             <h3>{item.title}</h3>
             <h4>{item.description}</h4>
-            {this.state.users&&<h4 className="ruletext">{approval}% of members are attending this event, {item.approval.length}/{this.state.users.length}. </h4>}
-            {(item.approval.length>0)&&<h4 className="ruletext">Attendees=</h4>}
-
-            {attendeenames&&attendeenames.map((item,index)=>{return(<h4 className="ruletext">{item}{(index<(attendeenames.length-2))?", ":(index<(attendeenames.length-1))?" and ":"."}</h4>)})}
+            {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event</h4>}
             {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
             {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
-            <button className="ruletext" onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>
+            {(item.createdby==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
+            <button className="ruletext" onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>}
             </div>
             <div className="eventimagemapcontainer">
             {item.images&&<div className="eventcol2">
@@ -427,7 +407,7 @@ export default class Events extends Component {
         return (
           <>
           {inthisgroup&&<h2>Propose an Event</h2>}
-          {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId}/>}
+          {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId} level={this.state.group.level}/>}
           <h2><strong>Group Events </strong></h2>
           {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
           {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{

@@ -3,12 +3,12 @@ import auth from './../auth/auth-helper'
 import Comment from '../post/Comment'
 import Poll from './Poll'
 import io from "socket.io-client";
-
 const mongoose = require("mongoose");
 
 
 export default function Polls (props) {
   const [viewForm, setViewForm] = useState(false);
+  const [admin, setAdmin] = useState(false);
   const [polls, setPolls] = useState([]);
   const [group, setGroup] = useState(props.group);
   const [poll, setPoll] = useState("");
@@ -27,7 +27,20 @@ export default function Polls (props) {
     socket=io(server);
   }
 
+useEffect(()=>{
+    if(props.group.groupabove){
+      if (props.group.groupabove.members.includes(auth.isAuthenticated().user._id)){
+        setAdmin(true)
+      }
+    }
+   },[])
+
   useEffect(() => {
+    if(props.group.groupabove){
+      if (props.group.groupabove.members.includes(auth.isAuthenticated().user._id)){
+        setAdmin(true)
+      }
+    }
     setGroup(props.group)
 console.log("props",props)
     fetch("/polls/getpolls/"+props.groupId)
@@ -53,9 +66,6 @@ console.log("PPPOOOOOO!!!!!!!!!!!",po)
   pagenums.reverse()
   console.log(pagenums)
   setPageNum(pagenums)
-
-
-
 })
 },[props])
 

@@ -124,7 +124,7 @@ class GroupsList extends Component {
       <button onClick={(e) => this.setState({viewform:!this.state.viewform})}>View Create Group Form?</button>
       </div>
       <div style={{marginTop:"1vw",marginBottom:"1vw",maxHeight:!this.state.viewform?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
-      <CreateGroupForm  updateGroups={this.updateGroups} user={this.state.user}/>
+      <CreateGroupForm  updateGroups={this.updateGroups} groups={this.state.groups} user={this.state.user}/>
       </div>
 
 

@@ -499,8 +499,10 @@ if(group.level>0){
              member.votes=member.votes.filter(item=>!item.startsWith(groupidentifier))
              console.log("USER.VOTES!!!!!!",member.votes)
          }
+        members.filter(memb=>(memb.votes.length/groupbelow.members.length)>0.75)
          members.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
-         let numofreps=Math.round(members.length/25)
+         let numofreps=Math.round(members.length)
+         // add /25 here
          let leaders=members.slice(0,numofreps)
          leaders=leaders.map(item=>item._id)
          console.log("members sorted",leaders)

@@ -20,6 +20,7 @@ mongoose.set('useFindAndModify', false);
 router.get("/getusers", (req, res) => {
   User.find({"active":true})
   .populate("restrictions")
+  .populate("groupstheybelongto")
   .populate("recentprivatemessages")
   .then(rule => res.json(rule))
   .catch(err => res.status(400).json('Error: ' + err));
@@ -44,12 +45,7 @@ router.get("/finduser/:userId", (req, res) => {
       const items=Group.find({_id:req.params.groupId})
       .populate('members')
       .populate('groupabove')
-      .populate({
-        path : 'groupsbelow',
-        populate : {
-          path : 'members'
-        }
-      })
+      .populate('groupsbelow')
       .exec(function(err,docs){
         if(err){
           console.log(err);
