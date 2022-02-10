@@ -14,8 +14,6 @@
   padding:1vw;
 }
 
-
-
 .homepageform input{
   display:inline;
 }
@@ -35,6 +33,11 @@
 .titlediv{
   width:100%;
 }
+
+.restrictionexplanation{
+  transition: height 4s;
+}
+
 .group{
   margin-top:1vw;
   background:#f6f6f6;
@@ -224,9 +227,10 @@ input.error {
         border-width:5px;
         overflow:hidden;
         position:relative;
-        padding:1vw;
-        margin:1vw;
-        width:25vw;
+        padding:0.5vw;
+        margin:0.5vw;
+        width:27.5vw;
+        height:12vh;
       }
 
       button{
@@ -361,9 +365,7 @@ input.error {
         border-style:none;
       }
 
-      input:focus{
-        border-style:none;
-      }
+
 
       .percentagecontainer{
         width:98%;
@@ -380,8 +382,7 @@ input.error {
 
 
       input:focus{
-        border-color:#f6f6f6;
-        outline: none !important;
+        border-color:#bababa;
       }
 
       select{
@@ -392,8 +393,12 @@ input.error {
         border-color:#D3D3D3;
       }
       select:focus{
-        border-color:#f6f6f6;
+        border-color:#bababa;
         outline: none !important;
+      }
+      #file{
+        border-color:#bababa;
+
       }
 
       .rule{

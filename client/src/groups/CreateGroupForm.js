@@ -10,9 +10,9 @@ export default function CreateGroupForm(props) {
   const titleValue = React.useRef('')
   const descriptionValue = React.useRef('')
   const [uploading, setUploading] = useState(false);
+  const [uploadComplete,setUploadComplete]=useState(false)
   const [errors, setErrors] = useState([]);
   const [failed, setFailed] = useState(false);
-
   const levelValue = React.useRef(0)
   const parentGroupValue = React.useRef('')
   const selectedFile1 = React.useRef(null)
@@ -75,7 +75,7 @@ function changing(){
   }
   let errorscopy=[]
 console.log(errorscopy)
-  if(!parentGroupValue.current.value){
+  if(!parentGroupValue.current.value&&auth.isAuthenticated().user.cool){
     errorscopy.push("You need to choose a parent group")
   }
 
@@ -87,7 +87,7 @@ console.log(errorscopy)
     errorscopy.push("You need a group description")
   }
 
-  if(!levelValue.current.value){
+  if(!levelValue.current.value&&auth.isAuthenticated().user.cool){
     errorscopy.push("You need to choose a group level")
   }
 
@@ -134,12 +134,14 @@ if (errors.length==0){
 
   let d = new Date();
   let n = d.getTime();
-
+let groupabove=auth.isAuthenticated().user.cool?parentGroupValue.current.value:null
+console.log("GROUP ABOVE",groupabove)
   const newPost={
     _id:groupId,
     title: titleValue.current.value,
-    groupabove:parentGroupValue.current.value,
+    groupabove:groupabove,
     description:descriptionValue.current.value,
+    cool:auth.isAuthenticated().user.cool,
     timecreated:n,
     images:imageids,
     level:levelValue.current.value,
@@ -176,6 +178,10 @@ if (errors.length==0){
             console.log(err);
           })
           setUploading(false)
+          setUploadComplete(true)
+          setTimeout(() => {
+      setUploadComplete(false)
+      }, 5000)
 }
           }
 
@@ -203,33 +209,37 @@ if (errors.length==0){
             ref={descriptionValue}
             />
             </div>
-            <div style={{display:"inline"}}>
-            <label style={{display:"inline"}} style={{display:"inline"}} htmlFor='name'>Choose a Level</label>
-            <select style={{display:"inline"}} onChange={setUpperGroupOptions} ref={levelValue}>
-            <option value=""></option>
-            <option value="0">0</option>
-            {levels&&levels.map(item=><option value={item}>{item}</option>)}
-            </select>
-            </div>
+
+            {auth.isAuthenticated().user.cool&&
+              <div style={{display:"inline"}}>
+              <label style={{display:"inline"}} style={{display:"inline"}} htmlFor='name'>Choose a Level</label>
+              <select style={{display:"inline"}} onChange={setUpperGroupOptions} ref={levelValue}>
+              <option value=""></option>
+              <option value="0">0</option>
+              {levels&&levels.map(item=><option value={item}>{item}</option>)}
+              </select>
+              </div>}
+
+            {auth.isAuthenticated().user.cool&&
             <div style={{display:"inline"}}>
             <label htmlFor='name'>Choose a parent group</label>
             <select ref={parentGroupValue}>
             <option value=""></option>
             {subgroups&&subgroups.map(item=><option value={item._id}>{item.title}</option>)}
             </select>
-            </div>
-            <div style={{display:"inline"}}>
+            </div>}
+            <div id="file" style={{display:"inline"}}>
             <label style={{display:"inline"}} htmlFor='name'>Image</label>
-            <input style={{display:"inline",width:"30%"}} id="file" type="file" ref={selectedFile1}/>
+            <input style={{display:"inline",width:"30%"}} type="file" ref={selectedFile1}/>
             </div>
             <div>
             <label>You must choose a level before you can choose a parent group. You can only create a group at a level above zero
             if you have been elected to be a member of a higher level group.</label>
             </div>
             {(errors&&failed)&&errors.map(item=><p style={{color:"red"}}>{item}</p>)}
-            {(!uploading&&!failed)&&<button style={{margin:"1vw"}} type="submit" value="Submit">Submit</button>}
-            {uploading&&<h3>uploading!!!!!</h3>}
-
+            {(!uploadComplete&&!uploading&&!failed)&&<button style={{margin:"1vw"}} type="submit" value="Submit">Submit</button>}
+            {uploading&&<h3>uploading.....</h3>}
+            {uploadComplete&&<h2>Upload Complete</h2>}
             </form>
             </div>
           )}

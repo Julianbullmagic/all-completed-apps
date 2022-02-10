@@ -43,9 +43,16 @@ router.get("/finduser/:userId", (req, res) => {
 
     router.get("/findgroup/:groupId", (req, res, next) => {
       const items=Group.find({_id:req.params.groupId})
-      .populate('members')
+      .populate({path: 'members',
+        match: { active:true }})
       .populate('groupabove')
       .populate('groupsbelow')
+      .populate({
+  path: 'groupsbelow',
+  populate: {
+    path: 'groupsbelow',
+  }
+})
       .exec(function(err,docs){
         if(err){
           console.log(err);
@@ -126,8 +133,8 @@ router.get("/finduser/:userId", (req, res) => {
         })
 
 
-        router.get("/findgroups", (req, res, next) => {
-
+        router.get("/findgroups/:cool", (req, res, next) => {
+// {cool:req.params.cool}
           const items=Group.find()
           .populate('members')
           .exec(function(err,docs){
@@ -142,11 +149,12 @@ router.get("/finduser/:userId", (req, res) => {
           })})
 
           router.post("/creategroup", (req, res, next) => {
-
+            console.log(req.body)
             let newGroup = new Group({
               _id: req.body['_id'],
               level:req.body['level'],
               images:req.body['images'],
+              cool:req.body['cool'],
               groupabove:req.body['groupabove'],
               timecreated:req.body['timecreated'],
               members:req.body["members"],
@@ -191,7 +199,7 @@ router.get("/finduser/:userId", (req, res) => {
 
           router.put("/addrestrictiontouser/:user/:restriction", (req, res, next) => {
             console.log("adding restriction to user",req.params.user,req.params.restriction)
-            User.findByIdAndUpdate(req.params.user, {$push : {
+            User.findByIdAndUpdate(req.params.user, {$addToSet : {
               restrictions:req.params.restriction
             }}).exec(function(err,docs){
               if(err){

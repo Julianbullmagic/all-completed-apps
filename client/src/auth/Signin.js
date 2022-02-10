@@ -66,7 +66,7 @@ export default function Signin(props) {
         auth.authenticate(data, () => {
           setValues({ ...values, error: '',redirectToReferrer: true})
         })
-        
+
         socket.emit("new user", data.user.name);
 
       }
@@ -104,7 +104,7 @@ export default function Signin(props) {
           </div>
            {
             values.error && (<Typography component="p" color="error">
-              <Icon color="error" className={classes.error}>error</Icon>
+              <Icon color="error" className={classes.error}>error </Icon>
               {values.error}
             </Typography>)
           }

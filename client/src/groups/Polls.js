@@ -42,7 +42,7 @@ useEffect(()=>{
       }
     }
     setGroup(props.group)
-console.log("props",props)
+console.log("props and group",props, group)
     fetch("/polls/getpolls/"+props.groupId)
     .then(res => {
       return res.json();
@@ -86,24 +86,20 @@ function decidePage(e,pagenum){
       var d = new Date();
       var n = d.getTime();
       var pollId=mongoose.Types.ObjectId()
-
+console.log("GROUP",group)
       const newPoll={
         _id:pollId,
         pollquestion:pollquestion.current.value,
-        groupId:props.groupId,
+        level:group.level,
+        groupIds:[group._id],
         suggestions:[],
         timecreated:n,
         createdby:auth.isAuthenticated().user._id
       }
 
-      const newPollToRender={
-        _id:pollId,
-        suggestions:[],
-        groupId:props.groupId,
-        pollquestion:pollquestion.current.value,
-        timecreated:n,
-        createdby:auth.isAuthenticated().user
-      }
+      const newPollToRender=JSON.parse(JSON.stringify(newPoll))
+      newPollToRender.createdby=auth.isAuthenticated().user
+
 
       console.log("NEW POLL!!",newPoll)
       var d = new Date();
@@ -279,7 +275,7 @@ var pollsmapped=currentPageData.map((item,i)=>{
   <>
 <div className="postbox">
 <div>
-<Poll poll={item} users={props.users} deletePoll={deletePoll} sendPollNotification={sendPollNotification}/>
+<Poll poll={item} users={props.users} deletePoll={deletePoll} sendPollNotification={sendPollNotification} group={group}/>
 </div>
 <Comment id={item._id}/>
 </div>

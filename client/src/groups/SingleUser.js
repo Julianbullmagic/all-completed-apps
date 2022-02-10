@@ -224,7 +224,7 @@ if(restrictions){
     let elapsed=n-item.timecreated
     let dayselapsed=Math.round(elapsed/86400000)
     let daysleft=item.duration-dayselapsed
-    return (<><h4 style={{textAlign:"center"}}>{item.restriction} for {daysleft} days</h4></>)})}
+    return (<><h4 style={{textAlign:"center"}}>{item.restriction} for {daysleft} days. Explanation: {item.explanation}</h4></>)})}
 
 
 

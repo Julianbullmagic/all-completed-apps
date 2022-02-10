@@ -5,10 +5,35 @@ const Comment = require("../models/comment.model");
 
 const router = express.Router()
 
+router.route('/sendpostdown/:postId/:groupId').put((req, res) => {
+  console.log("sending post down",req.params)
+
+       Post.findByIdAndUpdate(req.params.postId, {$addToSet : {
+        groupIds:req.params.groupId
+      }},
+      (err, updatedBoard) => {
+      if (err) {
+        res.json({
+          success: false,
+          msg: 'Failed to update post'
+        })
+      } else {
+        res.json({success: true, msg: 'group added to post'})
+      }
+    }
+  )
+})
+
+router.route('/marksentdown/:postId').put((req, res) => {
+  console.log("marking sent down",req.params.postId)
+  const updatedRule=Post.findByIdAndUpdate(req.params.postId, {
+  sentdown:true
+}).exec()
+})
 
   router.route('/getposts/:groupId').get((req, res) => {
     console.log("getting posts")
-    Post.find({groupId:req.params.groupId})
+    Post.find({groupIds:req.params.groupId})
     .populate("createdby")
     .exec(function(err,docs){
       if(err){
@@ -63,18 +88,18 @@ router.route('/deletecomment/:commentId').delete((req, res) => {
 router.route('/createpost/:postId').post((req, res) => {
   let postId = req.params.postId;
 
-
   var newPost=new Post({
     _id: postId,
     post:req.body["post"],
     local :req.body["local"],
-    groupId:req.body["groupId"],
+    level :req.body["level"],
+    groupIds:req.body["groupIds"],
     preview :req.body["preview"],
     timecreated:req.body["timecreated"],
     createdby:req.body["createdby"]
   });
 
-console.log(newPost)
+console.log("new post",newPost)
 newPost.save((err,doc) => {
   if(err){
     res.status(400).json({

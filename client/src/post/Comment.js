@@ -121,7 +121,7 @@ export default function CreateRuleForm(props) {
                   </div>
                   <input className='commentinput'
                   type='text'
-                  style={{overflow:"auto",width:"50vw"}}
+                  style={{overflow:"auto",width:"70vw"}}
                   name='commentValue'
                   id='commentValue'
                   ref={commentValue}

@@ -7,11 +7,52 @@ const Suggestion = require("../models/suggestion.model");
 
 const router = express.Router()
 
+router.route('/sendpolldown/:pollId/:groupId').put((req, res) => {
+  console.log("sending poll down",req.params)
+
+       Poll.findByIdAndUpdate(req.params.pollId, {$addToSet : {
+        groupIds:req.params.groupId
+      }},
+      (err, updatedBoard) => {
+      if (err) {
+        res.json({
+          success: false,
+          msg: 'Failed to update rule'
+        })
+      } else {
+        res.json({success: true, msg: 'group added to rule'})
+      }
+    }
+  )
+})
+router.route('/marksentdown/:pollId').put((req, res) => {
+  console.log("marking sent down",req.params.pollId)
+  Poll.findByIdAndUpdate(req.params.pollId, {
+  sentdown:true
+}).exec()
+})
+router.route('/approveofsendingpolldown/:pollId/:userId').put((req, res) => {
+  Poll.findByIdAndUpdate(req.params.pollId, {$addToSet : {
+  approval:req.params.userId
+}}).exec()
+})
+router.route('/withdrawapprovalofsendingpolldown/:pollId/:userId').put((req, res) => {
+  Poll.findByIdAndUpdate(req.params.pollId, {$pull : {
+  approval:req.params.userId
+}}).exec()
+})
+
+router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => {
+  Poll.findByIdAndUpdate(req.params.pollId, {$pull : {
+  approval:req.params.userId
+}}).exec()
+})
+
 
 
   router.route('/getpolls/:groupId').get((req, res) => {
     console.log("getting polls")
-    Poll.find({groupId:req.params.groupId})
+    Poll.find({groupIds:req.params.groupId})
     .populate("createdby")
     .exec(function(err,docs){
       if(err){
@@ -110,11 +151,12 @@ router.route('/deletecomment/:commentId').delete((req, res) => {
 router.route('/createpoll/:pollId').post((req, res) => {
   let pollId = req.params.pollId;
 
-
+console.log("NEW POLL",req.body)
   var newPoll=new Poll({
     _id: pollId,
-    groupId:req.body["groupId"],
+    groupIds:req.body["groupIds"],
     local :req.body["local"],
+    level:req.body["level"],
     pollquestion:req.body["pollquestion"],
     timecreated:req.body["timecreated"],
     createdby:req.body["createdby"]
@@ -144,6 +186,7 @@ router.route('/createrestrictionpoll/:restrictionPollId').post((req, res) => {
     _id: restrictionpollid,
     groupId:req.body["groupId"],
     local :req.body["local"],
+    explanation:req.body["explanation"],
     usertorestrict:req.body["usertorestrict"],
     usertorestrictname:req.body["usertorestrictname"],
     restriction:req.body["restriction"],

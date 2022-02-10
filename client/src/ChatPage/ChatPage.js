@@ -280,7 +280,7 @@ if(type==true){
       <ChatCard key={chat._id}  {...chat} />
     )
   })}
-
+let users=this.state.users.map(item=>item._id)
       return (
             <React.Fragment >
             <div style={{height:this.state.height}} className="chat">
@@ -292,8 +292,9 @@ if(type==true){
     value={this.state.chatMessage}
     onChange={this.handleInputChange}></textarea>
 
-    <button style={{display:"inline"}} className="submitbutton" onClick={this.submitChatMessage}>Submit Message</button>
-      <select style={{margin:"5px",display:"inline",width:"17vw"}} name="room" id="room" onChange={this.handleuserchange}>
+    {(users.includes(auth.isAuthenticated().user._id))&&
+      <button style={{display:"inline",marginTop:"0.5vh"}} className="submitbutton" onClick={this.submitChatMessage}>Submit Message</button>}
+      <select style={{marginLeft:"2vw",marginTop:"0.5vh",display:"inline",width:"17vw"}} name="room" id="room" onChange={this.handleuserchange}>
       <option value="All Group Chat">All Group Chat</option>
       {this.state.users&&this.state.users.map(user=>{
         return(
@@ -303,7 +304,6 @@ if(type==true){
       </select>
           </div>
     <div style={{border:"white", borderStyle: "solid",borderWidth:"5px",margin:"10px"}} className="chatcoloumn2">
-
                     <div style={{ width:"97%",height: "90%",background:"#efefef",margin:"10px",  overflowY: 'scroll' }}>
                         {chats}
                         <div

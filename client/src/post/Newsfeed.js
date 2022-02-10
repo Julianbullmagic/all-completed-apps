@@ -62,54 +62,59 @@ export default function Newsfeed (props) {
 
   },[post])
 
-  async function sendPostDown(post){
-    let optionsone = {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: ''
-    }
-    console.log("Post",post)
-    fetch("/events/marksentdown/" + post._id, optionsone
-  ).then(res => {
+
+  function sendPostDown(posttosend){
+    console.log("sending post down",posttosend)
+
+    if(!posttosend.sentdown){
+      var postcopy=JSON.parse(JSON.stringify(posts))
+
+for (let po of postcopy){
+  if (po._id==posttosend._id.toString()){
+    po.sentdown=true
+  }
+}
+      setPosts(postcopy)
+      let current=postcopy.slice((page*10-10),page*10)
+      console.log(current)
+      setCurrentPageData(current)
+
+            const options = {
+              method: 'put',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+                 body: ''
+            }
+
+            fetch("/posts/marksentdown/" + posttosend._id.toString(), options
+      ).then(res => {
+       console.log(res);
+      }).catch(err => {
+       console.log(err);
+      })
+
+      console.log("GROUPS BELOW",group)
+      let lowergroupids=[]
+      for (let grou of group.groupsbelow){
+        console.log("GROUP",grou,posttosend)
+        if(grou.groupsbelow){
+          lowergroupids.push(...grou.groupsbelow)
+        }
+    lowergroupids.push(grou._id)
+          }
+          console.log("lowergroupids",lowergroupids)
+    for (let gr of lowergroupids){
+      console.log("Lower GROUP",gr,posttosend._id.toString())
+      fetch("/posts/sendpostdown/" + posttosend._id.toString() +"/"+ gr, options
+    ).then(res => {
     console.log(res);
-  }).catch(err => {
+    }).catch(err => {
     console.log(err);
-  })
-
-  console.log("GROUPS BELOW",props.group.groupsbelow)
-  for (let group of props.group.groupsbelow){
-    console.log("GROUP",group)
-    let d = new Date();
-    let n = d.getTime();
-    let postId=mongoose.Types.ObjectId()
-
-    const newPost={
-      _id:postId,
-      post:post,
-      groupId:props.groupId,
-      preview:preview,
-      timecreated:n,
-      createdby:auth.isAuthenticated().user._id
+    })
     }
-
-    console.log(newPost)
-    let optionstwo={
-      method: "POST",
-      body: JSON.stringify(newPost),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"}}
-
-
-        fetch("/posts/createpost/"+postId, optionstwo)
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(err => {
-          console.log(err);
-        })
-      }
     }
+  }
 
   function getId(url) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -164,7 +169,8 @@ export default function Newsfeed (props) {
     const newPost={
       _id:postId,
       post:post,
-      groupId:props.groupId,
+      level:group.level,
+      groupIds:[props.groupId],
       preview:preview,
       timecreated:n,
       createdby:auth.isAuthenticated().user._id
@@ -341,6 +347,7 @@ export default function Newsfeed (props) {
                     <>
                     <h2>{item.preview.title}</h2>
                     <img src={item.preview.image}></img>
+
                     </>
                     if(item.preview.url){
                       prev=
@@ -353,7 +360,7 @@ export default function Newsfeed (props) {
                   }
                 }
               }
-
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!",group.level,item.level)
               return (
                 <>
                 <div key={i} className="postbox">
@@ -361,7 +368,14 @@ export default function Newsfeed (props) {
                 <h4><strong>Post: </strong>{item.post}</h4>
 
                 {prev&&prev}
-                <div><h5 style={{display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5><button style={{display:"inline"}} onClick={(e)=>deletePost(e,item._id)}>Delete Post?</button></div>
+                <div><h5 style={{display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5>
+              {(item.level>group.level)&&<div><h5 style={{display:"inline"}}><strong>This post has been passed down by a
+              level {item.level} group</strong></h5></div>}
+
+                {(group.level==item.level)&&
+                  <button style={{display:"inline"}} onClick={(e)=>deletePost(e,item._id)}>Delete Post?</button>}</div>
+                {((group.level==item.level)&&!item.sentdown&&(item.level>0))&&
+                  <button style={{display:"inline"}}  onClick={(e)=>sendPostDown(item)}>Send Post Down?</button>}
                 </div>
                 <Comment id={item._id}/>
 

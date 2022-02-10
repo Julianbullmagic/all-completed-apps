@@ -12,6 +12,10 @@ export default function Jury(props) {
   const [selectedUser, setSelectedUser] = useState(props.users[0]);
   const [group, setGroup] = useState(props.group);
   const [restriction, setRestriction] = useState('cannot post');
+  const [uploadComplete, setUploadComplete] = useState(false);
+  const [isShown,setIsShown]=useState(false)
+  const [leaderCreatingRestriction,setLeaderCreatingRestriction]=useState(false)
+  const [explanation, setExplanation] = useState('');
   const [duration, setDuration] = useState(0);
   const [restrictionPolls, setRestrictionPolls] = useState([]);
   const [comment, setComment] = useState("");
@@ -65,7 +69,6 @@ export default function Jury(props) {
 
 
   function decidePage(e,pagenum){
-
     console.log("decide page",(pagenum*10-10),pagenum*10)
     let currentpage=restrictionPolls.slice((pagenum*10-10),pagenum*10)
     console.log("currentpage",currentpage)
@@ -76,6 +79,7 @@ export default function Jury(props) {
 
 
   async function leaderCreateRestriction(e){
+    setLeaderCreatingRestriction(true)
     e.preventDefault()
     console.log(restriction,duration,selectedUser)
     var d = new Date();
@@ -117,6 +121,7 @@ export default function Jury(props) {
               _id:restrictionId,
               usertorestrict:selectedUser._id,
               restriction:restriction,
+              explanation:explanation,
               groupId:props.groupId,
               duration:duration,
               timecreated:n
@@ -154,6 +159,11 @@ export default function Jury(props) {
         console.log(updateduser.data)
         props.updateUser(updateduser.data)
     }
+    setLeaderCreatingRestriction(false)
+    setUploadComplete(true)
+    setTimeout(() => {
+setUploadComplete(false)
+}, 5000)
 }
 
 
@@ -168,6 +178,7 @@ export default function Jury(props) {
       _id:restrictionPollId,
       usertorestrict: selectedUser._id,
       usertorestrictname: selectedUser.name,
+      explanation:explanation,
       groupId:props.groupId,
       restriction: restriction,
       duration:duration,
@@ -314,6 +325,11 @@ export default function Jury(props) {
                       setRestriction(event.target.value)
                     }
 
+                    function handleExplanationChange(event){
+                      console.log(event.target.value)
+                      setExplanation(event.target.value)
+                    }
+
                     function handleDurationChange(event){
                       console.log(event.target.value)
                       setDuration(event.target.value)
@@ -377,6 +393,7 @@ export default function Jury(props) {
                                 _id:restrictionId,
                                 usertorestrict:restriction.usertorestrict._id,
                                 restriction:restriction.restriction,
+                                explanation:restriction.explanation,
                                 groupId:props.groupId,
                                 duration:restriction.duration,
                                 timecreated:n
@@ -641,13 +658,12 @@ export default function Jury(props) {
             <h4 className="ruletext"><strong>Restriction:</strong> {item.restriction} for {item.duration} days, </h4>
             <h4 className="ruletext"><strong>User to Restrict:</strong> {item.usertorestrictname} ,</h4>
             <h4 className="ruletext"><strong>Created By:</strong> {item.createdby.name} ,</h4>
-
             {props.users&&<h4 className="ruletext">{approval}% of members approve this restriction, {item.approval.length}/{props.users.length}</h4>}
-
             {(item.approval.length>0)&&<h4 className="ruletext">, approvees=</h4>}
             {approveenames&&approveenames.map((item,index)=>{return(<h4 className="ruletext"> {item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4>)})}
-            {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>approve(e,item)}>Approve?</button>}
-            {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>withdrawapproval(e,item)}>Withdraw Approval?</button>}
+            {!item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>approve(e,item)}>Approve?</button>}
+            {item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>withdrawapproval(e,item)}>Withdraw Approval?</button>}
+            <h4 style={{margin:"0vw",marginBottom:"0.5vw"}}><strong>Explanation:</strong> {item.explanation} </h4>
             <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
             </div>
             <Comment id={item._id}/>
@@ -687,7 +703,7 @@ export default function Jury(props) {
               <option key={item._id} value={item._id}>{item.name}</option>
             )})}
             </select>
-            <p htmlFor="room"> members</p>
+            <p htmlFor="room"> Members</p>
             </div>
             <div className="eventformbox">
             <select style={{width:"70vw"}} id="restriction" onChange={(e) => handleRestrictionChange(e)}>
@@ -706,14 +722,28 @@ export default function Jury(props) {
             <input style={{display:"inline",width:"70vw"}} type='text' name='duration' id='duration' onChange={(e) => handleDurationChange(e)}/>
             <p htmlFor="duration"> How many days?</p>
             </div>
-            <button onClick={(e) => handleSubmit(e)}>New Restriction Poll</button>
-            {group.groupabove.members.includes(auth.isAuthenticated().user._id)&&
-              <><button onClick={(e) => leaderCreateRestriction(e)}>Create Restriction Immediately</button>
-              <p>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
-              a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on.</p>
-              </>}
-              <p>Restriction polls are activated at 75% approval.</p>
+            <div className="eventformbox">
+            <input style={{display:"inline",width:"70vw"}} type='text' name='explanation' id='explanation' onChange={(e) => handleExplanationChange(e)}/>
+            <p htmlFor="room"> Explanation</p>
 
+            <div className="restrictionexplanation">
+            <p style={{display:"block"}} htmlFor="duration">
+            Explain why you think this restriction should be imposed? Which rule or rules have been broken?
+            What is your evidence? Why do you think this punishment is proportionate to the crime?
+            </p>
+            </div>
+            </div>
+            <button style={{margin:"0.5vw"}} onClick={(e) => handleSubmit(e)}>New Restriction Poll</button>
+            {group.groupabove.members.includes(auth.isAuthenticated().user._id)&&
+              <div style={{margin:"0.5vw",display:"inline"}}>
+              {!leaderCreatingRestriction&&<button style={{margin:"0.5vw",display:"inline"}} onClick={(e) => leaderCreateRestriction(e)}>Create Restriction Immediately</button>}
+              {leaderCreatingRestriction&&<h3 style={{margin:"0.5vw",display:"inline"}}>Uploading Restriction!!!</h3>}
+              {uploadComplete&&<h2 style={{margin:"0.5vw",display:"inline"}}>Upload Complete</h2>}
+
+              <p style={{margin:"0.5vw"}}>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
+              a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on.</p>
+              </div>}
+              <p style={{margin:"0.5vw"}}>Restriction polls are activated at 75% approval.</p>
             </form>
             </div></>}
 
@@ -726,6 +756,23 @@ export default function Jury(props) {
                 </>)
               })}
               {restrictionpollsmapped}
+              <p style={{display:isShown?"block":"none"}}>
+              If you punish too severely, you are getting revenge.
+              You are also trying to assert dominance and control, you become the bad guy. The best kind of revenge is to succeed and prosper without
+              the need to dominate and control others. Revenge leads to a pointless race to the bottom of people just trying to destroy each other.
+              The only lesson that revenge teaches people is that might makes right, revenge can ony encourage more unethical behaviour, or destroy
+              the spirit and confidence of the person it is inflicted onto.
+
+              We live in a very unfair world and this puts huge pressure on people to behave in immoral ways. This makes us wonder that if we don't
+              dominate others, they might end up dominating us. Try to take this into account when imposing restrictions on rule breakers. Try
+              your best to explain the rules and to not make prejudiced judgments about people. Maybe they have just been surrounded by
+              untrustworthy domineering people their whole lives,  making it very difficult for them to choose to behave ethically. It is
+              much easier to behave in a moral way if you are surrounded by trustworthy people and you know they will reciprocate and follow
+              the golden rule of "treat others how you would like to be treated" with you. People's lives are very complicated and our personal
+              circumstances, advantages and disadvantages, vary hugely.
+               People are much more likey to agree to follow a rule if they understand and agree with it and if the rules are enforced
+               in the spirit that nobody is perfect.
+              </p>
               {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
               {(pageNum.length>1&&pageNum&&restrictionPolls)&&pageNum.map(item=>{
                 return (<>

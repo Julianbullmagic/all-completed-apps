@@ -265,7 +265,6 @@ for (let gr of lowergroupids){
    console.log(err);
  })
 }
-
       }
 
 

@@ -99,7 +99,9 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/chat', require('./routes/chat'));
 
 
-
+const MILLISECONDS_IN_A_MONTH=2629800000
+const MILLISECONDS_IN_THREE_MONTHS=7889400000
+const MILLISECONDS_IN_A_DAY=86400000
 
 
 
@@ -120,12 +122,21 @@ cron.schedule('0 0 0 * * *', () => {
 
     for (let gr of groups){
       let elapsed=n-gr.timecreated
-      if ((gr.members.length<2)&&(elapsed>2629800000)){
-        Group.findByIdAndDelete(gr._id).exec()
-        if(gr.images){
-          for (let img of gr.images){
-            cloudinary.uploader.destroy(img, function(error,result) {
-            console.log(result, error) });
+      if(gr.level==0){
+        if ((gr.members.length<3)&&(elapsed>MILLISECONDS_IN_A_MONTH)){
+          Group.findByIdAndDelete(gr._id).exec()
+          for (let group of groups){
+            if (group.groupsbelow.includes(gr._id)){
+              Group.findByIdAndUpdate(gr._id, {$pull : {
+                groupsbelow:gr._id
+              }}).exec()
+            }
+          }
+          if(gr.images){
+            for (let img of gr.images){
+              cloudinary.uploader.destroy(img, function(error,result) {
+              console.log(result, error) });
+            }
           }
         }
       }
@@ -162,10 +173,10 @@ cron.schedule('0 0 0 * * *', () => {
       console.log("login",login)
       let difference=n-login
       console.log(difference)
-      if (difference<2629800000){
+      if (difference<MILLISECONDS_IN_A_MONTH){
         recentsignins.push(login)
       }
-      if (difference<7889400000){
+      if (difference<MILLISECONDS_IN_THREE_MONTHS){
        thresholdtodelete.push(login)
       }
 
@@ -180,7 +191,7 @@ cron.schedule('0 0 0 * * *', () => {
 
       console.log(recentsignins)
       console.log("milliseconds",millisecondssinceusercreated)
-      if(recentsignins.length<3&&millisecondssinceusercreated>2629800000){
+      if(recentsignins.length<3&&millisecondssinceusercreated>MILLISECONDS_IN_A_MONTH){
         await User.findByIdAndUpdate(user._id,{active:false}).exec()
       }
       if(recentsignins.length>3){
@@ -190,36 +201,36 @@ cron.schedule('0 0 0 * * *', () => {
   }
 
 for (let item of events){
-  if (n-item.timecreated>2629800000){
+  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     Event.findByIdAndDelete(item._id).exec()
     cloudinary.v2.uploader.destroy(item.images[0],
       function(error, result){console.log(result)});
   }
 }
 for (let item of restrictions){
-  if (n-item.timecreated>2629800000){
+  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     Restriction.findByIdAndDelete(item._id).exec()
   }
 }
 for (let item of posts){
-  if (n-item.timecreated>2629800000){
+  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     Post.findByIdAndDelete(item._id).exec()
   }
 }
 
 
 for (let item of restrictionpolls){
-  if (n-item.timecreated>2629800000){
+  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     RestrictionPoll.findByIdAndDelete(item._id).exec()
   }
 }
 for (let item of polls){
-  if (n-item.timecreated>2629800000){
+  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     Poll.findByIdAndDelete(item._id).exec()
   }
 }
 for (let item of comments){
-  if (n-item.timecreated>2629800000){
+  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     Comment.findByIdAndDelete(item._id).exec()
   }
 }
@@ -228,7 +239,7 @@ for (let item of comments){
 
 console.log(restrictions)
 for (let rest of restrictions){
-  let durationinmilli=rest.duration*86400000
+  let durationinmilli=rest.duration*MILLISECONDS_IN_A_DAY
   let timesincecreation=n-rest.timecreated
   if (timesincecreation>durationinmilli){
     Restriction.findByIdAndDelete(rest._id)
@@ -474,6 +485,13 @@ cron.schedule('*/2 * * * *', () => {
   console.log('choosing leaders every minute');
 chooseLeaders()
 async function chooseLeaders(){
+  let users=await User.find({}, '_id').exec()
+
+for (let user of users){
+  await User.findByIdAndUpdate(user, {
+  groupstheybelongto:[]
+}).exec()
+}
   let groups=await Group.find()
      .populate({
       path : 'groupsbelow',
@@ -484,6 +502,16 @@ async function chooseLeaders(){
 
   for (let group of groups){
     console.log("group",group)
+if (group.members){
+  for (let memb of group.members){
+    await User.findByIdAndUpdate(memb, {$addToSet:{
+    groupstheybelongto:group._id
+    }
+  }).exec()
+  }
+}
+
+
 if(group.level>0){
   await Group.findByIdAndUpdate(group._id, {
   members:[]
@@ -510,290 +538,14 @@ if(group.level>0){
          await Group.findByIdAndUpdate(group._id, {$addToSet : {
          members:leaders
        }}).exec()
+
+       for (let leader of leaders){
+         await User.findByIdAndUpdate(leader, {$addToSet:{
+         groupstheybelongto:group._id
+         }
+       }).exec()
+       }
     }
   }
 }
 })
-
-
-// (async function(){
-//
-//
-//     await Group.deleteMany({type:'localgroup'})
-//
-//   //   await User.updateMany({},{$set:{groupstheybelongto:[] }},
-//   //                             function (err, docs) {
-//   //     if (err){
-//   //         console.log(err)
-//   //     }
-//   //     else{
-//   //         console.log("Updated User : ", docs);
-//   //     }
-//   // })
-//
-//
-//
-// var users=await User.find({ })
-//
-// console.log(users)
-//
-// await divideUsersIntoGroups(users,"localgroup")
-//
-//
-// async function divideUsersIntoGroups(gr,ty){
-//   if (gr.length>40){
-//   var levelzerogroups=await divideUsersAtLevelIntoGroups(gr,ty,40,0)
-//   var levelonegroups=await divideUsersAtLevelIntoGroups(gr,ty,400,1,levelzerogroups)
-//   }
-//   if (gr.length>400){
-//   var leveltwogroups=await divideUsersAtLevelIntoGroups(gr,ty,4000,2,levelzerogroups,levelonegroups)
-//   }
-//   if (gr.length>4000){
-//     var levelthreegroups=await divideUsersAtLevelIntoGroups(gr,ty,40000,3,levelzerogroups,leveltwogroups)
-//
-//   }
-//   if (gr.length>40000){
-//     var levelthreegroups=await divideUsersAtLevelIntoGroups(gr,ty,400000,3,levelzerogroups,leveltwogroups)
-//   }
-//
-//
-//   console.log("groups!",levelzerogroups.length)
-//   if(levelonegroup){
-//     console.log(levelonegroups.length)
-//   }
-//   if(leveltwogroup){
-//     console.log(leveltwogroups.length)
-//   }
-//   if(levelthreegroup){
-//     console.log(levelthreegroups.length)
-//   }
-// var groupids=[]
-// if(levelzerogroups){
-//   var levelzerogroupsids=levelzerogroups.map(item=>{return item._id})
-//   groupids.push(...levelzerogroupsids)
-// }
-// if(levelonegroups){
-//   var levelonegroupsids=levelonegroups.map(item=>{return item._id})
-//   groupids.push(...levelonegroupsids)
-//   for (var levelonegroup of levelonegroups){
-//     for (var higher of levelonegroup.groupsbelow){
-//       await Group.findByIdAndUpdate(higher, { groupabove:levelonegroup._id },
-//                                 function (err, docs) {
-//         if (err){
-//             console.log(err)
-//         }
-//         else{
-//             // console.log("Updated User : ", docs);
-//         }
-//     })
-//     }
-//   }
-// }
-// if(leveltwogroups){
-//   var leveltwogroupsids=leveltwogroups.map(item=>{return item._id})
-//   groupids.push(...leveltwogroupsids)
-//   for (var leveltwogroup of leveltwogroups){
-//     for (var highertwo of leveltwogroup.groupsbelow){
-//       await Group.findByIdAndUpdate(highertwo, { groupabove:leveltwogroup._id },
-//                                 function (err, docs) {
-//         if (err){
-//             console.log(err)
-//         }
-//         else{
-//             // console.log("Updated User : ", docs);
-//         }
-//     })
-//     }
-//   }
-// }
-// if(levelthreegroups){
-//   var levelthreegroupsids=levelthreegroups.map(item=>{return item._id})
-//   groupids.push(...levelthreegroupsids)
-//   for (var levelthreegroup of levelthreegroups){
-//   for (var higherthree of levelthreegroup.groupsbelow){
-//     await Group.findByIdAndUpdate(higherthree, { groupabove:levelthreegroup._id },
-//                               function (err, docs) {
-//       if (err){
-//           console.log(err)
-//       }
-//       else{
-//           // console.log("Updated User : ", docs);
-//       }
-//   })
-//   }
-// }
-// }
-//
-// console.log("groupids",groupids)
-// }
-//
-//
-//
-//   async function divideUsersAtLevelIntoGroups(supergroup,type,theshold,level,localgroups,groupsonelevelbelow){
-//
-// var highergroups=[]
-//
-//       const k=Math.ceil(supergroup.length/theshold)   // Groups Number
-//
-//       console.log("k",k)
-//       const size = theshold // Group size
-//
-//       var docsCopy=JSON.parse(JSON.stringify(supergroup))
-//       let vectors=supergroup.map(item=>{return {x:item.coordinates[0],y:item.coordinates[1]}})
-//     kmeans.init({k: k, runs: size, equalSize: true, normalize: false })
-//     const sum = kmeans.calc(vectors);
-//
-//
-//     for (var vector of vectors){
-//       for (var user of docsCopy){
-//         if (user.coordinates[0]==vector.x&&user.coordinates[1]==vector.y&&!user.k){
-//           user.k=vector.k
-//         }
-//       }
-//     }
-//     var groups={}
-//     for (var user of docsCopy){
-//       if (groups.hasOwnProperty(`${user.k}`)){
-//         groups[`${user.k}`].push(user)
-//       }else{
-//         groups[`${user.k}`]=[user]
-//       }
-//     }
-//     var highermembers=[]
-//
-//
-//     for (const group in groups) {
-//       var latlongroup=groups[`${group}`].map(member=>{return {lat: member.coordinates[0], lon: member.coordinates[1]}})
-//       var coordinates=groups[`${group}`].map(member=>{return [member.coordinates[0],member.coordinates[1]]})
-//       var userIds=groups[`${group}`].map(member=>{return member._id})
-//
-//       var bias = 10
-//
-//     var result = geocluster(coordinates, bias)
-//
-//     var latloncentroid={lat: result[0]['centroid'][0], lon: result[0]['centroid'][1]}
-//     distancesArray=[]
-//     for (var latlon of latlongroup){
-//       var dist = geodist(latloncentroid, latlon)
-//     distancesArray.push(dist)
-//     }
-//     distancesArray.sort()
-//     let location=''
-//     location=await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${result[0]['centroid'][1]},${result[0]['centroid'][0]}.json?access_token=pk.eyJ1IjoianVsaWFuYnVsbCIsImEiOiJja25zbXJibW0wNHgwMnZsaHJoaDV6MTg4In0.qPBGW4XMJcsZSUCrQej8Zw`)
-//       .then(data => {
-//         let loc=""
-//         console.log(data['data']['features'])
-//         if(data['data']['features'][0]['context'][1]){
-//           console.log("features",data['data']['features'][0]['context'][1]['text'],data['data']['features'][0]['context'][2]['text'])
-//
-//               loc=`${data['data']['features'][0]['context'][1]['text']}, ${data['data']['features'][0]['context'][2]['text']}`
-//
-//
-//           return loc
-//         }
-//     }).catch(err => console.log(err));
-//
-//     var associatedlocalgroups=[]
-//     if(localgroups){
-//       for (var localgroup of localgroups){
-//       console.log(typeof localgroup.members[0])
-//       console.log(typeof userIds[0])
-//
-//     var c = userIds.filter(approvee => localgroup.members.includes(approvee))
-//     if (c.length/localgroup.members.length>0.5){
-//     associatedlocalgroups.push(localgroup._id)
-//     }
-//   }}
-//     var associatedhighergroupsdirectlybelow=[]
-//
-//   if(groupsonelevelbelow){
-//     for (var groupbelow of groupsonelevelbelow){
-//   console.log("groupbelow",groupbelow)
-//     var c = userIds.filter(approvee => groupbelow.allmembers.includes(approvee))
-//     console.log("c.length",c.length)
-//     if (c.length/groupbelow.allmembers.length>0.75){
-//     associatedhighergroupsdirectlybelow.push(groupbelow._id)
-//     }
-//
-//     }
-//   }
-//
-// console.log("DISTANCES ARRAY",distancesArray,distancesArray[`${distancesArray.length-1}`],distancesArray[`${distancesArray.length}`])
-//
-//
-//       var id=new mongoose.Types.ObjectId().toString()
-//       var shuffledmembers=shuffle(userIds)
-//       let newGroup = new Group({
-//         _id:id,
-//         level:level,
-//         type:type,
-//         radius:distancesArray[`${distancesArray.length-1}`],
-//         title:supergroup.title,
-//         description:supergroup.description,
-//         location:supergroup.location,
-//         centroid:supergroup.centroid,
-//         location:location,
-//         associatedlocalgroups:associatedlocalgroups,
-//         centroid:result[0]['centroid'],
-//       });
-//       if (level==1){
-//         newGroup.groupsbelow=associatedlocalgroups
-//
-//       }
-//       if (level>1){
-//         newGroup.groupsbelow=associatedhighergroupsdirectlybelow
-//       }
-//       if (level>0){
-//         newGroup.allmembers= userIds
-//
-//       }
-//       if(level==0){
-//         newGroup.members=userIds
-//         newGroup.allmembers= userIds
-//       }
-//       highergroups.push(newGroup)
-//
-//
-//       newGroup.save((err,docs) => {
-//         if(err){
-//           console.log(err);
-//         }else{
-//           // console.log(docs);
-//
-//         }
-//       })
-//
-//
-//       const promises=shuffledmembers.slice(0,40).map(user=>{
-//         highermembers.push(user)
-//         User.findByIdAndUpdate(user, {$addToSet : {
-//          groupstheybelongto:id
-//         }}).exec(function(err,docs){
-//           if(err){
-//                   console.log(err);
-//               }else{
-//                  // console.log("DOCS",docs)
-//                }})
-//       })
-//
-//       await Promise.all(promises);
-//
-// if(level==0&&type=="localgroup"){
-//   const promises=shuffledmembers.slice(0,40).map(user=>{
-//         User.findByIdAndUpdate(user, {
-//          localgroup:id
-//         }).exec(function(err,docs){
-//           if(err){
-//                   console.log(err);
-//               }else{
-//                  // console.log("DOCS",docs)
-//                }})
-//       })
-//
-//       await Promise.all(promises);
-// }
-//
-//     }
-//     return highergroups
-//   }
-// })()

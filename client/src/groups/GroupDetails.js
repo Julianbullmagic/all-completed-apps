@@ -17,108 +17,21 @@ class GroupDetails extends Component {
     }
   }
 
-  componentDidMount(props){
 
-    if(this.props.group.level==0){
-      var membercoords=this.props.group.members.map(item=>{return item.coordinates})
-      var groupy=[]
-      console.log(this[`props`][`group`][`members`])
-      var membcoords=this[`props`][`group`][`members`].map(item=>{return item.coordinates})
-      console.log(membcoords)
-      var obj={_id:this[`props`][`group`]['_id'],location:this[`props`][`group`]['location'],
-      centroid:this[`props`][`group`]['centroid'],colour:"blue",membcoords:membcoords}
-      groupy.push(obj)
-      console.log("groupyyyyyyyyyy",groupy)
-      this.setState({
-        group:this.props.group,groupy:groupy
-      })
-    }
-
-    if (this.props.group.level>0){
-      var membercoords=this.props.group.members.map(item=>{return item.coordinates})
-      var groupy=[]
-      var colours=["purple","yellow","green","blue","red","pink","black","orange"]
-
-      for (var grou=0;grou<this.props.group.groupsbelow.length;grou++){
-        var membcoords=this[`props`][`group`][`groupsbelow`][grou][`members`].map(item=>{return item.coordinates})
-        console.log(membcoords)
-        var obj={_id:this[`props`][`group`]['groupsbelow'][grou]['_id'],location:this[`props`][`group`]['groupsbelow'][grou]['location'],centroid:this[`props`][`group`]['groupsbelow'][grou]['centroid'],colour:colours[grou],membcoords:membcoords}
-        groupy.push(obj)
-      }
-      console.log("groupyyyyyyyyyy",groupy)
-      this.setState({
-        group:this.props.group,groupy:groupy
-      })
-    }
-  }
 
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.group !== this.props.group) {
-
-      if(nextProps.group.level==0){
-        var membercoords=nextProps.group.members.map(item=>{return item.coordinates})
-        var groupy=[]
-        console.log(nextProps[`group`][`members`])
-        var membcoords=nextProps[`group`][`members`].map(item=>{return item.coordinates})
-        console.log(membcoords)
-        var obj={_id:nextProps[`group`]['_id'],location:nextProps[`group`]['location'],
-        centroid:nextProps[`group`]['centroid'],colour:"blue",membcoords:membcoords}
-        groupy.push(obj)
-        console.log("groupyyyyyyyyyy",groupy)
         this.setState({
-          group:nextProps.group,groupy:groupy
+          group:nextProps.group
         })
-      }
-
-      if (nextProps.group.level>0){
-        var membercoords=nextProps.group.members.map(item=>{return item.coordinates})
-        var groupy=[]
-        var colours=["purple","yellow","green","blue","red","pink","black","orange"]
-
-        for (var grou=0;grou<nextProps.group.groupsbelow.length;grou++){
-          var membcoords=nextProps[`group`][`groupsbelow`][grou][`allmembers`].map(item=>{return item.coordinates})
-          console.log(membcoords)
-          var obj={_id:nextProps[`group`]['groupsbelow'][grou]['_id'],location:nextProps[`group`]['groupsbelow'][grou]['location'],centroid:nextProps[`group`]['groupsbelow'][grou]['centroid'],colour:colours[grou],membcoords:membcoords}
-          groupy.push(obj)
-        }
-        console.log("groupyyyyyyyyyy",groupy)
-        this.setState({
-          group:nextProps.group,groupy:groupy
-        })
-      }
-    }
   }
+}
 
 
 
 
   render(){
-    console.log("GROUPY",this.state.groupy)
-
-    var mappedusers=[]
-    var mappedallusers=[]
-    var mappedgroupmarkers=[]
-    if(this.state.groupy){
-      for (var gr of this.state.groupy){
-        var slicedmembcoords=gr.membcoords
-        var circles=slicedmembcoords.map(coord=>(
-
-          <Circle center={[coord[0],coord[1]]} radius={100} pathOptions={{ color: gr.colour }} />
-        ))
-        mappedusers.push(...circles)
-      }
-
-      for (var mark of this.state.groupy){
-        var marker=<>
-        <Marker position={[mark.centroid[0],mark.centroid[1]]} pathOptions={{ color: mark.colour }}>
-        <Popup>  <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + mark._id}>
-        <h2>{mark.location}</h2></Link></BrowserRouter></Popup>
-        </Marker>
-        </>
-        mappedgroupmarkers.push(marker)
-      }
-    }
 
 
     return (
@@ -143,20 +56,6 @@ class GroupDetails extends Component {
         {this.state.group.images.length>0&&<Image style={{objectFit:"cover",width:"100%",height:"100%",overflow:"hidden",
         position:"relative",boxShadow:"2px 2px 2px 4px #050A30"}}
         cloudName="julianbullmagic" publicId={this.state.group.images[0]} />}
-
-        {(this.state.group.centroid&&this.state.group.type=="localgroup")&&<MapContainer style={{ height: "60vw", width: "80vw" }}
-        center={[this.state.group.centroid[0],this.state.group.centroid[1]]} zoom={60/this.state.group.radius} scrollWheelZoom={false}>
-        <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-
-
-        {mappedusers.length>1&&mappedusers.map(item=>( item))}
-        {mappedgroupmarkers.length>1&&mappedgroupmarkers.map(item=>( item))}
-
-
-        </MapContainer>}
               </div>
               </React.Fragment>
             );

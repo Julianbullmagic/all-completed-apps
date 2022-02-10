@@ -29,6 +29,7 @@ class GroupPage extends Component {
              title:"",
              allmembers:[],
              allgroupsbelow:[],
+             error:'',
              higherlevelgroup:'',
              newLowerGroupIds:[],
              id:'',
@@ -141,22 +142,7 @@ console.log(err);
 }
 
 async join(e){
-  let memberscopy=JSON.parse(JSON.stringify(this.state.users))
-  memberscopy.push(auth.isAuthenticated().user)
-  let groupcopy=JSON.parse(JSON.stringify(this.state.group))
-  groupcopy.members=memberscopy
-
-  this.setState({users:memberscopy,group:groupcopy});
-
-
-let us=await fetch("/groups/finduser/"+auth.isAuthenticated().user._id)
-.then(res => res.json())
-.then(data => data.data)
-.catch(err => {
-console.log(err);
-})
-us=us[0]
-console.log("USER",us.groupstheybelongto)
+console.log("USER",this.state.user)
 
 const options = {
   method: 'put',
@@ -166,16 +152,21 @@ const options = {
      body: ''
 }
 
-if(us.groupstheybelongto.length>=3){
-  let index=us.groupstheybelongto.length-1
-  fetch("/groups/leave/"+us['groupstheybelongto'][index]['_id']+"/"+ auth.isAuthenticated().user._id, options
-  )  .then(res => {
-  console.log(res);
-  }).catch(err => {
-  console.log(err);
-  })
+if(this.state.user.groupstheybelongto.length>=3){
+this.setState({error:`You have already joined the maximum number of groups. You cannot have more than three, you must leave another
+group before you can join this one. To leave a group, visit it's page and press the leave group button near the top.`})
+setTimeout(() => {
+  this.setState({error:""});
+}, 8000)
 }
 
+if(this.state.user.groupstheybelongto.length<3){
+  let memberscopy=JSON.parse(JSON.stringify(this.state.users))
+  memberscopy.push(auth.isAuthenticated().user)
+  let groupcopy=JSON.parse(JSON.stringify(this.state.group))
+  groupcopy.members=memberscopy
+
+  this.setState({users:memberscopy,members:memberscopy,group:groupcopy,error:``});
 fetch("/groups/join/"+this.props.match.params.groupId+"/"+ auth.isAuthenticated().user._id, options
 )  .then(res => {
 console.log(res);
@@ -183,11 +174,12 @@ console.log(res);
 console.log(err);
 })
 }
+}
 
 
   render() {
 
-    let joinOrLeave=<h1></h1>
+    let joinOrLeave=<></>
     var memberids=this.state.users.map(item=>{return item._id})
     console.log(auth.isAuthenticated().user._id)
     if(this.state.level==0){
@@ -203,19 +195,19 @@ console.log(err);
       {this.state.loading&&<>
       <Tabs className="tabs">
       <br/>
-      <h1>{this.state.group.title}</h1>
-      <h4 className="activemembers">Active Members</h4>
+      <h1 style={{margin:"0.5vw"}}>{this.state.group.title}</h1>
+      <h4 style={{margin:"0.5vw"}} className="activemembers">Active Members</h4>
       {this.state.users&&this.state.users.map(item=>{return(
         <><button style={{display:"inline"}}><Link to={"/singleuser/" + item._id}>{item.name}</Link></button></>
       )})}
       {(this.state.users.length<=50)&&joinOrLeave}
-      {(this.state.users.length>50)&&<h4 className="activemembers">This group is full, the maximum number of members in all groups is 50</h4>}
-      <br/>
+      {this.state.error&&<p style={{color:"red"}}>{this.state.error}</p>}
+      {(this.state.users.length>50)&&<h4 style={{margin:"0.5vw"}} className="activemembers">This group is full, the maximum number of members in all groups is 50</h4>}
 
-         <TabList >
+         <TabList>
            {!this.state.cannotpost&&<Tab>News</Tab>}
            <Tab>Group Details</Tab>
-           <Tab>Leaders</Tab>
+           {auth.isAuthenticated().user.cool&&<Tab>Leaders</Tab>}
            {!this.state.cannotcreatepolls&&<Tab>Polls</Tab>}
            {!this.state.cannotsuggestrulesorvoteforrules&&<Tab>Rules</Tab>}
            {!this.state.cannotseeevents&&<Tab>Events</Tab>}
@@ -228,9 +220,9 @@ console.log(err);
          <TabPanel>
           <GroupDetails users={this.state.users} group={this.state.group}/>
           </TabPanel>
-          <TabPanel>
+          {auth.isAuthenticated().user.cool&&<TabPanel>
            <Leaders users={this.state.users} group={this.state.group}/>
-           </TabPanel>
+           </TabPanel>}
          {!this.state.cannotcreatepolls&&<TabPanel>
          <Polls users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
          </TabPanel>}
@@ -245,10 +237,12 @@ console.log(err);
          </TabPanel>}
        </Tabs>
        <br/>
-       <div style={{margin:"4vw"}}>
-       <h6>How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
+       <div style={{margin:"4vw",top:"80%",positition:"fixed"}}>
+       <h6 style={{margin:"0.5vw"}}>How would you improve The Democratic Social Network? This application is still a work in progress, we would like to build something that
+       as many people as possible are hoppy with. Please email any constructive criticism to democraticsocialnetwork@gmail.com. There
+       is also an online marketplace for democratic businesses called the Cooperative Marketplace</h6>
        <Link to="https://cooperative-marketplace.herokuapp.com/">
-         <h1>https://cooperative-marketplace.herokuapp.com/</h1>
+         <h1 style={{margin:"0.5vw"}}>https://cooperative-marketplace.herokuapp.com/</h1>
        </Link>
        <br/>
        </div>

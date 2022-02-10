@@ -17,7 +17,7 @@ const groupSchema = mongoose.Schema({
   location: {
     type: String,
   },
-  type:String,
+  cool:{type:Boolean},
   images:[String],
   level:{type:Number,default:0},
   radius:Number,

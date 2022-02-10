@@ -22,8 +22,8 @@ router.route('/sendruledown/:ruleId/:groupId').put((req, res) => {
       }
     }
   )
-
 })
+
 router.get("/getrules/:groupId", (req, res, next) => {
     Rule.find({groupIds:req.params.groupId})
     .populate("createdby")

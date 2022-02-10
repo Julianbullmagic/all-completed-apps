@@ -55,6 +55,8 @@ export default function Signup (){
     passwordtwo:'',
     passworderror:false,
     coordinates:'',
+    politicalparties:'',
+    passiveincome:false,
     location:'',
     groupsCoordinates:'',
     address:'',
@@ -163,11 +165,25 @@ console.log(values.passworderror)
       imageids.push(response.data.public_id)
     })}
 
+let cool=true
+console.log(cool)
+if (values.politicalparties.toLowerCase().includes("labour")||values.politicalparties.toLowerCase().includes("liberal")
+||values.politicalparties.toLowerCase().includes("greens"||values.politicalparties.toLowerCase().includes("national")
+||values.politicalparties.toLowerCase().includes("united"))){
+  cool=false
+}
+console.log(cool)
+console.log("Boolean(values.passiveincome)",Boolean(values.passiveincome))
+if (Boolean(values.passiveincome)){
+cool=false
+}
+console.log(cool,values.passiveincome,values.politicalparties)
       const user = {
         _id:userId,
         name: values.name || undefined,
         phone: values.phone || undefined,
         email: values.email || undefined,
+        cool:cool,
         expertise: values.expertise || undefined,
         images:imageids,
         password: values.password || undefined
@@ -193,7 +209,13 @@ console.log(values.passworderror)
 
 
     const handleChange = name => event => {
+      console.log(event.target.checked)
       setValues({ ...values, [name]: event.target.value })
+    }
+    const handleCheckboxChange = name => event => {
+      console.log(event.target.checked,values.passiveincome)
+
+      setValues({ ...values, [name]: event.target.checked })
     }
 
     const clickSubmit = (e) => {
@@ -211,10 +233,15 @@ console.log(values.passworderror)
           <h4 style={{textAlign:"center"}}>
             Sign Up
           </h4>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Name </h5><input id="name" placeHolder={values.name} label="Name" value={values.name} onChange={handleChange('name')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Email </h5><input id="email" placeHolder={values.email} type="email" label="Email" value={values.email} onChange={handleChange('email')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Phone </h5><input id="phone" placeHolder={values.phone} type="number" label="Phone" value={values.phone} onChange={handleChange('phone')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Expertise </h5><input id="expertise" type="expertise" placeHolder={values.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
+          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Name </h5><input id="name" placeHolder={values.name} label="text" value={values.name} onChange={handleChange('name')} margin="normal"/></div>
+          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Email </h5><input id="email" placeHolder={values.email} type="text" label="Email" value={values.email} onChange={handleChange('email')} margin="normal"/></div>
+          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Phone </h5><input id="phone" placeHolder={values.phone} type="text" label="Phone" value={values.phone} onChange={handleChange('phone')} margin="normal"/></div>
+          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
+          Are you a member of any political parties? If so, which ones? </h5>
+          <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>
+          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
+          Do you receive any passive income from rents, dividends, interest or royalties? </h5>
+          <input id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
 
           <h5 className="ruletext">  Images </h5>
           <div style={{display:((numImages.length>=1)?"block":"none")}}  className="eventformbox ruletext">
