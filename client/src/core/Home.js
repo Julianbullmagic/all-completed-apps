@@ -34,19 +34,18 @@ getGroupData()
   }
     return (
       <>
-      {!auth.isAuthenticated()&&<img src={require('./2170171.jpg')} style={{width:"100%",height:"100%",backgroundSize:"cover"}}/>}
+      {!auth.isAuthenticated()&&<div style={{height:"100vh",overflow:"hidden"}}><img src={require('./2170171.jpg')} style={{width:"100vw",backgroundSize:"cover"}}/></div>}
+      {auth.isAuthenticated()&&<><GroupList />
 
       <div className="homepage">
-{auth.isAuthenticated()&&<><GroupList />
   <div style={{margin:"1vw"}}>
   <h6>How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
   <Link to="https://cooperative-marketplace.herokuapp.com/">
     <h1>https://cooperative-marketplace.herokuapp.com/</h1>
   </Link>
   </div>
-  </>}
 <br/>
-      </div>
+      </div></>}
       </>
     )
 }
