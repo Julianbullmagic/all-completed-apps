@@ -10,7 +10,7 @@ const create = async (user) => {
     })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -22,7 +22,7 @@ const list = async (signal) => {
     })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -35,10 +35,10 @@ const read = async (params, credentials, signal) => {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + credentials.t
       }
-  })
+    })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -54,7 +54,7 @@ const update = async (params, credentials, user) => {
     })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -70,7 +70,7 @@ const remove = async (params, credentials) => {
     })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -87,7 +87,7 @@ const follow = async (params, credentials, followId) => {
     })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -104,7 +104,7 @@ const unfollow = async (params, credentials, unfollowId) => {
     })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -118,10 +118,10 @@ const findPeople = async (params, credentials, signal) => {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + credentials.t
       }
-    })    
+    })
     return await response.json()
   } catch(err) {
-    console.log(err)
+    console.error(err)
   }
 }
 

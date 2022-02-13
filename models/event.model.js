@@ -14,6 +14,7 @@ const eventSchema = mongoose.Schema({
   coordinates:[Number],
   level:Number,
   notificationsent:{type:Boolean,default:false},
+  approvalnotificationsent:{type:Boolean,default:false},
   createdby:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
   approval: [{type:mongoose.Schema.Types.ObjectId,ref:"User"}],
   timecreated:Number

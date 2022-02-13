@@ -95,6 +95,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  eventsapproved:{
+    type: Boolean,
+    default: true
+  },
   restrictionsapproved:{
     type: Boolean,
     default: true

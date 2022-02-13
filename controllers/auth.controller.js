@@ -25,7 +25,7 @@ console.log(user)
     var n = d.getTime();
 await User.findByIdAndUpdate(user._id,{$push: {signins: n}}).exec(function(err,docs){
   if(err){
-          console.log(err);
+          console.error(err);
       }else{
 
         console.log(docs)
@@ -48,7 +48,7 @@ await User.findByIdAndUpdate(user._id,{$push: {signins: n}}).exec(function(err,d
         recentprivatemessages:user.recentprivatemessages}
     })
   } catch (err) {
-    console.log(err)
+    console.error(err)
     return res.status('401').json({
       error: "Could not sign in"
     })

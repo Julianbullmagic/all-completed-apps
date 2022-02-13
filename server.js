@@ -78,8 +78,8 @@ app.use(function(req,res,next){
 
 const connect = mongoose
   .connect(process.env.DATABASE, { useNewUrlParser: true })
-  .then(() => console.log("connected to mongodb"))
-  .catch(err => console.log(err));
+  .then(() =>
+  .catch(err => console.error(err));
 
 
 // mount routes
@@ -135,7 +135,7 @@ cron.schedule('0 0 0 * * *', () => {
           if(gr.images){
             for (let img of gr.images){
               cloudinary.uploader.destroy(img, function(error,result) {
-              console.log(result, error) });
+
             }
           }
         }
@@ -151,17 +151,17 @@ cron.schedule('0 0 0 * * *', () => {
 
 
     let index=user.signins.length-1
-    console.log('index',index)
-    console.log('most recent signing',user.signins[`${index}`])
+
+
     let timeelapsedsincelogin=n-user.signins[`${index}`]
-    console.log("timeelapsedsincelogin",timeelapsedsincelogin)
+
     if(timeelapsedsincelogin>1000){
 
       if(user.images){
         for (let img of user.images){
 
           cloudinary.uploader.destroy(img, function(error,result) {
-          console.log(result, error) });
+
         }
       }
 
@@ -170,9 +170,9 @@ cron.schedule('0 0 0 * * *', () => {
 
 
     for (let login of user.signins){
-      console.log("login",login)
+
       let difference=n-login
-      console.log(difference)
+
       if (difference<MILLISECONDS_IN_A_MONTH){
         recentsignins.push(login)
       }
@@ -189,14 +189,9 @@ cron.schedule('0 0 0 * * *', () => {
         }
       }
 
-      console.log(recentsignins)
-      console.log("milliseconds",millisecondssinceusercreated)
-      if(recentsignins.length<3&&millisecondssinceusercreated>MILLISECONDS_IN_A_MONTH){
-        await User.findByIdAndUpdate(user._id,{active:false}).exec()
-      }
-      if(recentsignins.length>3){
-        await User.findByIdAndUpdate(user._id,{active:true}).exec()
-      }
+
+
+
     }
   }
 
@@ -204,7 +199,7 @@ for (let item of events){
   if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
     Event.findByIdAndDelete(item._id).exec()
     cloudinary.v2.uploader.destroy(item.images[0],
-      function(error, result){console.log(result)});
+      function(error, result){
   }
 }
 for (let item of restrictions){
@@ -237,7 +232,7 @@ for (let item of comments){
 
 
 
-console.log(restrictions)
+
 for (let rest of restrictions){
   let durationinmilli=rest.duration*MILLISECONDS_IN_A_DAY
   let timesincecreation=n-rest.timecreated
@@ -249,15 +244,14 @@ for (let rest of restrictions){
     restrictions:rest._id
     }}).exec(function(err,docs){
       if(err){
-              console.log(err);
+              console.error(err);
           }else{
 
-            console.log(docs)
+
     }
      })
   }
 }
-
   })()
  })
 
@@ -296,14 +290,14 @@ io.on("connection", socket => {
 
 
  //  socket.on('disconnect', function () {
- //     console.log("disconnecting",socket.id)
- //     console.log(users)
+ //
+ //
  //     for (let x in users){
  //       if(users[`${x}`]==socket.id){
  //         delete users[`${x}`]
  //       }
  //     }
- //     console.log(users)
+ //
  // });
 
 
@@ -311,23 +305,23 @@ io.on("connection", socket => {
   socket.on("new user",function(data){
 
       socket.name=data
-      console.log("NEW USER",data)
+
         users[`${socket.name}`]=socket.id
-      console.log("new room",data.toString())
+
       let da=data
       socket.join(data)
-      console.log(io.sockets.adapter.rooms)
+
 
   })
 
 
   socket.on("join room",async function(room){
-    console.log("join room!",room.userName)
+
     socket.join(room.room);
 
     let us=room.userName
     socket.join(us)
-    console.log(io.sockets.adapter.rooms)
+
 
     let user = await User.findById(room.userId).populate('recentprivatemessages').exec()
     let result = user.recentprivatemessages.filter(us =>!(us.sender==room.recipientId));
@@ -339,30 +333,30 @@ io.on("connection", socket => {
 
 
   socket.on("Input Chat Message To User", msg => {
-console.log("IMPUTTING MESSAGE TO USER")
+
     connect.then(db => {
       try {
         var d = new Date();
         var n = d.getTime();
-        console.log("message",msg)
+
           var chat = new Chat({ message: msg.chatMessage, sender:msg.userId, type: msg.type,recipient:msg.recipient._id,timecreated:n })
 
 
-  console.log("chat",chat)
+
           chat.save((err, doc) => {
-            console.log("error",err)
-            console.log(doc)
+
+
             if(err) return res.json({ success: false, err });
 
 
-console.log("MSG RECIPIENT!!!!!!!!!",msg.recipient._id)
+
             User.findByIdAndUpdate(msg.recipient._id,{$push : {
             recentprivatemessages:doc._id
             }}).exec(function(err,docs){
               if(err){
-                      console.log(err);
+                      console.error(err);
                   }else{
-                      console.log(docs)
+
             }
              })
 
@@ -374,7 +368,7 @@ console.log("MSG RECIPIENT!!!!!!!!!",msg.recipient._id)
               let doccopy=JSON.parse(JSON.stringify(doc[0]))
               let sender=doc[0][`sender`][`_id`]
               doccopy.sender=sender
-              console.log("SENDER",doccopy)
+
               io.emit("Output pm", doccopy);
               return io.to(msg.room).emit("Output Chat Message", doc);
             })
@@ -390,16 +384,16 @@ console.log("MSG RECIPIENT!!!!!!!!!",msg.recipient._id)
 
     connect.then(db => {
       try {
-        console.log("message",msg)
+
         var d = new Date();
         var n = d.getTime();
           var chat = new Chat({ message: msg.chatMessage, sender:msg.userId,groupId:msg.groupId, type: msg.type,timecreated:n })
 
 
-console.log("chat",chat)
+
           chat.save((err, doc) => {
-            console.log("error",err)
-            console.log(doc)
+
+
             if(err) return res.json({ success: false, err })
 
             Chat.find({ "_id": doc._id })
@@ -439,7 +433,7 @@ module.exports = app
 
 
 server.listen(PORT, () => {
-  console.log(`Server Running at ${PORT}`)
+
 });
 
 
@@ -476,13 +470,13 @@ for (let group of groups){
 }
 
 cron.schedule('0 0 1 * *', () => {
-  console.log("running every month")
+
  shufflemembersallgroups()
 })
 
 
 cron.schedule('*/2 * * * *', () => {
-  console.log('choosing leaders every minute');
+  
 chooseLeaders()
 async function chooseLeaders(){
   let users=await User.find({}, '_id').exec()
@@ -501,7 +495,7 @@ for (let user of users){
     }).exec()
 
   for (let group of groups){
-    console.log("group",group)
+
 if (group.members){
   for (let memb of group.members){
     await User.findByIdAndUpdate(memb, {$addToSet:{
@@ -510,7 +504,7 @@ if (group.members){
   }).exec()
   }
 }
-
+let oldleaders=group.members
 
 if(group.level>0){
   await Group.findByIdAndUpdate(group._id, {
@@ -519,21 +513,60 @@ if(group.level>0){
 }
     for (let groupbelow of group.groupsbelow){
         let members=JSON.parse(JSON.stringify(groupbelow.members))
+        let allmembers=JSON.parse(JSON.stringify(groupbelow.members))
         let groupidentifier=`${groupbelow.title},${groupbelow.level}`
-
         for (var member of members){
              let groupidentifier=`${groupbelow.title},${groupbelow.level}`
-             console.log("groupidentifier",groupidentifier)
+
              member.votes=member.votes.filter(item=>!item.startsWith(groupidentifier))
-             console.log("USER.VOTES!!!!!!",member.votes)
+
          }
         members.filter(memb=>(memb.votes.length/groupbelow.members.length)>0.75)
          members.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
-         let numofreps=Math.round(members.length)
-         // add /25 here
+         let numofreps=Math.round(members.length/25)
          let leaders=members.slice(0,numofreps)
+
+         for (let lead of leaders){
+           if (!oldleaders.includes(lead)){
+             for (let memb of allmembers){
+               if (memb.leaders){
+
+                 const transporter = nodemailer.createTransport({
+                   service: 'gmail',
+                   auth: {
+                     user: process.env.EMAIL,
+                     pass: process.env.PASSWORD
+                   }
+                 })
+                 const optionsArray=req.body.emails.map(email=>{
+                   const mailOptions = {
+                     from: process.env.EMAIL,
+                     to: memb.email,
+                     subject: 'new leader',
+                     text: `${lead.name} has been elected as a leader in the group ${groupbelow.title} at level ${groupbelow.level}`
+                   };
+                   return mailOptions
+                 })
+
+                 optionsArray.forEach(sendEmails)
+
+                 function sendEmails(item){
+                   transporter.sendMail(item, function(error, info){
+                     if (error) {
+                       console.error(error);
+                     } else {
+                       
+                     }
+                   })
+
+                 }
+             }
+           }
+           }
+         }
          leaders=leaders.map(item=>item._id)
-         console.log("members sorted",leaders)
+
+
 
          await Group.findByIdAndUpdate(group._id, {$addToSet : {
          members:leaders

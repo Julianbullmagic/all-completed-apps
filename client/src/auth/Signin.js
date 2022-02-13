@@ -59,7 +59,7 @@ export default function Signin(props) {
     signin(user).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error})
-        console.log(data.error)
+        console.error(data.error)
       } else {
         console.log(data)
 

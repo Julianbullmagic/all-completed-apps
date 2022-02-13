@@ -15,19 +15,19 @@ import {Redirect, Link} from 'react-router-dom'
 export default function DeleteUser(props) {
   const [open, setOpen] = useState(false)
   const [redirect, setRedirect] = useState(false)
-  
+
   const jwt = auth.isAuthenticated()
   const clickButton = () => {
     setOpen(true)
   }
-  const deleteAccount = () => { 
+  const deleteAccount = () => {
     remove({
       userId: props.userId
     }, {t: jwt.token}).then((data) => {
       if (data && data.error) {
-        console.log(data.error)
+
       } else {
-        auth.clearJWT(() => console.log('deleted'))
+        auth.clearJWT(() =>
         setRedirect(true)
       }
     })

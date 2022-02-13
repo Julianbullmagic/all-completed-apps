@@ -32,18 +32,18 @@ export default function CreateGroupForm(props) {
     if(max){
       max=max.level
     }
-    console.log("max",max)
-    console.log("SUBGROUPS",subgroups)
+
+
     setSubgroups(subgroups)
   },[props])
 
   useEffect(()=>{
-    console.log("create group form")
+
     fetch(`/groups/finduser/`+auth.isAuthenticated().user._id)
     .then(response => response.json())
     .then(data=>{
       let user=JSON.parse(JSON.stringify(data.data))
-      console.log("user in create group form",user)
+
       let levels = new Set();
 
       for (let group of user[0].groupstheybelongto){
@@ -53,18 +53,18 @@ export default function CreateGroupForm(props) {
       levels=levels.sort((a, b) => a - b)
       levels.pop()
       setLevels(levels)
-      console.log("levels",levels)
+
     })
-    .catch(error=>console.log(error))
-    console.log("setting uppergroup options")
+    .catch(error=>console.error(error))
+
 
   },[])
 
 
   function setUpperGroupOptions(){
-    console.log("setting uppergroup options")
+
     let subgroups=groups.filter(item=>item.level==(levelValue.current.value+1))
-    console.log(subgroups)
+
     setSubgroups(subgroups)
 
   }
@@ -74,7 +74,7 @@ function changing(){
 
   }
   let errorscopy=[]
-console.log(errorscopy)
+
   if(!parentGroupValue.current.value&&auth.isAuthenticated().user.cool){
     errorscopy.push("You need to choose a parent group")
   }
@@ -94,7 +94,7 @@ console.log(errorscopy)
   if (errorscopy.length==0){
     setFailed(false)
   }
-  console.log("ERRORS",errorscopy)
+
 
   setErrors(errorscopy)
 
@@ -105,9 +105,9 @@ console.log(errorscopy)
 if(errors.length>0){
   setFailed(true)
 }
-console.log("creating group")
+
 if (errors.length==0){
-  console.log("creating group!")
+
 
   setUploading(true)
 
@@ -115,27 +115,27 @@ if (errors.length==0){
   groupId=groupId.toString()
 
   let imageids=[]
-  console.log(selectedFile1.current.files[0])
+
   if(selectedFile1.current.files[0]){
     const formData = new FormData();
     formData.append('file', selectedFile1.current.files[0]);
     formData.append("upload_preset", "jvm6p9qv");
     await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
     .then(response => {
-      console.log("cloudinary response",response)
+
       imageids.push(response.data.public_id)
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
     })
   }
 
-  console.log("imageids",imageids)
+
 
   let d = new Date();
   let n = d.getTime();
 let groupabove=auth.isAuthenticated().user.cool?parentGroupValue.current.value:null
-console.log("GROUP ABOVE",groupabove)
+
   const newPost={
     _id:groupId,
     title: titleValue.current.value,
@@ -151,8 +151,8 @@ console.log("GROUP ABOVE",groupabove)
 
   props.updateGroups(newPost)
 
-  console.log(auth.isAuthenticated().user.name)
-  console.log(newPost)
+
+
   const options={
     method: "POST",
     body: JSON.stringify(newPost),
@@ -168,14 +168,14 @@ console.log("GROUP ABOVE",groupabove)
           .then(response => response.json())
           .then(data=>{return data.data})
           .catch(err => {
-            console.log(err);
+            console.error(err);
           })
-          console.log("GROUPID",groupid)
+
           await fetch("groups/addlowertohigher/"+groupid+"/"+parentGroupValue.current.value, optionstwo)
           .then(response => response.json())
-          .then(json => console.log(json))
+          .then(json =>console.log(json))
           .catch(err => {
-            console.log(err);
+            console.error(err);
           })
           setUploading(false)
           setUploadComplete(true)

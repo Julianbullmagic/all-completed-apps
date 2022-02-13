@@ -4,6 +4,7 @@ const PollSchema = new mongoose.Schema({
   pollquestion: {type: String},
   local:{type:Boolean,default:false},
   level:Number,
+  allmembers:[{type:mongoose.Schema.Types.ObjectId,ref:"User"}],
   sentdown:{type:Boolean,default:false},
   approval: [{type:mongoose.Schema.Types.ObjectId,ref:"User"}],
   groupIds:[{type: mongoose.Schema.ObjectId, ref: 'Group'}],

@@ -61,7 +61,7 @@ router.get("/getrules/:groupId", (req, res, next) => {
     }).exec()
     })
 
-    router.route('/restrictionratificationnotificationsent/:ruleId').put((req, res) => {
+    router.route('/ruleratificationnotificationsent/:ruleId').put((req, res) => {
       const updatedPoll=Rule.findByIdAndUpdate(req.params.ruleId, {
       ratificationnotificationsent:true
     }).exec()

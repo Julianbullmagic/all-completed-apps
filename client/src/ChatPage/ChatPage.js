@@ -203,7 +203,7 @@ async handleuserchange(e){
               return arr
           })
         }catch(err){
-        console.log(err)
+        console.error(err)
       }
 
             console.log("CHATSARRAY",chatsarray)

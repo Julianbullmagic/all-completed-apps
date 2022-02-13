@@ -9,8 +9,8 @@ export default function(state={},action){
         case GET_CHATS:
             return {...state, chats: action.payload }
         case GET_GROUP_CHATS:
-        console.log("groupid in reducer")
-        console.log(action.payload)
+
+
             return {...state, chats: action.payload }
         case AFTER_POST_MESSAGE:
                 return {...state, chats: state.chats.concat(action.payload) }

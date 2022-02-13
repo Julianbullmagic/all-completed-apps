@@ -17,16 +17,13 @@ class GroupDetails extends Component {
     }
   }
 
-
-
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.group !== this.props.group) {
-        this.setState({
-          group:nextProps.group
-        })
+      this.setState({
+        group:nextProps.group
+      })
+    }
   }
-}
 
 
 
@@ -36,7 +33,8 @@ class GroupDetails extends Component {
 
     return (
       <React.Fragment>
-      <div>
+      <div style={{display:"flex",justifyContent:"space-around"}}>
+      <div style={{width:"50%"}}>
       <h2>Group Details</h2>
       {this.state.group.title&&<p><strong>Group Title: </strong> {this.state.group.title}</p>}
       {this.state.group.location&&<p><strong>Location: </strong> {this.state.group.location}</p>}
@@ -49,17 +47,19 @@ class GroupDetails extends Component {
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&this.state.group.groupsbelow.map((item,index)=>
           {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}> <p style={{display:"inline"}}>{item.title}{(index<(this.state.group.groupsbelow.length-2))?", ":(index<(this.state.group.groupsbelow.length-1))?" and ":"."}</p></Link></BrowserRouter>})}
           {(this.state.group.centroid&&this.state.group.groupsbelow&&this.state.group.type=="localgroup")&&<p>All the small circles on the map roughly show the spread of members of this whole group. The different colours
-        represent each of the groups that are children of this group. The small spots do not actually show the locations
-        of members but approximately show the area covered by each group.</p>}
-        <br/>
-        <br/>
-        {this.state.group.images.length>0&&<Image style={{objectFit:"cover",width:"100%",height:"100%",overflow:"hidden",
-        position:"relative",boxShadow:"2px 2px 2px 4px #050A30"}}
-        cloudName="julianbullmagic" publicId={this.state.group.images[0]} />}
-              </div>
-              </React.Fragment>
-            );
-          }
-        }
+          represent each of the groups that are children of this group. The small spots do not actually show the locations
+          of members but approximately show the area covered by each group.</p>}
+          </div>
+          <br/>
+          <div style={{width:"50%",textAlign:"right"}}>
+          {(this.state.group.images&&this.state.group.images.length>0)&&<Image style={{objectFit:"cover",
+          position:"relative",boxShadow:"2px 2px 2px 4px #050A30",maxHeight:"40vh"}}
+          cloudName="julianbullmagic" publicId={this.state.group.images[0]} />}
+          </div>
+          </div>
+          </React.Fragment>
+        );
+      }
+    }
 
-        export default GroupDetails;
+    export default GroupDetails;

@@ -26,9 +26,9 @@ router.route('/sendpolldown/:pollId/:groupId').put((req, res) => {
   )
 })
 router.route('/marksentdown/:pollId').put((req, res) => {
-  console.log("marking sent down",req.params.pollId)
+  console.log("marking sent down",req.params.pollId,re.body)
   Poll.findByIdAndUpdate(req.params.pollId, {
-  sentdown:true
+  sentdown:true,allmembers:req.body
 }).exec()
 })
 router.route('/approveofsendingpolldown/:pollId/:userId').put((req, res) => {
@@ -56,7 +56,7 @@ router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => 
     .populate("createdby")
     .exec(function(err,docs){
       if(err){
-              console.log(err);
+              console.error(err);
           }else{
             console.log("docs",docs)
               res.status(200).json({
@@ -107,7 +107,7 @@ router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => 
     .populate("usertorestrict")
     .exec(function(err,docs){
       if(err){
-              console.log(err);
+              console.error(err);
           }else{
             console.log("docs",docs)
               res.status(200).json({
@@ -130,7 +130,7 @@ router.route('/getcomments/:postId').get((req, res) => {
   .populate('createdby')
   .exec(function(err,docs){
     if(err){
-            console.log(err);
+            console.error(err);
         }else{
           console.log("docs",docs)
             res.status(200).json({
@@ -253,7 +253,7 @@ router.route('/getsuggestions/:pollId').get((req, res) => {
   .populate('createdby')
   .exec(function(err,docs){
     if(err){
-            console.log(err);
+            console.error(err);
         }else{
           console.log("docs",docs)
             res.status(200).json({

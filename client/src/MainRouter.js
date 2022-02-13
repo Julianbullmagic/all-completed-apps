@@ -9,7 +9,6 @@ import SingleUser from './groups/SingleUser'
 import Menu from './core/Menu'
 import ExplanationPage from "./ExplanationPage"
 
-
 const MainRouter = () => {
     return (<div>
       <Menu/>
@@ -24,7 +23,5 @@ const MainRouter = () => {
 
     </div>)
 }
-
-
 
 export default MainRouter

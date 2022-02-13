@@ -33,7 +33,7 @@ router.get("/finduser/:userId", (req, res) => {
   .populate("highergroupstheybelongto")
   .exec(function(err,docs){
     if(err){
-      console.log(err);
+      console.error(err);
     }else{
       res.status(200).json({
         data: docs
@@ -55,7 +55,7 @@ router.get("/finduser/:userId", (req, res) => {
 })
       .exec(function(err,docs){
         if(err){
-          console.log(err);
+          console.error(err);
         }else{
           res.status(200).json({
             data: docs
@@ -68,7 +68,7 @@ router.get("/finduser/:userId", (req, res) => {
         const items=Group.find({}, { _id: 1, centroid: 1 })
         .exec(function(err,docs){
           if(err){
-            console.log(err);
+            console.error(err);
           }else{
             res.status(200).json({
               data: docs
@@ -122,7 +122,7 @@ router.get("/finduser/:userId", (req, res) => {
             groupsbelow:req.params.lowerGroupId
           }}).exec(function(err,docs){
                 if(err){
-                  console.log(err);
+                  console.error(err);
                 }else{
                   res.status(200).json({
                     data: docs
@@ -139,7 +139,7 @@ router.get("/finduser/:userId", (req, res) => {
           .populate('members')
           .exec(function(err,docs){
             if(err){
-              console.log(err);
+              console.error(err);
             }else{
               res.status(200).json({
                 data: docs
@@ -203,7 +203,7 @@ router.get("/finduser/:userId", (req, res) => {
               restrictions:req.params.restriction
             }}).exec(function(err,docs){
               if(err){
-                console.log(err);
+                console.error(err);
               }else{
 
                 res.status(200).json({
@@ -221,7 +221,7 @@ router.get("/finduser/:userId", (req, res) => {
               restrictions:req.params.restriction
             }}).exec(function(err,docs){
               if(err){
-                console.log(err);
+                console.error(err);
               }else{
 
                 res.status(200).json({
@@ -238,7 +238,7 @@ router.get("/finduser/:userId", (req, res) => {
             const items=Review.find({groupId:req.params.groupId, userId:req.params.userId})
             .exec(function(err,docs){
               if(err){
-                console.log(err);
+                console.error(err);
               }else{
                 res.status(200).json({
                   data: docs
@@ -274,14 +274,15 @@ router.get("/finduser/:userId", (req, res) => {
                 function sendEmails(item){
                   transporter.sendMail(item, function(error, info){
                     if (error) {
-                      console.log(error);
+                      console.error(error);
                     } else {
                       console.log('Email sent: ' + info.response);
                     }
                   })
 
                 }
-              }})
+              }
+            })
 
 
               router.get("/finduserrestrictions/:userId", (req, res, next) => {
@@ -289,7 +290,7 @@ router.get("/finduser/:userId", (req, res) => {
                 .populate('restrictions')
                 .exec(function(err,docs){
                   if(err){
-                    console.log(err);
+                    console.error(err);
                   }else{
                     res.status(200).json({
                       data: docs
@@ -309,7 +310,7 @@ router.get("/finduser/:userId", (req, res) => {
                   .populate("restrictions")
                   .exec(function(err,docs){
                     if(err){
-                      console.log(err);
+                      console.error(err);
                     }else{
 
                       res.status(200).json({
@@ -331,7 +332,7 @@ router.get("/finduser/:userId", (req, res) => {
                   console.log("new user in server",newUser)
                   newUser.save((err,docs) => {
                     if(err){
-                      console.log(err)
+                      console.error(err)
                       res.status(400).json({
                         message: "The Item was not saved",
                         errorMessage : err.message
@@ -350,7 +351,7 @@ router.get("/finduser/:userId", (req, res) => {
                 router.put("/updateuser/:user", (req, res, next) => {
                   User.findByIdAndUpdate(req.params.user, req.body).exec(function(err,docs){
                     if(err){
-                      console.log(err);
+                      console.error(err);
                     }else{
 
                       res.status(200).json({

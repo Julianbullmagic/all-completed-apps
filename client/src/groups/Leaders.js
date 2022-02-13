@@ -3,177 +3,176 @@ import {Image} from 'cloudinary-react'
 import CreateRuleForm from './CreateRuleForm'
 import auth from './../auth/auth-helper'
 import io from "socket.io-client";
-
 const mongoose = require("mongoose");
 
 let leaders=[]
 
 export default class Leaders extends Component {
 
-    constructor(props) {
-           super(props);
-           for (let user of props.users){
-             if(props.group.groupabove){
-               if (props.group.groupabove.members.includes(user._id)){
-                 console.log("LEADER",user)
-                 leaders.push(user)
-               }
-             }
-            }
-            leaders=[...new Set(leaders)]
+  constructor(props) {
+    super(props);
+    for (let user of props.users){
+      if(props.group.groupabove){
+        if (props.group.groupabove.members.includes(user._id)){
 
-           this.state = {
-             users:props.users,
-             group:props.group,
-             leaders:leaders,
-             redirect: false,
-             updating:false,
-             participate:props.participate
-           }
-}
+          leaders.push(user)
+        }
+      }
+    }
+    leaders=[...new Set(leaders)]
 
-
-             componentWillReceiveProps(nextProps) {
-               let userscopy=JSON.parse(JSON.stringify(nextProps.users))
-
-                if (nextProps.users !== this.props.users) {
-
-                  this.setState({
-                    users:userscopy
-                  });
-                }
-
-                if (nextProps.group !== this.props.group) {
-
-                  this.setState({
-                    group:nextProps.group
-                  });
-                }
-                for (let user of this.state.users){
-                  if(this.state.group.groupabove){
-                    if (this.state.group.groupabove.members.includes(user._id)){
-                      leaders.push(user)
-                    }
-                  }
-                 }
-                 console.log(leaders)
-                 leaders=[...new Set(leaders)]
-
-                this.setState({leaders:leaders})
-              }
-
-
-       approveofuser(e,id){
-         console.log("approving of user",this.state.group,id)
-var userscopy=JSON.parse(JSON.stringify(this.state.users))
-let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
-console.log(vote)
-for (let user of userscopy){
-     let splitvote=`${this.state.group.title},${this.state.group.level}`
-     if(!user.votes){
-       user.votes=[]
-     }
-     if (user.votes){
-       user.votes=user.votes.filter(item=>item.startsWith(splitvote))
-     }
+    this.state = {
+      users:props.users,
+      group:props.group,
+      leaders:leaders,
+      redirect: false,
+      updating:false,
+      participate:props.participate
+    }
   }
-let numreps=Math.round(userscopy.length/25)
-console.log("numreps",numreps)
 
 
+  componentWillReceiveProps(nextProps) {
+    let userscopy=JSON.parse(JSON.stringify(nextProps.users))
 
-console.log(userscopy)
-for (let user of userscopy){
-  if (user._id==id){
- if(!user.votes.includes(vote)){
-     user.votes.push(vote)
-     let splitvote=vote.split(',')
-     splitvote.pop()
-     splitvote.join(",")
-     user.votes=user.votes.filter(item=>item.startsWith(splitvote))
-   }
+    if (nextProps.users !== this.props.users) {
+
+      this.setState({
+        users:userscopy
+      });
+    }
+
+    if (nextProps.group !== this.props.group) {
+
+      this.setState({
+        group:nextProps.group
+      });
+    }
+    for (let user of this.state.users){
+      if(this.state.group.groupabove){
+        if (this.state.group.groupabove.members.includes(user._id)){
+          leaders.push(user)
+        }
+      }
+    }
+
+    leaders=[...new Set(leaders)]
+
+    this.setState({leaders:leaders})
   }
- }
-
- userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
-
- let leaders=userscopy.slice(0,numreps)
- this.setState({leaders:leaders})
 
 
- const options = {
-   method: 'put',
-   headers: {
-     'Content-Type': 'application/json'
-   },
+  approveofuser(e,id){
+
+    var userscopy=JSON.parse(JSON.stringify(this.state.users))
+    let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
+
+    for (let user of userscopy){
+      let splitvote=`${this.state.group.title},${this.state.group.level}`
+      if(!user.votes){
+        user.votes=[]
+      }
+      if (user.votes){
+        user.votes=user.votes.filter(item=>item.startsWith(splitvote))
+      }
+    }
+    let numreps=Math.round(userscopy.length/25)
+
+
+
+
+
+    for (let user of userscopy){
+      if (user._id==id){
+        if(!user.votes.includes(vote)){
+          user.votes.push(vote)
+          let splitvote=vote.split(',')
+          splitvote.pop()
+          splitvote.join(",")
+          user.votes=user.votes.filter(item=>item.startsWith(splitvote))
+        }
+      }
+    }
+
+    userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
+
+    let leaders=userscopy.slice(0,numreps)
+    this.setState({leaders:leaders})
+
+
+    const options = {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: ''
- }
+    }
 
 
-this.setState({users:userscopy})
+    this.setState({users:userscopy})
 
-console.log("/leaders/voteforleader/" + id +"/"+ vote)
-         fetch("/leaders/voteforleader/" + id +"/"+ vote, options
-).then(res => {
-    console.log(res);
+
+    fetch("/leaders/voteforleader/" + id +"/"+ vote, options
+  ).then(res => {
+
   }).catch(err => {
-    console.log(err);
+    console.error(err);
   })
 
   for (let user of this.state.users){
     if (this.state.group.groupabove.members.includes(user._id)){
       leaders.push(user)
     }
-   }
-   leaders=[...new Set(leaders)]
-   console.log(leaders)
+  }
+  leaders=[...new Set(leaders)]
+
   this.setState({leaders:leaders})
 
 }
 
 
-       withdrawapprovalofuser(e,id){
-         var userscopy=JSON.parse(JSON.stringify(this.state.users))
+withdrawapprovalofuser(e,id){
+  var userscopy=JSON.parse(JSON.stringify(this.state.users))
 
-           let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
+  let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
 
 
-         for (var user of userscopy){
-           if (user._id==id){
-             var filteredapproval=user.votes.filter(voted=>!(voted==vote))
-             user.votes=filteredapproval
-           }
-         }
-         userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
+  for (var user of userscopy){
+    if (user._id==id){
+      var filteredapproval=user.votes.filter(voted=>!(voted==vote))
+      user.votes=filteredapproval
+    }
+  }
+  userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
 
-         this.setState({users:userscopy})
+  this.setState({users:userscopy})
 
-         const options = {
-           method: 'put',
-           headers: {
-             'Content-Type': 'application/json'
-           },
-              body: ''
-         }
+  const options = {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: ''
+  }
 
-         fetch("/leaders/withdrawvoteforleader/" + id +"/"+ vote, options
+  fetch("/leaders/withdrawvoteforleader/" + id +"/"+ vote, options
 ) .then(res => {
-    console.log(res);
-  }).catch(err => {
-    console.log(err);
-  })
 
-       }
+}).catch(err => {
+  console.error(err);
+})
 
-
+}
 
 
 
-  render(props) {
 
-let userscomponent
-if (this.state.users){
-console.log("THIS.STATE.USERS",this.state.users)
+
+render(props) {
+
+  let userscomponent
+  if (this.state.users){
+
     userscomponent=this.state.users.map(item => {
       let splitvote=`${this.state.group.title},${this.state.group.level}`
 
@@ -194,33 +193,33 @@ console.log("THIS.STATE.USERS",this.state.users)
       if(item.votes.length>0){
         for (let vote of item.votes){
           let splitvote=vote.split(',')
-          console.log("splitvote",splitvote)
+
           for (let user of this.state.users){
             if (user._id==splitvote[2]){
-              console.log("vote",user.name)
+
               votees.push(user.name)
             }
           }
         }
       }
 
-console.log("VOTEES",votees)
-    return(
-  <>
-  <div className="rule">
-  <h3 className="ruletext">{item.name}  </h3>
-    {(!item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.approveofuser(e,item._id)}>Vote For This Person?</button>}
-    {(item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.withdrawapprovalofuser(e,item._id)}>Withdraw Vote?</button>}
-    {votees.length>0&&<p style={{display:'inline'}}>People who voted: </p>}
-    {votees&&votees.map((item,index)=>{return(<><p style={{display:'inline'}}>{item}{(index<(votees.length-2))?", ":(index<(votees.length-1))?" and ":"."}</p></>)})}
-  </div>
-</>
-)})
-}
 
-let inthisgroup=this.state.group.members.map(item=>item._id)
-inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
-console.log("LEADERS IN RENDER",this.state.leaders)
+      return(
+        <>
+        <div className="rule">
+        <h3 className="ruletext">{item.name}  </h3>
+        {(!item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.approveofuser(e,item._id)}>Vote For This Person?</button>}
+        {(item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.withdrawapprovalofuser(e,item._id)}>Withdraw Vote?</button>}
+        {votees.length>0&&<p style={{display:'inline'}}>People who voted: </p>}
+        {votees&&votees.map((item,index)=>{return(<><p style={{display:'inline'}}>{item}{(index<(votees.length-2))?", ":(index<(votees.length-1))?" and ":"."}</p></>)})}
+        </div>
+        </>
+      )})
+    }
+
+    let inthisgroup=this.state.group.members.map(item=>item._id)
+    inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
+
     return (
       <>
       <br />
@@ -246,15 +245,15 @@ console.log("LEADERS IN RENDER",this.state.leaders)
       When you choose who to vote for, try to priortise their actual credentials instead of whether or not you like them personally.
       The democratic social network tries to prevent demagoguery. This is a phenomenon where people gain influence simply with charm
       and charisma, while they may not actual have the competence for leadership. A demagogue is sort of like a sociopath,
-      very manipulative and cunning, but the term 
+      very manipulative and cunning, but the term
       refers particularly to political leaders. It is nice if leaders are likeable and friendly, but
       this should not be the priority. A real leader tells you what you need to hear, not just what you want to hear.
 
       <hr/>
       {inthisgroup&&<><h3>Vote for Members</h3>
-            {this.state.users.length<1&&<h4>No members</h4>}
-            {userscomponent}</>}
-      </>
-    );
+        {this.state.users.length<1&&<h4>No members</h4>}
+        {userscomponent}</>}
+        </>
+      );
+    }
   }
-}

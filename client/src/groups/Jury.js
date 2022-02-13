@@ -3,9 +3,9 @@ import auth from './../auth/auth-helper'
 import Comment from '../post/Comment'
 import Poll from './Poll'
 import io from "socket.io-client";
-
 const mongoose = require("mongoose");
-
+const MILLISECONDS_IN_A_DAY=86400000
+const MILLISECONDS_IN_A_WEEK=604800000
 
 export default function Jury(props) {
   const [viewForm, setViewForm] = useState(false);
@@ -39,39 +39,39 @@ export default function Jury(props) {
   },[props])
 
   useEffect(() => {
-    console.log("props",props)
+
     fetch("/polls/getrestrictionpolls/"+props.groupId)
     .then(res => {
       return res.json();
     }).then(restrictionpolls => {
-      console.log("polls",restrictionpolls)
+
       let po=restrictionpolls.data
       po.reverse()
       setRestrictionPolls(po)
-      console.log("decide page",0,10)
+
       let currentpage=po.slice(0,10)
-      console.log("currentpage",currentpage)
+
       setCurrentPageData(currentpage)
       let pagenum=Math.ceil(restrictionpolls.data.length/10)
-      console.log("page num",pagenum)
+
       let pagenums=[]
       while(pagenum>0){
         pagenums.push(pagenum)
         pagenum--
       }
       pagenums.reverse()
-      console.log(pagenums)
+
       setPageNum(pagenums)
     }).catch(err => {
-      console.log(err);
+      console.error(err);
     })
   },[])
 
 
   function decidePage(e,pagenum){
-    console.log("decide page",(pagenum*10-10),pagenum*10)
+
     let currentpage=restrictionPolls.slice((pagenum*10-10),pagenum*10)
-    console.log("currentpage",currentpage)
+
     setPage(pagenum)
     setCurrentPageData(currentpage)
   }
@@ -81,7 +81,7 @@ export default function Jury(props) {
   async function leaderCreateRestriction(e){
     setLeaderCreatingRestriction(true)
     e.preventDefault()
-    console.log(restriction,duration,selectedUser)
+
     var d = new Date();
     var n = d.getTime();
 
@@ -107,10 +107,10 @@ export default function Jury(props) {
             }
           }
           let currentrest=`${restriction}${duration}`
-          console.log(!rest.includes(currentrest))
+
 
           if(!rest.includes(currentrest)){
-            console.log("CREAtING NEW RESTRICION")
+
 
             var d = new Date();
             var n = d.getTime();
@@ -127,7 +127,7 @@ export default function Jury(props) {
               duration:duration,
               timecreated:n
             }
-            console.log("NEW RESTRICTION",newRestriction)
+
             const options = {
               method: 'post',
               headers: {
@@ -140,7 +140,7 @@ export default function Jury(props) {
           ).then(res => {
             return res.json()
           }).catch(err => {
-            console.log(err);
+            console.error(err);
           })
 
           const optionstwo = {
@@ -155,9 +155,9 @@ export default function Jury(props) {
         ).then(res => {
           return res.json()
         }).catch(err => {
-          console.log(err);
+          console.error(err);
         })
-        console.log(updateduser.data)
+
         props.updateUser(updateduser.data)
     }
     setLeaderCreatingRestriction(false)
@@ -170,7 +170,7 @@ setUploadComplete(false)
 
   function handleSubmit(e){
     e.preventDefault()
-    console.log(restriction,duration,selectedUser)
+
     var d = new Date();
     var n = d.getTime();
     var restrictionPollId=mongoose.Types.ObjectId()
@@ -193,28 +193,6 @@ setUploadComplete(false)
 
     newRestrictionPollToRender.createdby=auth.isAuthenticated().user
 
-    let chatMessage=`suggested a restriction poll for ${selectedUser.name}`
-    let userId=auth.isAuthenticated().user._id
-    let userName=auth.isAuthenticated().user.name
-    let nowTime=n
-    let type="text"
-
-    socket.emit("Input Chat Message", {
-      chatMessage,
-      userId,
-      userName,
-      nowTime,
-      type});
-
-      var restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
-      restrictionpollscopy.reverse()
-      restrictionpollscopy.push(newRestrictionPollToRender)
-      restrictionpollscopy.reverse()
-      setRestrictionPolls(restrictionpollscopy)
-
-      let current=restrictionpollscopy.slice((page*10-10),page*10)
-
-      setCurrentPageData(current)
 
       const options={
         method: "POST",
@@ -224,9 +202,9 @@ setUploadComplete(false)
 
           fetch("/polls/createrestrictionpoll/"+restrictionPollId, options)
           .then(response => response.json())
-          .then(json => console.log(json))
+          .then(json =>console.log(json))
           .catch(err => {
-            console.log(err);
+            console.error(err);
           })
         }
 
@@ -239,7 +217,7 @@ setUploadComplete(false)
           setRestrictionPolls(filteredarray);
 
           let current=filteredarray.slice((page*10-10),page*10)
-          console.log(current)
+
           setCurrentPageData(current)
 
           var d = new Date();
@@ -259,7 +237,7 @@ setUploadComplete(false)
             nowTime,
             type});
 
-            console.log(filteredarray)
+
             const options={
               method: "Delete",
               body: '',
@@ -269,77 +247,113 @@ setUploadComplete(false)
 
                 fetch("/polls/deletepoll/"+item._id, options)
                 .then(response => response.json())
-                .then(json => console.log(json))
+                .then(json =>console.log(json))
                 .catch(err => {
-                  console.log(err);
+                  console.error(err);
                 })
 
               }
 
 
               function deleteRestriction(e,item) {
+                var restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
 
-                let chatMessage=`restriction ${item.pollquestion} no longer
-                applies for ${item.usertorestrictname}`
-                let userId=auth.isAuthenticated().user._id
-                let userName=""
-                let nowTime=n
-                let type="text"
+                                    let chatMessage=`The restriction, ${item.restriction} for ${item.duration} days, has been deleted for ${selectedUser.name}
+                                    in the group ${group.title}`
+                                    let userId=auth.isAuthenticated().user._id
+                                    let userName=auth.isAuthenticated().user.name
+                                    let nowTime=n
+                                    let type="text"
 
-                socket.emit("Input Chat Message", {
-                  chatMessage,
-                  userId,
-                  userName,
-                  nowTime,
-                  type});
+                                    socket.emit("Input Chat Message", {
+                                      chatMessage,
+                                      userId,
+                                      userName,
+                                      nowTime,
+                                      type});
 
-                  const options={
+
+                                    setRestrictionPolls(restrictionpollscopy)
+                                    let current=restrictionpollscopy.slice((page*10-10),page*10)
+
+                                    setCurrentPageData(current)
+
+                                    let userscopy=JSON.parse(JSON.stringify(props.users))
+
+
+                                    userscopy=userscopy.filter(user=>user.restriction)
+
+                                    let emails=userscopy.map(item=>{return item.email})
+
+                                    let notification={
+                                      emails:emails,
+                                      subject:"Restriction Deleted",
+                                      message:`The restriction ${item.restriction} for ${item.duration} in the group ${group.title} at level ${group.level}
+                                       has been deleted for ${item.usertorestrict.name}`
+                                    }
+
+                                    const options = {
+                                      method: 'post',
+                                      headers: {
+                                        'Content-Type': 'application/json'
+                                      },
+                                      body: JSON.stringify(notification)
+                                    }
+
+                                    fetch("/groups/sendemailnotification", options
+                                  ) .then(res => {
+
+                                  }).catch(err => {
+                                    console.error(err);
+                                  })
+
+                  const opt={
                     method: "Delete",
                     body: '',
                     headers: {
                       "Content-type": "application/json; charset=UTF-8"}}
 
 
-                      fetch("/groups/deleterestriction/"+item._id, options)
+                      fetch("/groups/deleterestriction/"+item._id, opt)
                       .then(response => response.json())
-                      .then(json => console.log(json))
+                      .then(json =>console.log(json))
                       .catch(err => {
-                        console.log(err);
+                        console.error(err);
                       })
 
                     }
 
 
                     function handleMemberChange(event){
-                      console.log(event.target.value)
+
                       for (let user of props.users){
-                        console.log(user.name)
+
                         if(user._id===event.target.value){
-                          console.log(user)
+
                           setSelectedUser(user)
                         }
                       }
                     }
 
                     function handleRestrictionChange(event){
-                      console.log(event.target.value)
+
                       setRestriction(event.target.value)
                     }
 
                     function handleExplanationChange(event){
-                      console.log(event.target.value)
+
                       setExplanation(event.target.value)
                     }
 
                     function handleDurationChange(event){
-                      console.log(event.target.value)
+
                       setDuration(event.target.value)
                     }
 
 
 
                     async function approve(e,item){
-                      console.log("ITEM",item)
+
                       var restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
 
                       for (var restriction of restrictionpollscopy){
@@ -348,11 +362,33 @@ setUploadComplete(false)
                           if(!restriction.approval.includes(auth.isAuthenticated().user._id)){
                             restriction.approval.push(auth.isAuthenticated().user._id)
                           }
+                          let d = new Date();
+                          let n = d.getTime();
+
+                            let approval=0
+
+                            if(props.users){
+                              approval=Math.round((restriction.approval.length/props.users.length)*100)
+                            }
+
+                            if(approval>=10&&!restriction.notificationsent){
+                              sendRestrictionPollNotification(restriction)
+                            }
+
+                            if (approval<75&&(n-restriction.timecreated)>MILLISECONDS_IN_A_WEEK){
+                              deleteRestriction(restriction)
+                              deleteRestrictionPoll(restriction)
+                            }
+
+                            if(approval>75){
+                              sendRestrictionPollApprovedNotification(restriction)
+                            }
+
                         }
                         setRestrictionPolls(restrictionpollscopy)
 
                         let current=restrictionpollscopy.slice((page*10-10),page*10)
-                        console.log(current)
+
                         setCurrentPageData(current)
 
                         let approval
@@ -360,13 +396,13 @@ setUploadComplete(false)
                           approval=(restriction.approval.length/props.users.length)*100
                         }
 
-                        console.log("approval!!!!!",approval)
+
                         let restricteduser={}
                         for (let user of props.users){
-                          console.log("user",user,restriction)
+
                           if(user._id==restriction.usertorestrict._id){
                             restricteduser=user
-                            console.log("restricteduser",restricteduser)
+
                             let rest=[]
                             if(restricteduser.restrictions){
                               for (let r of restricteduser.restrictions){
@@ -375,12 +411,12 @@ setUploadComplete(false)
                               }
                             }
                             let currentrest=`${restriction.restriction}${restriction.duration}`
-                            console.log(!rest.includes(currentrest))
-                            console.log("CREAtING NEW RESTRICION?",approval)
 
-                            if(!rest.includes(currentrest)&&approval>10){
-                              console.log("CREAtING NEW RESTRICION")
-                              restrictionPollApprovedNotification(item)
+
+
+                            if(!rest.includes(currentrest)&&approval>75){
+
+                              sendRestrictionPollApprovedNotification(item)
 
 
                               var d = new Date();
@@ -399,7 +435,7 @@ setUploadComplete(false)
                                 duration:restriction.duration,
                                 timecreated:n
                               }
-                              console.log("NEW RESTRICTION",newRestriction)
+
                               const options = {
                                 method: 'post',
                                 headers: {
@@ -412,7 +448,7 @@ setUploadComplete(false)
                             ).then(res => {
                               return res.json()
                             }).catch(err => {
-                              console.log(err);
+                              console.error(err);
                             })
 
                             const optionstwo = {
@@ -422,15 +458,15 @@ setUploadComplete(false)
                               },
                               body: ''
                             }
-                            console.log("RESTRICTION ID",restriction.usertorestrict._id,restrictionid.data._id)
+
 
                             let updateduser=await fetch("/groups/addrestrictiontouser/" + restriction.usertorestrict._id +"/"+ restrictionid.data._id, optionstwo
                           ).then(res => {
                             return res.json()
                           }).catch(err => {
-                            console.log(err);
+                            console.error(err);
                           })
-                          console.log(updateduser.data)
+
                           props.updateUser(updateduser.data)
 
                         }
@@ -448,9 +484,9 @@ setUploadComplete(false)
 
                   fetch("/polls/approveofrestriction/" + item._id +"/"+ auth.isAuthenticated().user._id, options
                 ).then(res => {
-                  console.log(res);
+
                 }).catch(err => {
-                  console.log(err);
+                  console.error(err);
                 })
               }
 
@@ -472,10 +508,27 @@ setUploadComplete(false)
                     var filteredapproval=restriction.approval.filter(checkRestriction)
                     restriction.approval=filteredapproval
                   }
+                  let d = new Date();
+                  let n = d.getTime();
+
+                    let approval=0
+
+                    if(props.users){
+                      approval=Math.round((restriction.approval.length/props.users.length)*100)
+                    }
+
+                    if(approval>=10&&!restriction.notificationsent){
+                      sendRestrictionPollNotification(restriction)
+                    }
+
+                    if (approval<75&&(n-restriction.timecreated)>MILLISECONDS_IN_A_WEEK){
+                      deleteRestriction(restriction)
+                      deleteRestrictionPoll(restriction)
+                    }
                 }
                 setRestrictionPolls(restrictionpollscopy)
                 let current=restrictionpollscopy.slice((page*10-10),page*10)
-                console.log(current)
+
                 setCurrentPageData(current)
                 const options = {
                   method: 'put',
@@ -487,9 +540,9 @@ setUploadComplete(false)
 
                 fetch("/polls/withdrawapprovalofrestriction/" + item._id +"/"+ auth.isAuthenticated().user._id, options
               ).then(res => {
-                console.log(res);
+
               }).catch(err => {
-                console.log(err);
+                console.error(err);
               })
             }
 
@@ -502,9 +555,25 @@ setUploadComplete(false)
                   if (pol._id==item._id){
                     pol.notificationsent=true
                   }}
+
+                  let chatMessage=`The restriction, ${item.restriction} for ${item.duration} days, has been suggested for ${selectedUser.name}
+                  in the group ${group.title} at level ${group.level}`
+                  let userId=auth.isAuthenticated().user._id
+                  let userName=auth.isAuthenticated().user.name
+                  let nowTime=n
+                  let type="text"
+
+                  socket.emit("Input Chat Message", {
+                    chatMessage,
+                    userId,
+                    userName,
+                    nowTime,
+                    type});
+
+
                   setRestrictionPolls(restrictionpollscopy)
                   let current=restrictionpollscopy.slice((page*10-10),page*10)
-                  console.log(current)
+
                   setCurrentPageData(current)
 
                   let userscopy=JSON.parse(JSON.stringify(props.users))
@@ -517,7 +586,7 @@ setUploadComplete(false)
                   let notification={
                     emails:emails,
                     subject:"New Restriction Suggestion In Group Jury",
-                    message:`${item.createdby.name} suggested a restriction ${item.restriction} for ${item.usertorestrict.name}`
+                    message:`${item.createdby.name} suggested a restriction ${item.restriction} for ${item.usertorestrict.name} in the group ${group.title} at level ${group.level}`
                   }
 
                   const options = {
@@ -530,9 +599,9 @@ setUploadComplete(false)
 
                   fetch("/groups/sendemailnotification", options
                 ) .then(res => {
-                  console.log(res);
+
                 }).catch(err => {
-                  console.log(err);
+                  console.error(err);
                 })
 
                 const optionstwo = {
@@ -545,16 +614,16 @@ setUploadComplete(false)
 
                 fetch("/polls/restrictionnotificationsent/"+item._id, optionstwo
               ) .then(res => {
-                console.log(res);
+
               }).catch(err => {
-                console.log(err);
+                console.error(err);
               })
             }
           }
 
 
-          function restrictionPollApprovedNotification(item){
-            console.log("restrictionPollApprovedNotification(item)",item)
+          function sendRestrictionPollApprovedNotification(item){
+
             let restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
 
             if(!item.ratificationnotificationsent){
@@ -563,30 +632,47 @@ setUploadComplete(false)
                   pol.ratificationnotificationsent=true
                 }}
 
-                console.log(restrictionpollscopy)
 
-                console.log("SENDING RATIFICATION NOTIFICATION")
+
+
                 setRestrictionPolls(restrictionpollscopy)
                 let current=restrictionpollscopy.slice((page*10-10),page*10)
-                console.log(current)
+
                 setCurrentPageData(current)
 
                 let userscopy=JSON.parse(JSON.stringify(props.users))
 
-                console.log(userscopy.length)
+
+
+                let chatMessage=`The restriction, ${item.restriction} for ${item.duration} days, has been approved for ${item.usertorestrict}
+                in the group ${group.title} at level ${group.level}`
+                let userId=auth.isAuthenticated().user._id
+                let userName=auth.isAuthenticated().user.name
+                let nowTime=n
+                let type="text"
+
+                socket.emit("Input Chat Message", {
+                  chatMessage,
+                  userId,
+                  userName,
+                  nowTime,
+                  type});
+
+
 
 
                 userscopy=userscopy.filter(user=>user.restrictionsapproved)
 
                 let emails=userscopy.map(item=>{return item.email})
-                console.log(emails)
-                console.log(emails.length)
 
-                console.log(emails)
+
+
+
                 let notification={
                   emails:emails,
                   subject:"A restriction has been approved by group jury",
-                  message:`${item.usertorestrict.name} ${item.restriction} for ${item.duration} days in `
+                  message:`The restriction, ${item.restriction} for ${item.duration} days, has been approved for ${item.usertorestrict}
+                  in the group ${group.title} at level ${group.level}`
                 }
 
                 const options = {
@@ -599,9 +685,9 @@ setUploadComplete(false)
 
                 fetch("/groups/sendemailnotification", options
               ) .then(res => {
-                console.log(res);
+
               }).catch(err => {
-                console.log(err);
+                console.error(err);
               })
 
               const optionstwo = {
@@ -614,9 +700,9 @@ setUploadComplete(false)
 
               fetch("/polls/restrictionratificationnotificationsent/"+item._id, optionstwo
             ) .then(res => {
-              console.log(res);
+
             }).catch(err => {
-              console.log(err);
+              console.error(err);
             })
           }
         }
@@ -627,7 +713,7 @@ setUploadComplete(false)
 
         var restrictionpollsmapped=currentPageData.map((item,i)=>{
           let approval=<></>
-          console.log("RESTRICTION POLLS",item)
+
           if(props.users){
             approval=Math.round((item.approval.length/props.users.length)*100)
           }
@@ -636,11 +722,14 @@ setUploadComplete(false)
             sendRestrictionPollNotification(item)
           }
 
-          if (approval<75&&(n-item.timecreated)>604800000){
+          if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
             deleteRestriction(item)
             deleteRestrictionPoll(item)
           }
 
+          if(approval>75){
+            sendRestrictionPollApprovedNotification(restriction)
+          }
 
           let approveenames=[]
           for (let user of props.users){
@@ -679,18 +768,18 @@ setUploadComplete(false)
             for (let grou of group.groupsbelow){
               allusers.push(...grou.members)
             }
-            console.log("if")
+
           }else{
-            console.log("else")
+
             allusers.push(...group.members)
           }
 
-          console.log(allusers)
+
           let inthisgroup=group.members.map(item=>item._id)
           inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
 
 
-          console.log("groupabove members!!!!!!!",group.groupabove.members)
+
           return (
             <>
             {inthisgroup&&<><button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Restriction Poll Form?</button>

@@ -43,13 +43,13 @@ class GroupsList extends Component {
   }
 
   searchGroups(event){
-    console.log("searching groups")
+
     if(this.state.searchterm.length>0){
       let groupscopy=JSON.parse(JSON.stringify(this.state.allgroups))
-      console.log(groupscopy,this.state.searchterm.toLowerCase())
+
 
       groupscopy=groupscopy.filter(item=>item.title.toLowerCase().includes(this.state.searchterm.toLowerCase()))
-      console.log(groupscopy)
+
       this.setState({groups:groupscopy})
     }
     if(this.state.searchterm.length==0){
@@ -58,26 +58,26 @@ class GroupsList extends Component {
   }
 
   handleSearchChange(event) {
-  console.log(event.target.value);
-  this.setState({searchterm:event.target.value})
-}
+
+    this.setState({searchterm:event.target.value})
+  }
 
   viewAllGroups(){
 
     fetch(`/groups/finduser/`+auth.isAuthenticated().user._id)
     .then(response => response.json())
     .then(data=>{
-      console.log("USER",data)
+
       this.setState({user:data.data[0]})
-    })
+    }).catch(error=>console.error(error))
 
     fetch('/groups/findgroups/'+auth.isAuthenticated().user.cool).then(res => {
       return res.json();
     }).then(blob => {
       let groups=JSON.parse(JSON.stringify(blob.data))
       this.setState({groups:groups,allgroups:groups})
-      console.log("blob groups",blob.data)
-    })
+
+    }).catch(error=>console.error(error))
   }
 
 
@@ -107,7 +107,7 @@ class GroupsList extends Component {
 
 
     let mygroupsmapped=[]
-    console.log("this.state.user",this.state.user)
+
     let nogroups=false
     if(this.state.user){
       if(this.state.user.groupstheybelongto){

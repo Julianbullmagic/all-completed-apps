@@ -37,7 +37,7 @@ router.route('/marksentdown/:postId').put((req, res) => {
     .populate("createdby")
     .exec(function(err,docs){
       if(err){
-              console.log(err);
+              console.error(err);
           }else{
             console.log("docs",docs)
               res.status(200).json({
@@ -67,7 +67,7 @@ router.route('/getcomments/:postId').get((req, res) => {
   .populate('createdby')
   .exec(function(err,docs){
     if(err){
-            console.log(err);
+            console.error(err);
         }else{
           console.log("docs",docs)
             res.status(200).json({

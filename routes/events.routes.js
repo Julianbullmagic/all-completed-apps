@@ -26,7 +26,12 @@ router.get("/:eventId", (req, res, next) => {
     notificationsent:true
   }).exec()
   })
-
+  router.route('/approvalnotificationsent/:eventId').put((req, res) => {
+    let eventId = req.params.eventId
+    Event.findByIdAndUpdate(eventId, {
+    approvalnotificationsent:true
+  }).exec()
+  })
 
   router.delete("/:eventId", (req, res, next) => {
 

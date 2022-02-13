@@ -76,28 +76,28 @@ export default function Signup (){
   let socket = io(server);
 
   useEffect(()=>{
-    console.log("use EFFECT",numImages)
+
   },[numImages,setNumImages])
 
   function extraImage(e){
     e.preventDefault()
     let imagenum=numImages
-    console.log(imagenum)
+
     if(imagenum.length<5){
-    imagenum.push(0)
+      imagenum.push(0)
     }
-    console.log("after push",imagenum)
+
     setNumImages([...imagenum])
   }
 
   function lessImage(e){
     e.preventDefault()
-    console.log(imagenum)
+
     let imagenum=numImages
     if(imagenum.length>0){
-    imagenum.pop()
+      imagenum.pop()
     }
-    console.log(imagenum)
+
     setNumImages([...imagenum])
   }
 
@@ -108,7 +108,7 @@ export default function Signup (){
       setValues({ ...values, passworderror:true})
     }
 
-console.log(values.passworderror)
+
     if(values.password==values.passwordtwo){
 
       setValues({ ...values, passworderror:false})
@@ -119,181 +119,181 @@ console.log(values.passworderror)
 
       let imageids=[]
 
-    if(selectedFile1.current.files[0]){
-      const formData = new FormData();
-    formData.append('file', selectedFile1.current.files[0]);
-    formData.append("upload_preset", "jvm6p9qv");
-    await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
-    .then(response => {
-      console.log("cloudinary response",response)
-      imageids.push(response.data.public_id)
-    })}
+      if(selectedFile1.current.files[0]){
+        const formData = new FormData();
+        formData.append('file', selectedFile1.current.files[0]);
+        formData.append("upload_preset", "jvm6p9qv");
+        await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+        .then(response => {
 
-    if(selectedFile2.current.files[0]){const formData = new FormData();
-    formData.append('file', selectedFile2.current.files[0]);
-    formData.append("upload_preset", "jvm6p9qv");
-    await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
-    .then(response => {
-      console.log("cloudinary response",response)
-      imageids.push(response.data.public_id)
-    })}
+          imageids.push(response.data.public_id)
+        })}
 
-    if(selectedFile3.current.files[0]){const formData = new FormData();
-    formData.append('file', selectedFile3.current.files[0]);
-    formData.append("upload_preset", "jvm6p9qv");
-    await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
-    .then(response => {
-      console.log("cloudinary response",response)
-      imageids.push(response.data.public_id)
-    })}
+        if(selectedFile2.current.files[0]){const formData = new FormData();
+          formData.append('file', selectedFile2.current.files[0]);
+          formData.append("upload_preset", "jvm6p9qv");
+          await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+          .then(response => {
 
-    if(selectedFile4.current.files[0]){const formData = new FormData();
-    formData.append('file', selectedFile4.current.files[0]);
-    formData.append("upload_preset", "jvm6p9qv");
-    await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
-    .then(response => {
-      console.log("cloudinary response",response)
-      imageids.push(response.data.public_id)
-    })}
+            imageids.push(response.data.public_id)
+          })}
 
-    if(selectedFile5.current.files[0]){const formData = new FormData();
-    formData.append('file', selectedFile5.current.files[0]);
-    formData.append("upload_preset", "jvm6p9qv");
-    await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
-    .then(response => {
-      console.log("cloudinary response",response)
-      imageids.push(response.data.public_id)
-    })}
+          if(selectedFile3.current.files[0]){const formData = new FormData();
+            formData.append('file', selectedFile3.current.files[0]);
+            formData.append("upload_preset", "jvm6p9qv");
+            await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+            .then(response => {
 
-let cool=true
-console.log(cool)
-if (values.politicalparties.toLowerCase().includes("labour")||values.politicalparties.toLowerCase().includes("liberal")
-||values.politicalparties.toLowerCase().includes("greens"||values.politicalparties.toLowerCase().includes("national")
-||values.politicalparties.toLowerCase().includes("united"))){
-  cool=false
-}
-console.log(cool)
-console.log("Boolean(values.passiveincome)",Boolean(values.passiveincome))
-if (Boolean(values.passiveincome)){
-cool=false
-}
-console.log(cool,values.passiveincome,values.politicalparties)
-      const user = {
-        _id:userId,
-        name: values.name || undefined,
-        phone: values.phone || undefined,
-        email: values.email || undefined,
-        cool:cool,
-        expertise: values.expertise || undefined,
-        images:imageids,
-        password: values.password || undefined
-      }
+              imageids.push(response.data.public_id)
+            })}
+
+            if(selectedFile4.current.files[0]){const formData = new FormData();
+              formData.append('file', selectedFile4.current.files[0]);
+              formData.append("upload_preset", "jvm6p9qv");
+              await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+              .then(response => {
+
+                imageids.push(response.data.public_id)
+              })}
+
+              if(selectedFile5.current.files[0]){const formData = new FormData();
+                formData.append('file', selectedFile5.current.files[0]);
+                formData.append("upload_preset", "jvm6p9qv");
+                await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
+                .then(response => {
+
+                  imageids.push(response.data.public_id)
+                })}
+
+                let cool=true
+
+                if (values.politicalparties.toLowerCase().includes("labour")||values.politicalparties.toLowerCase().includes("liberal")
+                ||values.politicalparties.toLowerCase().includes("greens"||values.politicalparties.toLowerCase().includes("national")
+                ||values.politicalparties.toLowerCase().includes("united"))){
+                  cool=false
+                }
 
 
-      create(user).then((data) => {
-        if (data.error) {
-          setValues({ ...values, error: data.error})
-        } else {
-          setValues({ ...values, error: '', open: true})
-        }
-      })
+                if (Boolean(values.passiveincome)){
+                  cool=false
+                }
 
-      setLoading(false)
+                const user = {
+                  _id:userId,
+                  name: values.name || undefined,
+                  phone: values.phone || undefined,
+                  email: values.email || undefined,
+                  cool:cool,
+                  expertise: values.expertise || undefined,
+                  images:imageids,
+                  password: values.password || undefined
+                }
 
-    }
 
-  }
+                create(user).then((data) => {
+                  if (data.error) {
+                    setValues({ ...values, error: data.error})
+                  } else {
+                    setValues({ ...values, error: '', open: true})
+                  }
+                })
 
+                setLoading(false)
 
+              }
+
+            }
 
 
 
-    const handleChange = name => event => {
-      console.log(event.target.checked)
-      setValues({ ...values, [name]: event.target.value })
-    }
-    const handleCheckboxChange = name => event => {
-      console.log(event.target.checked,values.passiveincome)
-
-      setValues({ ...values, [name]: event.target.checked })
-    }
-
-    const clickSubmit = (e) => {
-      createUser()
-    }
-
-    return (
 
 
-        <div className="signupform">
+            const handleChange = name => event => {
 
-        <h2  className="innersignupform" style={{display:(loading?"block":"none")}}>Uploading profile, please wait...</h2>
+              setValues({ ...values, [name]: event.target.value })
+            }
+            const handleCheckboxChange = name => event => {
 
-        <div className="innersignupform" style={{display:(!loading?"block":"none")}}>
-          <h4 style={{textAlign:"center"}}>
-            Sign Up
-          </h4>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Name </h5><input id="name" placeHolder={values.name} label="text" value={values.name} onChange={handleChange('name')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Email </h5><input id="email" placeHolder={values.email} type="text" label="Email" value={values.email} onChange={handleChange('email')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Phone </h5><input id="phone" placeHolder={values.phone} type="text" label="Phone" value={values.phone} onChange={handleChange('phone')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
-          Are you a member of any political parties? If so, which ones? </h5>
-          <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
-          Do you receive any passive income from rents, dividends, interest or royalties? </h5>
-          <input id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
 
-          <h5 className="ruletext">  Images </h5>
-          <div style={{display:((numImages.length>=1)?"block":"none")}}  className="eventformbox ruletext">
-          <input style={{width:"90%"}} id="file" type="file" ref={selectedFile1}/>
-          </div>
+              setValues({ ...values, [name]: event.target.checked })
+            }
 
-          <div style={{display:((numImages.length>=2)?"block":"none")}} className="eventformbox ruletext">
-          <input style={{width:"90%"}} id="file" type="file" ref={selectedFile2}/>
-          </div>
+            const clickSubmit = (e) => {
+              createUser()
+            }
 
-          <div style={{display:((numImages.length>=3)?"block":"none")}}  className="eventformbox ruletext">
-          <input style={{width:"90%"}} id="file" type="file" ref={selectedFile3}/>
-          </div>
+            return (
 
-          <div style={{display:((numImages.length>=4)?"block":"none")}}  className="eventformbox ruletext">
-          <input style={{width:"90%"}} id="file" type="file" ref={selectedFile4}/>
-          </div>
 
-          <div style={{display:((numImages.length>=5)?"block":"none")}}  className="eventformbox ruletext">
-          <input style={{width:"90%"}} id="file" type="file" ref={selectedFile5}/>
-          <p>Max 5 images</p>
-          </div>
+              <div className="signupform">
 
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Password </h5><input id="password" type="password" placeHolder={values.password} label="Password" value={values.password} onChange={handleChange('password')} margin="normal"/></div>
-          <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Confirm Password </h5><input id="passwordtwo" type="password" placeHolder={values.passwordtwo} label="Confirm Password" value={values.passwordtwo} onChange={handleChange('passwordtwo')} margin="normal"/></div>
-          {(!(values.password==values.passwordtwo)&&!(values.passwordtwo==""))&&<h5 style={{marginRight:"1vw",color:"red"}} className="ruletext">Passwords Do Not Match</h5>}
-          {(values.passworderror&&(!(values.password==values.passwordtwo)&&!(values.passwordtwo=="")))&&<h5 style={{marginRight:"1vw",color:"red"}} className="ruletext">Cannot Submit, Must Fix Errors</h5>}
-          <button onClick={(e) => extraImage(e)}>Add Extra Image</button>
-          <button onClick={(e) => lessImage(e)}>One Less Image</button>
-          <button id="submit" onClick={clickSubmit}>Submit</button>
-          <br/> {
-            values.error && (<Typography component="p" color="error">
-              <Icon color="error" className={classes.error}>error</Icon>
-              {values.error}</Typography>)
-          }
-        </div>
-        <Dialog open={values.open} disableBackdropClick={true}>
-          <DialogTitle>New Account</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
+              <h2  className="innersignupform" style={{display:(loading?"block":"none")}}>Uploading profile, please wait...</h2>
+
+              <div className="innersignupform" style={{display:(!loading?"block":"none")}}>
+              <h4 style={{textAlign:"center"}}>
+              Sign Up
+              </h4>
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Name </h5><input id="name" placeHolder={values.name} label="text" value={values.name} onChange={handleChange('name')} margin="normal"/></div>
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Email </h5><input id="email" placeHolder={values.email} type="text" label="Email" value={values.email} onChange={handleChange('email')} margin="normal"/></div>
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Phone </h5><input id="phone" placeHolder={values.phone} type="text" label="Phone" value={values.phone} onChange={handleChange('phone')} margin="normal"/></div>
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
+              Are you a member of any political parties? If so, which ones? </h5>
+              <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
+              Do you receive any passive income from rents, dividends, interest or royalties? </h5>
+              <input id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
+
+              <h5 className="ruletext">  Images </h5>
+              <div style={{display:((numImages.length>=1)?"block":"none")}}  className="eventformbox ruletext">
+              <input style={{width:"90%"}} id="file" type="file" ref={selectedFile1}/>
+              </div>
+
+              <div style={{display:((numImages.length>=2)?"block":"none")}} className="eventformbox ruletext">
+              <input style={{width:"90%"}} id="file" type="file" ref={selectedFile2}/>
+              </div>
+
+              <div style={{display:((numImages.length>=3)?"block":"none")}}  className="eventformbox ruletext">
+              <input style={{width:"90%"}} id="file" type="file" ref={selectedFile3}/>
+              </div>
+
+              <div style={{display:((numImages.length>=4)?"block":"none")}}  className="eventformbox ruletext">
+              <input style={{width:"90%"}} id="file" type="file" ref={selectedFile4}/>
+              </div>
+
+              <div style={{display:((numImages.length>=5)?"block":"none")}}  className="eventformbox ruletext">
+              <input style={{width:"90%"}} id="file" type="file" ref={selectedFile5}/>
+              <p>Max 5 images</p>
+              </div>
+
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Password </h5><input id="password" type="password" placeHolder={values.password} label="Password" value={values.password} onChange={handleChange('password')} margin="normal"/></div>
+              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Confirm Password </h5><input id="passwordtwo" type="password" placeHolder={values.passwordtwo} label="Confirm Password" value={values.passwordtwo} onChange={handleChange('passwordtwo')} margin="normal"/></div>
+              {(!(values.password==values.passwordtwo)&&!(values.passwordtwo==""))&&<h5 style={{marginRight:"1vw",color:"red"}} className="ruletext">Passwords Do Not Match</h5>}
+              {(values.passworderror&&(!(values.password==values.passwordtwo)&&!(values.passwordtwo=="")))&&<h5 style={{marginRight:"1vw",color:"red"}} className="ruletext">Cannot Submit, Must Fix Errors</h5>}
+              <button onClick={(e) => extraImage(e)}>Add Extra Image</button>
+              <button onClick={(e) => lessImage(e)}>One Less Image</button>
+              <button id="submit" onClick={clickSubmit}>Submit</button>
+              <br/> {
+                values.error && (<Typography component="p" color="error">
+                <Icon color="error" className={classes.error}>error</Icon>
+                {values.error}</Typography>)
+              }
+              </div>
+              <Dialog open={values.open} disableBackdropClick={true}>
+              <DialogTitle>New Account</DialogTitle>
+              <DialogContent>
+              <DialogContentText>
               New account successfully created.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Link to="/signin">
+              </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+              <Link to="/signin">
               <Button color="primary" autoFocus="autoFocus" variant="contained">
-                Sign In
+              Sign In
               </Button>
-            </Link>
-          </DialogActions>
-        </Dialog>
-        </div>
+              </Link>
+              </DialogActions>
+              </Dialog>
+              </div>
 
-    )
-}
+            )
+          }
