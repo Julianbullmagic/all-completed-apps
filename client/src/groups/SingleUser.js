@@ -100,8 +100,29 @@ export default function SingleUser({ match }) {
         })
   }
 
+  function deleteRestriction(e,item) {
+    console.log(item._id)
+    for (let rest of restrictions){
+      console.log(rest._id)
+    }
+    let newrestrictions=restrictions.filter(restriction=>!(restriction._id==item._id))
+    setRestrictions(newrestrictions)
+
+      const options={
+        method: "Delete",
+        body: '',
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"}}
 
 
+          fetch("/groups/deleterestriction/"+item._id, options)
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => {
+            console.log(err);
+          })
+
+        }
   async function updateUser(){
 
     let imageids=[]
@@ -224,35 +245,37 @@ if(restrictions){
     let elapsed=n-item.timecreated
     let dayselapsed=Math.round(elapsed/86400000)
     let daysleft=item.duration-dayselapsed
-    return (<><h4 style={{textAlign:"center"}}>{item.restriction} for {daysleft} days. Explanation: {item.explanation}</h4></>)})}
+    return (<div className="leader" style={{textAlign:"center",margin:"0.5vw"}}><p style={{display:"inline"}}><strong>Restriction: </strong>{item.restriction} for {daysleft} days; <strong>Explanation: </strong> {item.explanation}; </p>
+    {(item.createdby==auth.isAuthenticated().user._id)&&<div style={{display:"inline"}}><p style={{display:'inline'}}>You created this restriction with your leader privileges </p>
+      <button style={{display:'inline'}} onClick={(e) => deleteRestriction(e,item)}>Delete Restriction?</button></div>}</div>)})}
 
 
 
     return (
       <>
       {user&&(
-      <div className="signupform">
-      <div className="innersignupform">
+      <div className="signupform"  style={{textAlign:"center"}}>
+      <div className="innersignupform"  style={{textAlign:"center"}}>
       <h1 style={{textAlign:"center"}}>{user.name}</h1>
-      <a href={user.website}><h3 style={{textAlign:"center",color:"blue"}}>Website</h3></a>
-      <h3 style={{textAlign:"center"}}>{user.expertise}</h3>
-      <h3 style={{textAlign:"center"}}>Phone Number: {user.phone}</h3>
-      <h3 style={{textAlign:"center"}}>Email Address: {user.email}</h3>
-      <br/>
+      {user.website&&<a href={user.website}><h3 style={{textAlign:"center",color:"blue"}}>Website</h3></a>}
+      {user.expertise&&<h3 style={{textAlign:"center"}}>{user.expertise}</h3>}
+      {user.phone&&<h3 style={{textAlign:"center"}}>Phone Number: {user.phone}</h3>}
+      {user.email&&<h3 style={{textAlign:"center"}}>Email Address: {user.email}</h3>}
+      {(user.images&&user.images.length>0)&&<><br/>
       <h3 style={{textAlign:"center"}}>Images</h3>
       <div style={{marginBottom:"40vw"}}>
       <AwesomeSlider style={{marginLeft:"5vw",width:"50vw", zIndex: 1, position:"absolute"}}>
       {user.images&&user.images.map(item=>{return (<div><Image style={{width:"100%"}} cloudName="julianbullmagic" publicId={item} /></div>)})}
       </AwesomeSlider>
-      </div>
-      <h3 style={{textAlign:"center"}}>Restrictions</h3>
-      {restrictionsmapped}
+      </div></>}
+      {user.restrictions&&<><h3 style={{textAlign:"center"}}>Restrictions</h3>
+      {restrictionsmapped}</>}
       </div>
       </div>
       )}
 
 
-      {(auth.isAuthenticated()&&auth.isAuthenticated().user._id==match.params.userId)&&(
+      {(auth.isAuthenticated()&auth.isAuthenticated().user._id==match.params.userId)&&(
         <div className="signupform">
         <div  style={{position: "static"}}  className="innersignupform">
           <h1 style={{textAlign:"center"}}>

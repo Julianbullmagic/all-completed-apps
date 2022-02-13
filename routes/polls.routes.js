@@ -156,6 +156,7 @@ console.log("NEW POLL",req.body)
     _id: pollId,
     groupIds:req.body["groupIds"],
     local :req.body["local"],
+    approval :req.body["approval"],
     level:req.body["level"],
     pollquestion:req.body["pollquestion"],
     timecreated:req.body["timecreated"],

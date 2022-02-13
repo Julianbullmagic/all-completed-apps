@@ -10,6 +10,7 @@ const RestrictionSchema = new mongoose.Schema({
   notificationsent:{type:Boolean,default:false},
   ratificationnotificationsent:{type:Boolean,default:false},
   duration:Number,
+  createdby:{type: mongoose.Schema.ObjectId, ref: 'User'},
   timecreated: Number
 })
 

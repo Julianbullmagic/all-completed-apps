@@ -121,6 +121,7 @@ export default function Jury(props) {
               _id:restrictionId,
               usertorestrict:selectedUser._id,
               restriction:restriction,
+              createdby:auth.isAuthenticated().user._id,
               explanation:explanation,
               groupId:props.groupId,
               duration:duration,
@@ -663,6 +664,8 @@ setUploadComplete(false)
             {approveenames&&approveenames.map((item,index)=>{return(<h4 className="ruletext"> {item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4>)})}
             {!item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>approve(e,item)}>Approve?</button>}
             {item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>withdrawapproval(e,item)}>Withdraw Approval?</button>}
+            {((item.createdby==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
+            <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>deleteRestrictionPoll(e,item)}>Delete Restriction Poll?</button>}
             <h4 style={{margin:"0vw",marginBottom:"0.5vw"}}><strong>Explanation:</strong> {item.explanation} </h4>
             <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
             </div>
@@ -690,7 +693,7 @@ setUploadComplete(false)
           console.log("groupabove members!!!!!!!",group.groupabove.members)
           return (
             <>
-            {inthisgroup&&<>  <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Restriction Poll Form?</button>
+            {inthisgroup&&<><button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Restriction Poll Form?</button>
             <div className="juryform" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
             <form>
             <div className="eventformbox" >
@@ -739,9 +742,10 @@ setUploadComplete(false)
               {!leaderCreatingRestriction&&<button style={{margin:"0.5vw",display:"inline"}} onClick={(e) => leaderCreateRestriction(e)}>Create Restriction Immediately</button>}
               {leaderCreatingRestriction&&<h3 style={{margin:"0.5vw",display:"inline"}}>Uploading Restriction!!!</h3>}
               {uploadComplete&&<h2 style={{margin:"0.5vw",display:"inline"}}>Upload Complete</h2>}
-
               <p style={{margin:"0.5vw"}}>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
-              a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on.</p>
+              a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on. If you change your
+              mind about this punishment, you can visit the users profile by clicking on the button with their name at the top of the group page. If they have
+              any restrictions they will be visible here and you can delete ones you have created</p>
               </div>}
               <p style={{margin:"0.5vw"}}>Restriction polls are activated at 75% approval.</p>
             </form>

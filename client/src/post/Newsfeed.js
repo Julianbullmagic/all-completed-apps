@@ -360,7 +360,7 @@ for (let po of postcopy){
                   }
                 }
               }
-console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!",group.level,item.level)
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!",item)
               return (
                 <>
                 <div key={i} className="postbox">
@@ -372,7 +372,8 @@ console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!",group.level,item.level)
               {(item.level>group.level)&&<div><h5 style={{display:"inline"}}><strong>This post has been passed down by a
               level {item.level} group</strong></h5></div>}
 
-                {(group.level==item.level)&&
+                {((item.createdby._id==auth.isAuthenticated().user._id)||
+                group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
                   <button style={{display:"inline"}} onClick={(e)=>deletePost(e,item._id)}>Delete Post?</button>}</div>
                 {((group.level==item.level)&&!item.sentdown&&(item.level>0))&&
                   <button style={{display:"inline"}}  onClick={(e)=>sendPostDown(item)}>Send Post Down?</button>}

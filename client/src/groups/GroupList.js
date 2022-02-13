@@ -131,9 +131,9 @@ class GroupsList extends Component {
     }
 
     return (
-      <React.Fragment>
-      <div style={{padding:"0.5vw",margin:"0vw"}}>
-      <h1 style={{padding:"0vw",margin:"0vw"}}>Groups</h1>
+      <div style={{margin:"3vw",width:"94vw"}}>
+      <div  style={{margin:"0vw"}}>
+      <h1 style={{paddingTop:"5vh",margin:"0vw"}}>Groups</h1>
       </div>
       <div>
       <button style={{}} onClick={(e) => this.setState({viewform:!this.state.viewform})}>View Create Group Form?</button>
@@ -167,7 +167,7 @@ class GroupsList extends Component {
       </div>
       </section>
 
-      </React.Fragment>
+      </div>
     );
   }
 }

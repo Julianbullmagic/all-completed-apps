@@ -153,7 +153,7 @@ const options = {
 }
 
 if(this.state.user.groupstheybelongto.length>=3){
-this.setState({error:`You have already joined the maximum number of groups. You cannot have more than three, you must leave another
+this.setState({error:`You have already joined the maximum number of level zero groups. You cannot have more than three, you must leave another
 group before you can join this one. To leave a group, visit it's page and press the leave group button near the top.`})
 setTimeout(() => {
   this.setState({error:""});

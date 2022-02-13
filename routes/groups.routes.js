@@ -187,7 +187,7 @@ router.get("/finduser/:userId", (req, res) => {
 
           router.post("/createuserrrestriction", (req, res) => {
             const restriction = new Restriction(req.body);
-            console.log(restriction)
+            console.log("restriction",restriction)
             restriction.save((err, doc) => {
               if (err) return res.json({ success: false, err });
               return res.status(200).json({

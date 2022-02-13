@@ -372,7 +372,7 @@ export default class Events extends Component {
             {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event</h4>}
             {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
             {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
-            {(item.createdby==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
+            {((item.createdby==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
             <button className="ruletext" onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>}
             </div>
             <div className="eventimagemapcontainer">

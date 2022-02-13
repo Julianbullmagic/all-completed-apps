@@ -307,7 +307,7 @@ if(suggestions&&props.users){
       approval=Math.round((item.approval.length/group.members.length)*100)
 
     if (approval<75&&(n-item.timecreated)>604800000){
-      this.deletePollSuggestion(item)
+      deletePollSuggestion(item)
     }
 
 
@@ -318,7 +318,8 @@ if(suggestions&&props.users){
 <h5 className="ruletext">{item.suggestion}, suggested by {item.createdby.name}, </h5>
 <h5 className="ruletext">{approval}% of members in this group approve this suggestion, {item.approval.length}/{group.members.length}</h5>
 {(group.level>poll.level)&&<h5 className="ruletext">{wholegroupapproval}% of all members in all groups represented by this one approve this suggestion, {item.approval.length}/{allmembers.length}</h5>}
-
+{(((item.createdby==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
+  <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>deletePollSuggestion(e,item)}>Delete Poll Suggestion?</button>}
 {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>approveofsuggestion(e,item._id)}>Approve this suggestion?</button>}
 {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>withdrawapprovalofsuggestion(e,item._id)}>Withdraw Approval?</button>}
 <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
@@ -341,14 +342,15 @@ for (let user of group.members){
   }
 }
 let width=`${(poll.approval.length/group.members.length)*100}%`
-
+console.log("CREATED BY",poll.createdby._id)
     return (
   <>
   <div>
   <div className="pollbox">
   <h3 className="ruletext">{props.poll.pollquestion}  </h3>
   <h4 className="ruletext">Poll Created By {props.poll.createdby.name}</h4>
-  <button onClick={(e)=>props.deletePoll(e,props.poll)}>Delete?</button>
+  {((props.poll.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
+  <button onClick={(e)=>props.deletePoll(e,props.poll)}>Delete?</button>}
   <form>
           <div >
           <h5 className="ruletext">Create Poll Suggestion</h5>
@@ -362,7 +364,9 @@ let width=`${(poll.approval.length/group.members.length)*100}%`
 
         {(group.level==poll.level)&&<>
           <div className="pollbox">
-          <h5 className="ruletext">Send Down?</h5>
+        {(((poll.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
+          <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>props.deletePoll(e,poll)}>Delete Poll?</button>}
+        <h5 className="ruletext">Send Down?</h5>
             {(!poll.approval.includes(auth.isAuthenticated().user._id))&&<button onClick={(e)=>approveOfSendingPollDown(e,poll._id)}>Send poll down to children groups?</button>}
           {(poll.approval.includes(auth.isAuthenticated().user._id))&&<button onClick={(e)=>withdrawApprovalOfSendingPollDown(e,poll._id)}>Don't send poll down to children groups?</button>}
         {group.members&&<h4 className="ruletext">{approval}% of members want to send this poll to lower groups, {poll.approval.length}/{group.members.length}. {poll.approval.length>0&&<h4 style={{display:'inline'}}>Approvees=</h4>}</h4>}

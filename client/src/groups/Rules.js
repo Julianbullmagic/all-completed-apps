@@ -484,6 +484,8 @@ render(props) {
         <>
         <div className="rule">
         <h3 className="ruletext">{item.rule}, suggested by {item.createdby.name}</h3>
+        {(((item.createdby==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
+          <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>this.deleteRule(e,item)}>Delete Rule?</button>}
         {(this.state.group.level==item.level)&&<>
           {(!item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext" onClick={(e)=>this.approveofrule(e,item._id)}>Approve this rule?</button>}
           {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}

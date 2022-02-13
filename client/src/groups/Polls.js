@@ -90,6 +90,7 @@ console.log("GROUP",group)
       const newPoll={
         _id:pollId,
         pollquestion:pollquestion.current.value,
+        approval:[auth.isAuthenticated().user._id],
         level:group.level,
         groupIds:[group._id],
         suggestions:[],

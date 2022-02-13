@@ -37,8 +37,9 @@ off work that was necessary to participate in politics. If someone is struggling
  cannot afford to take the time to think about a long term plan for society. Financial security and stability are empowering.</p>
 
 <p>This democratic social network is guided by the principle that if something is relevant to you and you have the
-expertise to understand it, you should be directly involved in making decisions about it. Authority should be grounded
-in wisdom, knowledge and moral integrity instead of coercive, exploitative power. People's ability to
+expertise to understand it, you should be directly involved in making decisions about it. Democracy is something we should practice
+every day, in all our relationships, not just once every few years.
+Authority should be grounded in wisdom, knowledge and moral integrity instead of coercive, exploitative power. People's ability to
 participate should be independent of how wealthy they are and we should make it as easy as possible for people to express their views
 in order to help level inequality. The creators of this application cannot currently afford to pay people to participate, but the medium
 of a online web application certainly makes it very simple and quick to express your views.
