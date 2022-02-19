@@ -113,17 +113,19 @@ export default function Polls (props) {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
+    let groupId=group._id
+
 
     socket.emit("Input Chat Message", {
       chatMessage,
       userId,
       userName,
       nowTime,
-      type});
+      type,
+      groupId});
 
 
 
-      sendPollEmailNotification(newPoll)
 
       var pollscopy=JSON.parse(JSON.stringify(polls))
       pollscopy.reverse()
@@ -157,7 +159,7 @@ export default function Polls (props) {
 
 
           function deletePoll(e,item) {
-
+console.log(item)
             var pollscopy=JSON.parse(JSON.stringify(polls))
             var filteredarray = pollscopy.filter(function( obj ) {
               return obj._id !== item._id;
@@ -179,14 +181,40 @@ export default function Polls (props) {
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
+            let groupId=group._id
+
 
             socket.emit("Input Chat Message", {
               chatMessage,
               userId,
               userName,
               nowTime,
-              type});
+              type,
+              groupId});
+              let userscopy=JSON.parse(JSON.stringify(group.members))
+              userscopy=userscopy.filter(item=>item.polls)
+              let emails=userscopy.map(item=>{return item.email})
+                  let notification={
+                    emails:emails,
+                    subject:"Poll Deleted",
+                    message:`The poll called ${item.pollquestion} has been deleted in the group called
+                    ${group.title} at level ${group.level}.`
+                  }
 
+                  const opt = {
+                    method: 'post',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(notification)
+                  }
+
+                  fetch("/groups/sendemailnotification", opt
+                ) .then(res => {
+                  console.log(res)
+                }).catch(err => {
+                  console.error(err);
+                })
 
               const options={
                 method: "Delete",
@@ -224,20 +252,13 @@ export default function Polls (props) {
                     if(!item.notificationsent){
 
                       let userscopy=JSON.parse(JSON.stringify(props.users))
-
-
-
-
                       userscopy=userscopy.filter(user=>user.polls)
-
                       let emails=userscopy.map(item=>{return item.email})
-
-
 
                       let notification={
                         emails:emails,
-                        subject:"New Poll Suggestion",
-                        message:`In the group called ${group.title} at level ${group.level}, ${item.createdby.name} suggested the poll: ${item.pollquestion}`
+                        subject:"New Poll",
+                        message:`In the group called ${group.title} at level ${group.level}, ${item.createdby.name} created the poll: ${item.pollquestion}`
                       }
 
                       const options = {
@@ -290,13 +311,13 @@ export default function Polls (props) {
                 inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
                 return (
                   <>
-                  {inthisgroup&&<><button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Poll Form?</button>
+                  {inthisgroup&&<><button className="formbutton" style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Poll Form?</button>
 
                   <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
                   <form style={{display:!viewForm?"none":"block"}}>
                   <div className="pollform">
                   <label htmlFor='name'>Create Poll, write a question then suggest possible answers</label>
-                  <button onClick={(e) => handleSubmit(e)}>New Poll?</button>
+                  <button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>New Poll?</button>
                   </div>
                   <textarea ref={pollquestion} id="story" rows="5"/>
                   </form>

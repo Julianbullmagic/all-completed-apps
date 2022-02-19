@@ -44,7 +44,7 @@ export default function CreateEventForm(props) {
 
 
   async function handleSubmit(e) {
-
+console.log("submitting")
     e.preventDefault()
     setUploading(true)
     var d = new Date();
@@ -56,7 +56,7 @@ export default function CreateEventForm(props) {
     let coords=await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${locationValue.current.value}.json?access_token=pk.eyJ1IjoianVsaWFuYnVsbCIsImEiOiJja25zbXJibW0wNHgwMnZsaHJoaDV6MTg4In0.qPBGW4XMJcsZSUCrQej8Zw`)
       .then(response => response.json())
       .then(data =>{
-
+        console.log(data)
         return data['features'][0]['center']
       })
       .catch(err => {
@@ -74,27 +74,19 @@ export default function CreateEventForm(props) {
 
       if(coords){
         let imageids=[]
-
-
-
         if(selectedFile1.current.files[0]){
           const formData = new FormData();
           formData.append('file', selectedFile1.current.files[0]);
           formData.append("upload_preset", "jvm6p9qv");
           await Axios.post("https://api.cloudinary.com/v1_1/julianbullmagic/image/upload",formData)
           .then(response => {
-
+            console.log(response.data.public_id)
             imageids.push(response.data.public_id)
           })
           .catch(err => {
             console.error(err);
           })
         }
-
-
-
-
-
 
         const newEvent={
           _id:eventId,
@@ -105,34 +97,16 @@ export default function CreateEventForm(props) {
           createdby:auth.isAuthenticated().user._id,
           location:locationValue.current.value,
           coordinates:[coords[1],coords[0]],
+          notificationsent:false,
+          approvalnotificationsent:false,
           images:imageids,
           timecreated:n,
           approval:[auth.isAuthenticated().user._id]
         }
-
         var newEventToRender=JSON.parse(JSON.stringify(newEvent))
 
         newEventToRender.createdby=auth.isAuthenticated().user
-
-
-
-        var d = new Date();
-        var n = d.getTime();
-
-
-        let chatMessage=`created an event suggestion called ${titleValue.current.value}`
-        let userId=auth.isAuthenticated().user._id
-        let userName=auth.isAuthenticated().user.name
-        let nowTime=n
-        let type="text"
-
-        socket.emit("Input Chat Message", {
-          chatMessage,
-          userId,
-          userName,
-          nowTime,
-          type});
-
+        console.log("new event",newEventToRender)
 
           props.updateEvents(newEventToRender)
 
@@ -145,6 +119,7 @@ export default function CreateEventForm(props) {
 
               await fetch("/events/createevent/"+eventId, options)
               .then(response => response.json()).then(json => console.log(json))
+                .then(res=>console.log(res))
                 .catch(err => {
                   console.error(err);
                 })
@@ -154,7 +129,7 @@ export default function CreateEventForm(props) {
 
             return (
               <>
-              <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Event Form?</button>
+              <button className="formbutton" style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Event Form?</button>
               <div className='form' style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
               <form>
               <div className="eventformbox">
@@ -190,7 +165,7 @@ export default function CreateEventForm(props) {
 
               <input id="file" type="file" ref={selectedFile1}/>
               </div>
-              {!uploading&&<button onClick={(e) => handleSubmit(e)}>Submit Event?</button>}
+              {!uploading&&<button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>Submit Event?</button>}
               {uploading&&<h3>uploading!!!!!</h3>}
               </form>
               </div>

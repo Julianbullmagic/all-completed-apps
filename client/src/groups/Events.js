@@ -28,19 +28,23 @@ export default class Events extends Component {
       redirect: false,
       updating:false
     }
+    let socket
     this.updateEvents= this.updateEvents.bind(this)
+    this.eventApprovedNotification=this.eventApprovedNotification.bind(this)
+    this.sendEventNotification=this.sendEventNotification.bind(this)
+    this.approveofevent=this.approveofevent.bind(this)
+    this.withdrawapproveofevent=this.withdrawapprovalofevent.bind(this)
 
   }
 
 
   componentDidMount(){
     let server = "http://localhost:5000";
-    let socket
     if(process.env.NODE_ENV=="production"){
-      socket=io();
+      this.socket=io();
     }
     if(process.env.NODE_ENV=="development"){
-      socket=io(server);
+      this.socket=io(server);
 
     }
     this.getEvents()
@@ -55,11 +59,8 @@ export default class Events extends Component {
     }
   }
 
-
   decidePage(e,pagenum){
-
     let currentpage=this.state.events.slice((pagenum*10-10),pagenum*10)
-
     this.setState({page:pagenum,currentPageData:currentpage})
   }
 
@@ -67,7 +68,7 @@ export default class Events extends Component {
     await fetch(`/events/getevents/`+this.props.groupId)
     .then(response => response.json())
     .then(data=>{
-
+      console.log(data)
       let events=data
       events.reverse()
       this.setState({events:events})
@@ -92,13 +93,12 @@ export default class Events extends Component {
 
 
   updateEvents(newevent){
-    var eventscopy=JSON.parse(JSON.stringify(this.state.events))
+    let eventscopy=JSON.parse(JSON.stringify(this.state.events))
     eventscopy.reverse()
     eventscopy.push(newevent)
     eventscopy.reverse()
     this.setState({ events:eventscopy})
     let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
-
     this.setState({currentPageData:current})
   }
 
@@ -138,12 +138,8 @@ export default class Events extends Component {
 }
 
 
-
-
-
-
-async deleteEvent(e,item){
-  var eventscopy=JSON.parse(JSON.stringify(this.state.events))
+ deleteEvent(e,item){
+  let eventscopy=JSON.parse(JSON.stringify(this.state.events))
   function checkEvent(event) {
     return event._id!=item._id
   }
@@ -151,18 +147,20 @@ async deleteEvent(e,item){
   var n = d.getTime();
 
 
-  let chatMessage=`An event called ${item.title} has been deleted from the group called ${this.state.group.title} at level ${this.state.group.level}`
+  let chatMessage=`An event called ${item.title} has been deleted from this group`
   let userId=auth.isAuthenticated().user._id
   let userName=auth.isAuthenticated().user.name
   let nowTime=n
   let type="text"
+  let groupId=this.state.group._id
 
   this.socket.emit("Input Chat Message", {
     chatMessage,
     userId,
     userName,
     nowTime,
-    type});
+    type,
+    groupId});
 
     var filteredapproval=eventscopy.filter(checkEvent)
 
@@ -172,18 +170,14 @@ async deleteEvent(e,item){
     this.setState({currentPageData:current})
 
     let userscopy=JSON.parse(JSON.stringify(this.state.users))
-    userscopy=userscopy.filter(item=>item.rules)
+    userscopy=userscopy.filter(item=>item.events)
     let emails=userscopy.map(item=>{return item.email})
-
-
-
-
 
 
     let notification={
       emails:emails,
       subject:"Event Deleted",
-      message:`The event called ${item.title} has been deleted because of low attendance In the group called
+      message:`The event called ${item.title} has been deleted in the group called
       ${this.state.group.title} at level ${this.state.group.level}.`
     }
 
@@ -197,7 +191,7 @@ async deleteEvent(e,item){
 
     fetch("/groups/sendemailnotification", opt
   ) .then(res => {
-
+    console.log(res)
   }).catch(err => {
     console.error(err);
   })
@@ -213,20 +207,10 @@ async deleteEvent(e,item){
     body: ''
   }
 
-  await fetch("/events/"+item._id, options)
-  .catch(err => {
-    console.error(err);
-  })
-
-  const optionstwo = {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: ''
-  }
-
-  await fetch("/groups/removeeventfromgroup/"+this.state.id+"/"+item._id, optionstwo)
+   fetch("/events/"+item._id, options)
+ .then(res => {
+   console.log(res)
+ })
   .catch(err => {
     console.error(err);
   })
@@ -294,7 +278,7 @@ approveofevent(e,id){
 withdrawapprovalofevent(e,id){
   let d = new Date();
   let n = d.getTime();
-  var eventscopy=JSON.parse(JSON.stringify(this.state.events))
+  let eventscopy=JSON.parse(JSON.stringify(this.state.events))
   function checkEvent(userid) {
     return userid!=auth.isAuthenticated().user._id
   }
@@ -310,9 +294,7 @@ withdrawapprovalofevent(e,id){
     if (approval<75&&(n-ev.timecreated)>MILLISECONDS_IN_A_WEEK){
       this.deleteEvent(ev)
     }
-    if(approval>=10&&!ev.notificationsent){
-      this.sendEventNotification(ev)
-    }
+
   }
   this.setState({events:eventscopy})
   let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
@@ -338,16 +320,39 @@ withdrawapprovalofevent(e,id){
 
 
 
-eventApprovedNotification(item){
-  if(!item.approvalnotificationsent){
-    var eventscopy=JSON.parse(JSON.stringify(this.state.events))
+ eventApprovedNotification(item){
+  console.log(item)
+  if(item.approvalnotificationsent==false){
+    let eventscopy=JSON.parse(JSON.stringify(this.state.events))
     for (let ev of eventscopy){
+      console.log(ev._id,item._id)
       if (ev._id==item._id){
         ev.approvalnotificationsent=true
       }}
+console.log(eventscopy)
       this.setState({events:eventscopy})
       let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
       this.setState({currentPageData:current})
+
+      let d = new Date();
+      let n = d.getTime();
+      let chatMessage=`An event called ${item.title} has been approved for this group, with 75% attendance`
+      let userId=auth.isAuthenticated().user._id
+      let userName=auth.isAuthenticated().user.name
+      let nowTime=n
+      let type="text"
+      let groupId=this.state.group._id
+
+      this.socket.emit("Input Chat Message", {
+        chatMessage,
+        userId,
+        userName,
+        nowTime,
+        type,
+        groupId
+      });
+
+
       let userscopy=JSON.parse(JSON.stringify(this.state.users))
       userscopy=userscopy.filter(user=>user.eventsapproved)
       let emails=userscopy.map(item=>{return item.email})
@@ -367,7 +372,7 @@ eventApprovedNotification(item){
 
       fetch("/groups/sendemailnotification", options
     ) .then(res => {
-
+      console.log(res)
     }).catch(err => {
       console.error(err);
     })
@@ -380,9 +385,9 @@ eventApprovedNotification(item){
       body: ''
     }
 
-    fetch("/events/approvalnotificationsent/"+item._id, optionstwo
+  fetch("/events/approvalnotificationsent/"+item._id, optionstwo
   ) .then(res => {
-
+    console.log(res)
   }).catch(err => {
     console.error(err);
   })
@@ -391,15 +396,37 @@ eventApprovedNotification(item){
 
 
 sendEventNotification(item){
-  if(!item.notificationsent){
-    var eventscopy=JSON.parse(JSON.stringify(this.state.events))
+  console.log(item)
+  if(item.notificationsent==false){
+    let eventscopy=JSON.parse(JSON.stringify(this.state.events))
+    console.log(eventscopy)
     for (let ev of eventscopy){
       if (ev._id==item._id){
         ev.notificationsent=true
+        console.log("updated event",ev)
       }}
-      this.setState({events:eventscopy})
+      console.log(eventscopy)
+
       let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
-      this.setState({currentPageData:current})
+      this.setState({events:eventscopy,currentPageData:current})
+
+      let d = new Date();
+      let n = d.getTime();
+      let chatMessage=`An event called ${item.title} has been suggested for this group`
+      let userId=auth.isAuthenticated().user._id
+      let userName=auth.isAuthenticated().user.name
+      let nowTime=n
+      let type="text"
+      let groupId=this.state.group._id
+
+      this.socket.emit("Input Chat Message", {
+        chatMessage,
+        userId,
+        userName,
+        nowTime,
+        type,
+        groupId});
+
       let userscopy=JSON.parse(JSON.stringify(this.state.users))
       userscopy=userscopy.filter(user=>user.events)
       let emails=userscopy.map(item=>{return item.email})
@@ -419,7 +446,7 @@ sendEventNotification(item){
 
       fetch("/groups/sendemailnotification", options
     ) .then(res => {
-
+      console.log(res)
     }).catch(err => {
       console.error(err);
     })
@@ -434,7 +461,7 @@ sendEventNotification(item){
 
     fetch("/events/notificationsent/"+item._id, optionstwo
   ) .then(res => {
-
+    console.log(res)
   }).catch(err => {
     console.error(err);
   })
@@ -449,25 +476,11 @@ render() {
 
   var eventscomponent=<h3>no events</h3>
   if (this.state.users&&this.state.events){
-
+    if(this.state.events.length>0){
     eventscomponent=this.state.currentPageData.map(item => {
 
       let approval=<></>
       approval=Math.round((item.approval.length/this.state.users.length)*100)
-
-
-      if(approval>=10&&!item.notificationsent){
-        this.sendEventNotification(item)
-      }
-
-      if ((approval>75)&&(this.state.group.level>0)&&(item.sentdown==false)){
-        item.sentdown=true
-        this.sendEventDown(item)
-      }
-
-      if (approval>75&&!item.approvalnotificationsent){
-        this.eventApprovedNotification(item)
-      }
 
       if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
         this.deleteEvent(item)
@@ -486,17 +499,18 @@ render() {
 
       return(
         <>
+        {item.createdby&&
         <div className="eventbox" style={{marginBottom:"1vw"}}>
         <div className="eventcol1">
         <h3>{item.title}</h3>
         <h4>{item.description}</h4>
         {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event</h4>}
-        {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
-        {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
-        {((item.createdby==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
-          <button className="ruletext" onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>}
+        {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
+        {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
+        {((item.createdby._id==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
+          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>}
           </div>
-          <div className="eventimagemapcontainer">
+          {(item.images||item.coordinates)&&<div className="eventimagemapcontainer">
           {item.images&&<div className="eventcol2">
           <Image style={{width:"100%",overflow:"hidden"}} cloudName="julianbullmagic" publicId={item.images[0]} />
           </div>}
@@ -511,11 +525,12 @@ render() {
           </MapContainer>}
           </div>
           </div>
-          </div>
-          </div>
+          </div>}
+          </div>}
           </>
 
         )})
+      }
       }
 
 

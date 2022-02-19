@@ -85,7 +85,7 @@ router.get("/:eventId", (req, res, next) => {
 
   router.route('/createevent/:eventId').post((req, res) => {
     let eventId = req.params.eventId;
-    console.log("level",req.body["level"])
+    console.log("level",req.body)
     var newEvent=new Event({
       _id: eventId,
       title :req.body["title"],

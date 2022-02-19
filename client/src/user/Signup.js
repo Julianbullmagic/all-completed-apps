@@ -236,16 +236,22 @@ export default function Signup (){
               <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Name </h5><input id="name" placeHolder={values.name} label="text" value={values.name} onChange={handleChange('name')} margin="normal"/></div>
               <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Email </h5><input id="email" placeHolder={values.email} type="text" label="Email" value={values.email} onChange={handleChange('email')} margin="normal"/></div>
               <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">Phone </h5><input id="phone" placeHolder={values.phone} type="text" label="Phone" value={values.phone} onChange={handleChange('phone')} margin="normal"/></div>
+              <div style={{margin:"1vw"}}><h5 style={{marginRight:"1vw",display:"block"}}>
+              Try to explain your skills, knowledge, experience, qualifications. You may be elected as a leader of a group and other group members
+              need some way of evaluating if you are a good candidate.</h5>
+              <textarea style={{width:"100%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={values.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
               <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
               Are you a member of any political parties? If so, which ones? </h5>
               <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>
-              <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
+
+              <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}><h5 style={{marginRight:"1vw"}} className="ruletext">
               Do you receive any passive income from rents, dividends, interest or royalties? </h5>
               <input id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
-
+              <div className="signupinput">
               <h5 className="ruletext">  Images </h5>
               <div style={{display:((numImages.length>=1)?"block":"none")}}  className="eventformbox ruletext">
-              <input style={{width:"90%"}} id="file" type="file" ref={selectedFile1}/>
+              <input id="file" type="file" ref={selectedFile1}/>
+              </div>
               </div>
 
               <div style={{display:((numImages.length>=2)?"block":"none")}} className="eventformbox ruletext">
@@ -287,9 +293,9 @@ export default function Signup (){
               </DialogContent>
               <DialogActions>
               <Link to="/signin">
-              <Button color="primary" autoFocus="autoFocus" variant="contained">
+              <button>
               Sign In
-              </Button>
+              </button>
               </Link>
               </DialogActions>
               </Dialog>

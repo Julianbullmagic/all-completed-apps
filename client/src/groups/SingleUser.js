@@ -26,11 +26,15 @@ export default function SingleUser({ match }) {
   const [events,setEvents]=useState(false)
   const [eventsApproved,setEventsApproved]=useState(false)
   const [posts,setPosts]=useState(false)
+  const [loading,setLoading]=useState(false)
+  const [loadingComplete,setLoadingComplete]=useState(false)
   const [polls,setPolls]=useState(false)
   const [leaders,setLeaders]=useState(false)
+  const [newMembers,setNewMembers]=useState(false)
   const [rules,setRules]=useState(false)
   const [purchases,setPurchases]=useState(false)
-  const [restrictions,setRestrictions]=useState(false)
+  const [restriction,setRestriction]=useState(false)
+  const [restrictions,setRestrictions]=useState([])
   const [rulesApproved,setRulesApproved]=useState(false)
   const [restrictionsApproved,setRestrictionsApproved]=useState(false)
 
@@ -38,7 +42,6 @@ export default function SingleUser({ match }) {
     name: '',
     password: '',
     email: '',
-    expertise:'',
     performancedescription:'',
     rates:'',
     images:'',
@@ -94,8 +97,10 @@ export default function SingleUser({ match }) {
       setRules(data.data.rules)
       setPurchases(data.data.purchases)
       setRestrictions(data.data.restrictions)
+      setRestriction(data.data.restriction)
       setRulesApproved(data.data.rulesapproved)
       setRestrictionsApproved(data.data.restrictionsapproved)
+      setNewMembers(data.data.newmembers)
     })
     .catch(err => {
       console.error(err);
@@ -126,7 +131,7 @@ export default function SingleUser({ match }) {
 
         }
         async function updateUser(){
-
+          setLoading(true)
           let imageids=[]
 
           if(selectedFile1.current.files[0]){
@@ -176,40 +181,24 @@ export default function SingleUser({ match }) {
                     })}
 
 
-                    let youtubevids=values.promovideos.split(",")
-                    youtubevids=youtubevids.map(item=>{
-                      let x=item.split("=")
-
-                      return (
-                        x[1]
-                      )})
-
-                      youtubevids=youtubevids.map(item=>{
-                        return(
-                          "https://www.youtube.com/embed/"+item
-                        )
-                      })
 
 
                       const newuser = {
                         _id:match.params.userId,
                         name: values.name || undefined,
                         email: values.email || undefined,
-                        website: values.website||undefined,
-                        youtube: values.youtube||undefined,
-                        promovideos: youtubevids||undefined,
-                        performancedescription:values.performancedescription||undefined,
                         expertise: values.expertise || undefined,
                         rates:values.rates || undefined,
                         images:imageids,
                         password: values.password || undefined,
                         events:events,
                         eventsapproved:eventsApproved,
+                        newmembers:newMembers,
                         leaders:leaders,
                         posts:posts,
                         polls:polls,
                         rules:rules,
-                        restriction:restrictions,
+                        restriction:restriction,
                         rulesapproved:rulesApproved,
                         restrictionsapproved:restrictionsApproved
                       }
@@ -227,6 +216,11 @@ export default function SingleUser({ match }) {
                           await fetch("/groups/updateuser/"+match.params.userId, options)
                           .then(response => response.json()).then(json =>console.log(json))
                           .catch(err=>console.error(err))
+                          setLoading(false)
+                          setLoadingComplete(true)
+                          setTimeout(() => {
+                      setLoadingComplete(false)
+                      }, 5000)
                           }
 
 
@@ -252,15 +246,13 @@ export default function SingleUser({ match }) {
                               <button style={{display:'inline'}} onClick={(e) => deleteRestriction(e,item)}>Delete Restriction?</button></div>}</div>)})}
 
 
-
                               return (
                                 <>
                                 {user&&(
                                   <div className="signupform"  style={{textAlign:"center"}}>
                                   <div className="innersignupform"  style={{textAlign:"center"}}>
                                   <h1 style={{textAlign:"center"}}>{user.name}</h1>
-                                  {user.website&&<a href={user.website}><h3 style={{textAlign:"center",color:"blue"}}>Website</h3></a>}
-                                  {user.expertise&&<h3 style={{textAlign:"center"}}>{user.expertise}</h3>}
+                                  {user.expertise&&<h3 style={{textAlign:"center"}}>Expertise: {user.expertise}</h3>}
                                   {user.phone&&<h3 style={{textAlign:"center"}}>Phone Number: {user.phone}</h3>}
                                   {user.email&&<h3 style={{textAlign:"center"}}>Email Address: {user.email}</h3>}
                                   {(user.images&&user.images.length>0)&&<><br/>
@@ -270,14 +262,14 @@ export default function SingleUser({ match }) {
                                     {user.images&&user.images.map(item=>{return (<div><Image style={{width:"100%"}} cloudName="julianbullmagic" publicId={item} /></div>)})}
                                     </AwesomeSlider>
                                     </div></>}
-                                    {user.restrictions&&<><h3 style={{textAlign:"center"}}>Restrictions</h3>
+                                    {(user.restrictions&&user.restrictions.length>0)&&<><h3 style={{textAlign:"center"}}>Restrictions</h3>
                                     {restrictionsmapped}</>}
                                     </div>
                                     </div>
                                   )}
 
 
-                                  {(auth.isAuthenticated()&auth.isAuthenticated().user._id==match.params.userId)&&(
+                                  {(auth.isAuthenticated()&&auth.isAuthenticated().user._id==match.params.userId)&&(
                                     <div className="signupform">
                                     <div  style={{position: "static"}}  className="innersignupform">
                                     <h1 style={{textAlign:"center"}}>
@@ -291,18 +283,11 @@ export default function SingleUser({ match }) {
                                     <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Email </h5><input id="email" placeHolder={user.email} type="email" label="Email"  value={values.email} onChange={handleChange('email')} margin="normal"/>
                                     </div>
 
-                                    <div className="signininput">
-                                    <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Website </h5><input id="website" placeHolder={user.website} type="website" label="website" value={values.website} onChange={handleChange('website')} margin="normal"/>
-                                    </div>
 
-                                    <div className="signininput">
-                                    <h5 className="ruletext" style={{marginRight:"1vw",textAlign:"left"}}>Expertise </h5><input id="expertise" placeHolder={user.expertise} type="expertise" label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/>
-                                    </div>
-
-                                    <div className="signininput">
-                                    <h5 style={{marginRight:"1vw",textAlign:"left"}} className="ruletext">Password </h5><input id="password" placeHolder={user.password} type="password" label="Password" value={values.password} onChange={handleChange('password')} margin="normal"/>
-                                    </div>
-
+                                    <div style={{margin:"1vw"}}><h5 style={{marginRight:"1vw",display:"block"}}>
+                                    Try to explain your skills, knowledge, experience, qualifications. You may be elected as a leader of a group and other group members
+                                    need some way of evaluating if you are a good candidate.</h5>
+                                    <textarea style={{width:"100%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={user.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
 
                                     <h4>Tick the boxes below to recieve email notifications about new suggestions. At least 10% of members must have voted for something before notifications will be sent in order to help prevent individuals from spamming everyone. </h4>
 
@@ -311,19 +296,16 @@ export default function SingleUser({ match }) {
                                     style={{width:"1vw"}}
                                     checked={events}
                                     onChange={e => {
-
                                       setEvents(e.target.checked)}}
                                       />
                                       <h5 style={{marginRight:"1vw"}}  className="ruletext">Event Suggestions</h5>
+
                                       <input
                                       type="checkbox"
                                       style={{width:"1vw"}}
-                                      checked={eventsApproved}
-                                      onChange={e => {
-
-                                        setEventsApproved(e.target.checked)}}
-                                        />
-                                        <h5 style={{marginRight:"1vw"}}  className="ruletext">Events Approved </h5>
+                                      checked={leaders}
+                                      onChange={e => {setLeaders(e.target.checked)}}/>
+                                      <h5 style={{marginRight:"1vw"}}  className="ruletext">New Leaders</h5>
 
                                         <input
                                         type="checkbox"
@@ -345,6 +327,17 @@ export default function SingleUser({ match }) {
                                             />
                                             <h5 style={{marginRight:"1vw"}} className="ruletext">Polls </h5>
 
+
+                                            <input
+                                            type="checkbox"
+                                            style={{width:"1vw"}}
+                                            checked={newMembers}
+                                            onChange={e => {
+                                              setNewMembers(e.target.checked)}}
+                                              />
+                                              <h5 style={{marginRight:"1vw"}} className="ruletext">New Members In Your Groups</h5>
+
+
                                             <input
                                             type="checkbox"
                                             style={{width:"1vw"}}
@@ -355,23 +348,15 @@ export default function SingleUser({ match }) {
                                               />
                                               <h5 style={{marginRight:"1vw"}} className="ruletext">Rule Suggestions </h5>
 
-                                              <input
-                                              type="checkbox"
-                                              style={{width:"1vw"}}
-                                              checked={purchases}
-                                              onChange={e => {
 
-                                                setPurchases(e.target.checked)}}
-                                                />
-                                                <h5 style={{marginRight:"1vw"}} className="ruletext">Purchases </h5>
 
                                                 <input
                                                 type="checkbox"
                                                 style={{width:"1vw"}}
-                                                checked={restrictions}
+                                                checked={restriction}
                                                 onChange={e => {
 
-                                                  setRestrictions(e.target.checked)}}
+                                                  setRestriction(e.target.checked)}}
                                                   />
                                                   <h5 style={{marginRight:"1vw"}} className="ruletext">Restrictions </h5>
 
@@ -396,11 +381,21 @@ export default function SingleUser({ match }) {
 
                                                       setRestrictionsApproved(e.target.checked)}}
                                                       />
+
                                                       <h5 style={{marginRight:"1vw"}} className="ruletext">Restriction Approval </h5>
 
 
+                                                      <input
+                                                      type="checkbox"
+                                                      style={{width:"1vw"}}
+                                                      checked={eventsApproved}
+                                                      onChange={e => {
 
-                                                      <div className="signininput" style={{display:((numImages.length>=1)?"block":"none")}}>
+                                                        setEventsApproved(e.target.checked)}}
+                                                        />
+                                                        <h5 style={{marginRight:"1vw"}}  className="ruletext">Events Approved </h5>
+
+                                                        <div className="signininput" style={{display:((numImages.length>=1)?"block":"none")}}>
                                                       <input style={{width:"100%"}} id="file" type="file" ref={selectedFile1}/>
                                                       </div>
 
@@ -423,7 +418,9 @@ export default function SingleUser({ match }) {
 
                                                       <button onClick={(e) => extraImage(e)}>Add Extra Image</button>
                                                       <button onClick={(e) => lessImage(e)}>One Less Image</button>
-                                                      <button id="submit" onClick={clickSubmit}>Submit</button>
+                                                      {!loading&&<button id="submit" onClick={clickSubmit}>Submit</button>}
+                                                      {loading&&<h3>...Uploading Changes</h3>}
+                                                      {loadingComplete&&<h2>Upload Complete</h2>}
                                                       </div>
                                                       </div>
                                                     )}

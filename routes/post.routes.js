@@ -28,7 +28,16 @@ router.route('/marksentdown/:postId').put((req, res) => {
   console.log("marking sent down",req.params.postId)
   const updatedRule=Post.findByIdAndUpdate(req.params.postId, {
   sentdown:true
-}).exec()
+}).exec(function(err,docs){
+      if(err){
+              console.error(err);
+          }else{
+            console.log("docs",docs)
+              res.status(200).json({
+                          data: docs
+                      });
+    }
+})
 })
 
   router.route('/getposts/:groupId').get((req, res) => {
@@ -51,13 +60,31 @@ router.route('/marksentdown/:postId').put((req, res) => {
     let postId = req.params.postId
     Post.findByIdAndUpdate(postId, {
     notificationsent:true
-  }).exec()
+  }).exec(function(err,docs){
+        if(err){
+                console.error(err);
+            }else{
+              console.log("docs",docs)
+                res.status(200).json({
+                            data: docs
+                        });
+      }
+  })
   })
 
 
   router.route('/deletepost/:postId').delete((req, res) => {
           Post.findByIdAndDelete(req.params.postId)
-          .exec()
+          .exec(function(err,docs){
+            if(err){
+                    console.error(err);
+                }else{
+                  console.log("docs",docs)
+                    res.status(200).json({
+                                data: docs
+                            });
+          }
+      })
 })
 
 
@@ -80,7 +107,16 @@ router.route('/getcomments/:postId').get((req, res) => {
 
 router.route('/deletecomment/:commentId').delete((req, res) => {
         Comment.findByIdAndDelete(req.params.commentId)
-        .exec()
+        .exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+                  res.status(200).json({
+                              data: docs
+                          });
+        }
+    })
 })
 
 

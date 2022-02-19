@@ -236,7 +236,9 @@ render(props) {
       }
       Representatives from higher level groups are not allowed to nominate or endorse candidates in lower level groups.
       This helps to ensure a genuine grassroots organization. There are no election campaigns on this
-      web application. However, you can post a resume in your group for other members to look at and evalutate your credentials. This
+      web application. However, you can explain your skills, qualifications and experience on your profile page and others
+      can inspect this. 
+      You could also post a resume in your groups for other members to look at and evalutate your credentials. This
       is intended to create a genuine meritocracy, the choice of leaders or experts should be purely based on their skill, experience,
       trustworthyness, moral integrity and
       knowledge, not on how much money they have to spend on a political marketing campaigns or how much control they have over the media.

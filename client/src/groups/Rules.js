@@ -35,13 +35,11 @@ export default class Rules extends Component {
     this.sendRuleNotification= this.sendRuleNotification.bind(this)
     this.approveofrule=this.approveofrule.bind(this)
     this.ruleApprovedNotification=this.ruleApprovedNotification.bind(this)
+    let socket
   }
-
-
 
   componentDidMount(props){
     let server = "http://localhost:5000";
-    let socket
     if(process.env.NODE_ENV=="production"){
       socket=io();
     }
@@ -121,41 +119,51 @@ export default class Rules extends Component {
 
     var rulescopy=JSON.parse(JSON.stringify(this.state.rules))
     function checkRule(rule) {
-      return rule._id!=item
+      return rule._id!=item._id
     }
 
-
     var filteredapproval=rulescopy.filter(checkRule)
-
-
     let current=filteredapproval.slice((this.state.page*10-10),this.state.page*10)
-
-
     this.setState({ rules:filteredapproval,currentPageData:current})
+
+    const optionstwo = {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: ''
+    }
+
+     fetch("/rules/"+item._id, optionstwo)
+    .then(res => {
+      console.log("res.data",res.data)
+    })
+    .catch(err => {
+      console.error(err);
+    })
 
     let d = new Date();
     let n = d.getTime();
 
 
-    let chatMessage=`A rule has been deleted because of a lack of support ${item.rule}.
-    Rules with less than 75% approval that are more than a week old are deleted`
+    let chatMessage=`The rule ${item.rule} has been deleted.`
     let userId=auth.isAuthenticated().user._id
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
+    let groupId=this.state.group._id
 
-    this.socket.emit("Input Chat Message", {
+    socket.emit("Input Chat Message", {
       chatMessage,
       userId,
       userName,
       nowTime,
-      type});
+      type,
+      groupId
+    });
       let userscopy=JSON.parse(JSON.stringify(this.state.users))
       userscopy=userscopy.filter(item=>item.rules)
       let emails=userscopy.map(item=>{return item.email})
-
-
-
 
 
 
@@ -174,42 +182,12 @@ export default class Rules extends Component {
         body: JSON.stringify(notification)
       }
 
-      fetch("/groups/sendemailnotification", options
+      await fetch("/groups/sendemailnotification", options
     ) .then(res => {
-
-    }).catch(err => {
-      console.error(err);
+      console.log("res.data",res.data)
+    }).catch(error => {
+      console.error(error);
     })
-
-
-
-    const optionstwo = {
-      method: 'delete',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: ''
-    }
-
-    await fetch("/rules/"+item, optionstwo)
-    .catch(err => {
-      console.error(err);
-    })
-
-
-    const optionsthree = {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: ''
-    }
-
-    await fetch("/groups/removerulefromgroup/"+this.state.id+"/"+item, optionsthree)
-    .catch(err => {
-      console.error(err);
-    })
-
   }
 
 
@@ -366,17 +344,11 @@ sendRuleNotification(item){
       }}
       this.setState({rules:rulescopy})
       let current=rulescopy.slice((this.state.page*10-10),this.state.page*10)
-
       this.setState({currentPageData:current})
 
 
       let userscopy=JSON.parse(JSON.stringify(this.state.users))
-
-
-
-
       userscopy=userscopy.filter(user=>user.rules)
-
       let emails=userscopy.map(item=>{return item.email})
 
 
@@ -388,13 +360,15 @@ sendRuleNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
+      let groupId=this.state.group._id
 
       socket.emit("Input Chat Message", {
         chatMessage,
         userId,
         userName,
         nowTime,
-        type});
+        type,
+        groupId});
 
 
         let notification={
@@ -452,31 +426,25 @@ ruleApprovedNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
+      let groupId=this.state.group._id
+
 
       socket.emit("Input Chat Message", {
         chatMessage,
         userId,
         userName,
         nowTime,
-        type});
+        type,
+        groupId});
 
 
         this.setState({rules:rulescopy})
         let current=rulescopy.slice((this.state.page*10-10),this.state.page*10)
-
         this.setState({currentPageData:current})
 
         let userscopy=JSON.parse(JSON.stringify(this.state.users))
-
-
-
-
         userscopy=userscopy.filter(user=>user.rulesapproved)
-
         let emails=userscopy.map(item=>{return item.email})
-
-
-
 
         let notification={
           emails:emails,
@@ -521,22 +489,16 @@ render(props) {
   var d = new Date();
   var n = d.getTime();
 
-  var rulescomponent=<h3>no rules</h3>
+  let rulescomponent=<h3>no rules</h3>
   if (this.state.rules){
-
-
+    if(this.state.rules.length>0){
     rulescomponent=this.state.currentPageData.map(item => {
       let approval=<></>
 
       if(this.state.users){
         approval=Math.round((item.approval.length/this.state.users.length)*100)
       }
-      if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
-        this.deleteRule(item)
-      }
-      if(approval>=10&&!item.notificationsent){
-        this.sendRuleNotification(item)
-      }
+
       let approveenames=[]
       for (let user of this.state.users){
         for (let approvee of item.approval){
@@ -551,25 +513,26 @@ render(props) {
 
       return(
         <>
+         {item.createdby&&
         <div className="rule">
         <h3 className="ruletext">{item.rule}, suggested by {item.createdby.name}</h3>
-        {(((item.createdby==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
+        {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
           <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>this.deleteRule(e,item)}>Delete Rule?</button>}
           {(this.state.group.level==item.level)&&<>
-            {(!item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext" onClick={(e)=>this.approveofrule(e,item._id)}>Approve this rule?</button>}
-            {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}
+            {(!item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.approveofrule(e,item._id)}>Approve this rule?</button>}
+            {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}
 
             <h4 className="ruletext">  {item.explanation},  </h4>
             <h4 className="ruletext">Rule Level {item.level}  </h4>
             {(this.state.group.level==item.level)&&<>
-              {this.state.users&&<h4 className="ruletext">,{approval}% of members approve this rule, {item.approval.length}/{this.state.users.length}. Approvees=</h4>}
+              {this.state.users&&<h4 className="ruletext">,{approval}% of members approve this rule, {item.approval.length}/{this.state.users.length}. {approveenames.length>0&&<h4 style={{display:"inline"}}>Approvees=</h4>}</h4>}
               {approveenames&&approveenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4></>)})}
               <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
               </>}
-              </div>
+              </div>}
               </>
             )})
-          }
+          }}
 
           let inthisgroup=this.state.group.members.map(item=>item._id)
           inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)

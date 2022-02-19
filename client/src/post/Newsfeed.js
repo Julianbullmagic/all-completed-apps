@@ -175,26 +175,26 @@ function handleSubmit(e){
     timecreated:n,
     createdby:auth.isAuthenticated().user._id
   }
-
+ let newPostToRender=JSON.parse(JSON.stringify(newPost))
+ newPostToRender.createdby=auth.isAuthenticated().user
   let chatMessage=`created an new post`
   let userId=auth.isAuthenticated().user._id
   let userName=auth.isAuthenticated().user.name
   let nowTime=n
   let type="text"
+  let groupId=group._id
 
   socket.emit("Input Chat Message", {
     chatMessage,
     userId,
     userName,
     nowTime,
-    type});
-
-
+    type,
+    groupId});
 
     var postscopy=JSON.parse(JSON.stringify(posts))
-
     postscopy.reverse()
-    postscopy.push(newPost)
+    postscopy.push(newPostToRender)
     postscopy.reverse()
 
     sendPostNotification(newPost)
@@ -221,20 +221,20 @@ function handleSubmit(e){
         }
 
 
-        function deletePost(e,id) {
+        function deletePost(e,id){
           e.preventDefault()
-          var postscopy=JSON.parse(JSON.stringify(posts))
-          var filteredarray = postscopy.filter(function( obj ) {
-            return obj._id !== id;
-          });
+          let post
+          let postscopy=JSON.parse(JSON.stringify(posts))
+          for (let po of postscopy){
+            if(po._id == id){
+              post=po.post
+            }
+          }
+          let filteredarray = postscopy.filter(item=>!(item._id == id));
           setPosts(filteredarray);
-
-
-          let current=postscopy.slice((page*10-10),page*10)
+          let current=filteredarray.slice((page*10-10),page*10)
 
           setCurrentPageData(current)
-
-
 
           const options={
             method: "Delete",
@@ -266,6 +266,31 @@ function handleSubmit(e){
                     console.error(err);
                   })
 
+                  let us=JSON.parse(JSON.stringify(props.users))
+                  us=us.filter(item=>item.posts)
+                  let emails=us.map(item=>{return item.email})
+
+                  let notification={
+                    emails:emails,
+                    subject:"Post Deleted",
+                    message:`${auth.isAuthenticated().user.name} deleted the post called ${post} in the group ${group.title} at level ${group.level}`
+                  }
+
+                  const opt = {
+                    method: 'post',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(notification)
+                  }
+
+                  fetch("/groups/sendemailnotification", opt
+                ) .then(res => {
+                  console.log(res)
+                }).catch(err => {
+                  console.error(err);
+                })
+
                 }
 
 
@@ -283,15 +308,14 @@ function handleSubmit(e){
 
                       setCurrentPageData(current)
 
-
-                      let emails=props.users.map(item=>{return item.email})
-
-
+                      let us=JSON.parse(JSON.stringify(props.users))
+                      us=us.filter(item=>item.posts)
+                      let emails=us.map(item=>{return item.email})
 
                       let notification={
                         emails:emails,
                         subject:"New Post",
-                        message:`${auth.isAuthenticated().user.name} wrote a post called ${item.post}`
+                        message:`${auth.isAuthenticated().user.name} wrote a post called ${item.post}  in the group ${group.title} at level ${group.level}`
                       }
 
                       const options = {
@@ -304,7 +328,7 @@ function handleSubmit(e){
 
                       fetch("/groups/sendemailnotification", options
                     ) .then(res => {
-
+                      console.log(res)
                     }).catch(err => {
                       console.error(err);
                     })
@@ -327,8 +351,6 @@ function handleSubmit(e){
               }
 
 
-
-
               if(preview){
                 if(preview.image){
                   var previewmapped=<><h2>{preview.title}</h2><img src={preview.image}></img></>
@@ -347,7 +369,6 @@ function handleSubmit(e){
                       <>
                       <h2>{item.preview.title}</h2>
                       <img src={item.preview.image}></img>
-
                       </>
                       if(item.preview.url){
                         prev=
@@ -375,8 +396,6 @@ function handleSubmit(e){
                   {((item.createdby._id==auth.isAuthenticated().user._id)||
                     group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
                     <button style={{display:"inline"}} onClick={(e)=>deletePost(e,item._id)}>Delete Post?</button>}</div>
-                    {((group.level==item.level)&&!item.sentdown&&(item.level>0))&&
-                      <button style={{display:"inline"}}  onClick={(e)=>sendPostDown(item)}>Send Post Down?</button>}
                       </div>
                       <Comment id={item._id}/>
 
@@ -397,13 +416,39 @@ function handleSubmit(e){
                         <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
                         <form style={{display:!viewForm?"none":"block"}}>
                         <div>
-                        <label htmlFor='name'>Write Post</label>  <button onClick={(e) => handleSubmit(e)}>New Post?</button>
+                        <label htmlFor='name'>Write Post</label>  <button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>New Post?</button>
                         </div>
 
                         <textarea onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
 
 
                         {preview&&previewmapped}
+                        {group.level>0&&<p>Posts made in higher groups are immediately passed down to all groups below them.
+                          Remember that you cannot promote, advertise or endorse candidates in lower groups in any way. Groups
+                          must entirely responsible for choosing their own leaders. We want a genuine meritocracy and not an
+                          oligarchy that pre-appproves candidates that are acceptable to themselves. We want genuine democracy
+                          and not a democracy where people only get to choose between a range of options decided by an oligarchy.
+                          We want a political system grounded in the authority of knowledge, wisdom and moral integrity, instead
+                          of coercive or exploitative power.
+
+                          Posts are very useful for sharing information between groups and for higher level groups to
+                          try to explain why they have created certain rules, events, polls or restrictions. The mass media
+                          should be used for sharing important information and not for misleading people with propoganda. On
+                          the democratic social network, any user can visit any group and see their discussions. In order to prevent
+                          chaotic, disorderly conversations with too many people, you cannot directly participate in all discussions,
+                          but you can at least see them. This fact, combined with immediate recall of unpopular representatives
+                          means that there is a much greater motivation for elected leaders to consult with people, discuss with them
+                          and explain the decisions they make for the group or demonstrate their own trustworthyness.
+                          Posts are a useful medium for this.
+
+                          This is quite different from and elitist political system. In an oligarchy, the masses are excluded
+                          from group decision making because the rulers believe that most people are stupid, immoral and irresponsible.
+                          In a genuine, socialistic democracy, authority is distributed evenly so that, while you may not be able
+                          to vote on all issues, you can be involved in making choices about things that are relevant to you and
+                          you have the expertise to understand. Our modern world is extremely complicated, even the biggest genuises
+                          can only be experts in a tiny fraction of all knowledge the human race collective has. There will always
+                          be many issues that we just don't know anything about and there is no benefit in us sharing our views.
+                          </p>}
                         </form>
 
                         </div>

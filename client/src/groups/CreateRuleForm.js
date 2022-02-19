@@ -34,6 +34,8 @@ export default function CreateRuleForm(props) {
       level:props.level,
       createdby:auth.isAuthenticated().user._id,
       explanation:explanationValue.current.value,
+      notificationsent:false,
+      ratificationnotificationsent:false,
       timecreated:n,
       approval:[auth.isAuthenticated().user._id]
     }
@@ -42,18 +44,7 @@ export default function CreateRuleForm(props) {
     const newRuleToRender=JSON.parse(JSON.stringify(newRule))
     newRuleToRender.createdby=auth.isAuthenticated().user
 
-    let chatMessage=`created an rule suggestion ${ruleValue.current.value}`
-    let userId=auth.isAuthenticated().user._id
-    let userName=auth.isAuthenticated().user.name
-    let nowTime=n
-    let type="text"
 
-    socket.emit("Input Chat Message", {
-      chatMessage,
-      userId,
-      userName,
-      nowTime,
-      type});
 
       props.updateRules(newRuleToRender)
       const options={
@@ -74,7 +65,7 @@ export default function CreateRuleForm(props) {
 
         return (
           <>
-          <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Rule Form?</button>
+          <button className="formbutton" style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Rule Form?</button>
           <div className='form'  style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
           <form className='search-form'>
           <div className="eventformbox">
@@ -98,7 +89,7 @@ export default function CreateRuleForm(props) {
 
           />
           </div>
-          <button onClick={(e) => handleSubmit(e)}>Submit Rule</button>
+          <button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>Submit Rule</button>
           </form>
           </div>
           </>

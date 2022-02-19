@@ -28,7 +28,6 @@ constructor(props){
 this.setInitialChats()
 this.handleuserchange=this.handleuserchange.bind(this)
 this.setInitialChats=this.setInitialChats.bind(this)
-
   console.log("PROPS",props)
 }
 
@@ -52,7 +51,12 @@ componentDidMount(props) {
         let chatscopy=JSON.parse(JSON.stringify(this.state.chats))
         console.log(chatscopy)
         chatscopy.push(messageFromBackEnd[0])
+
         console.log(chatscopy)
+        if(chatscopy.length>50){
+          chatscopy=chatscopy.slice((chatscopy.length-50),(chatscopy.length-1))
+          console.log(chatscopy)
+        }
         this.setState({chats:chatscopy})
 
         if (messageFromBackEnd[0]['recipient']){
@@ -128,18 +132,21 @@ async setInitialChats(){
       .then(response => response.json())
       .then(data=>{
         console.log("get chats",data)
+        if(data.length>50){
+          data=data.slice((data.length-50),(data.length-1))
+          console.log(data)
+        }
         this.setState({chats:[...data]})
       })
 
     let us=await fetch(`/groups/getuser/`+auth.isAuthenticated().user._id)
           .then(response => response.json())
           .then(data=>{
-            console.log("user",data.data)
             return data.data
           })
 
-      let userscopy=JSON.parse(JSON.stringify(this.props.users))
-      userscopy=userscopy.filter(item=>!(item._id==auth.isAuthenticated().user._id))
+      let userscopy=JSON.parse(JSON.stringify(this.state.users))
+
       for (let user of userscopy){
         user.unreadmessages=0
   for (let message of us.recentprivatemessages){
@@ -148,7 +155,6 @@ async setInitialChats(){
       }
     }
   }
-  console.log("USERS COPY",userscopy)
     this.setState({users:userscopy,user:us})
 }
 
@@ -174,7 +180,6 @@ async handleuserchange(e){
         recipientName=us.name
       }
     }
-    console.log("user",e.target.value,auth.isAuthenticated().user.name)
     let room=[auth.isAuthenticated().user.name,e.target.value]
     room=room.sort()
     room=room.join()
@@ -198,7 +203,6 @@ async handleuserchange(e){
     chatsarray=await fetch(`/api/chat/getChatsWithParticularUser/${recipientId}/${auth.isAuthenticated().user._id}`)
           .then(response => response.json())
           .then(data=>{
-              console.log("get chats one",data)
               let arr=[...data]
               return arr
           })
@@ -206,7 +210,6 @@ async handleuserchange(e){
         console.error(err)
       }
 
-            console.log("CHATSARRAY",chatsarray)
 
         this.setState({
             chats: chatsarray
@@ -271,9 +274,7 @@ console.log("recipient",recipient)
     render() {
 
       var chats=  <p>No conversation so far.</p>
-console.log("this.state.chats",this.state.chats)
 var type=Array.isArray(this.state.chats)
-console.log(type)
 if(type==true){
   chats=this.state.chats.map(chat =>{
     return (
@@ -294,7 +295,7 @@ let users=this.state.users.map(item=>item._id)
 
     {(users.includes(auth.isAuthenticated().user._id))&&
       <button style={{display:"inline",marginTop:"0.5vh"}} className="submitbutton" onClick={this.submitChatMessage}>Submit Message</button>}
-      <select style={{marginLeft:"2vw",marginTop:"0.5vh",display:"inline",width:"17vw"}} name="room" id="room" onChange={this.handleuserchange}>
+      <select style={{marginLeft:"1vw",marginTop:"0.5vh",display:"inline",width:"15vw"}} name="room" id="room" onChange={this.handleuserchange}>
       <option value="All Group Chat">All Group Chat</option>
       {this.state.users&&this.state.users.map(user=>{
         return(
@@ -315,7 +316,8 @@ let users=this.state.users.map(item=>item._id)
                             </div>
                             </div>
                             </div>
-                            <div className="togglechatbutton" style={{bottom:this.state.height}}>
+                            <div className="togglechatbutton chat" style={{bottom:this.state.height,
+                              borderColor:"#c7cecc",borderStyle: "solid",borderWidth:"5px",transition:"bottom 2s"}}>
                             <button style={{padding:"1px",borderRadius:"5px"}} onClick={() => {
                           this.setState({ togglechat:!this.state.togglechat,height:this.state.togglechat?"0.5vh":"40vh"});
                         }}>View Chat</button>

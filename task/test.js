@@ -27,411 +27,235 @@ let page;
 // the test suite
 describe('My test suite', async function () {
 
+  // open a new browser tab and set the page variable to point at it
+  before (async function () {
+    global.expect = expect;
+    global.browser = await puppeteer.launch( { headless: false } );
+    page = await browser.newPage();
+    page.setViewport({width: 1187, height: 1000});
+  });
+
+  // close the browser when the tests are finished
+  after (async function () {
+    await page.close();
+    await browser.close();
+
+  });
+
+
+  it("It should log in as John Doe", async () =>{
+    await page.goto("http://localhost:3000/signin")
+    await page.waitForSelector("#email", {visible: true, timeout: 3000 });
+    await page.type('#email', "johndoe@gmail.com", { delay: 100 });
+    await page.type('#password', "mmmmmm", { delay: 100 });
+    await page.click('button#submit')
+    await page.waitForNavigation()
+    await page.waitForSelector('div.yourgroups h4')
+    expect(await page.$eval('div.yourgroups h4',el => el.innerText)).to.eql("You haven't joined any groups yet, click on the group link below. You can only join a maximum of three bottom level groups. If you leave one group, your votes are still recorded but not counted. If you choose to rejoin, they will count again.");
+
+  })
+
+  it("It should join John Doe in four groups", async () =>{
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('button.joinbutton')
+    await page.click('button.joinbutton')
+    await page.goto("http://localhost:3000/group/620b74641d131b00003f5c5c")
+    await page.waitForSelector('button.joinbutton')
+    await page.click('button.joinbutton')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('button.joinbutton')
+    await page.click('button.joinbutton')
+    await page.goto("http://localhost:3000/group/620aeb586f6fbb00000242b9")
+    await page.waitForSelector('button.joinbutton')
+    await page.click('button.joinbutton')
+    await page.waitForSelector("p.toomanygroupserror")
+    expect(await page.$eval('p.toomanygroupserror',el => el.innerText)).to.eql(`You have already joined the maximum number of level zero groups. You cannot have more than three, you must leave another group before you can join this one. To leave a group, visit it's page and press the leave group button near the top.`);
+  })
+
+  it("It should create an event in two of John Doe's groups approve and then disapprove of them, then delete", async () =>{
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('div.events')
+    await page.click('div.events')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+    await page.type('input#titleValue','test',{ delay: 100 })
+    await page.type('input#descriptionValue','test event description',{ delay: 100 })
+    await page.type('input#locationValue','Petersham Sydney',{ delay: 100 })
+    await page.click('button.formsubmitbutton')
+    await page.waitForSelector('button#test')
+    await page.click('button#test')
+    await page.waitFor('3000')
+    await page.click('button#test')
+    await page.waitFor('3000')
+    await page.click('button.deletebutton#test')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('div.events')
+    await page.click('div.events')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+    await page.type('input#titleValue','test event',{ delay: 100 })
+    await page.type('input#descriptionValue','test event description',{ delay: 100 })
+    await page.type('input#locationValue','Petersham Sydney',{ delay: 100 })
+    await page.click('button.formsubmitbutton')
+    await page.waitForSelector('button#test')
+    await page.click('button#test')
+    await page.waitFor('3000')
+    await page.click('button#test')
+    await page.waitFor('3000')
+    await page.click('button.deletebutton#test')
+
+  })
+
+
+  it("It should create a rule in all of John Doe's groups", async () =>{
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('div.rules')
+    await page.click('div.rules')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+    await page.goto("http://localhost:3000/group/620b74641d131b00003f5c5c")
+    await page.waitForSelector('div.rules')
+    await page.click('div.rules')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('div.rules')
+    await page.click('div.rules')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+  })
+
+  it("It should withdraw approval of the rule and then give approval then check messages", async () =>{
+
+  })
 
+  it("It should create a post in all of John Doe's groups", async () =>{
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('div.news')
+    await page.click('div.news')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+    await page.goto("http://localhost:3000/group/620b74641d131b00003f5c5c")
+    await page.waitForSelector('div.news')
+    await page.click('div.news')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('div.news')
+    await page.click('div.news')
+    await page.waitForSelector('button.formbutton')
+    await page.click('button.formbutton')
+  })
 
+  it("create a poll and three suggestions in all of John Doe's groups", async () =>{
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('div.polls')
+    await page.click('div.polls')
+    await page.goto("http://localhost:3000/group/620b74641d131b00003f5c5c")
+    await page.waitForSelector('div.polls')
+    await page.click('div.polls')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('div.polls')
+    await page.click('div.polls')
+  })
 
+  it("should withdraw approval of all suggestions then approve again", async () =>{
 
+  })
 
-  it("It should create 1000 users", async () =>{
+  it("visit a new group, check there are no message notifications, then return to original group", async () =>{
 
-         var userIds=[]
-         for(var x=0;x<1000;x++){
-           var agent = chai.request.agent(app)
+  })
 
-              const p = {
-              latitude: -33.8963363,
-              longitude: 151.1532549
-              }
 
-                       const r = 10000 // meters
-                       const randomPoint = randomLocation.randomCirclePoint(p, r)
-                       let coords=[randomPoint.latitude,randomPoint.longitude]
-                       var randnum=Math.floor(Math.random()*60)
-                       var randcoords=coords
-                       var randstring= Math.random().toString(36).substring(2, 9)
-                       var userId=mongoose.Types.ObjectId()
-                       userIds.push(userId.toString())
-                      var values={
-                        _id:userId.toString(),
-                         name: randstring,
-                         email: `${randstring}@gmail.com`,
-                         coordinates:randcoords,
-                         expertise: randstring,
-                         password: "mmmmmm",
-                       }
+  it("It should create a restriction poll in all three groups for one day all kinds of restrictions", async () =>{
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('div.jury')
+    await page.click('div.jury')
+    await page.goto("http://localhost:3000/group/620b74641d131b00003f5c5c")
+    await page.waitForSelector('div.jury')
+    await page.click('div.jury')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('div.jury')
+    await page.click('div.jury')
+  })
+  it("It should withdraw approval of the restrictions then approve again", async () =>{
 
-                       console.log(values)
-
-
-                       agent.post('/groups/createuser')
-                       .send({user:values}).then(function (res) {
-                         console.log("add user to group",originalgroup._id,res.body.data._id)
+  })
 
-                     expect(res).to.have.status(201);
+  it("It should check to see if all the previous restrictions are approved and work", async () =>{
 
-                     agent.close()
-                   })}
-                   })
-
-
-
-
-  function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() *
-      charactersLength));
-    }
-    return result;
-  }
-
-  function shuffle(array) {
-    var currentIndex = array.length,  randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-      }
-
-      return array;
-    }
-
-
-
-              it("It should create rules in all groups at all levels", async () =>{
-
-
-                  var originalgroups=await chai.request(app)
-                            .get("/groups/findgroups")
-
-    function makeid(length) {
-      var result           = '';
-      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var charactersLength = characters.length;
-      for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() *
-    charactersLength));
-     }
-     return result;
-    }
-
-    console.log(originalgroups.body.data,"original groups")
-    for(let group of originalgroups.body.data){
-
-    async function addRulesToGroups(level,groupdata){
-      for(var x=0;x<5;x++){
-
-      var ruleId=mongoose.Types.ObjectId()
-      var randstring=makeid(5)
-      var d = new Date();
-      var n = d.getTime();
-      let local=(groupdata.type=="localgroup")?true:false
-      const res1=await chai.request(app)
-                .post('/rules/createrule/'+ruleId)
-      .send({rule:`a test rule ${randstring}`,
-      groupId:groupdata._id,local:local,timecreated:n,level:level,
-      approval:[...groupdata.members.slice(0,25)]})
-    }
-    }
-
-
-      console.log(group)
-      if(group.level==0){
-      await addRulesToGroups(0,group)
-      }
-      if(group.level==1){
-      await addRulesToGroups(1,group)
-      }
-      if(group.level==2){
-        await addRulesToGroups(2,group)
-      }
-      if(group.level==3){
-      await addRulesToGroups(3,group)
-      }
-      if(group.level==4){
-    await addRulesToGroups(4,group)
-      }
-    }
-    })
-
-
-    it("It should create events in all groups at all levels", async () =>{
-
-      var originalgroups=await chai.request(app)
-                .get("/groups/findgroups")
-    console.log("originalgroups.body.data",originalgroups.body.data)
-    function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() *
-    charactersLength));
-    }
-    return result;
-    }
-
-
-    async function addEventsToGroups(level,groupdata){
-    for(var x=0;x<5;x++){
-
-    var eventId=mongoose.Types.ObjectId()
-    var randstring=makeid(5)
-    var d = new Date();
-    var n = d.getTime();
-    let local=false
-    if(groupdata.type=="localgroup"){
-      local=true
-    }
-    const res1=await chai.request(app)
-      .post('/events/createevent/'+eventId)
-    .send({title:`a test event ${randstring}`,description:"a fun event",
-    location:"Petersham",images:["xuafvwhugqpxevav7fjb"],groupId:groupdata._id,
-    timecreated:n,local:local,level:level,approval:[...groupdata.members.slice(0,25)]})
-    console.log("ids",groupdata._id,eventId)
-    }
-    }
-
-    for(var group of originalgroups.body.data){
-    console.log("group",group)
-    if(group.level==0){
-    await addEventsToGroups(0,group)
-    }
-
-    if(group.level==1){
-    await addEventsToGroups(1,group)
-    }
-    if(group.level==2){
-    await addEventsToGroups(2,group)
-    }
-    if(group.level==3){
-    await addEventsToGroups(3,group)
-    }
-    if(group.level==4){
-    await addEventsToGroups(4,group)
-    }
-
-
-    }
-    })
-
-
-
-              it("It should create polls in all groups at all levels", async () =>{
-
-                  var originalgroups=await chai.request(app)
-                            .get("/groups/findgroups")
-
-    function makeid(length) {
-      var result           = '';
-      var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var charactersLength = characters.length;
-      for ( var i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() *
-    charactersLength));
-     }
-     return result;
-    }
-
-
-    for(var group of originalgroups.body.data){
-
-    async function addPollsToGroups(level,groupdata){
-      for(var x=0;x<5;x++){
-
-      var pollId=mongoose.Types.ObjectId()
-      var randstring=makeid(5)
-      var d = new Date();
-      var n = d.getTime();
-      let local=false
-      if(groupdata.type=="localgroup"){
-        local=true
-      }
-      const res1=await chai.request(app)
-                .post('/polls/createpoll/'+pollId)
-      .send({pollquestion:`a test poll ${randstring}`,
-      groupId:groupdata._id,timecreated:n,local:local,level:level,approval:[...groupdata.members.slice(0,25)]})
-    console.log(groupdata.members.slice(0,25))
-    }
-    }
-
-
-      console.log(group)
-      if(group.level==0){
-      await addPollsToGroups(0,group)
-      }
-      if(group.level==1){
-      await addPollsToGroups(1,group)
-      }
-      if(group.level==2){
-        await addPollsToGroups(2,group)
-      }
-      if(group.level==3){
-      await addPollsToGroups(3,group)
-      }
-      if(group.level==4){
-    await addPollsToGroups(4,group)
-      }
-    }
-    })
-
-
-    it("It should create posts in all groups at all levels", async () =>{
-
-      var originalgroups=await chai.request(app)
-                .get("/groups/findgroups")
-    console.log("originalgroups.body.data",originalgroups.body.data)
-    function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() *
-    charactersLength));
-    }
-    return result;
-    }
-
-
-    async function addPostsToGroups(level,groupdata){
-    for(var x=0;x<5;x++){
-    var postId=mongoose.Types.ObjectId()
-    var randstring=makeid(5)
-    var d = new Date();
-    var n = d.getTime();
-    let local=false
-    if(groupdata.type=="localgroup"){
-      local=true
-    }
-    const res1=await chai.request(app)
-      .post('/posts/createpost/'+postId)
-    .send({post:`a test post ${randstring}`,local:local,groupId:groupdata._id,timecreated:n,createdby:"6160dba0883629822da5fe0a"})
-    console.log("ids",groupdata._id,postId)
-    }
-    }
-
-    for(var group of originalgroups.body.data){
-    console.log("group",group)
-    if(group.level==0){
-    await addPostsToGroups(0,group)
-    }
-
-    if(group.level==1){
-    await addPostsToGroups(1,group)
-    }
-    if(group.level==2){
-    await addPostsToGroups(2,group)
-    }
-    if(group.level==3){
-    await addPostsToGroups(3,group)
-    }
-    if(group.level==4){
-    await addPostsToGroups(4,group)
-    }
-    }
-    })
-
-    })
-
-    it("It should create restriction polls in all groups at all levels", async () =>{
-
-      var originalgroups=await chai.request(app)
-      .get("/groups/findgroups")
-      function makeid(length) {
-        var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for ( var i = 0; i < length; i++ ) {
-          result += characters.charAt(Math.floor(Math.random() *
-          charactersLength));
-        }
-        return result;
-      }
-
-
-      async function addRestrictionPollsToGroups(level,groupdata){
-        for(var x=0;x<5;x++){
-          var postId=mongoose.Types.ObjectId()
-          var randstring=makeid(5)
-          var d = new Date();
-          var n = d.getTime();
-
-
-          let restrictions=['cannot post','cannot suggest rules or vote for rules','cannot create polls',
-        'cannot use chat','cannot see events','cannot vote in jury','remove from group']
-
-        let restrictindex=Math.random()*restrictions.length
-        restrictindex=Math.floor(restrictindex)
-        let local=false
-        if(groupdata.type=="localgroup"){
-          local=true
-        }
-
-          let id=await chai.request(app)
-          .post('/polls/createrestrictionpoll/'+postId)
-          .send({usertorestrict:groupdata['members'][0]['_id'],usertorestrictname:groupdata['members'][0]['name'],
-          restriction:restrictions[restrictindex],duration:3,approval:approval.slice(0,19),
-          timecreated:n,local:local,createdby:groupdata['members'][0]['_id'],groupId:groupdata._id})
-          console.log("IIDDD",id.body.id)
-          id=id.body.id
-
-          var restrictionId=mongoose.Types.ObjectId()
-          restrictionId=restrictionId.toString()
-  console.log({
-  _id:restrictionId,
-  usertorestrict:groupdata['members'][0]['_id'],
-  restriction:restrictions[`${restrictindex}`],
-  groupId:groupdata._id,
-  duration:3,
-  timecreated:n,
-  associatedpoll:id
-})
-          await chai.request(app)
-          .post('/groups/createuserrrestriction/')
-          .send({
-            _id:restrictionId,
-            usertorestrict:groupdata['members'][0]['_id'],
-            restriction:restrictions[`${restrictindex}`],
-            groupId:groupdata._id,
-            local:(groupdata.type=="localgroup")?true:false,
-            duration:3,
-            timecreated:n,
-            associatedpoll:id
-          })
-
-
-          await chai.request(app)
-          .put('/groups/addrestrictiontouser/'+groupdata['members'][0]['_id']+'/'+postId)
-          .send()
-           console.log(restrictions[`${restrictindex}`])
-        }
-      }
-
-      for(var group of originalgroups.body.data){
-        if(group.level==0){
-          await addRestrictionPollsToGroups(0,group)
-        }
-
-        if(group.level==1){
-          await addRestrictionPollsToGroups(1,group)
-        }
-        if(group.level==2){
-          await addRestrictionPollsToGroups(2,group)
-        }
-        if(group.level==3){
-          await addRestrictionPollsToGroups(3,group)
-        }
-        if(group.level==4){
-          await addRestrictionPollsToGroups(4,group)
-        }
-      }
+  })
+
+
+
+  it("It should visit the single user page and change settings so as not to receive email notifications for all things", async () =>{
+
+  })
+
+  it("Visit one of John Doe's groups, create all kinds of things, withdraw vote and give vote to all of them", async () =>{
+
+  })
+
+  it("visit one of John Doe's groups' leader page, vote for John Doe, check that he becomes leader", async () =>{
+
+  })
+
+  it("create a new account, Jack Smith, log in, visit the same group as above, join, create two of all kinds of things, then press delete button on all of them",
+   async () =>{
+
+  })
+  it("Log in as John Doe, visit the group above and use leader privileges to delete his stuff", async () =>{
+
+  })
+
+  it("As John Doe, immediately impose restrictions on Jack Smith", async () =>{
+
+  })
+
+  it("As John Doe, visit Jack Smith's userpage and delete the restriction you created or chck they exist", async () =>{
+
+  })
+
+  it("visit the higher level group and again go to leader page and vote for John Doe", async () =>{
+
+  })
+
+  it("On the same level 1 group, create all kinds of things, withdraw and give vote", async () =>{
+
+  })
+
+  it("visit all the groups below that group and check to see if they have received the things that have been passed down", async () =>{
+
+  })
+
+  it("visit level two group, Australia, repeat the above steps", async () =>{
+
+  })
+
+  it("visit a new group, check there are no messages", async () =>{
+
+  })
+
+  it(`visit a new group, write a message, visit a different group,
+  write a different message, return to the original group and check message is as it should be`, async () =>{
+
+  })
+
+  it(`delete John Doe, Jack Smith and everything they created, leave his groups`, async () =>{
+
+
+    await page.goto("http://localhost:3000/group/620b74721d131b00003f5c5d")
+    await page.waitForSelector('button.leavebutton')
+    await page.click('button.leavebutton')
+    await page.goto("http://localhost:3000/group/620b74641d131b00003f5c5c")
+    await page.waitForSelector('button.leavebutton')
+    await page.click('button.leavebutton')
+    await page.goto("http://localhost:3000/group/620b742a1d131b00003f5c5b")
+    await page.waitForSelector('button.leavebutton')
+    await page.click('button.leavebutton')
+    await page.goto("http://localhost:3000")
+    await page.waitForSelector('div.yourgroups h4')
+    expect(await page.$eval('div.yourgroups h4',el => el.innerText)).to.eql(`You haven't joined any groups yet, click on the group link below. You can only join a maximum of three bottom level groups. If you leave one group, your votes are still recorded but not counted. If you choose to rejoin, they will count again.`);
+  })
   })

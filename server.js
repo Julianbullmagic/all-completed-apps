@@ -78,7 +78,7 @@ app.use(function(req,res,next){
 
 const connect = mongoose
   .connect(process.env.DATABASE, { useNewUrlParser: true })
-  .then(() =>
+  .then(() => console.log("connected to mongodb"))
   .catch(err => console.error(err));
 
 
@@ -135,8 +135,9 @@ cron.schedule('0 0 0 * * *', () => {
           if(gr.images){
             for (let img of gr.images){
               cloudinary.uploader.destroy(img, function(error,result) {
-
-            }
+                console.error(error)
+                console.log(result)
+            })
           }
         }
       }
@@ -161,8 +162,9 @@ cron.schedule('0 0 0 * * *', () => {
         for (let img of user.images){
 
           cloudinary.uploader.destroy(img, function(error,result) {
-
-        }
+            console.error(error)
+            console.log(result)
+        })
       }
 
       await User.findByIdAndDelete(user._id).exec()
@@ -188,10 +190,6 @@ cron.schedule('0 0 0 * * *', () => {
           }}).exec()
         }
       }
-
-
-
-
     }
   }
 
@@ -200,7 +198,9 @@ for (let item of events){
     Event.findByIdAndDelete(item._id).exec()
     cloudinary.v2.uploader.destroy(item.images[0],
       function(error, result){
-  }
+        console.error(error)
+        console.log(result)
+  })
 }
 for (let item of restrictions){
   if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
@@ -252,8 +252,8 @@ for (let rest of restrictions){
      })
   }
 }
-  })()
- })
+}}}})()
+})
 
 
 var storage = multer.diskStorage({
@@ -476,7 +476,7 @@ cron.schedule('0 0 1 * *', () => {
 
 
 cron.schedule('*/2 * * * *', () => {
-  
+
 chooseLeaders()
 async function chooseLeaders(){
   let users=await User.find({}, '_id').exec()
@@ -555,7 +555,7 @@ if(group.level>0){
                      if (error) {
                        console.error(error);
                      } else {
-                       
+
                      }
                    })
 

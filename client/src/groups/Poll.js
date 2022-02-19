@@ -100,12 +100,8 @@ export default function Poll (props) {
     if (approval>75){
       sendPollDown()
     }
-    if (approval<75&&(n-poll.timecreated)>MILLISECONDS_IN_A_WEEK){
-      this.deletePoll(poll)
-    }
-    if(approval>=10&&!poll.notificationsent){
-      this.sendPollNotification(poll)
-    }
+
+
 
     setPoll(pollcopy)
 
@@ -161,7 +157,7 @@ function handleSubmit(e){
   var n = d.getTime();
   var pollSuggestionId=mongoose.Types.ObjectId()
 
-  const newPollSuggestion={
+  let newPollSuggestion={
     _id:pollSuggestionId,
     suggestion:pollsuggestion.current.value,
     pollid:props.poll._id,
@@ -169,11 +165,12 @@ function handleSubmit(e){
     approval:[auth.isAuthenticated().user._id],
     createdby:auth.isAuthenticated().user._id
   }
-
+let newPollSuggestionToRender=JSON.parse(JSON.stringify(newPollSuggestion))
+newPollSuggestionToRender.createdby=auth.isAuthenticated().user
 
 
   var suggestionscopy=JSON.parse(JSON.stringify(suggestions))
-  suggestionscopy.push(newPollSuggestion)
+  suggestionscopy.push(newPollSuggestionToRender)
   setSuggestions(suggestionscopy)
 
   const options={
@@ -192,14 +189,12 @@ function handleSubmit(e){
       }
 
 
-      function deletePollSuggestion(e,id) {
-        e.preventDefault()
+      function deletePollSuggestion(e,item) {
         var suggestionscopy=JSON.parse(JSON.stringify(suggestions))
         var filteredarray =suggestionscopy.filter(function( obj ) {
-          return obj._id !== id;
+          return obj._id !== item._id;
         });
         setSuggestions(filteredarray);
-
 
         const options={
           method: "Delete",
@@ -208,17 +203,17 @@ function handleSubmit(e){
             "Content-type": "application/json; charset=UTF-8"}}
 
 
-            fetch("/polls/deletesuggestion/"+id, options)
+            fetch("/polls/deletesuggestion/"+item._id, options)
             .then(response => response.json())
             .then(json =>console.log(json))
               .catch(err => {
                 console.error(err);
               })
-
             }
 
 
             function approveofsuggestion(e,id){
+              console.log(id)
               var suggestionscopy=JSON.parse(JSON.stringify(suggestions))
               function checkSuggestion() {
                 return id!==auth.isAuthenticated().user._id
@@ -229,9 +224,11 @@ function handleSubmit(e){
                   if(!suggestion.approval.includes(auth.isAuthenticated().user._id)){
                     suggestion.approval.push(auth.isAuthenticated().user._id)
                   }
-
                   setSuggestions(suggestionscopy)
                 }
+              }
+              if(suggestions.length>=3&&!props.poll.notificationsent){
+                props.sendPollNotification(props.poll)
               }
 
               setSuggestions(suggestionscopy)
@@ -244,9 +241,7 @@ function handleSubmit(e){
               }
 
               fetch("/polls/approveofsuggestion/" + id +"/"+ auth.isAuthenticated().user._id, options
-            ).then(res => {
-
-            }).catch(err => {
+            ).catch(err => {
               console.error(err);
             })
 
@@ -254,16 +249,13 @@ function handleSubmit(e){
 
 
           function withdrawapprovalofsuggestion(e,id){
-
-
+            console.log(id)
             var suggestionscopy=JSON.parse(JSON.stringify(suggestions))
             function checkSuggestion(userid) {
               return userid!=auth.isAuthenticated().user._id
             }
             for (var suggestion of suggestionscopy){
               if (suggestion._id==id){
-
-
                 var filteredapproval=suggestion.approval.filter(checkSuggestion)
                 suggestion.approval=filteredapproval
               }
@@ -279,9 +271,7 @@ function handleSubmit(e){
             }
 
             fetch("/polls/withdrawapprovalofsuggestion/" + id +"/"+ auth.isAuthenticated().user._id, options
-          ) .then(res => {
-
-          }).catch(err => {
+          ).catch(err => {
             console.error(err);
           })
         }
@@ -322,7 +312,7 @@ function handleSubmit(e){
               <h5 className="ruletext">{item.suggestion}, suggested by {item.createdby.name}, </h5>
               <h5 className="ruletext">{approval}% of members in this group approve this suggestion, {item.approval.length}/{group.members.length}</h5>
               {(poll&&poll.sentdown)&&<h5 className="ruletext">{wholegroupapproval}% of all members in all relevant groups approve this suggestion, {item.approval.length}/{poll.allmembers.length}</h5>}
-              {(((item.createdby==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
+              {(((item.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
                 <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>deletePollSuggestion(e,item)}>Delete Poll Suggestion?</button>}
                 {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>approveofsuggestion(e,item._id)}>Approve this suggestion?</button>}
                 {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>withdrawapprovalofsuggestion(e,item._id)}>Withdraw Approval?</button>}
@@ -356,9 +346,9 @@ function handleSubmit(e){
                 {((props.poll.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
                   <button onClick={(e)=>props.deletePoll(e,props.poll)}>Delete?</button>}
                   <form>
-                  <div >
+                  <div>
                   <h5 className="ruletext">Create Poll Suggestion</h5>
-                  <button className="ruletext" onClick={(e) => handleSubmit(e)}>New Poll Suggestion?</button>
+                  <button className="pollsuggestionbutton" className="ruletext" onClick={(e) => handleSubmit(e)}>New Poll Suggestion?</button>
                   <textarea ref={pollsuggestion} id="story" rows="2" />
                   </div>
                   </form>
@@ -370,12 +360,13 @@ function handleSubmit(e){
                     <div className="pollbox">
                     {(((poll.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
                       <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>props.deletePoll(e,poll)}>Delete Poll?</button>}
+                      {group.level>0&&<>
                       <h5 className="ruletext">Send Down?</h5>
                       {(!poll.approval.includes(auth.isAuthenticated().user._id))&&<button onClick={(e)=>approveOfSendingPollDown(e,poll._id)}>Send poll down to children groups?</button>}
                       {(poll.approval.includes(auth.isAuthenticated().user._id))&&<button onClick={(e)=>withdrawApprovalOfSendingPollDown(e,poll._id)}>Don't send poll down to children groups?</button>}
                       {group.members&&<h4 className="ruletext">{approval}% of members want to send this poll to lower groups, {poll.approval.length}/{group.members.length}. {poll.approval.length>0&&<h4 style={{display:'inline'}}>Approvees=</h4>}</h4>}
                       {approveenames&&approveenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4></>)})}
-                      <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div></div>
+                      <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div></>}</div>
                       </>}
                       </div>
                       </div>

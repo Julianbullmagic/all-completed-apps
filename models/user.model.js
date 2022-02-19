@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     required: 'Email is required'
   },
   cool:{type:Boolean,default:true},
+  newmembers:{type:Boolean,default:false},
   groupstheybelongto:[{type: mongoose.Schema.ObjectId, ref: 'Group'}],
   location:String,
   coordinates:[Number],
@@ -29,7 +30,6 @@ const userSchema = new mongoose.Schema({
   },
   signins:[Number],
   expertise:String,
-
   rates:String,
   hashed_password: {
     type: String,
@@ -49,9 +49,7 @@ const userSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String
   },
-
   restrictions: [{type: mongoose.Schema.ObjectId, ref: 'Restriction'}],
-
   role : {
       type:Number,
       default: 0
@@ -67,7 +65,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  leads:{
+  leaders:{
     type: Boolean,
     default: true
   },

@@ -133,7 +133,7 @@ class GroupsList extends Component {
     return (
       <div style={{margin:"3vw",width:"94vw"}}>
       <div  style={{margin:"0vw"}}>
-      <h1 style={{paddingTop:"5vh",margin:"0vw"}}>Groups</h1>
+      <h1 style={{paddingTop:"7vh",margin:"0vw"}}>Groups</h1>
       </div>
       <div>
       <button style={{}} onClick={(e) => this.setState({viewform:!this.state.viewform})}>View Create Group Form?</button>
@@ -148,7 +148,7 @@ class GroupsList extends Component {
       <h2 style={{marginLeft:"2.5vw",margin:"0.5vw"}}>Your Groups</h2>
       </div>
       <div style={{display:"flex"}}>
-      {nogroups&&<h4 style={{marginLeft:"2.5vw",margin:"0.5vw"}}>You haven't join any groups yet, click on the group link below.
+      {nogroups&&<h4 style={{marginLeft:"2.5vw",margin:"0.5vw"}}>You haven't joined any groups yet, click on the group link below.
       You can only join a maximum of three bottom level groups. If you leave one group, your votes are still recorded but not counted.
       If you choose to rejoin, they will count again.</h4>}
       {mygroupsmapped}

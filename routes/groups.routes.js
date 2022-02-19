@@ -110,10 +110,24 @@ router.get("/finduser/:userId", (req, res) => {
 
           User.findByIdAndUpdate(userId, {$pull : {
             groupstheybelongto:groupId
-          }}).exec()
+          }}).exec(function(err,docs){
+                if(err){
+                  console.error(err);
+                }else{
+                  console.log(docs)
+                }
+              })
           Group.findByIdAndUpdate(groupId, {$pull : {
             members:userId
-          }}).exec()
+          }}).exec(function(err,docs){
+                if(err){
+                  console.error(err);
+                }else{
+                  res.status(200).json({
+                    data: docs
+                  });
+                }
+              })
         })
 
         router.route('/addlowertohigher/:lowerGroupId/:higherGroupId').put((req, res) => {
@@ -128,14 +142,13 @@ router.get("/finduser/:userId", (req, res) => {
                     data: docs
                   });
                 }
-
               })
         })
 
 
         router.get("/findgroups/:cool", (req, res, next) => {
-// {cool:req.params.cool}
-          const items=Group.find()
+          const items=Group.find({cool:req.params.cool}
+)
           .populate('members')
           .exec(function(err,docs){
             if(err){
@@ -179,11 +192,39 @@ router.get("/finduser/:userId", (req, res) => {
           })
 
 
-          router.delete("/deleterestriction/:restrictionId", (req, res, next) => {
-            Restriction.findByIdAndDelete(req.params.restrictionId)
-            .exec()
+          router.delete("/deleterestriction", (req, res, next) => {
+            console.log("DELETEING RESTRICTION",req.body)
+            Restriction.findOneAndDelete({ $and: [{ usertorestrict: req.body.usertorestrict._id },
+             { restriction: req.body.restriction }, { duration: req.body.duration }] },)
+            .exec(function(err,docs){
+              if(err){
+                      console.error(err);
+                  }else{
+                    console.log("docs",docs)
+                      res.status(200).json({
+                                  data: docs
+                              });
+            }
+          })
           })
 
+          router.put("/removerestrictionfromuser/:restId/:userId", (req, res, next) => {
+            console.log("DELETEING RESTRICTION",req.params)
+            User.findByIdAndUpdate(req.params.userId,{$pull : {
+              restrictions:req.params.restId
+            }})
+            .populate('restrictions')
+            .exec(function(err,docs){
+              if(err){
+                      console.error(err);
+                  }else{
+                    console.log("docs",docs)
+                      res.status(200).json({
+                                  data: docs
+                              });
+            }
+          })
+          })
 
           router.post("/createuserrrestriction", (req, res) => {
             const restriction = new Restriction(req.body);
@@ -201,7 +242,9 @@ router.get("/finduser/:userId", (req, res) => {
             console.log("adding restriction to user",req.params.user,req.params.restriction)
             User.findByIdAndUpdate(req.params.user, {$addToSet : {
               restrictions:req.params.restriction
-            }}).exec(function(err,docs){
+            }})
+            .populate('restrictions')
+            .exec(function(err,docs){
               if(err){
                 console.error(err);
               }else{
@@ -249,7 +292,7 @@ router.get("/finduser/:userId", (req, res) => {
 
 
             router.post('/sendemailnotification', (req, res, next) => {
-              console.log("send email notfication")
+              console.log("send email notfication",req.body.message,req.body.emails)
 
               if(req.body.emails.length>0){
                 const transporter = nodemailer.createTransport({
@@ -275,8 +318,14 @@ router.get("/finduser/:userId", (req, res) => {
                   transporter.sendMail(item, function(error, info){
                     if (error) {
                       console.error(error);
+                      res.status(401).json({
+                        data: error
+                      });
                     } else {
-                      console.log('Email sent: ' + info.response);
+                      console.log('Email sent: ' + info.response)
+                      res.status(200).json({
+                        data: info.response
+                      });
                     }
                   })
 

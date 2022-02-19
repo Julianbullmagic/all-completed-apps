@@ -13,6 +13,8 @@ import Kmeans from 'node-kmeans';
 import {Image} from 'cloudinary-react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import io from "socket.io-client";
+
 const mongoose = require("mongoose");
 
 
@@ -44,6 +46,7 @@ class GroupPage extends Component {
       cannotpost:false,
       cannotusechat:false,
       cannotseeevents:false,
+      cannotvoteforleaders:false,
       cannotparticipateingrouppurchases:false,
       removefromgroup:false,
       cannotcreatepolls:false,
@@ -52,14 +55,26 @@ class GroupPage extends Component {
       cannotvoteinjury:false
     }
     this.updateUser=this.updateUser.bind(this)
+    let socket
   }
+
+
 
   componentDidMount(){
     this.getGroupData()
+
+    let server = "http://localhost:5000";
+    if(process.env.NODE_ENV=="production"){
+      this.socket=io();
+    }
+    if(process.env.NODE_ENV=="development"){
+      this.socket=io(server);
+
+    }
   }
 
   updateUser(updatedUser){
-
+console.log("updateing user",updatedUser)
     this.setState({user:updatedUser})
 
     let restrictions=updatedUser.restrictions
@@ -72,10 +87,12 @@ class GroupPage extends Component {
       if((restriction.restriction=="cannot use chat")&&(restriction.groupId==this.props.match.params.groupId)){
         this.setState({cannotusechat:true})
       }
+      if((restriction.restriction=="cannot vote for leaders")&&(restriction.groupId==this.props.match.params.groupId)){
+        this.setState({cannotvoteforleaders:true})
+      }
       if((restriction.restriction=="cannot see events")&&(restriction.groupId==this.props.match.params.groupId)){
         this.setState({cannotseeevents:true})
       }
-
       if((restriction.restriction=="remove from group")&&(restriction.groupId==this.props.match.params.groupId)){
         this.setState({removefromgroup:true})
       }
@@ -143,6 +160,46 @@ class GroupPage extends Component {
 
   async join(e){
 
+    let d = new Date();
+    let n = d.getTime();
+    let chatMessage=`has joined this group`
+    let userId=auth.isAuthenticated().user._id
+    let userName=auth.isAuthenticated().user.name
+    let nowTime=n
+    let type="text"
+    let groupId=this.state.group._id
+
+    this.socket.emit("Input Chat Message", {
+      chatMessage,
+      userId,
+      userName,
+      nowTime,
+      type,
+      groupId});
+
+    let userscopy=JSON.parse(JSON.stringify(this.state.users))
+    userscopy=userscopy.filter(user=>user.newmembers)
+    let emails=userscopy.map(item=>{return item.email})
+    let notification={
+      emails:emails,
+      subject:"New member",
+      message:`There is a new member called ${auth.isAuthenticated().user.name}in the group called ${this.state.group.title} at level ${this.state.group.level}, `
+    }
+
+    const opt = {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(notification)
+    }
+
+    fetch("/groups/sendemailnotification", opt
+  ) .then(res => {
+console.log(res)
+  }).catch(err => {
+    console.error(err);
+  })
 
     const options = {
       method: 'put',
@@ -184,9 +241,9 @@ class GroupPage extends Component {
 
     if(this.state.level==0){
       if(memberids.includes(auth.isAuthenticated().user._id)){
-        joinOrLeave=<><button style={{display:"block"}} onClick={(e)=>this.leave(e)}>Leave Group?</button></>
+        joinOrLeave=<><button className="leavebutton" style={{display:"block"}} onClick={(e)=>this.leave(e)}>Leave Group?</button></>
       }else{
-        joinOrLeave=<><button style={{display:"block"}} onClick={(e)=>this.join(e)}>Join Group?</button></>
+        joinOrLeave=<><button className="joinbutton" style={{display:"block"}} onClick={(e)=>this.join(e)}>Join Group?</button></>
       }
     }
 
@@ -201,17 +258,17 @@ class GroupPage extends Component {
           <><button style={{display:"inline"}}><Link to={"/singleuser/" + item._id}>{item.name}</Link></button></>
         )})}
         {(this.state.users.length<=50)&&joinOrLeave}
-        {this.state.error&&<p style={{color:"red"}}>{this.state.error}</p>}
+        {this.state.error&&<p className="toomanygroupserror" style={{color:"red"}}>{this.state.error}</p>}
         {(this.state.users.length>50)&&<h4 style={{margin:"0.5vw"}} className="activemembers">This group is full, the maximum number of members in all groups is 50</h4>}
 
         <TabList>
-        {!this.state.cannotpost&&<Tab>News</Tab>}
+        {!this.state.cannotpost&&<Tab><div className="news">News</div></Tab>}
         <Tab>Group Details</Tab>
-        {auth.isAuthenticated().user.cool&&<Tab>Leaders</Tab>}
-        {!this.state.cannotcreatepolls&&<Tab>Polls</Tab>}
-        {!this.state.cannotsuggestrulesorvoteforrules&&<Tab>Rules</Tab>}
-        {!this.state.cannotseeevents&&<Tab>Events</Tab>}
-        {!this.state.cannotvoteinjury&&<Tab>Jury</Tab>}
+        {(auth.isAuthenticated().user.cool&&!this.state.cannotvoteforleaders)&&<Tab><div className="leaders">Leaders</div></Tab>}
+        {!this.state.cannotcreatepolls&&<Tab><div className="polls">Polls</div></Tab>}
+        {!this.state.cannotsuggestrulesorvoteforrules&&<Tab><div className="rules">Rules</div></Tab>}
+        {!this.state.cannotseeevents&&<Tab><div className="events">Events</div></Tab>}
+        {!this.state.cannotvoteinjury&&<Tab><div className="jury">Jury</div></Tab>}
         </TabList>
 
         {!this.state.cannotpost&&<TabPanel>
@@ -220,7 +277,7 @@ class GroupPage extends Component {
           <TabPanel>
           <GroupDetails users={this.state.users} group={this.state.group}/>
           </TabPanel>
-          {auth.isAuthenticated().user.cool&&<TabPanel>
+          {(auth.isAuthenticated().user.cool&&!this.state.cannotvoteforleaders)&&<TabPanel>
             <Leaders users={this.state.users} group={this.state.group}/>
             </TabPanel>}
             {!this.state.cannotcreatepolls&&<TabPanel>
@@ -239,7 +296,7 @@ class GroupPage extends Component {
                     <br/>
                     <div style={{margin:"4vw",top:"80%",positition:"fixed"}}>
                     <h6 style={{margin:"0.5vw"}}>How would you improve The Democratic Social Network? This application is still a work in progress, we would like to build something that
-                    as many people as possible are hoppy with. Please email any constructive criticism to democraticsocialnetwork@gmail.com. There
+                    as many people as possible are happy with. Please email any constructive criticism to democraticsocialnetwork@gmail.com. There
                     is also an online marketplace for democratic businesses called the Cooperative Marketplace</h6>
                     <Link to="https://cooperative-marketplace.herokuapp.com/">
                     <h1 style={{margin:"0.5vw"}}>https://cooperative-marketplace.herokuapp.com/</h1>

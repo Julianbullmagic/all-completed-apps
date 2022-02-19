@@ -41,7 +41,16 @@ router.get("/getrules/:groupId", (req, res, next) => {
 
   router.delete("/:ruleId", (req, res, next) => {
       Rule.findByIdAndDelete(req.params.ruleId)
-      .exec()
+      .exec(function(err,docs){
+            if(err){
+              console.error(err);
+            }else{
+              res.status(200).json({
+                data: docs
+              });
+            }
+
+          })
     })
 
 

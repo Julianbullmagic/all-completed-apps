@@ -29,24 +29,47 @@ router.route('/marksentdown/:pollId').put((req, res) => {
   console.log("marking sent down",req.params.pollId,re.body)
   Poll.findByIdAndUpdate(req.params.pollId, {
   sentdown:true,allmembers:req.body
-}).exec()
+}).exec(function(err,docs){
+      if(err){
+              console.error(err);
+          }else{
+            console.log("docs",docs)
+              res.status(200).json({
+                          data: docs
+                      });
+    }
+  })
 })
 router.route('/approveofsendingpolldown/:pollId/:userId').put((req, res) => {
   Poll.findByIdAndUpdate(req.params.pollId, {$addToSet : {
   approval:req.params.userId
-}}).exec()
+}}).exec(function(err,docs){
+      if(err){
+              console.error(err);
+          }else{
+            console.log("docs",docs)
+              res.status(200).json({
+                          data: docs
+                      });
+    }
+  })
 })
 router.route('/withdrawapprovalofsendingpolldown/:pollId/:userId').put((req, res) => {
   Poll.findByIdAndUpdate(req.params.pollId, {$pull : {
   approval:req.params.userId
-}}).exec()
+}}).exec(function(err,docs){
+      if(err){
+              console.error(err);
+          }else{
+            console.log("docs",docs)
+              res.status(200).json({
+                          data: docs
+                      });
+    }
+  })
 })
 
-router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => {
-  Poll.findByIdAndUpdate(req.params.pollId, {$pull : {
-  approval:req.params.userId
-}}).exec()
-})
+
 
 
 
@@ -70,14 +93,32 @@ router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => 
     let pollId = req.params.pollId
     const updatedPoll=Poll.findByIdAndUpdate(pollId, {
     notificationsent:true
-  }).exec()
+  }).exec(function(err,docs){
+        if(err){
+                console.error(err);
+            }else{
+              console.log("docs",docs)
+                res.status(200).json({
+                            data: docs
+                        });
+      }
+    })
   })
 
   router.route('/ratificationnotificationsent/:pollId').put((req, res) => {
     let pollId = req.params.pollId
     const updatedPoll=Poll.findByIdAndUpdate(pollId, {
     ratificationnotificationsent:true
-  }).exec()
+  }).exec(function(err,docs){
+        if(err){
+                console.error(err);
+            }else{
+              console.log("docs",docs)
+                res.status(200).json({
+                            data: docs
+                        });
+      }
+    })
   })
 
 
@@ -85,7 +126,16 @@ router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => 
     let pollId = req.params.pollId
     const updatedPoll=RestrictionPoll.findByIdAndUpdate(pollId, {
     notificationsent:true
-  }).exec()
+  }).exec(function(err,docs){
+        if(err){
+                console.error(err);
+            }else{
+              console.log("docs",docs)
+                res.status(200).json({
+                            data: docs
+                        });
+      }
+    })
   })
 
 
@@ -93,7 +143,16 @@ router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => 
     let pollId = req.params.pollId
     const updatedPoll=RestrictionPoll.findByIdAndUpdate(pollId, {
     ratificationnotificationsent:true
-  }).exec()
+  }).exec(function(err,docs){
+        if(err){
+                console.error(err);
+            }else{
+              console.log("docs",docs)
+                res.status(200).json({
+                            data: docs
+                        });
+      }
+    })
   })
 
 
@@ -120,9 +179,31 @@ router.route('/withdrawapprovalofsuggestion/:pollId/:userId').put((req, res) => 
 
   router.route('/deletepoll/:pollId').delete((req, res) => {
           Poll.findByIdAndDelete(req.params.pollId)
-          .exec()
+          .exec(function(err,docs){
+            if(err){
+                    console.error(err);
+                }else{
+                  console.log("docs",docs)
+                    res.status(200).json({
+                                data: docs
+                            });
+          }
+        })
 })
 
+router.route('/deleterestrictionpoll/:pollId').delete((req, res) => {
+        RestrictionPoll.findByIdAndDelete(req.params.pollId)
+        .exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+                  res.status(200).json({
+                              data: docs
+                          });
+        }
+      })
+})
 
 router.route('/getcomments/:postId').get((req, res) => {
   console.log("getting comments",req.params.postId)
@@ -143,7 +224,16 @@ router.route('/getcomments/:postId').get((req, res) => {
 
 router.route('/deletecomment/:commentId').delete((req, res) => {
         Comment.findByIdAndDelete(req.params.commentId)
-        .exec()
+        .exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+                  res.status(200).json({
+                              data: docs
+                          });
+        }
+      })
 })
 
 
@@ -244,7 +334,16 @@ newSuggestion.save((err,doc) => {
 
 router.route('/deletesuggestion/:suggestionId').delete((req, res) => {
         Suggestion.findByIdAndDelete(req.params.suggestionId)
-        .exec()
+        .exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+                  res.status(200).json({
+                              data: docs
+                          });
+        }
+      })
 })
 
 router.route('/getsuggestions/:pollId').get((req, res) => {
@@ -271,7 +370,16 @@ router.route('/approveofsuggestion/:suggestionId/:userId').put((req, res) => {
 
   Suggestion.findByIdAndUpdate(suggestionId, {$addToSet : {
   approval:userId
-}}).exec()
+}})  .exec(function(err,docs){
+    if(err){
+            console.error(err);
+        }else{
+          console.log("docs",docs)
+            res.status(200).json({
+                        data: docs
+                    });
+  }
+})
 })
 
 router.route('/withdrawapprovalofsuggestion/:suggestionId/:userId').put((req, res) => {
@@ -281,27 +389,52 @@ router.route('/withdrawapprovalofsuggestion/:suggestionId/:userId').put((req, re
 
   Suggestion.findByIdAndUpdate(suggestionId, {$pull : {
   approval:userId
-}}).exec()
+}})  .exec(function(err,docs){
+    if(err){
+            console.error(err);
+        }else{
+          console.log("docs",docs)
+            res.status(200).json({
+                        data: docs
+                    });
+  }
+})
 })
 
 router.route('/approveofrestriction/:pollId/:userId').put((req, res) => {
   let pollId = req.params.pollId
   let userId = req.params.userId;
   console.log(pollId,userId)
-
   RestrictionPoll.findByIdAndUpdate(pollId, {$addToSet : {
   approval:userId
-}}).exec()
+}}).exec(function(err,docs){
+    if(err){
+            console.error(err);
+        }else{
+          console.log("docs",docs)
+            res.status(200).json({
+                        data: docs
+                    });
+  }
+})
 })
 
 router.route('/withdrawapprovalofrestriction/:pollId/:userId').put((req, res) => {
   let pollId = req.params.pollId
   let userId = req.params.userId;
   console.log(pollId,userId)
-
   RestrictionPoll.findByIdAndUpdate(pollId, {$pull : {
   approval:userId
-}}).exec()
+}}).exec(function(err,docs){
+    if(err){
+            console.error(err);
+        }else{
+          console.log("docs",docs)
+            res.status(200).json({
+                        data: docs
+                    });
+  }
+})
 })
 
 
