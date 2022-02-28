@@ -20,9 +20,11 @@ export default class Leaders extends Component {
       }
     }
     leaders=[...new Set(leaders)]
-
+    let userscopy=props.users
+    userscopy=userscopy.sort(() => Math.random() - 0.5);
+    userscopy=userscopy.sort(() => Math.random() - 0.5);
     this.state = {
-      users:props.users,
+      users:userscopy,
       group:props.group,
       leaders:leaders,
       redirect: false,
@@ -34,6 +36,8 @@ export default class Leaders extends Component {
 
   componentWillReceiveProps(nextProps) {
     let userscopy=JSON.parse(JSON.stringify(nextProps.users))
+userscopy=userscopy.sort(() => Math.random() - 0.5);
+userscopy=userscopy.sort(() => Math.random() - 0.5);
 
     if (nextProps.users !== this.props.users) {
 
@@ -202,6 +206,7 @@ render(props) {
           }
         }
       }
+      let width=`${(item.votes.length/this.state.group.members.length)*100}%`
 
 
       return(
@@ -212,6 +217,7 @@ render(props) {
         {(item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.withdrawapprovalofuser(e,item._id)}>Withdraw Vote?</button>}
         {votees.length>0&&<p style={{display:'inline'}}>People who voted: </p>}
         {votees&&votees.map((item,index)=>{return(<><p style={{display:'inline'}}>{item}{(index<(votees.length-2))?", ":(index<(votees.length-1))?" and ":"."}</p></>)})}
+        <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
         </div>
         </>
       )})
@@ -228,16 +234,22 @@ render(props) {
 
       {this.state.leaders.length>0&&this.state.leaders.map(item=><><div className="leader"><h3 style={{margin:"0.5vw"}}>{item.name}</h3></div></>)}
       {this.state.leaders.length==0&&<h4>No leaders</h4>}
-      {this.state.users.length<13&&<><p>The number of leaders each group gets is equal to the number of members divided by
-        25 rounded to the nearest integer. Groups with less than 13 members will not have any leaders. Between 13 and 38
-        member groups have 1 leader and between 39 and 50 member groups have 2.</p>
-        <p>You can still vote for people in this group, these will be recorded in the database and counted if the group
-        should become large enough.</p></>
+      {this.state.users.length<13&&<><p>Each group larger than 25 members will have two representatives, one male and the other female.
+        If all members are only one sex, they cannot choose any representatives.
+        If the group is smaller than 25 members large, you can still vote for people in this group. These votes will be recorded in the database and counted if the group
+       should become large enough. We have a sorting algorithm that ensures
+        all people outside of the two main sex groups are proportionally represented, however male and female
+        are the largest ones and will mostly be chosen (purely based on population size). Most capitalist
+        parliaments or congresses are less than a third female, giving hugely disproportionate and unfair
+        representation to men. If we hope to reduce the gender pay gap, high cost of childcare, the disproportionate
+        amount of unpaid housework, rates of teenage pregnancy and many other distinctly female problems,
+        a more humanistic political system is needed.</p></>
       }
       Representatives from higher level groups are not allowed to nominate or endorse candidates in lower level groups.
       This helps to ensure a genuine grassroots organization. There are no election campaigns on this
       web application. However, you can explain your skills, qualifications and experience on your profile page and others
-      can inspect this. 
+      can inspect this. Each candidate will be assessed on their merits by the people they represent. We don't
+      want an oligarchy to limit or influence the choice of candidates.
       You could also post a resume in your groups for other members to look at and evalutate your credentials. This
       is intended to create a genuine meritocracy, the choice of leaders or experts should be purely based on their skill, experience,
       trustworthyness, moral integrity and

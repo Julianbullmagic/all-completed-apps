@@ -30,7 +30,6 @@ export default function Jury(props) {
   }
   if(process.env.NODE_ENV=="development"){
     socket=io(server);
-
   }
 
   useEffect(()=>{
@@ -90,7 +89,7 @@ export default function Jury(props) {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=group._id
+    let groupId=group.title
 
 
     socket.emit("Input Chat Message", {
@@ -243,7 +242,7 @@ function delRestPoll(e,item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=group._id
+      let groupId=group.title
 
 
       socket.emit("Input Chat Message", {
@@ -278,7 +277,7 @@ function delRestPoll(e,item){
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group._id
+            let groupId=group.title
 
 
             socket.emit("Input Chat Message", {
@@ -580,7 +579,7 @@ function delRestPoll(e,item){
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group._id
+            let groupId=group.title
 
             socket.emit("Input Chat Message", {
               chatMessage,
@@ -664,7 +663,7 @@ function delRestPoll(e,item){
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group._id
+            let groupId=group.title
 
 
             socket.emit("Input Chat Message", {
@@ -716,6 +715,36 @@ function delRestPoll(e,item){
           })
         }
       }
+
+
+      function areYouSure(e,item){
+        console.log(item)
+        let restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
+        console.log(restrictionpollscopy)
+        for (let poll of restrictionpollscopy){
+          if (poll._id==poll._id){
+            poll.areyousure=true
+          }}
+          console.log(restrictionpollscopy)
+          let current=restrictionpollscopy.slice((page*10-10),page*10)
+          setRestrictionPolls(restrictionpollscopy)
+          setCurrentPageData(current)
+        }
+
+        function areYouNotSure(e,item){
+          console.log(item)
+          let restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
+          console.log(restrictionpollscopy)
+          for (let poll of restrictionpollscopy){
+            if (poll._id==item._id){
+              poll.areyousure=false
+            }}
+            console.log(restrictionpollscopy)
+            let current=restrictionpollscopy.slice((page*10-10),page*10)
+            setRestrictionPolls(restrictionpollscopy)
+            setCurrentPageData(current)
+          }
+
 
 
       var d = new Date();

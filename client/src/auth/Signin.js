@@ -40,11 +40,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function Signin(props) {
   let server = "http://localhost:5000";
-  var socket = io(server);
-  const classes = useStyles()
+  let socket
+  if(process.env.NODE_ENV=="production"){
+    socket=io();
+  }
+  if(process.env.NODE_ENV=="development"){
+    socket=io(server);
+  }  const classes = useStyles()
   const [values, setValues] = useState({
       email: '',
       password: '',
+      mustenteremail:'',
+      checkyouremail:'',
       error: '',
       redirectToReferrer: false
   })
@@ -66,15 +73,71 @@ export default function Signin(props) {
         auth.authenticate(data, () => {
           setValues({ ...values, error: '',redirectToReferrer: true})
         })
-
         socket.emit("new user", data.user.name);
-
       }
     })
-
-
-
   }
+
+  async function forgotPassword(){
+    if (!values.email){
+      setValues({...values,mustenteremail:'You must enter your email address so we can send you a password reset link'})
+      setTimeout(() => {
+        setValues({...values,mustenteremail:''})
+      }, 5000)
+    }
+
+    console.log(values.email)
+
+    if (values.email){
+      const options = {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:''
+      }
+
+      let passwordresettoken=await fetch("/groups/getpasswordresettoken/"+values.email, options
+      ).then(res=>res.json())
+      .then(res => {
+      console.log("password reset token result",res.token)
+      return res.token
+      }).catch(err => {
+      console.error(err);
+      })
+      console.log("password reset token",passwordresettoken)
+
+      let url = "http://localhost:3000"
+      if(process.env.NODE_ENV=="production"){
+        url="http://democratic-social-network.herokuapp.com"
+      }
+
+          let notification={
+            emails:[values.email],
+            subject:"Change Password for Democratic Social Network",
+            message:`To reset your password visit this link ${url}/forgotpassword/${passwordresettoken}`
+          }
+
+          const opt = {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(notification)
+          }
+
+          fetch("/groups/sendemailnotification", opt
+        ) .then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.error(err);
+        })
+
+        setValues({...values,checkyouremail:'We have sent you an email with a password reset link'})
+        setTimeout(() => {
+          setValues({...values,checkyouremail:''})
+        }, 5000)
+    }}
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
@@ -92,7 +155,7 @@ export default function Signin(props) {
 
   return (
       <div className="signinform">
-        <div className="innersigninform">
+        <div className="innersigninform" style={{height:"auto"}}>
           <h4 style={{textAlign:"center"}}>
             Sign In
           </h4>
@@ -108,7 +171,11 @@ export default function Signin(props) {
               {values.error}
             </Typography>)
           }
-          <button style={{marginLeft:"45%"}} id="submit" onClick={clickSubmit} >Submit</button>
+          <button style={{display:"inline"}} id="submit" onClick={clickSubmit}>Submit</button>
+          <button style={{display:"inline"}} id="submit" onClick={forgotPassword}>Forgot Password</button>
+          {values.mustenteremail&&<p style={{color:"red",display:"block"}}>{values.mustenteremail}</p>}
+          {values.checkyouremail&&<p style={{color:"green",display:"block"}}>{values.checkyouremail}</p>}
+
         </div>
       </div>
     )

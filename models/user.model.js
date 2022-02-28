@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
   votes:[String],
   recentprivatemessages: [{type: mongoose.Schema.ObjectId, ref: 'Chat'}],
   phone:Number,
+  sex:{
+    type:String,
+    default:true
+  },
   active:{
     type:Boolean,
     default: true
@@ -126,6 +130,9 @@ userSchema.path('hashed_password').validate(function(v) {
 }, null)
 
 userSchema.methods = {
+  updatePassword:function(passw){
+    this.hashed_password = this.encryptPassword(passw)
+  },
   authenticate: function(plainText) {
     return this.encryptPassword(plainText) === this.hashed_password
   },

@@ -35,6 +35,7 @@ const KmeansLib = require('kmeans-same-size');
 var kmeans = new KmeansLib();
 var geocluster = require("geocluster");
 var geodist = require('geodist')
+const nodemailer = require('nodemailer');
 
 
 cloudinary.config({
@@ -55,7 +56,7 @@ const server = require("http").createServer(app);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000"||"https://variety-performers-group.herokuapp.com",
+    origin: "http://localhost:3000"||"https://democratic-social-network.herokuapp.com",
     methods: ["GET", "POST"]
   }
 });
@@ -102,8 +103,11 @@ app.use('/api/chat', require('./routes/chat'));
 const MILLISECONDS_IN_A_MONTH=2629800000
 const MILLISECONDS_IN_THREE_MONTHS=7889400000
 const MILLISECONDS_IN_A_DAY=86400000
-
-
+let grouptitles
+(async function(){
+ grouptitles=await Group.find().exec()
+ grouptitles=grouptitles.map(item=>item.title)
+})()
 
 cron.schedule('0 0 0 * * *', () => {
 
@@ -156,7 +160,7 @@ cron.schedule('0 0 0 * * *', () => {
 
     let timeelapsedsincelogin=n-user.signins[`${index}`]
 
-    if(timeelapsedsincelogin>1000){
+    if(timeelapsedsincelogin>MILLISECONDS_IN_A_MONTH){
 
       if(user.images){
         for (let img of user.images){
@@ -165,33 +169,17 @@ cron.schedule('0 0 0 * * *', () => {
             console.error(error)
             console.log(result)
         })
-      }
+      }}
 
       await User.findByIdAndDelete(user._id).exec()
-    }
-
-
-    for (let login of user.signins){
-
-      let difference=n-login
-
-      if (difference<MILLISECONDS_IN_A_MONTH){
-        recentsignins.push(login)
-      }
-      if (difference<MILLISECONDS_IN_THREE_MONTHS){
-       thresholdtodelete.push(login)
-      }
-
-      if(thresholdtodelete.length==0){
-        await User.findByIdAndDelete(user._id).exec()
-        for (let gr of groups){
-          Group.findByIdAndUpdate(gr._id, {$pull : {
-            members:user._id
-          }}).exec()
-        }
+      for (let gr of groups){
+        Group.findByIdAndUpdate(gr._id, {$pull : {
+          members:user._id
+        }}).exec()
       }
     }
   }
+
 
 for (let item of events){
   if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
@@ -252,7 +240,7 @@ for (let rest of restrictions){
      })
   }
 }
-}}}})()
+}}})()
 })
 
 
@@ -288,20 +276,6 @@ var users={}
 
 io.on("connection", socket => {
 
-
- //  socket.on('disconnect', function () {
- //
- //
- //     for (let x in users){
- //       if(users[`${x}`]==socket.id){
- //         delete users[`${x}`]
- //       }
- //     }
- //
- // });
-
-
-
   socket.on("new user",function(data){
 
       socket.name=data
@@ -315,14 +289,34 @@ io.on("connection", socket => {
   })
 
 
-  socket.on("join room",async function(room){
+  socket.on("join group room",async function(room){
+    console.log("join group room",room)
+    let allrooms=io.sockets.adapter.rooms
+    for (let room in allrooms){
+      let myregex=/\d+/g
+      if (!grouptitles.includes(room)){
+          delete allrooms[`${room}`]
+        }
+      }
 
+    allrooms = Object.fromEntries(allrooms);
+console.log(allrooms)
+    for (let ro in allrooms){
+      console.log(ro)
+      let name=room.userName.toLowerCase()
+      let roo=ro.toLowerCase()
+      if(roo.includes(name)){
+        socket.leave(ro);
+      }
+    }
     socket.join(room.room);
+  })
 
+  socket.on("join room",async function(room){
+    socket.leave(room.groupId);
+    socket.join(room.room);
     let us=room.userName
     socket.join(us)
-
-
     let user = await User.findById(room.userId).populate('recentprivatemessages').exec()
     let result = user.recentprivatemessages.filter(us =>!(us.sender==room.recipientId));
     let chatids=result.map(item=>item._id)
@@ -341,14 +335,9 @@ io.on("connection", socket => {
 
           var chat = new Chat({ message: msg.chatMessage, sender:msg.userId, type: msg.type,recipient:msg.recipient._id,timecreated:n })
 
-
-
           chat.save((err, doc) => {
 
-
             if(err) return res.json({ success: false, err });
-
-
 
             User.findByIdAndUpdate(msg.recipient._id,{$push : {
             recentprivatemessages:doc._id
@@ -359,8 +348,6 @@ io.on("connection", socket => {
 
             }
              })
-
-
 
             Chat.find({ "_id": doc._id })
             .populate('sender')
@@ -389,8 +376,6 @@ io.on("connection", socket => {
         var n = d.getTime();
           var chat = new Chat({ message: msg.chatMessage, sender:msg.userId,groupId:msg.groupId, type: msg.type,timecreated:n })
 
-
-
           chat.save((err, doc) => {
 
 
@@ -399,8 +384,10 @@ io.on("connection", socket => {
             Chat.find({ "_id": doc._id })
             .populate("sender")
             .exec((err, doc)=> {
+                console.log("increase unread whole group count")
+                io.emit("increase unread whole group count", doc);
+                return io.to(msg.groupId).emit("Output Chat Message", doc);
 
-                return io.emit("Output Chat Message", doc);
             })
           })
       } catch (error) {
@@ -475,17 +462,13 @@ cron.schedule('0 0 1 * *', () => {
 })
 
 
-cron.schedule('*/2 * * * *', () => {
+cron.schedule('*/0.5 * * * *', () => {
 
 chooseLeaders()
 async function chooseLeaders(){
-  let users=await User.find({}, '_id').exec()
+  let users=await User.find().exec()
+  users=users.map(user=>{return {name:user.name,_id:user._id,usergroups:[]}})
 
-for (let user of users){
-  await User.findByIdAndUpdate(user, {
-  groupstheybelongto:[]
-}).exec()
-}
   let groups=await Group.find()
      .populate({
       path : 'groupsbelow',
@@ -493,92 +476,133 @@ for (let user of users){
         path : 'members'
       }
     }).exec()
-
+groups=groups.map(gr=>{return {title:gr.title,groupsbelow:gr.groupsbelow,level:gr.level,
+  members:gr.members,_id:gr._id,tempmembs:[]}})
   for (let group of groups){
-
 if (group.members){
   for (let memb of group.members){
-    await User.findByIdAndUpdate(memb, {$addToSet:{
-    groupstheybelongto:group._id
+    if (group.level==0){
+      for (let user of users){
+        console.log("user memb",group.title,user._id,memb)
+        if (String(user._id)==String(memb)){
+          let usergroupscopy=JSON.parse(JSON.stringify(user.usergroups))
+          let groupId=String(group._id)
+          console.log("groupId",groupId)
+          usergroupscopy.push(groupId)
+          user['usergroups']=usergroupscopy
+        }
+      }
     }
-  }).exec()
   }
 }
-let oldleaders=group.members
 
-if(group.level>0){
-  await Group.findByIdAndUpdate(group._id, {
-  members:[]
-}).exec()
-}
     for (let groupbelow of group.groupsbelow){
         let members=JSON.parse(JSON.stringify(groupbelow.members))
-        let allmembers=JSON.parse(JSON.stringify(groupbelow.members))
-        let groupidentifier=`${groupbelow.title},${groupbelow.level}`
-        for (var member of members){
-             let groupidentifier=`${groupbelow.title},${groupbelow.level}`
+        let memberids
+        let oldleaders
+        if (members){
+          memberids=members.map(item=>item._id)
+          oldleaders=group.members.filter(item=>!memberids.includes(item._id))
+          let allmembers=JSON.parse(JSON.stringify(groupbelow.members))
+          let groupidentifier=`${groupbelow.title},${groupbelow.level}`
+          for (let member of members){
+               let groupidentifier=`${groupbelow.title},${groupbelow.level}`
+               member.votes=member.votes.filter(item=>item.startsWith(groupidentifier))
+           }
+           let malemembers=[]
+           let femalemembers=[]
+           let leaders=[]
+           if(members.length>0){
+             members=members.filter(checkThreshold)
 
-             member.votes=member.votes.filter(item=>!item.startsWith(groupidentifier))
+             function checkThreshold(memb) {
+               return  (memb.votes.length/groupbelow.members.length)>0.5;
+             }
+              members.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
+             malemembers=members.filter(memb=>memb.sex=="male")
+             femalemembers=members.filter(memb=>memb.sex=="female")
+           }
+           if(malemembers.length>0&&femalemembers.length>0){
+             if(femalemembers[0]&&malemembers[0]){
+               leaders=[femalemembers[0],malemembers[0]]
+             }
+           }
+           if(leaders){
+             leaderids=leaders.map(item=>item._id)
+             console.log("newleaders,oldleaders",groupbelow.title,leaderids,oldleaders)
+           }
+           console.log(",oldleaders",oldleaders)
 
-         }
-        members.filter(memb=>(memb.votes.length/groupbelow.members.length)>0.75)
-         members.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
-         let numofreps=Math.round(members.length/25)
-         let leaders=members.slice(0,numofreps)
-
-         for (let lead of leaders){
-           if (!oldleaders.includes(lead)){
-             for (let memb of allmembers){
-               if (memb.leaders){
-
-                 const transporter = nodemailer.createTransport({
-                   service: 'gmail',
-                   auth: {
-                     user: process.env.EMAIL,
-                     pass: process.env.PASSWORD
-                   }
-                 })
-                 const optionsArray=req.body.emails.map(email=>{
-                   const mailOptions = {
-                     from: process.env.EMAIL,
-                     to: memb.email,
-                     subject: 'new leader',
-                     text: `${lead.name} has been elected as a leader in the group ${groupbelow.title} at level ${groupbelow.level}`
-                   };
-                   return mailOptions
-                 })
-
-                 optionsArray.forEach(sendEmails)
-
-                 function sendEmails(item){
-                   transporter.sendMail(item, function(error, info){
-                     if (error) {
-                       console.error(error);
-                     } else {
-
+           for (let lead of leaders){
+             if (!oldleaders.includes(lead._id)){
+               for (let memb of allmembers){
+                   const transporter = nodemailer.createTransport({
+                     service: 'gmail',
+                     auth: {
+                       user: process.env.EMAIL,
+                       pass: process.env.PASSWORD
                      }
                    })
 
-                 }
+                   let emails=allmembers.map(item=>item.email)
+
+                   const optionsArray=emails.map(email=>{
+                     const mailOptions = {
+                       from: process.env.EMAIL,
+                       to: memb.email,
+                       subject: 'new leader',
+                       text: `${lead.name} has been elected as a leader in the group ${groupbelow.title} at level ${groupbelow.level}`
+                     };
+                     return mailOptions
+                   })
+
+                   optionsArray.forEach(sendEmails)
+
+                   function sendEmails(item){
+                     console.log(item)
+                     transporter.sendMail(item, function(error, info){
+                       if (error) {
+                         console.error(error);
+                       } else {
+                         // console.log(info)
+                       }
+                     })
+
+                   }
+             }
              }
            }
+           if(leaders){
+             if(leaders.length>0){
+               leaders=leaders.map(item=>item._id)
+               if(group.level>0){
+                 group.tempmembs.push(...leaders)
+               }
+               for (let leader of leaders){
+                 for (let user of users){
+                   if (String(user._id)==String(leader)){
+                     let usergroupscopy=JSON.parse(JSON.stringify(user.usergroups))
+                     let groupId=String(group._id)
+                     usergroupscopy.push(groupId)
+                     user['usergroups']=usergroupscopy
+                   }
+                   }
+                 }
+             }
+
            }
          }
-         leaders=leaders.map(item=>item._id)
+        }
+        if(group.level>0){
+          console.log("group title and membs",group.title,group.tempmembs)
+          await Group.findByIdAndUpdate(group._id, {members:group.tempmembs}).exec()
+        }
+    }
 
-
-
-         await Group.findByIdAndUpdate(group._id, {$addToSet : {
-         members:leaders
-       }}).exec()
-
-       for (let leader of leaders){
-         await User.findByIdAndUpdate(leader, {$addToSet:{
-         groupstheybelongto:group._id
-         }
-       }).exec()
-       }
+    for (let user of users){
+      user.usergroups=[...new Set(user.usergroups)]
+      console.log(user)
+      await User.findByIdAndUpdate(user._id, {groupstheybelongto:user.usergroups}).exec()
     }
   }
-}
 })

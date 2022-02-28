@@ -49,7 +49,6 @@ router.get("/getrules/:groupId", (req, res, next) => {
                 data: docs
               });
             }
-
           })
     })
 
@@ -59,7 +58,12 @@ router.get("/getrules/:groupId", (req, res, next) => {
       let ruleId = req.params.ruleId
       const updatedRule=Rule.findByIdAndUpdate(ruleId, {
       notificationsent:true
-    }).exec()
+    }).exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+        }})
     })
 
     router.route('/marksentdown/:ruleId').put((req, res) => {
@@ -67,13 +71,23 @@ router.get("/getrules/:groupId", (req, res, next) => {
       console.log("marking sent down",ruleId)
       const updatedRule=Rule.findByIdAndUpdate(ruleId, {
       sentdown:true
-    }).exec()
+    }).exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+        }})
     })
 
     router.route('/ruleratificationnotificationsent/:ruleId').put((req, res) => {
       const updatedPoll=Rule.findByIdAndUpdate(req.params.ruleId, {
       ratificationnotificationsent:true
-    }).exec()
+    }).exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+        }})
     })
 
     router.route('/approveofrule/:ruleId/:userId').put((req, res) => {
@@ -83,7 +97,12 @@ router.get("/getrules/:groupId", (req, res, next) => {
 
       const updatedRule=Rule.findByIdAndUpdate(ruleId, {$push : {
       approval:userId
-    }}).exec()
+    }}).exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+        }})
     })
 
     router.route('/withdrawapprovalofrule/:ruleId/:userId').put((req, res) => {
@@ -93,7 +112,12 @@ router.get("/getrules/:groupId", (req, res, next) => {
 
       const updatedRule=Rule.findByIdAndUpdate(ruleId, {$pull : {
       approval:userId
-    }}).exec()
+    }}).exec(function(err,docs){
+          if(err){
+                  console.error(err);
+              }else{
+                console.log("docs",docs)
+        }})
     })
 
 
@@ -128,9 +152,5 @@ console.log(newRule)
      })
     }
   })})
-
-
-
-
 
 module.exports= router

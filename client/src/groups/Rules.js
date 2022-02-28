@@ -35,6 +35,8 @@ export default class Rules extends Component {
     this.sendRuleNotification= this.sendRuleNotification.bind(this)
     this.approveofrule=this.approveofrule.bind(this)
     this.ruleApprovedNotification=this.ruleApprovedNotification.bind(this)
+    this.areYouSure=this.areYouSure.bind(this)
+    this.areYouNotSure=this.areYouNotSure.bind(this)
     let socket
   }
 
@@ -100,15 +102,10 @@ export default class Rules extends Component {
 
   updateRules(newrule){
     var rulescopy=JSON.parse(JSON.stringify(this.state.rules))
-
     rulescopy.reverse()
     rulescopy.push(newrule)
     rulescopy.reverse()
-
-
     let current=rulescopy.slice((this.state.page*10-10),this.state.page*10)
-
-
     this.setState({ rules:rulescopy,currentPageData:current})
   }
 
@@ -151,7 +148,7 @@ export default class Rules extends Component {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=this.state.group._id
+    let groupId=this.state.group.title
 
     socket.emit("Input Chat Message", {
       chatMessage,
@@ -360,7 +357,7 @@ sendRuleNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group._id
+      let groupId=this.state.group.title
 
       socket.emit("Input Chat Message", {
         chatMessage,
@@ -426,7 +423,7 @@ ruleApprovedNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group._id
+      let groupId=this.state.group.title
 
 
       socket.emit("Input Chat Message", {
@@ -484,6 +481,34 @@ ruleApprovedNotification(item){
   }
 }
 
+
+areYouSure(e,item){
+  console.log(item)
+    let rulescopy=JSON.parse(JSON.stringify(this.state.rules))
+    console.log(rulescopy)
+    for (let rule of rulescopy){
+      if (rule._id==item._id){
+        rule.areyousure=true
+      }}
+      console.log(rulescopy)
+
+      let current=rulescopy.slice((this.state.page*10-10),this.state.page*10)
+      this.setState({rules:rulescopy,currentPageData:current})
+    }
+
+    areYouNotSure(e,item){
+      console.log(item)
+        let rulescopy=JSON.parse(JSON.stringify(this.state.rules))
+        console.log(rulescopy)
+        for (let rule of rulescopy){
+          if (rule._id==item._id){
+            rule.areyousure=false
+          }}
+          console.log(rulescopy)
+          let current=rulescopy.slice((this.state.page*10-10),this.state.page*10)
+          this.setState({rules:rulescopy,currentPageData:current})
+        }
+
 render(props) {
 
   var d = new Date();
@@ -516,8 +541,11 @@ render(props) {
          {item.createdby&&
         <div className="rule">
         <h3 className="ruletext">{item.rule}, suggested by {item.createdby.name}</h3>
-        {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
-          <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>this.deleteRule(e,item)}>Delete Rule?</button>}
+        {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
+          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete Rule?</button>}
+          {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouNotSure(e,item)}>Not sure</button>}
+          {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteRule(e,item)}>Are you sure?</button>}
+
           {(this.state.group.level==item.level)&&<>
             {(!item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.approveofrule(e,item._id)}>Approve this rule?</button>}
             {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}

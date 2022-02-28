@@ -31,10 +31,11 @@ export default class Events extends Component {
     let socket
     this.updateEvents= this.updateEvents.bind(this)
     this.eventApprovedNotification=this.eventApprovedNotification.bind(this)
+    this.areYouSure=this.areYouSure.bind(this)
+    this.areYouNotSure=this.areYouNotSure.bind(this)
     this.sendEventNotification=this.sendEventNotification.bind(this)
     this.approveofevent=this.approveofevent.bind(this)
     this.withdrawapproveofevent=this.withdrawapprovalofevent.bind(this)
-
   }
 
 
@@ -113,7 +114,7 @@ export default class Events extends Component {
 
     fetch("/events/marksentdown/" + ev._id, optionsone
   ).then(res => {
-
+    console.log(res)
   }).catch(err => {
     console.error(err);
   })
@@ -146,13 +147,12 @@ export default class Events extends Component {
   var d = new Date();
   var n = d.getTime();
 
-
   let chatMessage=`An event called ${item.title} has been deleted from this group`
   let userId=auth.isAuthenticated().user._id
   let userName=auth.isAuthenticated().user.name
   let nowTime=n
   let type="text"
-  let groupId=this.state.group._id
+  let groupId=this.state.group.title
 
   this.socket.emit("Input Chat Message", {
     chatMessage,
@@ -195,9 +195,6 @@ export default class Events extends Component {
   }).catch(err => {
     console.error(err);
   })
-
-
-
 
   const options = {
     method: 'delete',
@@ -267,7 +264,7 @@ approveofevent(e,id){
 
   fetch("/events/approveofevent/" + id +"/"+ auth.isAuthenticated().user._id, options
 ).then(res => {
-
+  console.log(res)
 }).catch(err => {
   console.error(err);
 })
@@ -311,7 +308,7 @@ withdrawapprovalofevent(e,id){
 
   fetch("/events/withdrawapprovalofevent/" + id +"/"+ auth.isAuthenticated().user._id, options
 ).then(res => {
-
+  console.log(res)
 }).catch(err => {
   console.error(err);
 })
@@ -341,7 +338,7 @@ console.log(eventscopy)
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group._id
+      let groupId=this.state.group.title
 
       this.socket.emit("Input Chat Message", {
         chatMessage,
@@ -394,6 +391,32 @@ console.log(eventscopy)
 }
 }
 
+areYouSure(e,item){
+  console.log(item)
+    let eventscopy=JSON.parse(JSON.stringify(this.state.events))
+    console.log(eventscopy)
+    for (let ev of eventscopy){
+      if (ev._id==item._id){
+        ev.areyousure=true
+      }}
+      console.log(eventscopy)
+
+      let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
+      this.setState({events:eventscopy,currentPageData:current})
+    }
+
+    areYouNotSure(e,item){
+      console.log(item)
+        let eventscopy=JSON.parse(JSON.stringify(this.state.events))
+        console.log(eventscopy)
+        for (let ev of eventscopy){
+          if (ev._id==item._id){
+            ev.areyousure=false
+          }}
+          console.log(eventscopy)
+          let current=eventscopy.slice((this.state.page*10-10),this.state.page*10)
+          this.setState({events:eventscopy,currentPageData:current})
+        }
 
 sendEventNotification(item){
   console.log(item)
@@ -417,7 +440,7 @@ sendEventNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group._id
+      let groupId=this.state.group.title
 
       this.socket.emit("Input Chat Message", {
         chatMessage,
@@ -507,8 +530,10 @@ render() {
         {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event</h4>}
         {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
         {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
-        {((item.createdby._id==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75)&&
-          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteEvent(e,item)}>Delete?</button>}
+        {((item.createdby._id==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
+          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete?</button>}
+          {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouNotSure(e,item)}>Not sure</button>}
+          {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteEvent(e,item)}>Are you sure?</button>}
           </div>
           {(item.images||item.coordinates)&&<div className="eventimagemapcontainer">
           {item.images&&<div className="eventcol2">

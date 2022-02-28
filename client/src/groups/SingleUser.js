@@ -180,9 +180,6 @@ export default function SingleUser({ match }) {
                       imageids.push(response.data.public_id)
                     })}
 
-
-
-
                       const newuser = {
                         _id:match.params.userId,
                         name: values.name || undefined,

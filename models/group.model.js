@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 var random = require('mongoose-simple-random');
 
 
-
-
-
-
 const groupSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   title: {

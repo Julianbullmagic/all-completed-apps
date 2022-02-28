@@ -39,9 +39,11 @@ getGroupData()
 
       <div className="homepage">
   <div style={{margin:"1vw"}}>
-  <h6>How would you improve The Democratic Social Network? Please email any constructive criticism to democraticsocialnetwork@gmail.com</h6>
+  <h6 style={{margin:"0.5vw"}}>How would you improve The Democratic Social Network? This application is still a work in progress, we would like to build something that
+  as many people as possible are happy with. Please email any constructive criticism to democraticsocialnetwork@gmail.com. There
+  is also an online marketplace for democratic businesses called the Cooperative Marketplace</h6>
   <Link to="https://cooperative-marketplace.herokuapp.com/">
-    <h1>https://cooperative-marketplace.herokuapp.com/</h1>
+  <h1 style={{margin:"0.5vw"}}>https://cooperative-marketplace.herokuapp.com/</h1>
   </Link>
   </div>
 <br/>

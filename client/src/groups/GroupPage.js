@@ -14,10 +14,7 @@ import {Image} from 'cloudinary-react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import io from "socket.io-client";
-
 const mongoose = require("mongoose");
-
-
 
 
 class GroupPage extends Component {
@@ -152,7 +149,7 @@ console.log("updateing user",updatedUser)
 
       fetch("/groups/leave/"+this.props.match.params.groupId+"/"+ auth.isAuthenticated().user._id, options
     )  .then(res => {
-
+      console.log(res)
     }).catch(err => {
       console.error(err);
     })
@@ -167,7 +164,7 @@ console.log("updateing user",updatedUser)
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=this.state.group._id
+    let groupId=this.state.group.title
 
     this.socket.emit("Input Chat Message", {
       chatMessage,
@@ -183,7 +180,7 @@ console.log("updateing user",updatedUser)
     let notification={
       emails:emails,
       subject:"New member",
-      message:`There is a new member called ${auth.isAuthenticated().user.name}in the group called ${this.state.group.title} at level ${this.state.group.level}, `
+      message:`There is a new member called ${auth.isAuthenticated().user.name} in the group called ${this.state.group.title} at level ${this.state.group.level}, `
     }
 
     const opt = {
@@ -246,7 +243,7 @@ console.log(res)
         joinOrLeave=<><button className="joinbutton" style={{display:"block"}} onClick={(e)=>this.join(e)}>Join Group?</button></>
       }
     }
-
+console.log("group title",this.state.group.title)
     return (
       <>
       {this.state.loading&&<>
@@ -303,7 +300,7 @@ console.log(res)
                     </Link>
                     <br/>
                     </div>
-                    {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} groupId={this.props.match.params.groupId}/>}</>
+                    {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} grouptitle={this.state.group.title} groupId={this.props.match.params.groupId}/>}</>
                   }
 
                   </>

@@ -1,9 +1,31 @@
 const express =require( 'express')
 const Post = require("../models/post.model");
 const Comment = require("../models/comment.model");
-
-
 const router = express.Router()
+
+router.route('/markaspoliticalmarketing/:postId/:userId').put((req, res) => {
+  Post.findByIdAndUpdate(req.params.postId, {$push : {
+  politicalmarketing:req.params.userId
+}}).exec(function(err,docs){
+      if(err){
+              console.error(err);
+          }else{
+            console.log("docs",docs)
+    }
+  })
+})
+
+router.route('/withdrawmarkaspoliticalmarketing/:postId/:userId').put((req, res) => {
+  Post.findByIdAndUpdate(req.params.postId, {$pull : {
+  politicalmarketing:req.params.userId
+}}).exec(function(err,docs){
+      if(err){
+              console.error(err);
+          }else{
+            console.log("docs",docs)
+    }
+})
+})
 
 router.route('/sendpostdown/:postId/:groupId').put((req, res) => {
   console.log("sending post down",req.params)

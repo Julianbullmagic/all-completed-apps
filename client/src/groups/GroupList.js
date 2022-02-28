@@ -15,6 +15,8 @@ class GroupsList extends Component {
 
     this.state = {
       groups: [],
+      vidone:[],
+      vidtwo:[],
       allgroups:[],
       mygroups:[],
       user:{},
@@ -23,7 +25,6 @@ class GroupsList extends Component {
       viewform:false,
       currentPageData:[],
     }
-
     this.viewAllGroups=this.viewAllGroups.bind(this)
     this.updateGroups=this.updateGroups.bind(this)
     this.searchGroups=this.searchGroups.bind(this)
@@ -32,6 +33,14 @@ class GroupsList extends Component {
 
   componentDidMount(){
     this.viewAllGroups()
+let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com/embed/34LGPIXvU5M",
+"https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/x-oRmcYR5cM",
+"https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
+"https://www.youtube.com/embed/lu8lQKVcbOs","https://www.youtube.com/embed/_swnWW2NGBI",
+"https://www.youtube.com/embed/7IIEB5JiyNs","https://www.youtube.com/watch?v=sGZgWQaVwN8"]
+
+    let randomVids = videos.sort(() => .5 - Math.random()).slice(0, 2);
+    this.setState({vidone:randomVids[0],vidtwo:randomVids[1]})
   }
 
   updateGroups(newgroup){
@@ -58,16 +67,13 @@ class GroupsList extends Component {
   }
 
   handleSearchChange(event) {
-
     this.setState({searchterm:event.target.value})
   }
 
   viewAllGroups(){
-
     fetch(`/groups/finduser/`+auth.isAuthenticated().user._id)
     .then(response => response.json())
     .then(data=>{
-
       this.setState({user:data.data[0]})
     }).catch(error=>console.error(error))
 
@@ -84,7 +90,6 @@ class GroupsList extends Component {
   render() {
 
     var groupsmapped=<h3>no groups</h3>
-
 
     if(this.state.groups){groupsmapped=this.state.groups.map(item => {
 
@@ -166,7 +171,11 @@ class GroupsList extends Component {
       </div>
       </div>
       </section>
-
+      <br/>
+      {auth.isAuthenticated().user.cool&&<>
+      <iframe style={{margin:"0.5vw",width:"46vw",height:"46vh"}} src={this.state.vidone} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe style={{margin:"0.5vw",width:"46vw",height:"46vh"}} src={this.state.vidtwo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </>}
       </div>
     );
   }

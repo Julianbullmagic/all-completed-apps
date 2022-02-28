@@ -8,6 +8,7 @@ import Dropzone from 'react-dropzone';
 import Axios from 'axios';
 import { CHAT_SERVER } from './Config.js';
 import auth from './../auth/auth-helper'
+import addNotification from 'react-push-notification';
 
 
 export class ChatPage extends Component {
@@ -18,14 +19,20 @@ constructor(props){
       chatMessage: "",
       chats:[],
       users:props.users,
+      grouptitle:props.grouptitle,
       user:{},
+      currentgroupmessage:{},
+      lastgroupmessage:{},
+      chattingtouser:'',
+      unreadwholegroupmessages:0,
+      usertomessage:"",
       room:'',
       widthcolumntwo:"0%",
       widthcolumnthree:"60%",
       height:"0.5vh",
       togglechat:false
   }
-this.setInitialChats()
+  let socket
 this.handleuserchange=this.handleuserchange.bind(this)
 this.setInitialChats=this.setInitialChats.bind(this)
   console.log("PROPS",props)
@@ -39,29 +46,61 @@ componentWillReceiveProps(nextProps) {
        users: nextProps.users
      });
    }
+   if (nextProps.grouptitle !== this.props.grouptitle) {
+     this.setState({
+       grouptitle: nextProps.grouptitle
+     });
+   }
  }
 
 componentDidMount(props) {
-    let server = process.env.PORT||"http://localhost:5000";
+    let server ="http://localhost:5000";
     this.props.dispatch(getChats());
-    this.socket = io("http://localhost:5000");
+    if(process.env.NODE_ENV=="production"){
+      this.socket=io();
+    }
+    if(process.env.NODE_ENV=="development"){
+      this.socket=io(server);
+    }
+
+    this.setInitialChats()
+
+    this.socket.on("increase unread whole group count", messageFromBackEnd => {
+      if(this.state.chattingtouser){
+        this.setState({unreadwholegroupmessages:this.state.unreadwholegroupmessages+1})
+      }
+})
 
     this.socket.on("Output Chat Message", messageFromBackEnd => {
-        console.log("messageFromBackEnd",messageFromBackEnd)
+        if(this.state.usertomessage!=="All Group Chat"){
+          this.setState({unreadallgroupmessages:this.state.unreadallgroupmessages+1})
+        }
+        if(this.state.usertomessage=="All Group Chat"){
+          this.setState({unreadallgroupmessages:0})
+        }
+        console.log("OUTPUT CHAT MESSAGE messageFromBackEnd",messageFromBackEnd)
+
+        addNotification({
+    title: `New notifications in group ${messageFromBackEnd.groupId}`,
+    subtitle: '',
+    message: messageFromBackEnd.message,
+    theme: 'darkblue',
+    native: true 
+});
+
         let chatscopy=JSON.parse(JSON.stringify(this.state.chats))
         console.log(chatscopy)
         chatscopy.push(messageFromBackEnd[0])
-
+        console.log(chatscopy.length)
         console.log(chatscopy)
         if(chatscopy.length>50){
           chatscopy=chatscopy.slice((chatscopy.length-50),(chatscopy.length-1))
           console.log(chatscopy)
         }
-        this.setState({chats:chatscopy})
+        this.setState({chats:chatscopy,currentgroupmessage:messageFromBackEnd[0]})
 
         if (messageFromBackEnd[0]['recipient']){
           if(this.state.user._id==messageFromBackEnd[0]['recipient']){
-            console.log("ASDASDSADS",this.state.user._id)
 
             let usercopy=JSON.parse(JSON.stringify(this.state.user))
             usercopy.recentprivatemessages.push(messageFromBackEnd[0])
@@ -76,8 +115,6 @@ componentDidMount(props) {
                   }
                 }
               }
-              console.log("USERS COPY",userscopy)
-
               this.setState({users:userscopy})
           }
         }
@@ -101,12 +138,10 @@ componentDidMount(props) {
             this.setState({users:userscopy})
     })
 
-
     this.socket.on("Output pm", messageFromBackEnd => {
         console.log("mp",messageFromBackEnd)
 if(messageFromBackEnd['recipient']==auth.isAuthenticated().user._id){
   let usercopy=JSON.parse(JSON.stringify(this.state.user))
-  console.log("usercopy",usercopy[`recentprivatemessages`],messageFromBackEnd)
 
   usercopy[`recentprivatemessages`].push(messageFromBackEnd)
   console.log("usercopy",usercopy[`recentprivatemessages`])
@@ -126,8 +161,12 @@ this.setState({users:userscopy,user:usercopy})
     })
 }
 
-
 async setInitialChats(){
+
+  let room=this.props.grouptitle
+  let userName=auth.isAuthenticated().user.name
+  console.log("join group room",room)
+    this.socket.emit("join group room", {room,userName});
   await fetch(`/api/chat/getChats/`+this.props.groupId)
       .then(response => response.json())
       .then(data=>{
@@ -158,19 +197,20 @@ async setInitialChats(){
     this.setState({users:userscopy,user:us})
 }
 
-
 handleInputChange = (e) => {
     this.setState({
         chatMessage: e.target.value
     })
 }
 
-
-
 async handleuserchange(e){
   if(e.target.value=="All Group Chat"){
-    this.setState({usertomessage:''})
+    this.setState({usertomessage:'',unreadwholegroupmessages:0})
     this.setInitialChats()
+    let room=this.props.groupId
+    let userName=auth.isAuthenticated().user.name
+    this.socket.emit("join group room", {room,userName});
+    this.setState({chattingtouser:false})
   }else{
     let recipientId
     let recipientName
@@ -183,22 +223,19 @@ async handleuserchange(e){
     let room=[auth.isAuthenticated().user.name,e.target.value]
     room=room.sort()
     room=room.join()
-
+    let groupId=this.props.groupId
     let userId=auth.isAuthenticated().user._id
     let userName=recipientName
 
-    this.socket.emit("join room", {room,userName,userId,recipientId});
-
-
-    this.setState({
-        usertomessage: e.target.value,room: room
-    })
+    this.socket.emit("join room", {room,userName,userId,recipientId,groupId});
+    console.log("changing user")
+    if(this.state.usertomessage==""){
+      this.setState({lastgroupmessage:this.state.currentgroupmessage})
+    }
+    this.setState({usertomessage: e.target.value,room: room,chattingtouser:true})
     console.log(this.state.usertomessage)
     let chatsarray=[]
-
-
   try{
-
     console.log("recipientid",recipientId)
     chatsarray=await fetch(`/api/chat/getChatsWithParticularUser/${recipientId}/${auth.isAuthenticated().user._id}`)
           .then(response => response.json())
@@ -217,24 +254,15 @@ async handleuserchange(e){
   }
 }
 
-
-
     componentDidUpdate() {
         this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
     }
 
-
-
-
-
     submitChatMessage = (e) => {
         e.preventDefault();
-
-
         if (this.props.user.userData && !this.props.user.userData.isAuth) {
             return alert('Please Log in first');
         }
-
 
         let chatMessage = this.state.chatMessage
         let userId = auth.isAuthenticated().user._id
@@ -251,10 +279,7 @@ for (let us of this.state.users){
     recipient=us
   }
 }
-
-
-console.log("recipient",recipient)
-
+console.log(recipient?"Input Chat Message To User":"Input Chat Message")
         this.socket.emit(recipient?"Input Chat Message To User":"Input Chat Message", {
             chatMessage,
             userId,
@@ -272,6 +297,7 @@ console.log("recipient",recipient)
 
 
     render() {
+      console.log("last and current group message",this.state.lastgroupmessage,this.state.currentgroupmessage)
 
       var chats=  <p>No conversation so far.</p>
 var type=Array.isArray(this.state.chats)
@@ -296,7 +322,7 @@ let users=this.state.users.map(item=>item._id)
     {(users.includes(auth.isAuthenticated().user._id))&&
       <button style={{display:"inline",marginTop:"0.5vh"}} className="submitbutton" onClick={this.submitChatMessage}>Submit Message</button>}
       <select style={{marginLeft:"1vw",marginTop:"0.5vh",display:"inline",width:"15vw"}} name="room" id="room" onChange={this.handleuserchange}>
-      <option value="All Group Chat">All Group Chat</option>
+      <option value="All Group Chat">All Group Chat {this.state.unreadwholegroupmessages} unread messages</option>
       {this.state.users&&this.state.users.map(user=>{
         return(
             <option key={user._id} value={user.name}>{user.name} {user.unreadmessages} unread messages </option>

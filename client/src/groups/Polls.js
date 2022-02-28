@@ -91,7 +91,7 @@ export default function Polls (props) {
     const newPoll={
       _id:pollId,
       pollquestion:pollquestion.current.value,
-      approval:[auth.isAuthenticated().user._id],
+      approval:[],
       level:group.level,
       groupIds:[group._id],
       suggestions:[],
@@ -113,7 +113,7 @@ export default function Polls (props) {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=group._id
+    let groupId=group.title
 
 
     socket.emit("Input Chat Message", {
@@ -123,8 +123,6 @@ export default function Polls (props) {
       nowTime,
       type,
       groupId});
-
-
 
 
       var pollscopy=JSON.parse(JSON.stringify(polls))
@@ -181,7 +179,7 @@ console.log(item)
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group._id
+            let groupId=group.title
 
 
             socket.emit("Input Chat Message", {
@@ -293,6 +291,33 @@ console.log(item)
                 }
               }
 
+                      function areYouSure(e,item){
+                        console.log(item)
+                          let pollscopy=JSON.parse(JSON.stringify(polls))
+                          console.log(pollscopy)
+                          for (let poll of pollscopy){
+                            if (poll._id==poll._id){
+                              poll.areyousure=true
+                            }}
+                            console.log(pollscopy)
+                            let current=pollscopy.slice((page*10-10),page*10)
+                            setPolls(pollscopy)
+                            setCurrentPageData(current)
+                          }
+
+                          function areYouNotSure(e,item){
+                            console.log(item)
+                              let pollscopy=JSON.parse(JSON.stringify(polls))
+                              console.log(pollscopy)
+                              for (let poll of pollscopy){
+                                if (poll._id==item._id){
+                                  poll.areyousure=false
+                                }}
+                                console.log(pollscopy)
+                                let current=pollscopy.slice((page*10-10),page*10)
+                                setPolls(pollscopy)
+                                setCurrentPageData(current)
+                              }
 
 
               var pollsmapped=currentPageData.map((item,i)=>{
@@ -301,7 +326,7 @@ console.log(item)
                   <>
                   <div className="postbox">
                   <div>
-                  <Poll poll={item} users={props.users} deletePoll={deletePoll} sendPollNotification={sendPollEmailNotification} group={group}/>
+                  <Poll poll={item} key={item._id} users={props.users} deletePoll={deletePoll} sendPollNotification={sendPollEmailNotification} group={group}/>
                   </div>
                   <Comment id={item._id}/>
                   </div>

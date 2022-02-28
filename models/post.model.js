@@ -11,6 +11,7 @@ const PostSchema = new mongoose.Schema({
   sentdown:{type:Boolean,default:false},
   groupIds:[{type: mongoose.Schema.ObjectId, ref: 'Group'}],
   notificationsent:{type:Boolean,default:false},
+  politicalmarketing: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   likes: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   comments: [{type: mongoose.Schema.ObjectId, ref: 'Comment'}],
   createdby: {type: mongoose.Schema.ObjectId, ref: 'User'},

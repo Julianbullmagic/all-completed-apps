@@ -19,8 +19,6 @@ import {Image} from 'cloudinary-react'
 import io from "socket.io-client";
 import Axios from 'axios'
 const mongoose = require("mongoose");
-var geodist = require('geodist')
-
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -49,6 +47,7 @@ export default function Signup (){
   const classes = useStyles()
   const [numImages, setNumImages] = useState([0]);
   const [loading,setLoading]=useState(false);
+  const [togglesex,setTogglesex]=useState(false);
   const [values, setValues] = useState({
     name: '',
     password: '',
@@ -56,8 +55,11 @@ export default function Signup (){
     passworderror:false,
     coordinates:'',
     politicalparties:'',
+    sex:"female",
     passiveincome:false,
     location:'',
+    securityquestionone:'',
+    securityquestiontwo:'',
     groupsCoordinates:'',
     address:'',
     email: '',
@@ -168,6 +170,7 @@ export default function Signup (){
                 let cool=true
 
                 if (values.politicalparties.toLowerCase().includes("labour")||values.politicalparties.toLowerCase().includes("liberal")
+                ||values.politicalparties.toLowerCase().includes("socialist alternative")||values.politicalparties.toLowerCase().includes("resistance")
                 ||values.politicalparties.toLowerCase().includes("greens"||values.politicalparties.toLowerCase().includes("national")
                 ||values.politicalparties.toLowerCase().includes("united"))){
                   cool=false
@@ -183,13 +186,14 @@ export default function Signup (){
                   name: values.name || undefined,
                   phone: values.phone || undefined,
                   email: values.email || undefined,
+                  sex:values.sex,
                   cool:cool,
                   expertise: values.expertise || undefined,
                   images:imageids,
                   password: values.password || undefined
                 }
 
-
+                console.log(user)
                 create(user).then((data) => {
                   if (data.error) {
                     setValues({ ...values, error: data.error})
@@ -204,9 +208,11 @@ export default function Signup (){
 
             }
 
-
-
-
+            function handleSexChange(e,sex){
+              console.log(values,togglesex)
+              setTogglesex(!togglesex)
+              setValues({ ...values, sex: sex })
+            }
 
             const handleChange = name => event => {
 
@@ -240,6 +246,14 @@ export default function Signup (){
               Try to explain your skills, knowledge, experience, qualifications. You may be elected as a leader of a group and other group members
               need some way of evaluating if you are a good candidate.</h5>
               <textarea style={{width:"100%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={values.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
+
+              <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <h5 style={{marginRight:"1vw"}} className="ruletext">Are you male or female? If you identify as another category please write it below.
+              We are aiming for proportionate representation for all demographic groups.</h5>
+              <h6>Male</h6><input id="expertise" checked={togglesex} style={{margin:"0.5vw"}} type="checkbox" onClick={e=>handleSexChange(e,'male')} margin="normal"/>
+              <h6>Female</h6><input id="expertise" checked={!togglesex} style={{margin:"0.5vw"}} type="checkbox" onClick={e=>handleSexChange(e,'female')} margin="normal"/>
+              </div>
+              <input style={{width:"95%"}} id="expertise" type="text"/>
               <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
               Are you a member of any political parties? If so, which ones? </h5>
               <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>

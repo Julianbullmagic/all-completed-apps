@@ -9,13 +9,38 @@ const nodemailer = require('nodemailer');
 const Rule = require("../models/rule.model");
 const Restriction= require("../models/restriction.model");
 const Group = require("../models/group.model");
-
+const jwt =require( 'jsonwebtoken')
+const expressJwt =require( 'express-jwt')
+const config =require( './../config/config')
 var random = require('mongoose-simple-random');
-
 
 const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 
+router.post("/getpasswordresettoken/:email", (req, res) => {
+console.log(req.params.email)
+  const token = jwt.sign({
+    email: req.params.email
+  }, config.jwtSecret
+, {expiresIn: "1h"})
+console.log("token",token)
+  return res.json({
+    token:token
+  })
+})
+router.post("/verifychangepasswordjwt/:token/:email", (req, res) => {
+console.log(req.params.email)
+jwt.verify(req.params.token, config.jwtSecret, (err,decoded) => {
+              if(err){
+                res.status(400).json(err)
+              } else {
+                if(decoded.email.toLowerCase()==req.params.email.toLowerCase()){
+                  res.status(200).json("can log in")
+              }else{
+                res.status(400).json('Error: emails do not match')
+              }              }
+          })
+})
 
 router.get("/getusers", (req, res) => {
   User.find({"active":true})
@@ -61,7 +86,6 @@ router.get("/finduser/:userId", (req, res) => {
             data: docs
           });
         }
-
       })})
 
       router.get("/findgroupscoordinates", (req, res, next) => {
@@ -74,7 +98,8 @@ router.get("/finduser/:userId", (req, res) => {
               data: docs
             });
           }
-        })})
+        })
+      })
 
 
         router.put("/addleaders/:groupId/:oldleaders/:newleaders", (req, res, next) => {
