@@ -148,7 +148,8 @@ export default class Rules extends Component {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=this.state.group.title
+    let groupId=this.state.group._id
+    let groupTitle=this.state.group.title
 
     socket.emit("Input Chat Message", {
       chatMessage,
@@ -156,7 +157,8 @@ export default class Rules extends Component {
       userName,
       nowTime,
       type,
-      groupId
+      groupId,
+      groupTitle
     });
       let userscopy=JSON.parse(JSON.stringify(this.state.users))
       userscopy=userscopy.filter(item=>item.rules)
@@ -210,7 +212,7 @@ export default class Rules extends Component {
           }
 
           if (approval<75&&(n-rule.timecreated)>MILLISECONDS_IN_A_WEEK){
-            this.deleteRule(rule)
+            this.deleteRule(null,rule)
           }
           if(approval>=10&&!rule.notificationsent){
             this.sendRuleNotification(rule)
@@ -259,7 +261,7 @@ async sendRuleDown(rule){
 
   fetch("/rules/marksentdown/" + rule._id, optionsone
 ).then(res => {
-
+  console.log(res)
 }).catch(err => {
   console.error(err);
 })
@@ -306,7 +308,7 @@ withdrawapprovalofrule(e,id){
     }
 
     if (approval<75&&(n-rule.timecreated)>MILLISECONDS_IN_A_WEEK){
-      this.deleteRule(rule)
+      this.deleteRule(null,rule)
     }
   }
 
@@ -325,7 +327,7 @@ withdrawapprovalofrule(e,id){
 
   fetch("/rules/withdrawapprovalofrule/" + id +"/"+ auth.isAuthenticated().user._id, options
 ) .then(res => {
-
+  console.log(res)
 }).catch(err => {
   console.error(err);
 })
@@ -357,7 +359,8 @@ sendRuleNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group.title
+      let groupId=this.state.group._id
+      let groupTitle=this.state.group.title
 
       socket.emit("Input Chat Message", {
         chatMessage,
@@ -365,7 +368,8 @@ sendRuleNotification(item){
         userName,
         nowTime,
         type,
-        groupId});
+        groupId,
+        groupTitle});
 
 
         let notification={
@@ -384,7 +388,7 @@ sendRuleNotification(item){
 
         fetch("/groups/sendemailnotification", options
       ) .then(res => {
-
+        console.log(res)
       }).catch(err => {
         console.error(err);
       })
@@ -423,7 +427,8 @@ ruleApprovedNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group.title
+      let groupId=this.state.group._id
+      let groupTitle=this.state.group.title
 
 
       socket.emit("Input Chat Message", {
@@ -432,7 +437,8 @@ ruleApprovedNotification(item){
         userName,
         nowTime,
         type,
-        groupId});
+        groupId,
+        groupTitle});
 
 
         this.setState({rules:rulescopy})
@@ -538,11 +544,11 @@ render(props) {
 
       return(
         <>
-         {item.createdby&&
         <div className="rule">
+        {item.createdby&&<>
         <h3 className="ruletext">{item.rule}, suggested by {item.createdby.name}</h3>
         {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
-          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete Rule?</button>}
+          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete Rule?</button>}</>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouNotSure(e,item)}>Not sure</button>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteRule(e,item)}>Are you sure?</button>}
 
@@ -551,13 +557,13 @@ render(props) {
             {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}
 
             <h4 className="ruletext">  {item.explanation},  </h4>
-            <h4 className="ruletext">Rule Level {item.level}  </h4>
+            <h4 className="ruletext">Rule Level {item.level}</h4>
             {(this.state.group.level==item.level)&&<>
-              {this.state.users&&<h4 className="ruletext">,{approval}% of members approve this rule, {item.approval.length}/{this.state.users.length}. {approveenames.length>0&&<h4 style={{display:"inline"}}>Approvees=</h4>}</h4>}
+              {this.state.users&&<h4 className="ruletext">, {approval}% of members approve this rule, {item.approval.length}/{this.state.users.length}. {approveenames.length>0&&<h4 style={{display:"inline"}}>Approvees=</h4>}</h4>}
               {approveenames&&approveenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4></>)})}
               <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
               </>}
-              </div>}
+              </div>
               </>
             )})
           }}
@@ -571,16 +577,16 @@ render(props) {
             {inthisgroup&&<CreateRuleForm updateRules={this.updateRules} groupId={this.props.groupId} level={this.state.group.level}/>}
             <h2>Group Rules</h2>
             {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-            {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.rules)&&this.state.pageNum.map(item=>{
+            {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.rules)&&this.state.pageNum.map((item,index)=>{
               return (<>
-                <button style={{display:"inline"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
+                <button style={{display:"inline",opacity:(index+1==this.state.page)?"0.5":"1"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
                 </>)
               })}
               {rulescomponent}
               {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-              {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.rules)&&this.state.pageNum.map(item=>{
+              {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.rules)&&this.state.pageNum.map((item,index)=>{
                 return (<>
-                  <button style={{display:"inline"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
+                  <button style={{display:"inline",opacity:(index+1==this.state.page)?"0.5":"1"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
                   </>)
                 })}
                 <p>Rules that have less than 75% approval and are more than a week old will be deleted. There are some rules you cannot

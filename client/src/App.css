@@ -256,7 +256,87 @@
 	overflow: hidden;
 	padding: 0.5vw;
 	position: relative;
-	width: 27.5vw;
+	width: 26.5vw;
+}
+.navbuttons{
+	display:inline;
+	transform:translateY(-25%)
+}
+
+.groupstitle{
+	margin-top:2vw;
+	margin-bottom:0vw;
+}
+
+.groupslist{
+	margin-left:5vw;
+	margin-right:5vw;
+	width:90vw;
+	transform:translateY(-2%);
+}
+
+.menu{
+	transform:translateY(-10%);
+	height:6vh;
+	padding:2vw;
+}
+
+.menutitle{
+	margin-left:3vw;
+	color:white;
+	display:inline;
+	transform:translateY(80%);
+}
+
+
+.vids{
+	display:block;
+}
+@media only screen and (max-width: 37px) {
+	.navbuttons{
+		transform:translateY(-50%)
+	}
+}
+
+@media only screen and (max-width: 413px) {
+	.vids{
+		display:none;
+	}
+	.groupslist{
+		transform:translateY(-3%);
+		margin-left:3vw;
+		margin-right:3vw;
+		width:94vw;
+	}
+	.groupstitle{
+		padding-top:5vh;
+		margin:0vw;
+	}
+	.groupdiv
+	{
+		background: #f6f6f6;
+		border: #eaeaea;
+		border-style: solid;
+		border-width: 5px;
+		color: white;
+		height: 20vh;
+		margin: 0.5vw;
+		overflow: hidden;
+		padding: 0.5vw;
+		position: relative;
+		width: 25vw;
+	}
+
+	.navbuttons{
+		display:block;
+		transform:translateY(10%)
+	}
+
+	.menu{
+		height:8vh;
+		padding:2vw;
+		transform:translateY(-10%)
+	}
 }
 .groupdivone
 {

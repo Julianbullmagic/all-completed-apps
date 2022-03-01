@@ -89,7 +89,8 @@ export default function Jury(props) {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=group.title
+    let groupTitle=group.title
+    let groupId=group._id
 
 
     socket.emit("Input Chat Message", {
@@ -98,7 +99,8 @@ export default function Jury(props) {
       userName,
       nowTime,
       type,
-      groupId});
+      groupId,
+      groupTitle});
 
       let rest=[]
 
@@ -242,8 +244,8 @@ function delRestPoll(e,item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=group.title
-
+      let groupTitle=group.title
+      let groupId=group._id
 
       socket.emit("Input Chat Message", {
         chatMessage,
@@ -251,7 +253,8 @@ function delRestPoll(e,item){
         userName,
         nowTime,
         type,
-        groupId});
+        groupId,
+        groupTitle});
 
 
         const options={
@@ -277,8 +280,8 @@ function delRestPoll(e,item){
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group.title
-
+            let groupTitle=group.title
+            let groupId=group._id
 
             socket.emit("Input Chat Message", {
               chatMessage,
@@ -286,7 +289,8 @@ function delRestPoll(e,item){
               userName,
               nowTime,
               type,
-              groupId});
+              groupId,
+              groupTitle});
 
 
               setRestrictionPolls(restrictionpollscopy)
@@ -579,7 +583,8 @@ function delRestPoll(e,item){
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group.title
+            let groupTitle=group.title
+            let groupId=group._id
 
             socket.emit("Input Chat Message", {
               chatMessage,
@@ -587,7 +592,8 @@ function delRestPoll(e,item){
               userName,
               nowTime,
               type,
-              groupId});
+              groupId,
+              groupTitle});
 
 
               setRestrictionPolls(restrictionpollscopy)
@@ -663,8 +669,8 @@ function delRestPoll(e,item){
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group.title
-
+            let groupTitle=group.title
+            let groupId=group._id
 
             socket.emit("Input Chat Message", {
               chatMessage,
@@ -672,7 +678,8 @@ function delRestPoll(e,item){
               userName,
               nowTime,
               type,
-              groupId});
+              groupId,
+              groupTitle});
 
               userscopy=userscopy.filter(user=>user.restrictionsapproved)
               let emails=userscopy.map(item=>{return item.email})
@@ -722,7 +729,7 @@ function delRestPoll(e,item){
         let restrictionpollscopy=JSON.parse(JSON.stringify(restrictionPolls))
         console.log(restrictionpollscopy)
         for (let poll of restrictionpollscopy){
-          if (poll._id==poll._id){
+          if (poll._id==item._id){
             poll.areyousure=true
           }}
           console.log(restrictionpollscopy)
@@ -779,8 +786,10 @@ function delRestPoll(e,item){
           {approveenames&&approveenames.map((item,index)=>{return(<h4 className="ruletext"> {item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4>)})}
           {!item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>{approve(e,item);appr(e,item);}}>Approve?</button>}
           {item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>withdrawapproval(e,item)}>Withdraw Approval?</button>}
-          {((item.createdby&&(item.createdby._id==auth.isAuthenticated().user._id))||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&
-            <button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>{deleteRestrictionPoll(e,item);delRestPoll(e,item);}}>Delete Restriction Poll?</button>}
+          {(((item.createdby&&(item.createdby._id==auth.isAuthenticated().user._id))||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
+            <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Restriction Poll?</button>}
+            {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e,item)}>Not sure</button>}
+            {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>{deleteRestrictionPoll(e,item);delRestPoll(e,item);}}>Are you sure?</button>}
             <h4 style={{margin:"0vw",marginBottom:"0.5vw"}}><strong>Explanation:</strong> {item.explanation} </h4>
             <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
             </div>
@@ -870,9 +879,9 @@ function delRestPoll(e,item){
 
 
               {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-              {(pageNum.length>1&&pageNum&&restrictionPolls)&&pageNum.map(item=>{
+              {(pageNum.length>1&&pageNum&&restrictionPolls)&&pageNum.map((item,index)=>{
                 return (<>
-                  <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
+                  <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                   </>)
                 })}
                 {restrictionpollsmapped}
@@ -894,9 +903,9 @@ function delRestPoll(e,item){
                 in the spirit that nobody is perfect.
                 </p>
                 {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-                {(pageNum.length>1&&pageNum&&restrictionPolls)&&pageNum.map(item=>{
+                {(pageNum.length>1&&pageNum&&restrictionPolls)&&pageNum.map((item,index)=>{
                   return (<>
-                    <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
+                    <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                     </>)
                   })}
                   </>

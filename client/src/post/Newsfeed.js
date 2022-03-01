@@ -188,14 +188,15 @@ function handleSubmit(e){
   let nowTime=n
   let type="text"
   let groupId=group._id
-
+  let groupTitle=group.title
   socket.emit("Input Chat Message", {
     chatMessage,
     userId,
     userName,
     nowTime,
     type,
-    groupId});
+    groupId,
+    groupTitle});
 
     let postscopy=JSON.parse(JSON.stringify(posts))
     postscopy.reverse()
@@ -250,13 +251,17 @@ function handleSubmit(e){
               let userName=auth.isAuthenticated().user.name
               let nowTime=n
               let type="text"
+              let groupId=group._id
+              let groupTitle=group.title
 
               socket.emit("Input Chat Message", {
                 chatMessage,
                 userId,
                 userName,
                 nowTime,
-                type});
+                type,
+                groupId,
+                groupTitle});
 
                 fetch("/posts/deletepost/"+id, options)
                 .then(response => response.json())
@@ -485,24 +490,26 @@ function handleSubmit(e){
                   <div className="postboxform">
                   <h4><strong>Post: </strong>{item.post}</h4>
                   {prev&&prev}
-                  <div><h5 style={{display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5>
+                  <div>
+                  {item.createdby&&<><h5 style={{display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5>
                   {(((item.createdby._id==auth.isAuthenticated().user._id)||
                     group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
-                    <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Post?</button>}
+                    <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Post?</button>}</>}
                     {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e,item)}>Not sure</button>}
                     {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>deletePost(e,item._id)}>Are you sure?</button>}
 
                     </div></div>
+                    {(item.level>group.level)&&
                     <div className="postboxform">
-                    {(item.level>group.level)&&<div style={{width:"100%"}}><h5 style={{display:"inline"}}><strong>This post has been passed down by a
+                    <div style={{width:"100%"}}><h5 style={{display:"inline"}}><strong>This post has been passed down by a
                     level {item.level} group.</strong> Does it encourage you to vote or not vote for a particular person?</h5>
 
                     {!item.politicalmarketing.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>markAsPoliticalMarketing(e,item._id)}>Is this political marketing?</button>}
                     {item.politicalmarketing.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>withdrawMarkAsPoliticalMarketing(e,item._id)}>This is not political marketing?</button>}
                     {approveenames&&approveenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4></>)})}
                     <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
-                    </div>}
                     </div>
+                    </div>}
                       </div>
                       <Comment id={item._id}/>
                       </div>
@@ -524,6 +531,7 @@ function handleSubmit(e){
                         <div>
                         <label htmlFor='name'>Write Post</label>
                         {!uploading&&<><button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>New Post?</button></>}
+                        {uploading&&<h4>Uploading Post...</h4>}
                         </div>
 
                         <textarea onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
@@ -537,9 +545,9 @@ function handleSubmit(e){
                         </>}
 
                         {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-                        {(pageNum.length>1&&pageNum&&posts)&&pageNum.map(item=>{
+                        {(pageNum.length>1&&pageNum&&posts)&&pageNum.map((item,index)=>{
                           return (<>
-                            <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
+                            <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                             </>)
                           })}
                           {postsmapped}
@@ -581,9 +589,9 @@ function handleSubmit(e){
                             </p>}
                           <div style={{marginBottom:"5vw"}}>
                           {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-                          {(pageNum.length>1&&pageNum&&posts)&&pageNum.map(item=>{
+                          {(pageNum.length>1&&pageNum&&posts)&&pageNum.map((item,index)=>{
                             return (<>
-                              <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
+                              <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                               </>)
                             })}
                             </div>

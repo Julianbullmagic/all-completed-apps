@@ -57,7 +57,7 @@ export default function Poll (props) {
 
           fetch("/polls/marksentdown/" + poll._id, options
         ).then(res => {
-
+          console.log(res)
         }).catch(err => {
           console.error(err);
         })
@@ -76,7 +76,7 @@ export default function Poll (props) {
 
           fetch("/polls/sendpolldown/" + poll._id +"/"+ gr, options
         ).then(res => {
-
+          console.log(res)
         }).catch(err => {
           console.error(err);
         })
@@ -88,7 +88,6 @@ export default function Poll (props) {
     var pollcopy=JSON.parse(JSON.stringify(poll))
 
     let approval=0
-
 
     if(!pollcopy.approval.includes(auth.isAuthenticated().user._id)){
       pollcopy.approval.push(auth.isAuthenticated().user._id)
@@ -117,7 +116,7 @@ export default function Poll (props) {
 
     fetch("/polls/approveofsendingpolldown/" + pollId +"/"+ auth.isAuthenticated().user._id, options
   ).then(res => {
-
+    console.log(res)
   }).catch(err => {
     console.error(err);
   })
@@ -145,7 +144,7 @@ function withdrawApprovalOfSendingPollDown(e,pollId){
 
   fetch("/polls/withdrawapprovalofsendingpolldown/" + pollId +"/"+ auth.isAuthenticated().user._id, options
 ).then(res => {
-
+  console.log(res)
 }).catch(err => {
   console.error(err);
 })
@@ -328,7 +327,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
             approval=Math.round((item.approval.length/group.members.length)*100)
 
             if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
-              deletePollSuggestion(item)
+              deletePollSuggestion(null,item)
             }
 
             let approveenames=[]
@@ -343,7 +342,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
             let width=`${(item.approval.length/props.users.length)*100}%`
 
             return (<>
-              <div className="pollbox">
+              <div key={item._id} className="pollbox">
               <h5 className="ruletext">{item.suggestion}, suggested by {item.createdby.name}, </h5>
               <h5 className="ruletext">{approval}% of members in this group approve this suggestion, {item.approval.length}/{group.members.length}</h5>
               {(((item.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
@@ -381,9 +380,10 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
                 <div>
                 <div className="pollbox">
                 <h3 className="ruletext">{props.poll.pollquestion}  </h3>
-                <h5 className="ruletext">Poll Created By {props.poll.createdby.name}</h5>
+                {props.poll.createdby&&<>
+                  <h5 className="ruletext">Poll Created By {props.poll.createdby.name}</h5>
                 {(((props.poll.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!sure)&&
-                  <button className="ruletext deletebutton" onClick={(e)=>areYouSur(e)}>Delete Poll?</button>}
+                  <button className="ruletext deletebutton" onClick={(e)=>areYouSur(e)}>Delete Poll?</button>}</>}
                   {sure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSur(e)}>Not sure</button>}
                   {sure&&<button className="ruletext deletebutton" onClick={(e)=>props.deletePoll(e,props.poll)}>Are you sure?</button>}
 

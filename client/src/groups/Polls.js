@@ -113,8 +113,8 @@ export default function Polls (props) {
     let userName=auth.isAuthenticated().user.name
     let nowTime=n
     let type="text"
-    let groupId=group.title
-
+    let groupId=group._id
+    let groupTitle=group.title
 
     socket.emit("Input Chat Message", {
       chatMessage,
@@ -122,8 +122,8 @@ export default function Polls (props) {
       userName,
       nowTime,
       type,
-      groupId});
-
+      groupId,
+      groupTitle});
 
       var pollscopy=JSON.parse(JSON.stringify(polls))
       pollscopy.reverse()
@@ -131,13 +131,8 @@ export default function Polls (props) {
       pollscopy.reverse()
       setPolls(pollscopy)
 
-
-
       let current=pollscopy.slice((page*10-10),page*10)
-
       setCurrentPageData(current)
-
-
 
       const options={
         method: "POST",
@@ -157,30 +152,26 @@ export default function Polls (props) {
 
 
           function deletePoll(e,item) {
-console.log(item)
+            console.log(item)
             var pollscopy=JSON.parse(JSON.stringify(polls))
             var filteredarray = pollscopy.filter(function( obj ) {
               return obj._id !== item._id;
             });
             setPolls(filteredarray);
 
-
             let current=filteredarray.slice((page*10-10),page*10)
-
             setCurrentPageData(current)
-
 
             var d = new Date();
             var n = d.getTime();
-
 
             let chatMessage=`deleted a poll called ${item.pollquestion}`
             let userId=auth.isAuthenticated().user._id
             let userName=auth.isAuthenticated().user.name
             let nowTime=n
             let type="text"
-            let groupId=group.title
-
+            let groupId=group._id
+            let groupTitle=group.title
 
             socket.emit("Input Chat Message", {
               chatMessage,
@@ -188,7 +179,9 @@ console.log(item)
               userName,
               nowTime,
               type,
-              groupId});
+              groupId,
+              groupTitle});
+
               let userscopy=JSON.parse(JSON.stringify(group.members))
               userscopy=userscopy.filter(item=>item.polls)
               let emails=userscopy.map(item=>{return item.email})
@@ -269,7 +262,7 @@ console.log(item)
 
                       fetch("/groups/sendemailnotification", options
                     ) .then(res => {
-
+                      console.log(res)
                     }).catch(err => {
                       console.error(err);
                     })
@@ -284,7 +277,7 @@ console.log(item)
 
                     fetch("/polls/notificationsent/"+item._id, optionstwo
                   ) .then(res => {
-
+                    console.log(res)
                   }).catch(err => {
                     console.error(err);
                   })
@@ -349,16 +342,16 @@ console.log(item)
                   </div></>}
 
                   {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-                  {(pageNum.length>1&&pageNum&&polls)&&pageNum.map(item=>{
+                  {(pageNum.length>1&&pageNum&&polls)&&pageNum.map((item,index)=>{
                     return (<>
-                      <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
+                      <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                       </>)
                     })}
                     {pollsmapped}
                     {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-                    {(pageNum.length>1&&pageNum&&polls)&&pageNum.map(item=>{
+                    {(pageNum.length>1&&pageNum&&polls)&&pageNum.map((item,index)=>{
                       return (<>
-                        <button style={{display:"inline"}} onClick={(e) => decidePage(e,item)}>{item}</button>
+                        <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                         </>)
                       })}
                       </>

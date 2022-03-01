@@ -30,7 +30,6 @@ class GroupsList extends Component {
     this.searchGroups=this.searchGroups.bind(this)
     this.handleSearchChange=this.handleSearchChange.bind(this)
   }
-
   componentDidMount(){
     this.viewAllGroups()
 let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com/embed/34LGPIXvU5M",
@@ -136,9 +135,9 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
     }
 
     return (
-      <div style={{margin:"3vw",width:"94vw"}}>
+      <div className="groupslist">
       <div  style={{margin:"0vw"}}>
-      <h1 style={{paddingTop:"7vh",margin:"0vw"}}>Groups</h1>
+      <h1 className="groupstitle">Groups</h1>
       </div>
       <div>
       <button style={{}} onClick={(e) => this.setState({viewform:!this.state.viewform})}>View Create Group Form?</button>
@@ -152,7 +151,7 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
       <div className='groupdivtwo'>
       <h2 style={{marginLeft:"2.5vw",margin:"0.5vw"}}>Your Groups</h2>
       </div>
-      <div style={{display:"flex"}}>
+      <div style={{display:"flex",flexWrap:"wrap"}}>
       {nogroups&&<h4 style={{marginLeft:"2.5vw",margin:"0.5vw"}}>You haven't joined any groups yet, click on the group link below.
       You can only join a maximum of three bottom level groups. If you leave one group, your votes are still recorded but not counted.
       If you choose to rejoin, they will count again.</h4>}
@@ -173,8 +172,10 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
       </section>
       <br/>
       {auth.isAuthenticated().user.cool&&<>
-      <iframe style={{margin:"0.5vw",width:"46vw",height:"46vh"}} src={this.state.vidone} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe style={{margin:"0.5vw",width:"46vw",height:"46vh"}} src={this.state.vidtwo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div className="vids">
+      <iframe style={{margin:"0.5vw",width:"44vw",height:"44vh",display:"inline"}} src={this.state.vidone} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe style={{margin:"0.5vw",width:"44vw",height:"44vh",display:"inline"}} src={this.state.vidtwo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
       </>}
       </div>
     );

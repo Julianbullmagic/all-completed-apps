@@ -156,57 +156,8 @@ console.log("updateing user",updatedUser)
   }
 
   async join(e){
-
-    let d = new Date();
-    let n = d.getTime();
-    let chatMessage=`has joined this group`
-    let userId=auth.isAuthenticated().user._id
-    let userName=auth.isAuthenticated().user.name
-    let nowTime=n
-    let type="text"
-    let groupId=this.state.group.title
-
-    this.socket.emit("Input Chat Message", {
-      chatMessage,
-      userId,
-      userName,
-      nowTime,
-      type,
-      groupId});
-
-    let userscopy=JSON.parse(JSON.stringify(this.state.users))
-    userscopy=userscopy.filter(user=>user.newmembers)
-    let emails=userscopy.map(item=>{return item.email})
-    let notification={
-      emails:emails,
-      subject:"New member",
-      message:`There is a new member called ${auth.isAuthenticated().user.name} in the group called ${this.state.group.title} at level ${this.state.group.level}, `
-    }
-
-    const opt = {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(notification)
-    }
-
-    fetch("/groups/sendemailnotification", opt
-  ) .then(res => {
-console.log(res)
-  }).catch(err => {
-    console.error(err);
-  })
-
-    const options = {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: ''
-    }
-
-    if(this.state.user.groupstheybelongto.length>=3){
+    let levelzerogroups=this.state.user.groupstheybelongto.filter(item=>item.level==0)
+    if(levelzerogroups>=3){
       this.setState({error:`You have already joined the maximum number of level zero groups. You cannot have more than three, you must leave another
         group before you can join this one. To leave a group, visit it's page and press the leave group button near the top.`})
         setTimeout(() => {
@@ -214,7 +165,56 @@ console.log(res)
         }, 8000)
       }
 
-      if(this.state.user.groupstheybelongto.length<3){
+      if(levelzerogroups<3){
+        let d = new Date();
+        let n = d.getTime();
+        let chatMessage=`has joined this group`
+        let userId=auth.isAuthenticated().user._id
+        let userName=auth.isAuthenticated().user.name
+        let nowTime=n
+        let type="text"
+        let groupId=this.state.group._id
+        let groupTitle=this.state.group.title
+        this.socket.emit("Input Chat Message", {
+          chatMessage,
+          userId,
+          userName,
+          nowTime,
+          type,
+          groupId,
+          groupTitle});
+
+        let userscopy=JSON.parse(JSON.stringify(this.state.users))
+        userscopy=userscopy.filter(user=>user.newmembers)
+        let emails=userscopy.map(item=>{return item.email})
+        let notification={
+          emails:emails,
+          subject:"New member",
+          message:`There is a new member called ${auth.isAuthenticated().user.name} in the group called ${this.state.group.title} at level ${this.state.group.level}, `
+        }
+
+        const opt = {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(notification)
+        }
+
+        fetch("/groups/sendemailnotification", opt
+      ) .then(res => {
+    console.log(res)
+      }).catch(err => {
+        console.error(err);
+      })
+
+        const options = {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: ''
+        }
         let memberscopy=JSON.parse(JSON.stringify(this.state.users))
         memberscopy.push(auth.isAuthenticated().user)
         let groupcopy=JSON.parse(JSON.stringify(this.state.group))
@@ -290,16 +290,7 @@ console.log("group title",this.state.group.title)
                     <Jury users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} group={this.state.group}/>
                     </TabPanel>}
                     </Tabs>
-                    <br/>
-                    <div style={{margin:"4vw",top:"80%",positition:"fixed"}}>
-                    <h6 style={{margin:"0.5vw"}}>How would you improve The Democratic Social Network? This application is still a work in progress, we would like to build something that
-                    as many people as possible are happy with. Please email any constructive criticism to democraticsocialnetwork@gmail.com. There
-                    is also an online marketplace for democratic businesses called the Cooperative Marketplace</h6>
-                    <Link to="https://cooperative-marketplace.herokuapp.com/">
-                    <h1 style={{margin:"0.5vw"}}>https://cooperative-marketplace.herokuapp.com/</h1>
-                    </Link>
-                    <br/>
-                    </div>
+
                     {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} grouptitle={this.state.group.title} groupId={this.props.match.params.groupId}/>}</>
                   }
 

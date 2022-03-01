@@ -35,6 +35,7 @@ export default class Events extends Component {
     this.areYouNotSure=this.areYouNotSure.bind(this)
     this.sendEventNotification=this.sendEventNotification.bind(this)
     this.approveofevent=this.approveofevent.bind(this)
+    this.deleteEvent=this.deleteEvent.bind(this)
     this.withdrawapproveofevent=this.withdrawapprovalofevent.bind(this)
   }
 
@@ -152,7 +153,8 @@ export default class Events extends Component {
   let userName=auth.isAuthenticated().user.name
   let nowTime=n
   let type="text"
-  let groupId=this.state.group.title
+  let groupId=this.state.group._id
+  let groupTitle=this.state.group.title
 
   this.socket.emit("Input Chat Message", {
     chatMessage,
@@ -160,7 +162,8 @@ export default class Events extends Component {
     userName,
     nowTime,
     type,
-    groupId});
+    groupId,
+    groupTitle});
 
     var filteredapproval=eventscopy.filter(checkEvent)
 
@@ -242,7 +245,7 @@ approveofevent(e,id){
     }
 
     if (approval<75&&(n-ev.timecreated)>MILLISECONDS_IN_A_WEEK){
-      this.deleteEvent(ev)
+      this.deleteEvent(null,ev)
     }
     if(approval>=10&&!ev.notificationsent){
       this.sendEventNotification(ev)
@@ -289,7 +292,7 @@ withdrawapprovalofevent(e,id){
 
 
     if (approval<75&&(n-ev.timecreated)>MILLISECONDS_IN_A_WEEK){
-      this.deleteEvent(ev)
+      this.deleteEvent(null,ev)
     }
 
   }
@@ -338,7 +341,8 @@ console.log(eventscopy)
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group.title
+      let groupId=this.state.group._id
+      let groupTitle=this.state.group.title
 
       this.socket.emit("Input Chat Message", {
         chatMessage,
@@ -346,7 +350,8 @@ console.log(eventscopy)
         userName,
         nowTime,
         type,
-        groupId
+        groupId,
+        groupTitle
       });
 
 
@@ -440,7 +445,8 @@ sendEventNotification(item){
       let userName=auth.isAuthenticated().user.name
       let nowTime=n
       let type="text"
-      let groupId=this.state.group.title
+      let groupId=this.state.group._id
+      let groupTitle=this.state.group.title
 
       this.socket.emit("Input Chat Message", {
         chatMessage,
@@ -448,7 +454,8 @@ sendEventNotification(item){
         userName,
         nowTime,
         type,
-        groupId});
+        groupId,
+        groupTitle});
 
       let userscopy=JSON.parse(JSON.stringify(this.state.users))
       userscopy=userscopy.filter(user=>user.events)
@@ -505,11 +512,6 @@ render() {
       let approval=<></>
       approval=Math.round((item.approval.length/this.state.users.length)*100)
 
-      if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
-        this.deleteEvent(item)
-      }
-
-
       let attendeenames=[]
       for (let user of this.state.users){
         for (let attendee of item.approval){
@@ -518,20 +520,23 @@ render() {
           }
         }
       }
+      let width=`${(item.approval.length/this.state.users.length)*100}%`
 
 
       return(
         <>
-        {item.createdby&&
-        <div className="eventbox" style={{marginBottom:"1vw"}}>
+        <div key={item._id} className="eventbox" style={{marginBottom:"1vw"}}>
         <div className="eventcol1">
         <h3>{item.title}</h3>
         <h4>{item.description}</h4>
-        {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event</h4>}
+        {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event. {item.approval.length>0&&<>Attendees=</>}</h4>}
+        {attendeenames&&attendeenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(attendeenames.length-2))?", ":(index<(attendeenames.length-1))?" and ":"."}</h4></>)})}
+        <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
         {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
         {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
+        {item.createdby&&<>
         {((item.createdby._id==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
-          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete?</button>}
+          <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete?</button>}</>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouNotSure(e,item)}>Not sure</button>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteEvent(e,item)}>Are you sure?</button>}
           </div>
@@ -571,16 +576,16 @@ render() {
         {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId} level={this.state.group.level}/>}
         <h2><strong>Group Events </strong></h2>
         {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-        {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{
+        {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map((item,index)=>{
           return (<>
-            <button style={{display:"inline"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
+            <button style={{display:"inline",opacity:(index+1==this.state.page)?"0.5":"1"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
             </>)
           })}
-          {eventscomponent}
+          {this.state.currentPageData&&eventscomponent}
           {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
-          {(this.state.pageNum.length>1&&this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map(item=>{
+          {(this.state.pageNum.length>1&&this.state.pageNum.length>1&&this.state.pageNum&&this.state.events)&&this.state.pageNum.map((item,index)=>{
             return (<>
-              <button style={{display:"inline"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
+              <button style={{display:"inline",opacity:(index+1==this.state.page)?"0.5":"1"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
               </>)
             })}
             </>

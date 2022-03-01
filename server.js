@@ -386,7 +386,7 @@ console.log(allrooms)
             .exec((err, doc)=> {
                 console.log("increase unread whole group count")
                 io.emit("increase unread whole group count", doc);
-                return io.to(msg.groupId).emit("Output Chat Message", doc);
+                return io.to(msg.groupTitle).emit("Output Chat Message", doc);
 
             })
           })

@@ -14,11 +14,11 @@ const isActive = (history, path) => {
     return {color: 'white'}
 }
 const Menu = withRouter(({history}) => (
-  <AppBar style={{backgroundColor:"#759CC9"}}>
-    <Toolbar>
-      <Typography variant="h6" color="inherit"style={{marginLeft:"1vw"}}>
+  <div className="menu" style={{backgroundColor:"#759CC9"}}>
+    <h2 className="menutitle">
         Democratic Social Network
-      </Typography>
+      </h2>
+      <div className="navbuttons">
       <Link to="/">
         <button style={isActive(history, "/")}>Home</button>
       </Link>
@@ -53,9 +53,8 @@ const Menu = withRouter(({history}) => (
 
         </span>)
       }
-
-    </Toolbar>
-  </AppBar>
+      </div>
+  </div>
 ))
 
 export default Menu
