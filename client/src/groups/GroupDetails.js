@@ -33,15 +33,15 @@ class GroupDetails extends Component {
 
     return (
       <React.Fragment>
-      <div style={{display:"flex",justifyContent:"space-around"}}>
-      <div style={{width:"50%"}}>
+      <div className="details">
+      <div className="detailscol1">
       <h2>Group Details</h2>
       {this.state.group.title&&<p><strong>Group Title: </strong> {this.state.group.title}</p>}
       {this.state.group.location&&<p><strong>Location: </strong> {this.state.group.location}</p>}
       <p><strong>Level: </strong> {this.state.group.level}</p>
       {this.state.group.description&&<p><strong>Description: </strong> {this.state.group.description}</p>}
       {this.state.group.groupabove&&
-        <><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><button><p style={{color:"white"}}><strong>Group Above: </strong>{this.state.group.groupabove.title}</p></button></Link></BrowserRouter></>}
+        <><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><button style={{color:"white",padding:"0.5vw"}}><strong>Group Above: </strong>{this.state.group.groupabove.title}</button></Link></BrowserRouter></>}
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&<p style={{display:"inline"}}><strong>Groups Below: </strong></p>}
 
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&this.state.group.groupsbelow.map((item,index)=>
@@ -51,9 +51,8 @@ class GroupDetails extends Component {
           of members but approximately show the area covered by each group.</p>}
           </div>
           <br/>
-          <div style={{width:"50%",textAlign:"right"}}>
-          {(this.state.group.images&&this.state.group.images.length>0)&&<Image style={{objectFit:"cover",
-          position:"relative",boxShadow:"2px 2px 2px 4px #050A30",maxHeight:"40vh"}}
+          <div className="detailscol2">
+          {(this.state.group.images&&this.state.group.images.length>0)&&<Image className="detailsimg" 
           cloudName="julianbullmagic" publicId={this.state.group.images[0]} />}
           </div>
           </div>

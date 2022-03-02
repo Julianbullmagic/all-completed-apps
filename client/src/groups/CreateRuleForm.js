@@ -71,6 +71,7 @@ export default function CreateRuleForm(props) {
           <div className="eventformbox">
           <label htmlFor='name'>Rule</label>
           <input
+          className="posttextarea" 
           type='text'
           name='ruleValue'
           id='ruleValue'
@@ -81,6 +82,7 @@ export default function CreateRuleForm(props) {
           <div className="eventformbox">
           <label htmlFor='name'>Explanation</label>
           <textarea
+          className="posttextarea"
           rows="4"
           type='text'
           name='explanationValue'

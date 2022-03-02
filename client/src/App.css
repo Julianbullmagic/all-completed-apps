@@ -100,7 +100,7 @@
 	display: flex;
 	position: fixed;
 	transition: height 2s;
-	width: 97.75vw;
+	width: 99vw;
 	z-index: 4;
 }
 .chat textarea
@@ -895,11 +895,81 @@ textarea:focus
 }
 .commentsdisplay{
 	overflow-y: scroll;
-max-height:20vw;
+	max-height:20vw;
+}
+
+.details{
+	display:flex;
+	justify-content:space-around;
+	margin-bottom:10vw;
+}
+.detailscol1{
+ width:50%;
+}
+.detailscol2{
+	width:50%;
+	text-align:center;
+}
+
+.detailsimg{
+	object-fit:cover;
+	position:relative;
+	box-shadow:2px 2px 2px 4px #050A30;
+	max-height:40vh;
+}
+
+.leaderexpl{
+	transition:max-height 2s;
+}
+
+.posttextarea{
+	width:83vw;
+}
+
+.eventformbox input{
+	display:inline;
+	width:70vw;
+}
+.eventformbox select{
+	display:inline;
+	width:70vw;
+}
+@media only screen and (max-width: 910px) {
+
+	.eventformbox input{
+		display:inline;
+		width:60vw;
+	}
+	.eventformbox select{
+		display:inline;
+		width:60vw;
+	}
 }
 @media only screen and (max-width: 640px) {
 	.menu{
 		height:12vw;
+	}
+	.details{
+		display:block;
+		margin-bottom:15vw;
+	}
+	.detailscol1{
+	 width:100%;
+	}
+	.detailscol2{
+		width:100%;
+	}
+	.detailsimg{
+		width:90vw;
+
+	}
+	.eventformbox input{
+		display:inline;
+		width:55vw;
+	}
+	.eventformbox select{
+		display:inline;
+		width:55vw;
 	}
 }
 
@@ -907,17 +977,45 @@ max-height:20vw;
 	.menu{
 		height:14vw;
 	}
+	.details{
+		display:block;
+		margin-bottom:20vw;
+	}
+	.eventformbox input{
+		display:inline;
+		width:50vw;
+	}
+	.eventformbox select{
+		display:inline;
+		width:50vw;
+	}
 }
 
 @media only screen and (max-width: 450px) {
 	.menu{
 		height:16vw;
 	}
+	.eventformbox input{
+		display:inline;
+		width:40vw;
+	}
+	.eventformbox select{
+		display:inline;
+		width:40vw;
+	}
 }
 
 @media only screen and (max-width: 350px) {
 	.menu{
 		height:18vw;
+	}
+	.eventformbox input{
+		display:inline;
+		width:30vw;
+	}
+	.eventformbox select{
+		display:inline;
+		width:30vw;
 	}
 }
 
@@ -958,6 +1056,11 @@ max-height:20vw;
 }
 
 @media only screen and (max-width: 413px) {
+
+	.detailsimg{
+		object-fit:contain;
+	}
+
 .chat textarea{
 	height:70%;
 }

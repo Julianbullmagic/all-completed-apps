@@ -329,15 +329,15 @@ export default function Polls (props) {
                 inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
                 return (
                   <>
+                  <div style={{marginBottom:"20vw"}}>
                   {inthisgroup&&<><button className="formbutton" style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Create Poll Form?</button>
-
                   <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
                   <form style={{display:!viewForm?"none":"block"}}>
                   <div className="pollform">
                   <label htmlFor='name'>Create Poll, write a question then suggest possible answers</label>
                   <button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>New Poll?</button>
                   </div>
-                  <textarea ref={pollquestion} id="story" rows="5"/>
+                  <textarea className="posttextarea" ref={pollquestion} id="story" rows="5"/>
                   </form>
                   </div></>}
 
@@ -354,6 +354,7 @@ export default function Polls (props) {
                         <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                         </>)
                       })}
+                      </div>
                       </>
                     )
                   }

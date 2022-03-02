@@ -817,15 +817,16 @@ function delRestPoll(e,item){
 
           return (
             <>
+            <div style={{marginBottom:"20vw"}}>
             {inthisgroup&&<><button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Restriction Poll Form?</button>
-            <div className="juryform" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
+            <div className="juryform" style={{maxHeight:!viewForm?"0":"300vw",overflow:"hidden",transition:"max-height 2s"}}>
             <form>
             <div className="eventformbox" >
             <h3>Propose a punishment for a member</h3>
             </div>
             <div className="eventformbox">
 
-            <select style={{width:"70vw"}} name="room" id="room" onChange={(e) => handleMemberChange(e)}>
+            <select name="room" id="room" onChange={(e) => handleMemberChange(e)}>
             {allusers&&allusers.map(item=>{return (
               <option key={item._id} value={item._id}>{item.name}</option>
             )})}
@@ -833,7 +834,7 @@ function delRestPoll(e,item){
             <p htmlFor="room"> Members</p>
             </div>
             <div className="eventformbox">
-            <select style={{width:"70vw"}} id="restriction" onChange={(e) => handleRestrictionChange(e)}>
+            <select id="restriction" onChange={(e) => handleRestrictionChange(e)}>
             <option value="cannot post">cannot post</option>
             <option value="cannot create polls">cannot create polls</option>
             <option value="cannot suggest rules or vote for rules">cannot suggest rules or vote for rules</option>
@@ -847,11 +848,11 @@ function delRestPoll(e,item){
 
             </div>
             <div className="eventformbox">
-            <input style={{display:"inline",width:"70vw"}} type='text' name='duration' id='duration' onChange={(e) => handleDurationChange(e)}/>
+            <input type='text' name='duration' id='duration' onChange={(e) => handleDurationChange(e)}/>
             <p htmlFor="duration"> How many days?</p>
             </div>
             <div className="eventformbox">
-            <input style={{display:"inline",width:"70vw"}} type='text' name='explanation' id='explanation' onChange={(e) => handleExplanationChange(e)}/>
+            <input type='text' name='explanation' id='explanation' onChange={(e) => handleExplanationChange(e)}/>
             <p htmlFor="room"> Explanation</p>
 
             <div className="restrictionexplanation">
@@ -869,7 +870,7 @@ function delRestPoll(e,item){
               {uploadComplete&&<h2 style={{margin:"0.5vw",display:"inline"}}>Upload Complete</h2>}
               <p style={{margin:"0.5vw"}}>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
               a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on. If you change your
-              mind about this punishment, you can visit the users profile by clicking on the button with their name at the top of the group page. If they have
+              mind about this punishment, you can visit the users profile by clicking on the button with their name at the top of the group page. If the user has
               any restrictions they will be visible here and you can delete ones you have created</p>
               </div>}
               <p style={{margin:"0.5vw"}}>Restriction polls are activated at 75% approval.</p>
@@ -908,6 +909,7 @@ function delRestPoll(e,item){
                     <button style={{display:"inline",opacity:(index+1==page)?"0.5":"1"}} onClick={(e) => decidePage(e,item)}>{item}</button>
                     </>)
                   })}
+                  </div>
                   </>
                 )
               }

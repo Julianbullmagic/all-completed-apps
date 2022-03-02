@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 export default function Newsfeed (props) {
   const [viewForm, setViewForm] = useState(false);
+  const [viewExplanation, setViewExplanation] = useState(false);
   const postArea = React.useRef('')
   const [posts, setPosts] = useState([]);
   const [group, setGroup] = useState(props.group);
@@ -438,6 +439,11 @@ function handleSubmit(e){
                         setCurrentPageData(current)
                       }
 
+                      function viewExpl(e){
+                        e.preventDefault();
+                        setViewExplanation(!viewExplanation)
+                      }
+
               if(preview){
                 if(preview.image){
                   var previewmapped=<><h2>{preview.title}</h2><img src={preview.image}></img></>
@@ -526,19 +532,54 @@ function handleSubmit(e){
                       {inthisgroup&&<>
                         <button style={{display:"block"}} onClick={(e) => setViewForm(!viewForm)}>View Write Post Form?</button>
 
-                        <div className="form" style={{maxHeight:!viewForm?"0":"100vw",overflow:"hidden",transition:"max-height 2s"}}>
+                        <div className="form" style={{maxHeight:!viewForm?"0":"1000vw",overflow:"hidden",transition:"max-height 2s"}}>
                         <form style={{display:!viewForm?"none":"block"}}>
                         <div>
                         <label htmlFor='name'>Write Post</label>
                         {!uploading&&<><button className="formsubmitbutton" onClick={(e) => handleSubmit(e)}>New Post?</button></>}
                         {uploading&&<h4>Uploading Post...</h4>}
+                        <button onClick={(e) => viewExpl(e)}>View Explanation</button>
                         </div>
-
                         <textarea className="posttextarea" onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
 
-
                         {preview&&previewmapped}
+                        <div className="leaderexpl" style={{maxHeight:!viewExplanation?"0":"2000vw",overflow:"hidden"}}>
+                        {group.level>0&&<p>Posts made in higher groups are immediately passed down to all groups below them.
+                          Remember that <strong>you cannot promote, advertise or endorse candidates in lower groups in any way</strong>.
+                          If you think a post contains this kind of marketing, you can click the button to mark it. If a 75%
+                          majority in any group agrees on this, the post is deleted. If elected candidates repeatedly
+                          break this rule, it is recommended to withdraw your vote from them and give it to someone else. Groups
+                          must be entirely responsible for choosing their own leaders. We want a genuine meritocracy and not an
+                          oligarchy in which a small minority group pre-appproves candidates that are acceptable to themselves.
+                          We want genuine democracy and not a democracy where people only get to choose between a range of
+                          options decided by an oligarchy. We also don't want a system where only the very wealthy can afford
+                          to run political campaigns. Actually, we shouldn't have any political marketing campaigns at all.
+                          Ideally, people should be politically conscious enough to actively go and do their own research
+                          about who the leaders should be, instead of passively complying with what the political propoganda suggests.
+                          We want a political system grounded in the authority of knowledge, wisdom and moral integrity, instead
+                          of coercive or exploitative power. We don't want people to use any kind of authority to create and
+                          impose rules that reinforce or propogate their own power. That would be an abuse of authority.
+                          We need leaders who will try to lead the group in a direction that is in the best interests of the group
+                          and not one's who will take advantage of the society for their own benefit.
 
+                          Posts are very useful for sharing information between groups and for higher level groups to
+                          try to explain why they have created certain rules, events, polls or restrictions. The mass media
+                          should be used for sharing important information and not for misleading people with propoganda. On
+                          the democratic social network, any user can visit any group and see their discussions. In order to prevent
+                          chaotic, disorderly conversations with too many people, you cannot directly participate in all discussions,
+                          but you can at least see them. This fact, combined with immediate recall of unpopular representatives
+                          means that there is a much greater motivation for elected leaders to consult, discuss
+                          and explain their decisions with the people effected by them or demonstrate their own trustworthyness.
+
+                          This is quite different from and elitist political system. In an oligarchy, the masses are excluded
+                          from group decision making because the rulers believe that most people are stupid, weak, immoral and irresponsible.
+                          In a genuine, socialistic democracy, authority is distributed evenly so that, while you may not be able
+                          to vote on all issues, you can be involved in making choices about things that are relevant to you and
+                          you have the expertise to understand. Our modern world is extremely complicated, even the biggest genuises
+                          can only be experts in a tiny fraction of all knowledge the human race collective has. There will always
+                          be many issues that we just don't know anything about and there is no benefit in us sharing our views.
+                          </p>}
+                          </div>
                         </form>
 
                         </div>
@@ -552,41 +593,7 @@ function handleSubmit(e){
                           })}
                           {postsmapped}
                           <br/>
-                          {group.level>0&&<p>Posts made in higher groups are immediately passed down to all groups below them.
-                            Remember that <strong>you cannot promote, advertise or endorse candidates in lower groups in any way</strong>.
-                            If you think a post contains this kind of marketing, you can click the button to mark it. If a 75%
-                            majority in any group agrees on this, the post is deleted. If elected candidates repeatedly
-                            break this rule, it is recommended to withdraw your vote from them and give it to someone else. Groups
-                            must be entirely responsible for choosing their own leaders. We want a genuine meritocracy and not an
-                            oligarchy in which a small minority group pre-appproves candidates that are acceptable to themselves.
-                            We want genuine democracy and not a democracy where people only get to choose between a range of
-                            options decided by an oligarchy. We also don't want a system where only the very wealthy can afford
-                            to run political campaigns. Actually, we shouldn't have any political marketing campaigns at all.
-                            Ideally, people should be politically conscious enough to actively go and do their own research
-                            about who the leaders should be, instead of passively complying with what the political propoganda suggests.
-                            We want a political system grounded in the authority of knowledge, wisdom and moral integrity, instead
-                            of coercive or exploitative power. We don't want people to use any kind of authority to create and
-                            impose rules that reinforce or propogate their own power. That would be an abuse of authority.
-                            We need leaders who will try to lead the group in a direction that is in the best interests of the group
-                            and not one's who will take advantage of the society for their own benefit.
 
-                            Posts are very useful for sharing information between groups and for higher level groups to
-                            try to explain why they have created certain rules, events, polls or restrictions. The mass media
-                            should be used for sharing important information and not for misleading people with propoganda. On
-                            the democratic social network, any user can visit any group and see their discussions. In order to prevent
-                            chaotic, disorderly conversations with too many people, you cannot directly participate in all discussions,
-                            but you can at least see them. This fact, combined with immediate recall of unpopular representatives
-                            means that there is a much greater motivation for elected leaders to consult, discuss
-                            and explain their decisions with the people effected by them or demonstrate their own trustworthyness.
-
-                            This is quite different from and elitist political system. In an oligarchy, the masses are excluded
-                            from group decision making because the rulers believe that most people are stupid, weak, immoral and irresponsible.
-                            In a genuine, socialistic democracy, authority is distributed evenly so that, while you may not be able
-                            to vote on all issues, you can be involved in making choices about things that are relevant to you and
-                            you have the expertise to understand. Our modern world is extremely complicated, even the biggest genuises
-                            can only be experts in a tiny fraction of all knowledge the human race collective has. There will always
-                            be many issues that we just don't know anything about and there is no benefit in us sharing our views.
-                            </p>}
                           <div style={{marginBottom:"5vw"}}>
                           {pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
                           {(pageNum.length>1&&pageNum&&posts)&&pageNum.map((item,index)=>{

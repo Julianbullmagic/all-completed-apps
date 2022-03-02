@@ -28,6 +28,7 @@ export default class Rules extends Component {
       pageNum:[],
       currentPageData:[],
       redirect: false,
+      viewexplanation:false,
       updating:false,
       participate:props.participate
     }
@@ -573,8 +574,26 @@ render(props) {
 
           return (
             <>
+            <div style={{marginBottom:"20vw"}}>
             {inthisgroup&&<h2>Propose a Rule</h2>}
             {inthisgroup&&<CreateRuleForm updateRules={this.updateRules} groupId={this.props.groupId} level={this.state.group.level}/>}
+            <button onClick={(e) => this.setState({viewexplanation:!this.state.viewexplanation})}>View Explanation</button>
+            <div className="leaderexpl" style={{maxHeight:!this.state.viewexplanation?"0":"300vw",overflow:"hidden"}}>
+            <p>Rules that have less than 75% approval and are more than a week old will be deleted. There are some rules you cannot
+            directly vote on because they have been approved by representatives of a larger group.
+            If you disagree, consult with your
+            elected representatives and they may be able to convince you, otherwize you can withdraw your vote from them.
+            We live in a very complicated modern world, you cannot be expected to understand everything or even most things, but we can try
+            to create circumstances that encourage trust between representatives and their constituency. Democracy book tries to achieve this
+            by having fairly small groups, encouraging a closer relationship between elected delegates and their people.
+            You may have important information that the delegate can pass onto the representative assembly. It is important that rules for
+            larger groups be created by responsible leaders who have consulted with their people, thoroughly discussed the issue and tried
+            to arrive at the most informed decision that as many people as possible are happy but also occasionally using authority to
+            overule people if absolutely necessary. Coercion is always inferior to persuasion. People comply and follow a rule much more
+            willingly and enthusiastically if they understand and agree with it or trust the people who created it.
+            Force should only be used to impose rules in dangerous or dire circumstances where persuasion has failed.
+            </p>
+            </div>
             <h2>Group Rules</h2>
             {this.state.pageNum.length>1&&<h4 style={{display:"inline"}}>Choose Page</h4>}
             {(this.state.pageNum.length>1&&this.state.pageNum&&this.state.rules)&&this.state.pageNum.map((item,index)=>{
@@ -589,20 +608,7 @@ render(props) {
                   <button style={{display:"inline",opacity:(index+1==this.state.page)?"0.5":"1"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
                   </>)
                 })}
-                <p>Rules that have less than 75% approval and are more than a week old will be deleted. There are some rules you cannot
-                directly vote on because they have been approved by representatives of a larger group.
-                If you disagree, consult with your
-                elected representatives and they may be able to convince you, otherwize you can withdraw your vote from them.
-                We live in a very complicated modern world, you cannot be expected to understand everything or even most things, but we can try
-                to create circumstances that encourage trust between representatives and their constituency. Democracy book tries to achieve this
-                by having fairly small groups, encouraging a closer relationship between elected delegates and their people.
-                You may have important information that the delegate can pass onto the representative assembly. It is important that rules for
-                larger groups be created by responsible leaders who have consulted with their people, thoroughly discussed the issue and tried
-                to arrive at the most informed decision that as many people as possible are happy but also occasionally using authority to
-                overule people if absolutely necessary. Coercion is always inferior to persuasion. People comply and follow a rule much more
-                willingly and enthusiastically if they understand and agree with it or trust the people who created it.
-                Force should only be used to impose rules in dangerous or dire circumstances where persuasion has failed.
-                </p>
+                </div>
                 </>
               );
             }

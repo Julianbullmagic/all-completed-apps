@@ -135,6 +135,7 @@ console.log("submitting")
               <div className="eventformbox">
               <label style={{display:"block"}} htmlFor='name'>Title</label>
               <input
+              className="posttextarea" 
               type='text'
               name='titleValue'
               id='titleValue'
@@ -144,6 +145,7 @@ console.log("submitting")
               <div className="eventformbox">
               <label htmlFor='name'>Description</label>
               <input
+              className="posttextarea"
               type='text'
               name='descriptionValue'
               id='descriptionValue'
@@ -153,6 +155,7 @@ console.log("submitting")
               <div className="eventformbox">
               <label htmlFor='name'>Location</label>
               <input
+              className="posttextarea"
               type='text'
               name='locationValue'
               id='locationValue'

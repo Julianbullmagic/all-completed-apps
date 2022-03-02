@@ -572,6 +572,7 @@ render() {
 
       return (
         <>
+        <div style={{marginBottom:"20vw"}}>
         {inthisgroup&&<h2>Propose an Event</h2>}
         {inthisgroup&&<CreateEventForm updateEvents={this.updateEvents} groupId={this.props.groupId} level={this.state.group.level}/>}
         <h2><strong>Group Events </strong></h2>
@@ -588,6 +589,7 @@ render() {
               <button style={{display:"inline",opacity:(index+1==this.state.page)?"0.5":"1"}} onClick={(e) => this.decidePage(e,item)}>{item}</button>
               </>)
             })}
+            </div>
             </>
           );
         }

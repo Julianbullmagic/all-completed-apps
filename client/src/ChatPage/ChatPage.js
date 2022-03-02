@@ -29,7 +29,7 @@ constructor(props){
       room:'',
       widthcolumntwo:"0%",
       widthcolumnthree:"60%",
-      height:"0.5vh",
+      height:"0vh",
       togglechat:false
   }
   let socket
@@ -349,7 +349,7 @@ let users=this.state.users.map(item=>item._id)
                               borderRightWidth:"0.5vw",
                               borderleftWidth:"0.5vw",
                               borderTopWidth:"0.5vw",
-                              width:"97.75vw",
+                              width:"99vw",
                               transition:"bottom 2s"}}>
                             <button style={{padding:"1px",borderRadius:"5px"}} onClick={() => {
                           this.setState({ togglechat:!this.state.togglechat,height:this.state.togglechat?"0.5vh":"40vh"});
