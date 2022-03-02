@@ -88,20 +88,19 @@
 {
 	background: #e0e8e6;
 	border-bottom: #c7cecc;
-	border-bottom-width: 5px;
+	border-bottom-width: 0.5vw;
 	border-left: #c7cecc;
-	border-left-width: 5px;
+	border-left-width: 0.5vw;
 	border-right: #c7cecc;
-	border-right-width: 5px;
+	border-right-width: 0.5vw;
 	border-style: solid;
 	border-top: #e0e8e6;
-	border-top-width: 0px;
 	bottom: 0;
 	color: #b721ff;
 	display: flex;
 	position: fixed;
 	transition: height 2s;
-	width: 100vw;
+	width: 97.75vw;
 	z-index: 4;
 }
 .chat textarea
@@ -138,30 +137,13 @@
 }
 .commentform
 {
-	display: flex;
-	justify-content: space-between;
 	margin: 1vw;
 }
 .commentinput
 {
 	width: 70vw;
 }
-.comments
-{
-	background: white;
-	border-bottom: #eaeaea;
-	border-left: #eaeaea;
-	border-right: #eaeaea;
-	border-style: solid;
-	border-top: #d4d4d4;
-	border-width: 5px;
-	display: flex;
-	flex-direction: column-reverse;
-	max-height: 20vw;
-	overflow: auto;
-	padding-bottom: 0.3vw;
-	padding-top: 0.3vw;
-}
+
 .eventbox
 {
 	background: #f6f6f6;
@@ -292,52 +274,13 @@
 .vids{
 	display:block;
 }
-@media only screen and (max-width: 37px) {
-	.navbuttons{
-		transform:translateY(-50%)
-	}
+
+.homeimg{
+width:100vw;
+height:auto;
 }
 
-@media only screen and (max-width: 413px) {
-	.vids{
-		display:none;
-	}
-	.groupslist{
-		transform:translateY(-3%);
-		margin-left:3vw;
-		margin-right:3vw;
-		width:94vw;
-	}
-	.groupstitle{
-		padding-top:5vh;
-		margin:0vw;
-	}
-	.groupdiv
-	{
-		background: #f6f6f6;
-		border: #eaeaea;
-		border-style: solid;
-		border-width: 5px;
-		color: white;
-		height: 20vh;
-		margin: 0.5vw;
-		overflow: hidden;
-		padding: 0.5vw;
-		position: relative;
-		width: 25vw;
-	}
 
-	.navbuttons{
-		display:block;
-		transform:translateY(10%)
-	}
-
-	.menu{
-		height:8vh;
-		padding:2vw;
-		transform:translateY(-10%)
-	}
-}
 .groupdivone
 {
 	border: #eaeaea;
@@ -442,6 +385,7 @@
 	border-width: 5px;
 	padding: 1vw;
 	width: 30vw;
+	margin-top: 7vw;
 }
 .innersignupform
 {
@@ -450,7 +394,6 @@
 	border-style: solid;
 	border-width: 5px;
 	margin-bottom: 7vw;
-	margin-top: 7vw;
 	padding: 1vw;
 	width: 60vw;
 }
@@ -641,9 +584,8 @@
 }
 .signinform
 {
-	align-items: center;
 	display: flex;
-	height: 100vh;
+	height: auto;
 	justify-content: center;
 	width: 100vw;
 }
@@ -730,7 +672,9 @@
 .tabs
 {
 	color: #396f6b;
-	margin: 4vw;
+	margin-left: 4vw;
+	margin-right: 4vw;
+	margin-bottom: 4vw;
 	width: 92vw;
 }
 .titlediv
@@ -842,6 +786,7 @@ h3,h5,h4,h6,h2,h1
 }
 input
 {
+	height:4vh;
 	border-color: #D3D3D3;
 	border-style: solid;
 	border-width: 5px;
@@ -852,8 +797,8 @@ input
 input[type="checkbox"] {
   margin: 0;
   font: inherit;
-  width: 2vw;
-  height: 2vw;
+  width: 5vw;
+  height: 10vw;
   border: 0.15em solid #6699cc;
   border-radius: 0.15em;
 }
@@ -919,4 +864,155 @@ textarea:focus
 {
 	border-color: #f6f6f6;
 	outline: none !important;
+}
+
+
+.chat select{
+ width:16vw;
+}
+
+.commentinput{
+	width:60vw;
+	display:inline;
+	margin:1vw;
+}
+
+.commentstuff{
+	display:inline;
+	margin:1vw;
+}
+.comments
+{
+	background: white;
+	border-bottom: #eaeaea;
+	border-left: #eaeaea;
+	border-right: #eaeaea;
+	border-style: solid;
+	border-top: #d4d4d4;
+	border-width: 5px;
+	padding-bottom: 0.3vw;
+	padding-top: 0.3vw;
+}
+.commentsdisplay{
+	overflow-y: scroll;
+max-height:20vw;
+}
+@media only screen and (max-width: 640px) {
+	.menu{
+		height:12vw;
+	}
+}
+
+@media only screen and (max-width: 510px) {
+	.menu{
+		height:14vw;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	.menu{
+		height:16vw;
+	}
+}
+
+@media only screen and (max-width: 350px) {
+	.menu{
+		height:18vw;
+	}
+}
+
+@media only screen and (max-width: 890px) {
+	.commentinput{
+		width:55vw;
+	}
+}
+@media only screen and (max-width: 800px) {
+	.commentinput{
+		width:50vw;
+	}
+}
+@media only screen and (max-width: 700px) {
+	.commentinput{
+		width:45vw;
+	}
+}
+@media only screen and (max-width: 600px) {
+	.commentinput{
+		width:40vw;
+	}
+}
+@media only screen and (max-width: 500px) {
+	.commentinput{
+		width:35vw;
+	}
+}
+@media only screen and (max-width: 450px) {
+	.commentstuff{
+		display:block;
+		margin:2vw;
+	}
+	.commentinput{
+		width:70vw;
+		display:block;
+	}
+}
+
+@media only screen and (max-width: 413px) {
+.chat textarea{
+	height:70%;
+}
+.chat select{
+ width:31vw;
+}
+	.homeimg{
+		height:100vh;
+		width:auto;
+		transform:translate(-50%,-2%);
+	}
+	.innersigninform{
+		width:80vw;
+		color:red;
+	}
+	.innersignupform{
+		width:80vw;
+	}
+
+	.vids{
+		display:none;
+	}
+	.groupslist{
+		transform:translateY(-3%);
+		margin-left:3vw;
+		margin-right:3vw;
+		width:94vw;
+	}
+	.groupstitle{
+		padding-top:5vh;
+		margin:0vw;
+	}
+	.groupdiv
+	{
+		background: #f6f6f6;
+		border: #eaeaea;
+		border-style: solid;
+		border-width: 5px;
+		color: white;
+		height: 20vh;
+		margin: 0.5vw;
+		overflow: hidden;
+		padding: 0.5vw;
+		position: relative;
+		width: 25vw;
+	}
+
+	.navbuttons{
+		display:block;
+		transform:translateY(-15%)
+	}
+}
+
+@media only screen and (max-width: 370px) {
+	.chat textarea{
+		height:64%;
+	}
 }

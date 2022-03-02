@@ -27,6 +27,7 @@ const Group = require("./models/group.model");
 const Rule = require("./models/rule.model");
 const Event = require("./models/event.model");
 const Restriction = require("./models/restriction.model");
+const Suggestion = require("./models/suggestion.model");
 const Post = require("./models/post.model");
 const Poll = require("./models/poll.model");
 const RestrictionPoll = require("./models/restrictionpoll.model");
@@ -103,6 +104,7 @@ app.use('/api/chat', require('./routes/chat'));
 const MILLISECONDS_IN_A_MONTH=2629800000
 const MILLISECONDS_IN_THREE_MONTHS=7889400000
 const MILLISECONDS_IN_A_DAY=86400000
+const MILLISECONDS_IN_NINE_MONTHS=23668200000
 let grouptitles
 (async function(){
  grouptitles=await Group.find().exec()
@@ -116,9 +118,11 @@ cron.schedule('0 0 0 * * *', () => {
     let n = d.getTime();
     let users=await User.find().exec()
     let events=await Event.find().exec()
+    let rules=await Event.find().exec()
     let restrictions=await Restriction.find().exec()
     let posts=await Post.find().exec()
     let polls=await Poll.find().exec()
+    let suggestions=await Suggestion.find().exec()
     let restrictionpolls=await RestrictionPoll.find().exec()
     let comments=await Comment.find().exec()
     let groups=await Group.find().exec()
@@ -181,8 +185,66 @@ cron.schedule('0 0 0 * * *', () => {
   }
 
 
+  for (let group of groups){
+    for (let rule of rules){
+      if (rule.groupIds.includes(group._id)){
+        for (let approvee of rule.approval){
+          if (!group.members.includes(approvee)){
+            Rule.findByIdAndUpdate(rule._id, {$pull : {
+              approval:approvee
+            }}).exec()
+          }
+        }
+      }
+    }
+    for (let ev of events){
+      if (ev.groupIds.includes(group._id)){
+        for (let approvee of ev.approval){
+          if (!group.members.includes(approvee)){
+            Event.findByIdAndUpdate(ev._id, {$pull : {
+              approval:approvee
+            }}).exec()
+          }
+        }
+      }
+    }
+    for (let restriction of restrictionpolls){
+      if (restriction.groupIds.includes(group._id)){
+        for (let approvee of restriction.approval){
+          if (!group.members.includes(approvee)){
+            RestrictionPoll.findByIdAndUpdate(restriction._id, {$pull : {
+              approval:approvee
+            }}).exec()
+          }
+        }
+      }
+    }
+    for (let poll of polls){
+      if (poll.groupIds.includes(group._id)){
+        for (let approvee of poll.approval){
+          if (!group.members.includes(approvee)){
+            Poll.findByIdAndUpdate(poll._id, {$pull : {
+              approval:approvee
+            }}).exec()
+          }
+        }
+      }
+    }
+    for (let suggest of suggestions){
+      if (suggest.groupIds.includes(group._id)){
+        for (let approvee of suggest.approval){
+          if (!group.members.includes(approvee)){
+            Suggestion.findByIdAndUpdate(suggest._id, {$pull : {
+              approval:approvee
+            }}).exec()
+          }
+        }
+      }
+    }
+  }
+
 for (let item of events){
-  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
+  if (n-item.timecreated>MILLISECONDS_IN_NINE_MONTHS){
     Event.findByIdAndDelete(item._id).exec()
     cloudinary.v2.uploader.destroy(item.images[0],
       function(error, result){
@@ -191,29 +253,29 @@ for (let item of events){
   })
 }
 for (let item of restrictions){
-  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
+  if (n-item.timecreated>MILLISECONDS_IN_NINE_MONTHS){
     Restriction.findByIdAndDelete(item._id).exec()
   }
 }
 for (let item of posts){
-  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
+  if (n-item.timecreated>MILLISECONDS_IN_NINE_MONTHS){
     Post.findByIdAndDelete(item._id).exec()
   }
 }
 
 
 for (let item of restrictionpolls){
-  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
+  if (n-item.timecreated>MILLISECONDS_IN_NINE_MONTHS){
     RestrictionPoll.findByIdAndDelete(item._id).exec()
   }
 }
 for (let item of polls){
-  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
+  if (n-item.timecreated>MILLISECONDS_IN_NINE_MONTHS){
     Poll.findByIdAndDelete(item._id).exec()
   }
 }
 for (let item of comments){
-  if (n-item.timecreated>MILLISECONDS_IN_A_MONTH){
+  if (n-item.timecreated>MILLISECONDS_IN_NINE_MONTHS){
     Comment.findByIdAndDelete(item._id).exec()
   }
 }

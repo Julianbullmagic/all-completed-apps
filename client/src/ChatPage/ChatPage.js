@@ -85,7 +85,7 @@ componentDidMount(props) {
     subtitle: '',
     message: messageFromBackEnd.message,
     theme: 'darkblue',
-    native: true 
+    native: true
 });
 
         let chatscopy=JSON.parse(JSON.stringify(this.state.chats))
@@ -321,7 +321,7 @@ let users=this.state.users.map(item=>item._id)
 
     {(users.includes(auth.isAuthenticated().user._id))&&
       <button style={{display:"inline",marginTop:"0.5vh"}} className="submitbutton" onClick={this.submitChatMessage}>Submit Message</button>}
-      <select style={{marginLeft:"1vw",marginTop:"0.5vh",display:"inline",width:"15vw"}} name="room" id="room" onChange={this.handleuserchange}>
+      <select style={{marginLeft:"1vw",marginTop:"0.5vh",display:"inline"}} name="room" id="room" onChange={this.handleuserchange}>
       <option value="All Group Chat">All Group Chat {this.state.unreadwholegroupmessages} unread messages</option>
       {this.state.users&&this.state.users.map(user=>{
         return(
@@ -342,8 +342,15 @@ let users=this.state.users.map(item=>item._id)
                             </div>
                             </div>
                             </div>
-                            <div className="togglechatbutton chat" style={{bottom:this.state.height,
-                              borderColor:"#c7cecc",borderStyle: "solid",borderWidth:"5px",transition:"bottom 2s"}}>
+                            <div className="togglechatbutton chat" style={{
+                              bottom:this.state.height,
+                              borderColor:"#c7cecc",
+                              borderStyle: "solid",
+                              borderRightWidth:"0.5vw",
+                              borderleftWidth:"0.5vw",
+                              borderTopWidth:"0.5vw",
+                              width:"97.75vw",
+                              transition:"bottom 2s"}}>
                             <button style={{padding:"1px",borderRadius:"5px"}} onClick={() => {
                           this.setState({ togglechat:!this.state.togglechat,height:this.state.togglechat?"0.5vh":"40vh"});
                         }}>View Chat</button>

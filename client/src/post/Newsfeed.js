@@ -534,7 +534,7 @@ function handleSubmit(e){
                         {uploading&&<h4>Uploading Post...</h4>}
                         </div>
 
-                        <textarea onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
+                        <textarea className="posttextarea" onChange={(e) => setPost(e.target.value)} ref={postArea} id="story" rows="5" cols="33" />
 
 
                         {preview&&previewmapped}

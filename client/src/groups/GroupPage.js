@@ -248,7 +248,6 @@ console.log("group title",this.state.group.title)
       <>
       {this.state.loading&&<>
         <Tabs className="tabs">
-        <br/>
         <h1 style={{margin:"0.5vw"}}>{this.state.group.title}</h1>
         <h4 style={{margin:"0.5vw"}} className="activemembers">Members</h4>
         {this.state.users&&this.state.users.map(item=>{return(

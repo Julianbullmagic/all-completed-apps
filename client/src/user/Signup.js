@@ -245,7 +245,7 @@ export default function Signup (){
               <div style={{margin:"1vw"}}><h5 style={{marginRight:"1vw",display:"block"}}>
               Try to explain your skills, knowledge, experience, qualifications. You may be elected as a leader of a group and other group members
               need some way of evaluating if you are a good candidate.</h5>
-              <textarea style={{width:"100%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={values.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
+              <textarea style={{width:"95%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={values.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
 
               <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
               <h5 style={{marginRight:"1vw"}} className="ruletext">Are you male or female? If you identify as another category please write it below.

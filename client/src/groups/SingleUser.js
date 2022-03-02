@@ -267,7 +267,7 @@ export default function SingleUser({ match }) {
 
 
                                   {(auth.isAuthenticated()&&auth.isAuthenticated().user._id==match.params.userId)&&(
-                                    <div className="signupform">
+                                    <div style={{transform:"translateY(-5%)"}} className="signupform">
                                     <div  style={{position: "static"}}  className="innersignupform">
                                     <h1 style={{textAlign:"center"}}>
                                     Edit Listing
@@ -284,131 +284,129 @@ export default function SingleUser({ match }) {
                                     <div style={{margin:"1vw"}}><h5 style={{marginRight:"1vw",display:"block"}}>
                                     Try to explain your skills, knowledge, experience, qualifications. You may be elected as a leader of a group and other group members
                                     need some way of evaluating if you are a good candidate.</h5>
-                                    <textarea style={{width:"100%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={user.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
+                                    <textarea style={{width:"95%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={user.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
 
                                     <h4>Tick the boxes below to recieve email notifications about new suggestions. At least 10% of members must have voted for something before notifications will be sent in order to help prevent individuals from spamming everyone. </h4>
-
+                                    <div style={{display:"flex",flexWrap:"wrap"}}>
+                                    <div style={{display:"inline"}}>
                                     <input
                                     type="checkbox"
-                                    style={{width:"1vw"}}
                                     checked={events}
+                                    style={{transform:"translateY(40%)",display:"inline"}}
                                     onChange={e => {
                                       setEvents(e.target.checked)}}
                                       />
-                                      <h5 style={{marginRight:"1vw"}}  className="ruletext">Event Suggestions</h5>
-
+                                      <h5 style={{marginRight:"1vw"}}  className="ruletext"> Event Suggestions, </h5>
+                                      </div>
+                                      <div style={{display:"inline"}}>
                                       <input
                                       type="checkbox"
-                                      style={{width:"1vw"}}
                                       checked={leaders}
+                                      style={{transform:"translateY(40%)"}}
                                       onChange={e => {setLeaders(e.target.checked)}}/>
-                                      <h5 style={{marginRight:"1vw"}}  className="ruletext">New Leaders</h5>
-
+                                      <h5 style={{marginRight:"1vw"}}  className="ruletext"> New Leaders, </h5>
+                                      </div>
+                                      <div style={{display:"inline"}}>
                                         <input
                                         type="checkbox"
-                                        style={{width:"1vw"}}
                                         checked={posts}
+                                        style={{transform:"translateY(40%)"}}
                                         onChange={e => {
-
                                           setPosts(e.target.checked)}}
                                           />
-                                          <h5 style={{marginRight:"1vw"}} className="ruletext">Posts </h5>
-
+                                          <h5 style={{marginRight:"1vw"}} className="ruletext"> Posts, </h5>
+                                          </div>
+                                          <div style={{display:"inline"}}>
                                           <input
                                           type="checkbox"
-                                          style={{width:"1vw"}}
                                           checked={polls}
+                                          style={{transform:"translateY(40%)"}}
                                           onChange={e => {
-
                                             setPolls(e.target.checked)}}
                                             />
-                                            <h5 style={{marginRight:"1vw"}} className="ruletext">Polls </h5>
-
-
+                                            <h5 style={{marginRight:"1vw"}} className="ruletext"> Polls, </h5>
+                                            </div>
+                                            <div style={{display:"inline"}}>
                                             <input
                                             type="checkbox"
-                                            style={{width:"1vw"}}
                                             checked={newMembers}
+                                            style={{transform:"translateY(40%)"}}
                                             onChange={e => {
                                               setNewMembers(e.target.checked)}}
                                               />
-                                              <h5 style={{marginRight:"1vw"}} className="ruletext">New Members In Your Groups</h5>
-
-
+                                              <h5 style={{marginRight:"1vw"}} className="ruletext"> New Members In Your Groups, </h5>
+                                              </div>
+                                              <div style={{display:"inline"}}>
                                             <input
                                             type="checkbox"
-                                            style={{width:"1vw"}}
                                             checked={rules}
+                                            style={{transform:"translateY(40%)"}}
                                             onChange={e => {
-
                                               setRules(e.target.checked)}}
                                               />
-                                              <h5 style={{marginRight:"1vw"}} className="ruletext">Rule Suggestions </h5>
-
-
-
+                                              <h5 style={{marginRight:"1vw"}} className="ruletext"> Rule Suggestions, </h5>
+                                              </div>
+                                              <div style={{display:"inline"}}>
                                                 <input
                                                 type="checkbox"
-                                                style={{width:"1vw"}}
                                                 checked={restriction}
+                                                style={{transform:"translateY(40%)"}}
                                                 onChange={e => {
-
                                                   setRestriction(e.target.checked)}}
                                                   />
-                                                  <h5 style={{marginRight:"1vw"}} className="ruletext">Restrictions </h5>
-
-
+                                                  <h5 style={{marginRight:"1vw"}} className="ruletext"> Restrictions </h5>
+                                                  </div>
+                                                  </div>
                                                   <h4>Tick the boxes below to recieve email notifications when new rules or restrictions for particular uses recieve approval from above 75% of the members</h4>
+                                                  <div style={{display:"flex",flexWrap:"wrap"}}>
+                                                  <div style={{display:"inline"}}>
                                                   <input
                                                   type="checkbox"
-                                                  style={{width:"1vw"}}
                                                   checked={rulesApproved}
+                                                  style={{transform:"translateY(40%)"}}
                                                   onChange={e => {
-
                                                     setRulesApproved(e.target.checked)}}
                                                     />
-                                                    <h5 style={{marginRight:"1vw"}} className="ruletext">Rule Approval </h5>
-
-
+                                                    <h5 style={{marginRight:"1vw"}} className="ruletext"> Rule Approval, </h5>
+                                                    </div>
+                                                    <div style={{display:"inline"}}>
                                                     <input
                                                     type="checkbox"
-                                                    style={{width:"1vw"}}
                                                     checked={restrictionsApproved}
+                                                    style={{transform:"translateY(40%)"}}
                                                     onChange={e => {
-
                                                       setRestrictionsApproved(e.target.checked)}}
                                                       />
-
-                                                      <h5 style={{marginRight:"1vw"}} className="ruletext">Restriction Approval </h5>
-
-
+                                                      <h5 style={{marginRight:"1vw"}} className="ruletext"> Restriction Approval, </h5>
+                                                      </div>
+                                                      <div style={{display:"inline"}}>
                                                       <input
                                                       type="checkbox"
-                                                      style={{width:"1vw"}}
+                                                      style={{transform:"translateY(40%)"}}
                                                       checked={eventsApproved}
                                                       onChange={e => {
-
                                                         setEventsApproved(e.target.checked)}}
                                                         />
-                                                        <h5 style={{marginRight:"1vw"}}  className="ruletext">Events Approved </h5>
-
-                                                        <div className="signininput" style={{display:((numImages.length>=1)?"block":"none")}}>
+                                                        <h5 style={{marginRight:"1vw"}}  className="ruletext"> Events Approved </h5>
+                                                        </div>
+                                                        </div>
+                                                        <div className="signininput" style={{margin:"2vw",display:((numImages.length>=1)?"block":"none")}}>
                                                       <input style={{width:"100%"}} id="file" type="file" ref={selectedFile1}/>
                                                       </div>
 
-                                                      <div className="signininput" style={{display:((numImages.length>=2)?"block":"none")}}>
+                                                      <div className="signininput" style={{margin:"2vw",display:((numImages.length>=2)?"block":"none")}}>
                                                       <input style={{width:"100%"}} id="file" type="file" ref={selectedFile2}/>
                                                       </div>
 
-                                                      <div className="signininput" style={{display:((numImages.length>=3)?"block":"none")}}>
+                                                      <div className="signininput" style={{margin:"2vw",display:((numImages.length>=3)?"block":"none")}}>
                                                       <input style={{width:"100%"}} id="file2" type="file" ref={selectedFile3}/>
                                                       </div>
 
-                                                      <div className="signininput" style={{display:((numImages.length>=4)?"block":"none")}}>
+                                                      <div className="signininput" style={{margin:"2vw",display:((numImages.length>=4)?"block":"none")}}>
                                                       <input style={{width:"100%"}} id="file3" type="file" ref={selectedFile4}/>
                                                       </div>
 
-                                                      <div className="signininput" style={{display:((numImages.length>=5)?"block":"none")}}>
+                                                      <div className="signininput" style={{margin:"2vw",display:((numImages.length>=5)?"block":"none")}}>
                                                       <input style={{width:"100%"}} id="file4" type="file" ref={selectedFile5}/>
                                                       <p>Max 5 images</p>
                                                       </div>
