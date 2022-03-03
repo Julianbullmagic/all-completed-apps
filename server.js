@@ -125,13 +125,20 @@ cron.schedule('0 0 0 * * *', () => {
     let suggestions=await Suggestion.find().exec()
     let restrictionpolls=await RestrictionPoll.find().exec()
     let comments=await Comment.find().exec()
-    let groups=await Group.find().exec()
+    let groups=await Group.find()
+          .populate({
+      path: 'groupsbelow',
+      populate: {
+        path: 'groupsbelow',
+      }
+    }).exec()
 
 
     for (let gr of groups){
+
       let elapsed=n-gr.timecreated
       if(gr.level==0){
-        if ((gr.members.length<3)&&(elapsed>MILLISECONDS_IN_A_MONTH)){
+        if ((gr.members.length<3)&&(elapsed>MILLISECONDS_IN_A_MONTH)&&gr.cool){
           Group.findByIdAndDelete(gr._id).exec()
           for (let group of groups){
             if (group.groupsbelow.includes(gr._id)){
@@ -185,14 +192,58 @@ cron.schedule('0 0 0 * * *', () => {
   }
 
 
-  for (let group of groups){
+  for (let gr of groups){
+    let allmembers=[]
+    let allleveltwomembers=[]
+    let alllevelonemembers=[]
+    if (gr.level==2){
+      allleveltwomembers.push(...gr.members)
+      if (gr.groupsbelow){
+        for (let grou of gr.groupsbelow){
+          allleveltwomembers.push(...grou.members)
+          if (grou.groupsbelow){
+            for (let gro of grou.groupsbelow){
+              allleveltwomembers.push(...gro.members)
+            }
+          }
+        }
+      }
+    }
+    if (gr.level==1){
+      alllevelonemembers.push(...gr.members)
+      if (gr.groupsbelow){
+        for (let grou of gr.groupsbelow){
+          alllevelonemembers.push(...grou.members)
+        }
+      }
+    }
+
+    alllevelonemembers=[...new Set(alllevelonemembers)]
+    allleveltwomembers=[...new Set(allleveltwomembers)]
+
     for (let rule of rules){
       if (rule.groupIds.includes(group._id)){
         for (let approvee of rule.approval){
-          if (!group.members.includes(approvee)){
-            Rule.findByIdAndUpdate(rule._id, {$pull : {
-              approval:approvee
-            }}).exec()
+          if (rule.level==2){
+              if (!allleveltwomembers.includes(approvee)){
+                Rule.findByIdAndUpdate(rule._id, {$pull : {
+                  approval:approvee
+                }}).exec()
+          }
+        }
+          if(rule.level==1){
+            if (!alllevelonemembers.includes(approvee)){
+              Rule.findByIdAndUpdate(rule._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
+          }
+          if(rule.level==0){
+            if (!gr.members.includes(approvee)){
+              Rule.findByIdAndUpdate(rule._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
           }
         }
       }
@@ -200,10 +251,26 @@ cron.schedule('0 0 0 * * *', () => {
     for (let ev of events){
       if (ev.groupIds.includes(group._id)){
         for (let approvee of ev.approval){
-          if (!group.members.includes(approvee)){
-            Event.findByIdAndUpdate(ev._id, {$pull : {
-              approval:approvee
-            }}).exec()
+          if (ev.level==2){
+              if (!allleveltwomembers.includes(approvee)){
+                Event.findByIdAndUpdate(ev._id, {$pull : {
+                  approval:approvee
+                }}).exec()
+          }
+        }
+          if(ev.level==1){
+            if (!alllevelonemembers.includes(approvee)){
+              Event.findByIdAndUpdate(ev._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
+          }
+          if(ev.level==0){
+            if (!gr.members.includes(approvee)){
+              Event.findByIdAndUpdate(ev._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
           }
         }
       }
@@ -211,10 +278,26 @@ cron.schedule('0 0 0 * * *', () => {
     for (let restriction of restrictionpolls){
       if (restriction.groupIds.includes(group._id)){
         for (let approvee of restriction.approval){
-          if (!group.members.includes(approvee)){
-            RestrictionPoll.findByIdAndUpdate(restriction._id, {$pull : {
-              approval:approvee
-            }}).exec()
+          if (restriction.level==2){
+              if (!allleveltwomembers.includes(approvee)){
+                RestrictionPoll.findByIdAndUpdate(restriction._id, {$pull : {
+                  approval:approvee
+                }}).exec()
+          }
+        }
+          if(restriction.level==1){
+            if (!alllevelonemembers.includes(approvee)){
+              RestrictionPoll.findByIdAndUpdate(restriction._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
+          }
+          if(restriction.level==0){
+            if (!gr.members.includes(approvee)){
+              RestrictionPoll.findByIdAndUpdate(restriction._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
           }
         }
       }
@@ -222,21 +305,53 @@ cron.schedule('0 0 0 * * *', () => {
     for (let poll of polls){
       if (poll.groupIds.includes(group._id)){
         for (let approvee of poll.approval){
-          if (!group.members.includes(approvee)){
-            Poll.findByIdAndUpdate(poll._id, {$pull : {
-              approval:approvee
-            }}).exec()
-          }
+                    if (poll.level==2){
+                        if (!allleveltwomembers.includes(approvee)){
+                          Poll.findByIdAndUpdate(poll._id, {$pull : {
+                            approval:approvee
+                          }}).exec()
+                    }
+                  }
+                    if(poll.level==1){
+                      if (!alllevelonemembers.includes(approvee)){
+                        Poll.findByIdAndUpdate(poll._id, {$pull : {
+                          approval:approvee
+                        }}).exec()
+                      }
+                    }
+                    if(poll.level==0){
+                      if (!gr.members.includes(approvee)){
+                        Poll.findByIdAndUpdate(poll._id, {$pull : {
+                          approval:approvee
+                        }}).exec()
+                      }
+                    }
         }
       }
     }
     for (let suggest of suggestions){
       if (suggest.groupIds.includes(group._id)){
         for (let approvee of suggest.approval){
-          if (!group.members.includes(approvee)){
-            Suggestion.findByIdAndUpdate(suggest._id, {$pull : {
-              approval:approvee
-            }}).exec()
+          if (suggest.level==2){
+              if (!allleveltwomembers.includes(approvee)){
+                Suggestion.findByIdAndUpdate(suggest._id, {$pull : {
+                  approval:approvee
+                }}).exec()
+          }
+        }
+          if(suggest.level==1){
+            if (!alllevelonemembers.includes(approvee)){
+              Suggestion.findByIdAndUpdate(suggest._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
+          }
+          if(suggest.level==0){
+            if (!gr.members.includes(approvee)){
+              Suggestion.findByIdAndUpdate(suggest._id, {$pull : {
+                approval:approvee
+              }}).exec()
+            }
           }
         }
       }

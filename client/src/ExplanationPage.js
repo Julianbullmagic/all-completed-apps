@@ -3,13 +3,11 @@ import React, {useRef,useState} from 'react'
 export default function ExplanationPage() {
   return (
     <>
-    <br/>
-    <br/>
-    <div style={{margin:"4vw"}}>
+    <div style={{marginBottom:"4vw",marginLeft:"4vw",marginRight:"4vw"}}>
     <h1>How does Democracy Book Work?</h1>
 
     <p>For the last few decades, the situation for working class people in this country has grown steadily worse and worse. Houses are
-    about five times more expensive than they were in the 1980s. The gap between economic growth and wage growth has gotten larger and
+    at least five times more expensive than they were in the 1980s even taking into account inflation. The gap between economic growth and wage growth has gotten larger and
     larger, the growth of people's incomes has reduced dramatically. University, childcare, electricity and many other things people
     need have become much more costly. Our technology has improved dramatically and it should be vastly easier and cheaper to produce
     these essential goods and services. For example, very nice houses can be 3d printed for less than $4000 these days, yet people are still
@@ -17,6 +15,10 @@ export default function ExplanationPage() {
     and is quite heavily biased in favour of the rich. Almost all our politicians are very wealthy, belonging to the top 5% most wealthy members
     of our society. They create and impose rules that make it easier to make more money for themselves. This is largely because political
     marketing campagins are very expensive and the mass media is controlled by very wealthy people.</p>
+    <img style={{width:"45vw"}} src={require('./housing-prices-Australia.png')} />
+    <img style={{width:"45vw"}} src={require('./Australian-unemployment-rates.png')} />
+    <img style={{width:"45vw"}} src={require('./Trade-union-density-in-Australia-percentage-of-employees-1960-2011-a-a-Trade-union.png')} />
+    <img style={{width:"45vw"}} src={require('./WageSlowdown.jpg')} />
 
     <p>
     There is also very little democracy within most businesses, capitalist firms are undemocratic, the executives and shareholders are
