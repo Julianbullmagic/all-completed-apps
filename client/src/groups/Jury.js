@@ -11,6 +11,7 @@ export default function Jury(props) {
   const [viewForm, setViewForm] = useState(false);
   const [selectedUser, setSelectedUser] = useState(props.users[0]);
   const [group, setGroup] = useState(props.group);
+  const [searchTerm, setSearchTerm] = useState('');
   const [restriction, setRestriction] = useState('cannot post');
   const [uploadComplete, setUploadComplete] = useState(false);
   const [isShown,setIsShown]=useState(false)
@@ -752,7 +753,9 @@ function delRestPoll(e,item){
             setCurrentPageData(current)
           }
 
-
+          function searchMembers(e){
+            setSearchTerm(e.target.value)
+          }
 
       var d = new Date();
       var n = d.getTime();
@@ -806,8 +809,12 @@ function delRestPoll(e,item){
             console.log("GROUPS BELOW",group.groupsbelow)
             for (let grou of group.groupsbelow){
               allusers.push(...grou.members)
+              if(grou.groupsbelow){
+                for (let gr of grou.groupsbelow){
+                  allusers.push(...gr.members)
+                }
+              }
             }
-
           }else{
 
             allusers.push(...group.members)
@@ -820,6 +827,9 @@ function delRestPoll(e,item){
               usernames.push(user.name)
               allusers.push(user)
             }
+          }
+          if (searchTerm){
+            allusers=allusers.filter(user=>user.name.toLowerCase().includes(searchTerm.toLowerCase()))
           }
           console.log("all users",allusers)
 
@@ -838,8 +848,9 @@ function delRestPoll(e,item){
             <h3>Propose a punishment for a member</h3>
             </div>
             <div className="eventformbox">
-
-            <select name="room" id="room" onChange={(e) => handleMemberChange(e)}>
+            {(group.level>1)&&<><input type='text' name='duration' id='duration' onChange={(e) => handleDurationChange(e)}/>
+            <p htmlFor="duration">Search for users then select from the drop down menu below</p></>}
+            <select name="room" id="room" onChange={(e) => searchMembers(e)}>
             {allusers&&allusers.map(item=>{return (
               <option key={item._id} value={item._id}>{item.name}</option>
             )})}
@@ -871,7 +882,11 @@ function delRestPoll(e,item){
             <div className="restrictionexplanation">
             <p style={{display:"block"}} htmlFor="duration">
             Explain why you think this restriction should be imposed? Which rule or rules have been broken?
-            What is your evidence? Why do you think this punishment is proportionate to the crime?
+            What is your evidence? Why do you think this punishment is proportionate to the crime? Avoid
+            enforcing rules that have not been agreed on and made explicit in the group rules tab. People
+            will not follow a rule if they don't even know it exists. A rule might seem like common sense
+            to you, but to someone of a different background, culture, nationality, religion or ethnicity,
+            it might not.
             </p>
             </div>
             </div>
