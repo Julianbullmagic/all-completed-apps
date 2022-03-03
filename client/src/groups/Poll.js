@@ -326,9 +326,6 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
 
             approval=Math.round((item.approval.length/group.members.length)*100)
 
-            if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
-              deletePollSuggestion(null,item)
-            }
 
             let approveenames=[]
             for (let user of group.members){

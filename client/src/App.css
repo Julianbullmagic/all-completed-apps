@@ -135,6 +135,16 @@
 	justify-content: space-between;
 	padding: 0.1vw;
 }
+.commp{
+	display:inline;
+}
+.comm{
+	display:inline;
+}
+.comment p{
+	display:inline;
+}
+
 .commentform
 {
 	margin: 1vw;
@@ -1065,6 +1075,19 @@ textarea:focus
 }
 
 @media only screen and (max-width: 413px) {
+	.postboxform{
+		display:block;
+	}
+	.comment{
+		display:block;
+	}
+
+	.comm{
+		display:block;
+	}
+.commp{
+		display:block;
+	}
 
 	.detailsimg{
 		object-fit:contain;

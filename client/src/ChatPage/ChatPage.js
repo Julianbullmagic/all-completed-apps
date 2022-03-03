@@ -80,7 +80,7 @@ componentDidMount(props) {
         }
         console.log("OUTPUT CHAT MESSAGE messageFromBackEnd",messageFromBackEnd)
 
-        addNotification({
+    addNotification({
     title: `New notifications in group ${messageFromBackEnd.groupId}`,
     subtitle: '',
     message: messageFromBackEnd.message,
@@ -268,6 +268,7 @@ async handleuserchange(e){
         let userId = auth.isAuthenticated().user._id
         let userName = auth.isAuthenticated().user.name;
         let groupId=this.props.groupId
+        let groupTitle=this.state.grouptitle
         let nowTime = moment();
         let type = "Text"
         let recipient
@@ -288,7 +289,8 @@ console.log(recipient?"Input Chat Message To User":"Input Chat Message")
             type,
             recipient,
             room,
-            groupId
+            groupId,
+            groupTitle
                   });
         this.setState({ chatMessage: "" })
     }

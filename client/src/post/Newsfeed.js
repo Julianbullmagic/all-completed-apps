@@ -166,7 +166,7 @@ function handleSubmit(e){
   setUploading(true)
   setTimeout(() => {
     setUploading(false)
-  }, 5000)
+  }, 3000)
   var d = new Date();
   var n = d.getTime();
   var postId=mongoose.Types.ObjectId()
@@ -183,13 +183,14 @@ function handleSubmit(e){
   }
  let newPostToRender=JSON.parse(JSON.stringify(newPost))
  newPostToRender.createdby=auth.isAuthenticated().user
-  let chatMessage=`created an new post`
+  let chatMessage=`created a new post`
   let userId=auth.isAuthenticated().user._id
   let userName=auth.isAuthenticated().user.name
   let nowTime=n
   let type="text"
   let groupId=group._id
   let groupTitle=group.title
+  console.log(groupTitle)
   socket.emit("Input Chat Message", {
     chatMessage,
     userId,
@@ -503,7 +504,6 @@ function handleSubmit(e){
                     <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Post?</button>}</>}
                     {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e,item)}>Not sure</button>}
                     {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>deletePost(e,item._id)}>Are you sure?</button>}
-
                     </div></div>
                     {(item.level>group.level)&&
                     <div className="postboxform">

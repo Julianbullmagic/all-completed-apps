@@ -521,7 +521,9 @@ render() {
         }
       }
       let width=`${(item.approval.length/this.state.users.length)*100}%`
-
+      if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
+        this.deleteEvent(null,item)
+      }
 
       return(
         <>

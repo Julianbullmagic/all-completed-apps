@@ -99,10 +99,9 @@ export default function CreateRuleForm(props) {
                     return (
                       <>
                       <div key={i} className="comment">
-                      <p style={{margin:'0.5vw',fontSize:"small"}}>{item.comment}</p>
-
-                      <div>
-                      <p style={{margin:'0.5vw',display:"inline",fontSize:"small"}}><strong>Comment by {item.createdby.name}</strong></p>
+                      <p className="commp" style={{margin:'0.5vw',fontSize:"small"}}>{item.comment}</p>
+                      <div classname="comm">
+                      <p style={{display:"inline",margin:'2vw',fontSize:"small"}}><strong>Comment by {item.createdby.name}</strong></p>
                       <button style={{display:"inline"}} onClick={(e)=>deleteComment(e,item._id)}>Delete comment?</button>
                       </div>
                       </div>

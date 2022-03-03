@@ -551,11 +551,10 @@ console.log(allrooms)
 
         var d = new Date();
         var n = d.getTime();
+        console.log(msg)
           var chat = new Chat({ message: msg.chatMessage, sender:msg.userId,groupId:msg.groupId, type: msg.type,timecreated:n })
 
           chat.save((err, doc) => {
-
-
             if(err) return res.json({ success: false, err })
 
             Chat.find({ "_id": doc._id })

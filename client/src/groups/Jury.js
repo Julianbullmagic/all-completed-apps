@@ -773,6 +773,9 @@ function delRestPoll(e,item){
           }
         }
         let width=`${(item.approval.length/props.users.length)*100}%`
+        if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
+          deleteRestrictionPoll(null,item)
+        }
 
         return (
           <>

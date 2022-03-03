@@ -539,8 +539,9 @@ render(props) {
           }
         }
       }
-
-
+      if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
+        this.deleteRule(null,item)
+      }
       let width=`${(item.approval.length/this.state.users.length)*100}%`
 
       return(
