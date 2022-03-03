@@ -803,6 +803,7 @@ function delRestPoll(e,item){
 
           let allusers=[]
           if(group.level>0){
+            console.log("GROUPS BELOW",group.groupsbelow)
             for (let grou of group.groupsbelow){
               allusers.push(...grou.members)
             }
@@ -811,7 +812,16 @@ function delRestPoll(e,item){
 
             allusers.push(...group.members)
           }
-
+          let alluserscopy=JSON.parse(JSON.stringify(allusers))
+          let usernames=[]
+          allusers=[]
+          for (let user of alluserscopy){
+            if (!usernames.includes(user.name)){
+              usernames.push(user.name)
+              allusers.push(user)
+            }
+          }
+          console.log("all users",allusers)
 
           let inthisgroup=group.members.map(item=>item._id)
           inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)

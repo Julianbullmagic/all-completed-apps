@@ -68,14 +68,17 @@ router.get("/finduser/:userId", (req, res) => {
 
     router.get("/findgroup/:groupId", (req, res, next) => {
       const items=Group.find({_id:req.params.groupId})
-      .populate({path: 'members',
-        match: { active:true }})
+      .populate({path: 'members'})
       .populate('groupabove')
       .populate('groupsbelow')
       .populate({
   path: 'groupsbelow',
   populate: {
     path: 'groupsbelow',
+    populate:{path:'members'}
+  },
+  populate: {
+    path: 'members',
   }
 })
       .exec(function(err,docs){

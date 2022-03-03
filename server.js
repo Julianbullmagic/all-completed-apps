@@ -33,6 +33,7 @@ const Poll = require("./models/poll.model");
 const RestrictionPoll = require("./models/restrictionpoll.model");
 const Comment = require("./models/comment.model");
 const KmeansLib = require('kmeans-same-size');
+const favicon = require("serve-favicon")
 var kmeans = new KmeansLib();
 var geocluster = require("geocluster");
 var geodist = require('geodist')
@@ -70,6 +71,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 app.use(cookieParser());
+app.use(favicon(path.join(__dirname,"client", "public","favicon.ico")))
 
 app.use(function(req,res,next){
   res.header("Access-Control-Allow-Origin","*")

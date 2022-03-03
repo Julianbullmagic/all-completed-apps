@@ -99,9 +99,9 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
         <Link className="gotogroup" exact to={"/group/" + item._id}>
         <div className="groupdiv" key={item._id}>
         <div>
-        {item.title&&<h3 style={{margin:"0vw",padding:"0vw",overflowX:"hidden"}}>Title: {item.title&&item.title}</h3>}
-        {item.location&&<h4 style={{margin:"0vw",padding:"0vw",overflow:"hidden"}}>Location: {item.location}</h4>}
-        <h4 style={{margin:"0vw",padding:"0vw"}}>Level: {item.level}</h4>
+        {item.title&&<h3 style={{display:"inline",margin:"0vw",padding:"0vw",overflowX:"hidden"}}>Title: {item.title&&item.title}  </h3>}
+        {item.location&&<h4 style={{display:"inline",margin:"0vw",padding:"0vw",overflow:"hidden"}}>Location: {item.location}  </h4>}
+        <h4 style={{display:"inline",margin:"0vw",padding:"0vw"}}>Level: {item.level}</h4>
         </div>
         </div>
         </Link>
