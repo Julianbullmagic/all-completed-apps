@@ -15,7 +15,7 @@ const MILLISECONDS_IN_A_WEEK=604800000
 //   socket=io(server);
 //
 // }
-socket=io();
+socket=io("https://democratic-social-network.herokuapp.com");
 
 export default class Rules extends Component {
 
