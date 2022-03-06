@@ -26,12 +26,13 @@ export default function Jury(props) {
   const pollquestion = React.useRef('')
   let server = "http://localhost:5000";
   let socket
-  if(process.env.NODE_ENV=="production"){
-    socket=io();
-  }
-  if(process.env.NODE_ENV=="development"){
-    socket=io(server);
-  }
+  // if(process.env.NODE_ENV=="production"){
+  //   socket=io();
+  // }
+  // if(process.env.NODE_ENV=="development"){
+  //   socket=io(server);
+  // }
+  socket=io();
 
   useEffect(()=>{
     setSelectedUser(props.users[0])
@@ -835,8 +836,6 @@ function delRestPoll(e,item){
 
           let inthisgroup=group.members.map(item=>item._id)
           inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
-
-
 
           return (
             <>

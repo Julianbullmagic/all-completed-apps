@@ -42,13 +42,13 @@ export default class Events extends Component {
 
   componentDidMount(){
     let server = "http://localhost:5000";
-    if(process.env.NODE_ENV=="production"){
-      this.socket=io();
-    }
-    if(process.env.NODE_ENV=="development"){
-      this.socket=io(server);
-
-    }
+    // if(process.env.NODE_ENV=="production"){
+    //   this.socket=io();
+    // }
+    // if(process.env.NODE_ENV=="development"){
+    //   this.socket=io(server);
+    // }
+    this.socket=io();
     this.getEvents()
   }
 
@@ -564,10 +564,6 @@ render() {
         )})
       }
       }
-
-
-
-
 
       let inthisgroup=this.state.group.members.map(item=>item._id)
       inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
