@@ -26,8 +26,12 @@ export default function Jury(props) {
   const pollquestion = React.useRef('')
   let server = "http://localhost:5000";
   let socket
-
-  socket=io();
+  if(process.env.NODE_ENV=="production"){
+    socket=io();
+  }
+  if(process.env.NODE_ENV=="development"){
+    socket=io(server);
+  }
 
   useEffect(()=>{
     setSelectedUser(props.users[0])
