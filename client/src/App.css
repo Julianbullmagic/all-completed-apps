@@ -268,9 +268,10 @@
 }
 
 .menu{
-	transform:translateY(-10%);
+	/* transform:translateY(-10%); */
 	height:6vh;
 	padding:2vw;
+	width:100vw;
 }
 
 .menutitle{
