@@ -50,12 +50,12 @@ cloudinary.config({
 
 
 //comment out before building for production
-const PORT = process.env.PORT || 5000
+// const PORT = process.env.PORT || 5000
 
 const app = express();
 const server = require("http").createServer(app);
 
-let origin=process.env.PORT||"http://localhost:5000"||"http://localhost:3000"
+// let origin=process.env.PORT||"http://localhost:5000"||"http://localhost:3000"
 const io = require("socket.io")(server, {
   cors: {
     origin: "https://democratic-social-network.herokuapp.com",
@@ -597,9 +597,9 @@ module.exports = app
 
 
 
-server.listen(PORT, () => {
-
-});
+// server.listen(PORT, () => {
+//
+// });
 
 
 
