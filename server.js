@@ -58,7 +58,7 @@ const server = require("http").createServer(app);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000"||"https://democratic-social-network.herokuapp.com",
+    origin: process.env.PORT||"http://localhost:5000"||"http://localhost:3000"||"https://democratic-social-network.herokuapp.com",
     methods: ["GET", "POST"]
   }
 });
@@ -109,7 +109,7 @@ const MILLISECONDS_IN_A_DAY=86400000
 const MILLISECONDS_IN_NINE_MONTHS=23668200000
 let grouptitles
 (async function(){
- grouptitles=await Group.find().exec()
+ grouptitles=await Group.find({cool:true}).exec()
  grouptitles=grouptitles.map(item=>item.title)
 })()
 
