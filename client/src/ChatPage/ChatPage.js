@@ -55,6 +55,7 @@ componentWillReceiveProps(nextProps) {
 
 componentDidMount(props) {
     let server ="http://localhost:5000";
+    
     this.props.dispatch(getChats());
     if(process.env.NODE_ENV=="production"){
       this.socket=io();
