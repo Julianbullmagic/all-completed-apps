@@ -48,7 +48,7 @@ export default class Events extends Component {
     // if(process.env.NODE_ENV=="development"){
     //   this.socket=io(server);
     // }
-    this.socket=io("https://democratic-social-network.herokuapp.com");
+    this.socket=io("http://democratic-social-network.herokuapp.com");
     this.getEvents()
   }
 
