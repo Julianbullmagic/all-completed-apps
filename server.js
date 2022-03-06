@@ -57,7 +57,7 @@ const server = require("http").createServer(app);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://democratic-social-network.herokuapp.com"||process.env.PORT||"http://localhost:5000"||"http://localhost:3000",
+    origin: 'http://democratic-social-network.herokuapp.com'||"https://democratic-social-network.herokuapp.com"||process.env.PORT||"http://localhost:5000"||"http://localhost:3000",
     methods: ["GET", "POST"]
   }
 });
