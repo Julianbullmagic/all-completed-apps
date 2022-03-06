@@ -14,6 +14,7 @@ import {Image} from 'cloudinary-react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import io from "socket.io-client";
+import {Redirect} from 'react-router-dom'
 const mongoose = require("mongoose");
 
 
@@ -59,14 +60,12 @@ class GroupPage extends Component {
 
   componentDidMount(){
     this.getGroupData()
-
     let server = "http://localhost:5000";
     if(process.env.NODE_ENV=="production"){
       this.socket=io();
     }
     if(process.env.NODE_ENV=="development"){
       this.socket=io(server);
-
     }
   }
 
@@ -232,9 +231,10 @@ console.log("updateing user",updatedUser)
 
 
   render() {
-
     let joinOrLeave=<></>
-    var memberids=this.state.users.map(item=>{return item._id})
+
+if(auth.isAuthenticated()){
+    let memberids=this.state.users.map(item=>{return item._id})
 
     if(this.state.level==0){
       if(memberids.includes(auth.isAuthenticated().user._id)){
@@ -243,9 +243,11 @@ console.log("updateing user",updatedUser)
         joinOrLeave=<><button className="joinbutton" style={{display:"block"}} onClick={(e)=>this.join(e)}>Join Group?</button></>
       }
     }
-console.log("group title",this.state.group.title)
+}
     return (
       <>
+      {!auth.isAuthenticated()&&<Redirect to='/'/>}
+      {auth.isAuthenticated()&&<>
       {this.state.loading&&<>
         <Tabs className="tabs">
         <h1 style={{margin:"0.5vw"}}>{this.state.group.title}</h1>
@@ -291,9 +293,9 @@ console.log("group title",this.state.group.title)
                     </Tabs>
 
                     {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} grouptitle={this.state.group.title} groupId={this.props.match.params.groupId}/>}</>
-                  }
-
+                  }</>}
                   </>
+
                 );
               }
             }

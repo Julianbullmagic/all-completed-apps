@@ -299,7 +299,6 @@ console.log(recipient?"Input Chat Message To User":"Input Chat Message")
 
 
     render() {
-      console.log("last and current group message",this.state.lastgroupmessage,this.state.currentgroupmessage)
 
       var chats=  <p>No conversation so far.</p>
 var type=Array.isArray(this.state.chats)
@@ -353,7 +352,7 @@ let users=this.state.users.map(item=>item._id)
                               borderTopWidth:"0.5vw",
                               width:"99vw",
                               transition:"bottom 2s"}}>
-                            <button style={{transform:"translateY(-30%)",margin:"8px",borderRadius:"5px"}} onClick={() => {
+                            <button style={{transform:"translateY(-30%)",margin:"8px",borderRadius:"5px"}} onClick={(e) => {e.preventDefault();
                           this.setState({ togglechat:!this.state.togglechat,height:this.state.togglechat?"0.5vh":"40vh"});
                         }}>View Chat</button>
                             </div>

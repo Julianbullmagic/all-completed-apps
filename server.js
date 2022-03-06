@@ -127,7 +127,7 @@ cron.schedule('0 0 0 * * *', () => {
     let suggestions=await Suggestion.find().exec()
     let restrictionpolls=await RestrictionPoll.find().exec()
     let comments=await Comment.find().exec()
-    let groups=await Group.find()
+    let groups=await Group.find({cool:true})
           .populate({
       path: 'groupsbelow',
       populate: {
@@ -647,7 +647,7 @@ async function chooseLeaders(){
   let users=await User.find().exec()
   users=users.map(user=>{return {name:user.name,_id:user._id,usergroups:[]}})
 
-  let groups=await Group.find()
+  let groups=await Group.find({cool:true})
      .populate({
       path : 'groupsbelow',
       populate : {
