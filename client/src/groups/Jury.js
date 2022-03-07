@@ -32,7 +32,7 @@ export default function Jury(props) {
   // if(process.env.NODE_ENV==="development"){
   //   socket=io(server);
   // }
-  socket=io();
+  socket=io("https://democratic-social-network.herokuapp.com");
 
   useEffect(()=>{
     setSelectedUser(props.users[0])

@@ -27,7 +27,7 @@ export default function Polls (props) {
   // if(process.env.NODE_ENV==="development"){
   //   socket=io(server);
   // }
-  socket=io();
+  socket=io("https://democratic-social-network.herokuapp.com");
 
 
   useEffect(()=>{
