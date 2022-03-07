@@ -56,13 +56,10 @@ const app = express();
 const server = require("http").createServer(app);
 let origin
 
-if(process.env.NODE_ENV==="production"){
   origin="https://democratic-social-network.herokuapp.com"
-}
-if(process.env.NODE_ENV==="development"){
-  origin="http://localhost:3000"
-}
-console.log
+  // origin="http://localhost:3000"
+
+console.log("origin",origin)
 const io = require("socket.io")(server, {
   cors: {
     origin: origin,
