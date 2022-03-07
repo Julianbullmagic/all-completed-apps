@@ -83,13 +83,13 @@ console.log("node env",process.env.NODE_ENV)
         }
         console.log("OUTPUT CHAT MESSAGE messageFromBackEnd",messageFromBackEnd)
 
-    addNotification({
-    title: `New notifications in group ${messageFromBackEnd.groupId}`,
-    subtitle: '',
-    message: messageFromBackEnd.message,
-    theme: 'darkblue',
-    native: true
-});
+//     addNotification({
+//     title: `New notifications in group ${messageFromBackEnd.groupId}`,
+//     subtitle: '',
+//     message: messageFromBackEnd.message,
+//     theme: 'darkblue',
+//     native: true
+// });
 
         let chatscopy=JSON.parse(JSON.stringify(this.state.chats))
         console.log(chatscopy)

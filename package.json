@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://democracybook.herokuapp.com/",
+  "homepage": "https://democratic-social-network.herokuapp.com/",
   "main": "index.js",
   "scripts": {
     "test": "mocha --timeout 10000000 task",

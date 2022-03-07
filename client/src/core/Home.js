@@ -34,7 +34,7 @@ getGroupData()
   }
     return (
       <>
-      {!auth.isAuthenticated()&&<div style={{height:"100vh",transform:"translateY(-2%)",overflow:"hidden"}}>
+      {!auth.isAuthenticated()&&<div style={{height:"100vh",overflow:"hidden"}}>
       <img className="homeimg" src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
