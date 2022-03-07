@@ -8,13 +8,12 @@ let server = "http://localhost:5000";
 let socket
 const MILLISECONDS_IN_A_DAY=86400000
 const MILLISECONDS_IN_A_WEEK=604800000
-// if(process.env.NODE_ENV==="production"){
-//   socket=io();
-// }
-// if(process.env.NODE_ENV==="development"){
-//   socket=io(server);
-// }
-socket=io("https://democratic-social-network.herokuapp.com");
+if(process.env.NODE_ENV==="production"){
+  socket=io();
+}
+if(process.env.NODE_ENV==="development"){
+  socket=io(server);
+}
 
 export default class Rules extends Component {
 

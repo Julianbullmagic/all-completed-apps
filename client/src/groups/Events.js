@@ -42,13 +42,12 @@ export default class Events extends Component {
 
   componentDidMount(){
     let server = "http://localhost:5000";
-    // if(process.env.NODE_ENV=="production"){
-    //   this.socket=io();
-    // }
-    // if(process.env.NODE_ENV=="development"){
-    //   this.socket=io(server);
-    // }
-    this.socket=io("https://democratic-social-network.herokuapp.com");
+    if(process.env.NODE_ENV=="production"){
+      this.socket=io();
+    }
+    if(process.env.NODE_ENV=="development"){
+      this.socket=io(server);
+    }
     this.getEvents()
   }
 

@@ -57,13 +57,12 @@ componentDidMount(props) {
     let server ="http://localhost:5000";
 
     this.props.dispatch(getChats());
-    // if(process.env.NODE_ENV==="production"){
-    //   this.socket=io();
-    // }
-    // if(process.env.NODE_ENV==="development"){
-    //   this.socket=io(server);
-    // }
-    this.socket=io();
+    if(process.env.NODE_ENV==="production"){
+      this.socket=io();
+    }
+    if(process.env.NODE_ENV==="development"){
+      this.socket=io(server);
+    }
 
 console.log("node env",process.env.NODE_ENV)
     this.setInitialChats()
@@ -353,7 +352,7 @@ let users=this.state.users.map(item=>item._id)
                               borderRightWidth:"0.5vw",
                               borderleftWidth:"0.5vw",
                               borderTopWidth:"0.5vw",
-                              width:"99vw",
+                              width:"100vw",
                               transition:"bottom 2s"}}>
                             <button style={{transform:"translateY(-30%)",margin:"8px",borderRadius:"5px"}} onClick={(e) => {e.preventDefault();
                           this.setState({ togglechat:!this.state.togglechat,height:this.state.togglechat?"0.5vh":"40vh"});

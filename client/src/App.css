@@ -100,7 +100,7 @@
 	display: flex;
 	position: fixed;
 	transition: height 2s;
-	width: 99vw;
+	width: 100vw;
 	z-index: 4;
 }
 .chat textarea
@@ -1044,6 +1044,10 @@ textarea:focus
 	}
 }
 @media only screen and (max-width: 800px) {
+	.groupdiv
+	{
+		width: 25vw;
+	}
 	.commentinput{
 		width:50vw;
 	}
