@@ -50,19 +50,25 @@ cloudinary.config({
 
 
 //comment out before building for production
-const PORT = process.env.PORT
+const PORT = 5000||process.env.PORT
 
 const app = express();
 const server = require("http").createServer(app);
+let origin
 
+if(process.env.NODE_ENV==="production"){
+  origin="https://democratic-social-network.herokuapp.com"
+}
+if(process.env.NODE_ENV==="development"){
+  origin="http://localhost:3000"
+}
+console.log
 const io = require("socket.io")(server, {
   cors: {
-    origin: 'http://democratic-social-network.herokuapp.com'||"https://democratic-social-network.herokuapp.com"||process.env.PORT||"http://localhost:5000"||"http://localhost:3000",
+    origin: origin,
     methods: ["GET", "POST"]
   }
 });
-
-
 
 app.use(fileUpload());
 
@@ -453,6 +459,7 @@ var users={}
 
 
 io.on("connection", socket => {
+socket.on("connect_error", (err) => {  console.log(`connect_error due to ${err.message}`);})
 
   socket.on("new user",function(data){
 

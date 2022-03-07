@@ -57,13 +57,13 @@ componentDidMount(props) {
     let server ="http://localhost:5000";
 
     this.props.dispatch(getChats());
-    if(process.env.NODE_ENV=="production"){
+    if(process.env.NODE_ENV==="production"){
       this.socket=io();
     }
-    if(process.env.NODE_ENV=="development"){
+    if(process.env.NODE_ENV==="development"){
       this.socket=io(server);
     }
-
+console.log("node env",process.env.NODE_ENV)
     this.setInitialChats()
 
     this.socket.on("increase unread whole group count", messageFromBackEnd => {

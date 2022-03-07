@@ -494,11 +494,11 @@ function handleSubmit(e){
                   <>
                   <div key={item._id} className="postbox">
                   <div>
-                  <div style={{margin:"0.5vw"}} className="postboxform">
+                  <div className="postboxform">
                   <h4 style={{margin:"1vw"}}><strong>Post: </strong>{item.post}</h4>
                   {prev&&prev}
                   <div>
-                  {item.createdby&&<><h5 style={{display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5>
+                  {item.createdby&&<><h5 style={{margin:"1vw",display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5>
                   {(((item.createdby._id==auth.isAuthenticated().user._id)||
                     group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
                     <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Post?</button>}</>}
