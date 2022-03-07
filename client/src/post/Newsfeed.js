@@ -19,7 +19,7 @@ export default function Newsfeed (props) {
   const [comment, setComment] = useState("");
   const [preview, setPreview] = useState("");
   let server = "http://localhost:5000";
-  let socket = io(server);
+  let socket = io("https://democratic-social-network.herokuapp.com");
 
   useEffect(() => {
 
