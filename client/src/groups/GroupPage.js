@@ -67,7 +67,7 @@ class GroupPage extends Component {
     // if(process.env.NODE_ENV=="development"){
     //   this.socket=io(server);
     // }
-    this.socket=io("http://democratic-social-network.herokuapp.com");
+    this.socket=io();
   }
 
   updateUser(updatedUser){
