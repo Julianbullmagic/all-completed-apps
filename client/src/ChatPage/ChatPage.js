@@ -57,12 +57,14 @@ componentDidMount(props) {
     let server ="http://localhost:5000";
 
     this.props.dispatch(getChats());
-    if(process.env.NODE_ENV==="production"){
-      this.socket=io();
-    }
-    if(process.env.NODE_ENV==="development"){
-      this.socket=io(server);
-    }
+    // if(process.env.NODE_ENV==="production"){
+    //   this.socket=io();
+    // }
+    // if(process.env.NODE_ENV==="development"){
+    //   this.socket=io(server);
+    // }
+    this.socket=io();
+
 console.log("node env",process.env.NODE_ENV)
     this.setInitialChats()
 
