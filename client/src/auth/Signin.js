@@ -156,7 +156,7 @@ export default function Signin(props) {
   return (
       <div className="signinform">
         <div className="innersigninform">
-          <h4 style={{textAlign:"center"}}>
+          <h4 style={{margin:"1vw",textAlign:"center"}}>
             Sign In
           </h4>
           <div className="signininput">
