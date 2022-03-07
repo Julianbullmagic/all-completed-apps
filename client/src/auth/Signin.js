@@ -47,6 +47,8 @@ export default function Signin(props) {
   if(process.env.NODE_ENV=="development"){
     socket=io(server);
   }  const classes = useStyles()
+  const [loggingIn, setLoggingIn] = useState(false)
+
   const [values, setValues] = useState({
       email: '',
       password: '',
@@ -57,6 +59,7 @@ export default function Signin(props) {
   })
 
   const clickSubmit = () => {
+    setLoggingIn(true)
     const user = {
       email: values.email || undefined,
       password: values.password || undefined
@@ -67,13 +70,14 @@ export default function Signin(props) {
       if (data.error) {
         setValues({ ...values, error: data.error})
         console.error(data.error)
+        setLoggingIn(false)
       } else {
         console.log(data)
-
         auth.authenticate(data, () => {
           setValues({ ...values, error: '',redirectToReferrer: true})
         })
         socket.emit("new user", data.user.name);
+        setLoggingIn(false)
       }
     })
   }
@@ -171,7 +175,8 @@ export default function Signin(props) {
               {values.error}
             </Typography>)
           }
-          <button style={{display:"inline"}} id="submit" onClick={clickSubmit}>Submit</button>
+          {!loggingIn&&<button style={{display:"inline"}} id="submit" onClick={clickSubmit}>Submit</button>}
+          {loggingIn&&<h3>Logging in...</h3>}
           <button style={{display:"inline"}} id="submit" onClick={forgotPassword}>Forgot Password</button>
           {values.mustenteremail&&<p style={{color:"red",display:"block"}}>{values.mustenteremail}</p>}
           {values.checkyouremail&&<p style={{color:"green",display:"block"}}>{values.checkyouremail}</p>}
