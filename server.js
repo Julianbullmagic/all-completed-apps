@@ -566,7 +566,7 @@ console.log(allrooms)
             Chat.find({ "_id": doc._id })
             .populate("sender")
             .exec((err, doc)=> {
-                console.log("increase unread whole group count",doc,io.sockets.adapter.rooms)
+                console.log("increase unread whole group count",msg.groupTitle,io.sockets.adapter.rooms)
                 io.emit("increase unread whole group count", doc);
                 return io.to(msg.groupTitle).emit("Output Chat Message", doc);
 
