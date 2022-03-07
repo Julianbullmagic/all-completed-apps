@@ -63,7 +63,7 @@ componentDidMount(props) {
     // if(process.env.NODE_ENV==="development"){
     //   this.socket=io(server);
     // }
-    this.socket=io();
+    this.socket=io(process.env.PORT);
 
 console.log("node env",process.env.NODE_ENV)
     this.setInitialChats()
