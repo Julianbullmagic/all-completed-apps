@@ -473,7 +473,7 @@ socket.on("connect_error", (err) => {  console.log(`connect_error due to ${err.m
 
 
   socket.on("join group room",async function(room){
-    console.log("join group room",room)
+    console.log("join group room",room,"GROUP TITLES",grouptitles)
     let allrooms=io.sockets.adapter.rooms
     for (let room in allrooms){
       let myregex=/\d+/g
