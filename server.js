@@ -50,13 +50,14 @@ cloudinary.config({
 
 
 //comment out before building for production
-const PORT = 5000||process.env.PORT
+const PORT = process.env.PORT||5000
+
 
 const app = express();
 const server = require("http").createServer(app);
 let origin
 
-  origin="http://democratic-social-network.herokuapp.com"
+  origin="https://democratic-social-network.herokuapp.com"
   // origin="http://localhost:3000"
 
 console.log("origin",origin)
