@@ -61,12 +61,14 @@ class GroupPage extends Component {
   componentDidMount(){
     this.getGroupData()
     let server = "http://localhost:5000";
-    if(process.env.NODE_ENV=="production"){
-      this.socket=io();
-    }
-    if(process.env.NODE_ENV=="development"){
-      this.socket=io(server);
-    }
+    // if(process.env.NODE_ENV=="production"){
+    //   this.socket=io();
+    // }
+    // if(process.env.NODE_ENV=="development"){
+    //   this.socket=io(server);
+    // }
+    this.socket=io();
+
   }
 
   updateUser(updatedUser){
