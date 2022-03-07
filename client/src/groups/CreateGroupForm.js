@@ -44,16 +44,15 @@ export default function CreateGroupForm(props) {
     .then(data=>{
       let user=JSON.parse(JSON.stringify(data.data))
 
-      let levels = new Set();
 
       for (let group of user[0].groupstheybelongto){
         levels.add(group.level)
       }
       levels=[...levels]
+      levels=[...new Set(levels)]
       levels=levels.sort((a, b) => a - b)
       levels.pop()
       setLevels(levels)
-
     })
     .catch(error=>console.error(error))
 
