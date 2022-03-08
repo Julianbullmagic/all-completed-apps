@@ -40,12 +40,13 @@ class GroupDetails extends Component {
       {this.state.group.location&&<p><strong>Location: </strong> {this.state.group.location}</p>}
       <p><strong>Level: </strong> {this.state.group.level}</p>
       {this.state.group.description&&<p><strong>Description: </strong> {this.state.group.description}</p>}
+      {(this.state.group.groupabove&&<p><strong>Group Above: </strong></p>}
       {this.state.group.groupabove&&
-        <><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><button style={{color:"white",padding:"0.5vw"}}><strong>Group Above: </strong>{this.state.group.groupabove.title}</button></Link></BrowserRouter></>}
-        {(this.state.group.groupsbelow&&(this.state.group.level>0))&&<p style={{display:"inline"}}><strong>Groups Below: </strong></p>}
+        <><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><button style={{color:"white",padding:"0.5vw"}}>{this.state.group.groupabove.title}</button></Link></BrowserRouter></>}
+        {(this.state.group.groupsbelow&&(this.state.group.level>0))&&<p><strong>Groups Below: </strong></p>}
 
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&this.state.group.groupsbelow.map((item,index)=>
-          {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}><button><p style={{color:"white",display:"inline"}}>{item.title}{(index<(this.state.group.groupsbelow.length-2))?", ":(index<(this.state.group.groupsbelow.length-1))?" and ":"."}</p></button></Link></BrowserRouter>})}
+          {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}><button><p style={{color:"white",display:"inline"}}>{item.title}</p></button></Link></BrowserRouter>})}
           {(this.state.group.centroid&&this.state.group.groupsbelow&&this.state.group.type=="localgroup")&&<p style={{color:"white"}}>All the small circles on the map roughly show the spread of members of this whole group. The different colours
           represent each of the groups that are children of this group. The small spots do not actually show the locations
           of members but approximately show the area covered by each group.</p>}
