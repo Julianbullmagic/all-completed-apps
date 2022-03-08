@@ -40,7 +40,7 @@ class GroupDetails extends Component {
       {this.state.group.location&&<p><strong>Location: </strong> {this.state.group.location}</p>}
       <p><strong>Level: </strong> {this.state.group.level}</p>
       {this.state.group.description&&<p><strong>Description: </strong> {this.state.group.description}</p>}
-      {(this.state.group.groupabove&&<p><strong>Group Above: </strong></p>}
+      {this.state.group.groupabove&&<p><strong>Group Above: </strong></p>}
       {this.state.group.groupabove&&
         <><BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + this.state.group.groupabove._id}><button style={{color:"white",padding:"0.5vw"}}>{this.state.group.groupabove.title}</button></Link></BrowserRouter></>}
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&<p><strong>Groups Below: </strong></p>}
