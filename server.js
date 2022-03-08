@@ -110,11 +110,11 @@ app.use('/api/chat', require('./routes/chat'));
 // const MILLISECONDS_IN_THREE_MONTHS=7889400000
 // const MILLISECONDS_IN_A_DAY=86400000
 // const MILLISECONDS_IN_NINE_MONTHS=23668200000
-// let grouptitles
-// (async function(){
-//  grouptitles=await Group.find({cool:true}).exec()
-//  grouptitles=grouptitles.map(item=>item.title)
-// })()
+let grouptitles
+(async function(){
+ grouptitles=await Group.find({cool:true}).exec()
+ grouptitles=grouptitles.map(item=>item.title)
+})()
 //
 // cron.schedule('0 0 0 * * *', () => {
 //

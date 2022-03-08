@@ -45,14 +45,14 @@ class GroupDetails extends Component {
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&<p style={{display:"inline"}}><strong>Groups Below: </strong></p>}
 
         {(this.state.group.groupsbelow&&(this.state.group.level>0))&&this.state.group.groupsbelow.map((item,index)=>
-          {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}><button><p style={{display:"inline"}}>{item.title}{(index<(this.state.group.groupsbelow.length-2))?", ":(index<(this.state.group.groupsbelow.length-1))?" and ":"."}</p></button></Link></BrowserRouter>})}
+          {return <BrowserRouter forceRefresh={true}><Link className="gotogroup" exact to={"/groups/" + item._id}><button><p style={{color:"white",display:"inline"}}>{item.title}{(index<(this.state.group.groupsbelow.length-2))?", ":(index<(this.state.group.groupsbelow.length-1))?" and ":"."}</p></button></Link></BrowserRouter>})}
           {(this.state.group.centroid&&this.state.group.groupsbelow&&this.state.group.type=="localgroup")&&<p style={{color:"white"}}>All the small circles on the map roughly show the spread of members of this whole group. The different colours
           represent each of the groups that are children of this group. The small spots do not actually show the locations
           of members but approximately show the area covered by each group.</p>}
           </div>
           <br/>
           <div className="detailscol2">
-          {(this.state.group.images&&this.state.group.images.length>0)&&<Image className="detailsimg" 
+          {(this.state.group.images&&this.state.group.images.length>0)&&<Image className="detailsimg"
           cloudName="julianbullmagic" publicId={this.state.group.images[0]} />}
           </div>
           </div>
