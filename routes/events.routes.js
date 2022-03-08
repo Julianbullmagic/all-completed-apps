@@ -34,9 +34,13 @@ router.get("/:eventId", (req, res, next) => {
   })
 
   router.delete("/:eventId", (req, res, next) => {
-
       Event.findByIdAndDelete(req.params.eventId)
       .exec()
+      cloudinary.v2.uploader.destroy(req.body.images[0],
+        function(error, result){
+          console.error(error)
+          console.log(result)
+    })
     })
 
 

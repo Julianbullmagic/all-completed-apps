@@ -203,7 +203,7 @@ export default class Events extends Component {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: ''
+    body: JSON.stringify(item)
   }
 
    fetch("/events/"+item._id, options)
