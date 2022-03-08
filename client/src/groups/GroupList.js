@@ -78,7 +78,7 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
       return res.json();
     }).then(blob => {
       let groups=JSON.parse(JSON.stringify(blob.data))
-      groups.sort(() => Math.random() - 0.5);
+      // groups.sort(() => Math.random() - 0.5);
       this.setState({groups:groups,allgroups:groups})
     }).catch(error=>console.error(error))
   }
