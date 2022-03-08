@@ -53,13 +53,9 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
   }
 
   searchGroups(event){
-
     if(this.state.searchterm.length>0){
       let groupscopy=JSON.parse(JSON.stringify(this.state.allgroups))
-
-
       groupscopy=groupscopy.filter(item=>item.title.toLowerCase().includes(this.state.searchterm.toLowerCase()))
-
       this.setState({groups:groupscopy})
     }
     if(this.state.searchterm.length==0){
@@ -82,8 +78,8 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
       return res.json();
     }).then(blob => {
       let groups=JSON.parse(JSON.stringify(blob.data))
+      groups.sort(() => Math.random() - 0.5);
       this.setState({groups:groups,allgroups:groups})
-
     }).catch(error=>console.error(error))
   }
 

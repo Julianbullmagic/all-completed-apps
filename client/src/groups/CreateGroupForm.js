@@ -38,7 +38,6 @@ export default function CreateGroupForm(props) {
   },[props])
 
   useEffect(()=>{
-console.log("create group form!!!!")
     fetch(`/groups/finduser/`+auth.isAuthenticated().user._id)
     .then(response => response.json())
     .then(data=>{
@@ -189,6 +188,8 @@ let groupabove=auth.isAuthenticated().user.cool?parentGroupValue.current.value:n
           return (
             <div className="homepageform">
             <form onSubmit={handleSubmit} onChange={changing}>
+            <h3>You can make a group for anything. It could be for a geographic area or
+            a particular subject or topic.</h3>
             <div className="titlediv">
             <label style={{display:"inline"}} htmlFor='name'>Title</label>
             <input
