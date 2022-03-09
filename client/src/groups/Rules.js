@@ -8,10 +8,10 @@ let server = "http://localhost:5000";
 let socket
 const MILLISECONDS_IN_A_DAY=86400000
 const MILLISECONDS_IN_A_WEEK=604800000
-if(process.env.NODE_ENV==="production"){
+if(process.env.NODE_ENV=="production"){
   socket=io();
 }
-if(process.env.NODE_ENV==="development"){
+if(process.env.NODE_ENV=="development"){
   socket=io(server);
 }
 
@@ -545,14 +545,15 @@ render(props) {
 
       return(
         <>
-        <div className="rule">
+        <div key={item._id} className="rule">
         {item.createdby&&<>
         <h3 className="ruletext">{item.rule}, suggested by {item.createdby.name}</h3>
+        {this.state.group.groupabove&&<>
         {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
           <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete Rule?</button>}</>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouNotSure(e,item)}>Not sure</button>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteRule(e,item)}>Are you sure?</button>}
-
+        </>}
           {(this.state.group.level==item.level)&&<>
             {(!item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.approveofrule(e,item._id)}>Approve this rule?</button>}
             {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}

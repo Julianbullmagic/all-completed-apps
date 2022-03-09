@@ -1,7 +1,14 @@
 const express =require( 'express')
 const router = express.Router();
 const Event = require("../models/event.model");
+const cloudinary = require('cloudinary');
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDNAME,
+  api_key: process.env.APIKEY,
+  api_secret: process.env.APISECRET,
+  secure: true
+});
 const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 

@@ -212,7 +212,7 @@ render(props) {
 
       return(
         <>
-        <div className="rule">
+        <div key={item._id} className="rule">
         <h3 className="ruletext">{item.name}  </h3>
         {(!item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.approveofuser(e,item._id)}>Vote For This Person?</button>}
         {(item.votes.includes(vote))&&<button style={{display:'inline'}} className="ruletext" onClick={(e)=>this.withdrawapprovalofuser(e,item._id)}>Withdraw Vote?</button>}

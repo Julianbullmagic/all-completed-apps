@@ -342,12 +342,12 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
               <div key={item._id} className="pollbox">
               <h5 className="ruletext">{item.suggestion}, suggested by {item.createdby.name}, </h5>
               <h5 className="ruletext">{approval}% of members in this group approve this suggestion, {item.approval.length}/{group.members.length}</h5>
+              {group.groupabove&&<>
               {(((item.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
                 <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e)}>Delete Suggestion?</button>}
                 {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e)}>Not sure</button>}
                 {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>deletePollSuggestion(e,item)}>Are you sure?</button>}
-
-
+                </>}
                 {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>approveofsuggestion(e,item._id)}>Approve this suggestion?</button>}
                 {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>withdrawapprovalofsuggestion(e,item._id)}>Withdraw Approval?</button>}
                 {approveenames&&approveenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4></>)})}
@@ -379,11 +379,12 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
                 <h3 className="ruletext">{props.poll.pollquestion}  </h3>
                 {props.poll.createdby&&<>
                   <h5 className="ruletext">Poll Created By {props.poll.createdby.name}</h5>
+                  {group.groupabove&&<>
                 {(((props.poll.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!sure)&&
                   <button className="ruletext deletebutton" onClick={(e)=>areYouSur(e)}>Delete Poll?</button>}</>}
                   {sure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSur(e)}>Not sure</button>}
                   {sure&&<button className="ruletext deletebutton" onClick={(e)=>props.deletePoll(e,props.poll)}>Are you sure?</button>}
-
+                  </>}
                   <form>
                   <div>
                   <h5 className="ruletext">Create Poll Suggestion</h5>

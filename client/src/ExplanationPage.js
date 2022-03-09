@@ -65,13 +65,11 @@ export default function ExplanationPage() {
     <a style={{color:"blue"}} href="https://www.un.org/esa/socdev/documents/2014/coopsegm/grace.pdf">https://www.un.org/esa/socdev/documents/2014/coopsegm/grace.pdf</a>
     </p>
 
-    <h1>What is economic exploitation?</h1>
+    <h1>Exploitation?</h1>
     <p>
       Usually when we think of exploitation we imagine a slave owner whipping slave or something terrible
-      like that, however in the modern world, exploitation is usually much more discrete. It just means paying
-      someone less than their full value. Often we don't have enough information to calculate exactly
-      what this would mean. In order to understand exploitation, we must understand the labour theory
-      of value first popularised by the classical
+      like that, however in the modern world, exploitation is usually much more discrete.
+      The labour theory of value first popularised by the classical
       economists David Ricardo and Adam Smith. The basic idea is that the value of all goods and services is roughly proportional
       to the human labour time invested in creating them, with some variation depending on the supply and demand. All the accounts
       gathered by the statistics bureaus of all developed countries show a very strong correlation between value created and human
@@ -257,7 +255,11 @@ export default function ExplanationPage() {
     domination or abuse. Secretive voting encourages passive aggressive behaviour. If you are going to vote for something that oppresses, abuses
     or exploits someone else, they should be able to see this and confront you. It is much harder to dehumanize people if you
     must interact with them personally and witness their emotional response to your abuse. Bullies are
-    like cockroaches, they hate having light shone onto them. Most bullies are cowards.
+    like cockroaches, they hate having light shone onto them. Most bullies are cowards. Groups can enforce
+    rules with the Jury tab on each group page. If they vote to create a restriction for a user, the user
+    can always see which rules they have supposedly broken, and dispute this if they like. A rule might
+    seem like common sense to you, but to someone else with a different background, culture or beliefs,
+    it may not. For this reason, all rules are made explicit and can be viewed in the rules tab of the group page.
     For example, in a large Capitalist business, the upper level managers and directors who make most decisions about
     who to hire and fire practically never meet or work directly with the lower level workers and thus they very easily dispose
     of them when their work is no longer profitable to the business.
@@ -267,6 +269,7 @@ export default function ExplanationPage() {
     <a style={{color:"blue"}} href="https://www.researchgate.net/publication/290244575_EMPLOYMENT_STABILIZATION_INSIDE_FIRMS_AN_EMPIRICAL_INVESTIGATION_OF_WORKER_COOPERATIVES">
     https://www.researchgate.net/publication/290244575_EMPLOYMENT_STABILIZATION_INSIDE_FIRMS_AN_EMPIRICAL_INVESTIGATION_OF_WORKER_COOPERATIVES</a>
     </p>
+
     <p>
     There is greater transparency in an open voting system. We encourage users of this application to communicate through other mediums,
     have discussions and talk about why each person voted for the things they voted for. Not only does this help everyone to

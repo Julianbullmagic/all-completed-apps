@@ -535,9 +535,11 @@ render() {
         <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
         {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.approveofevent(e,item._id)}>Attend this event?</button>}
         {item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext approvalbutton" id={item.title} onClick={(e)=>this.withdrawapprovalofevent(e,item._id)}>Don't want to attend anymore?</button>}
+        {this.state.group.groupabove&&<>
         {item.createdby&&<>
         {((item.createdby._id==auth.isAuthenticated().user._id||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
           <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete?</button>}</>}
+          </>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouNotSure(e,item)}>Not sure</button>}
           {item.areyousure&&<button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.deleteEvent(e,item)}>Are you sure?</button>}
           </div>
@@ -557,7 +559,7 @@ render() {
           </div>
           </div>
           </div>}
-          </div>}
+          </div>
           </>
 
         )})

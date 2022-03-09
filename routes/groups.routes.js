@@ -80,8 +80,7 @@ router.get("/finduser/:userId", (req, res) => {
   populate: {
     path: 'members',
   }
-})
-      .exec(function(err,docs){
+}).exec(function(err,docs){
         if(err){
           console.error(err);
         }else{
@@ -384,12 +383,13 @@ router.get("/finduser/:userId", (req, res) => {
                   console.log("userId in router",userId)
                   const items=User.findById(userId)
                   .populate("recentprivatemessages")
-                  .populate("restrictions")
+                  .populate({path:"restrictions",
+                                populate: {
+                                  path: 'usertorestrict'}})
                   .exec(function(err,docs){
                     if(err){
                       console.error(err);
                     }else{
-
                       res.status(200).json({
                         data:docs,
                         message: "fetching user"

@@ -92,7 +92,7 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
 
       return(
         <>
-        <Link className="gotogroup" exact to={"/group/" + item._id}>
+        <Link key={item._id} className="gotogroup" exact to={"/group/" + item._id}>
         <div className="groupdiv" key={item._id}>
         <div>
         {item.title&&<h3 style={{display:"inline",margin:"0vw",padding:"0vw",overflowX:"hidden"}}>Title: {item.title&&item.title}  </h3>}
@@ -118,7 +118,7 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
 
           return(
             <>
-            <div className="groupdiv" key={item._id}>
+            <div key={item._id} className="groupdiv" key={item._id}>
             <Link style={{margin:"0vw",padding:"0vw"}} className="gotogroup" exact to={"/group/" + item._id}>
             <div style={{margin:"0vw",padding:"0vw"}}>
             {item.title&&<h3 style={{display:"inline",margin:"0vw",padding:"0vw",overflowX:"hidden"}}>Title: {item.title&&item.title}</h3>}

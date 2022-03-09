@@ -6,6 +6,7 @@ const RestrictionPollSchema = new mongoose.Schema({
   usertorestrictname: {type: String},
   local:{type:Boolean,default:false},
   groupId:{type: mongoose.Schema.ObjectId, ref: 'Group'},
+  groupIds:[{type: mongoose.Schema.ObjectId, ref: 'Group'}],
   restriction: {type: String},
   approval: [{type: mongoose.Schema.ObjectId, ref: 'User'}],
   notificationsent:{type:Boolean,default:false},

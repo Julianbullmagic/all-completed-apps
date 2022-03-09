@@ -9,8 +9,9 @@ const MILLISECONDS_IN_A_WEEK=604800000
 
 export default function Jury(props) {
   const [viewForm, setViewForm] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(props.users[0]);
+  const [selectedUser, setSelectedUser] = useState(props.users[`${props.users.length-1}`]);
   const [group, setGroup] = useState(props.group);
+  const [allGroups, setAllGroups] = useState([props.group])
   const [searchTerm, setSearchTerm] = useState('');
   const [restriction, setRestriction] = useState('cannot post');
   const [uploadComplete, setUploadComplete] = useState(false);
@@ -26,16 +27,40 @@ export default function Jury(props) {
   const pollquestion = React.useRef('')
   let server = "http://localhost:5000";
   let socket
-  if(process.env.NODE_ENV==="production"){
+  if(process.env.NODE_ENV=="production"){
     socket=io();
   }
-  if(process.env.NODE_ENV==="development"){
+  if(process.env.NODE_ENV=="development"){
     socket=io(server);
   }
-
+console.log("node env",process.env.NODE_ENV)
   useEffect(()=>{
-    setSelectedUser(props.users[0])
     setGroup(props.group)
+    let allgroups=[]
+    if(props.group.groupsbelow){
+      allgroups.push(props.group._id)
+      for (let group of props.group.groupsbelow){
+        if(group._id){
+          allgroups.push(group._id)
+        }else{
+          allgroups.push(group)
+        }
+        if (group.groupsbelow){
+          for (let grou of group.groupsbelow){
+            if(grou._id){
+              allgroups.push(grou._id)
+            }else{
+              allgroups.push(grou)
+            }
+          }
+        }
+      }
+    }
+    allgroups=allgroups.filter(group=>group)
+    allgroups=[...new Set(allgroups)]
+    console.log("allgroups",allgroups)
+    setSelectedUser(props.users[`${props.users.length-1}`])
+    setAllGroups(allgroups)
   },[props])
 
   useEffect(() => {
@@ -129,6 +154,7 @@ export default function Jury(props) {
           createdby:auth.isAuthenticated().user._id,
           explanation:explanation,
           groupId:props.groupId,
+          groupIds:allGroups,
           duration:duration,
           timecreated:n
         }
@@ -162,8 +188,6 @@ export default function Jury(props) {
     }).catch(err => {
       console.error(err);
     })
-
-    props.updateUser(updateduser.data)
   }
   setLeaderCreatingRestriction(false)
   setUploadComplete(true)
@@ -186,6 +210,7 @@ function handleSubmit(e){
     usertorestrictname: selectedUser.name,
     explanation:explanation,
     groupId:props.groupId,
+    groupIds:allGroups,
     restriction: restriction,
     duration:duration,
     approval: [auth.isAuthenticated().user._id],
@@ -362,8 +387,9 @@ function delRestPoll(e,item){
                 for (let user of props.users){
 
                   if(user._id===event.target.value){
-
+                    console.log(selectedUser)
                     setSelectedUser(user)
+                    console.log(user)
                   }
                 }
               }
@@ -426,8 +452,6 @@ function delRestPoll(e,item){
                     if (approval<75&&(n-restriction.timecreated)>MILLISECONDS_IN_A_WEEK){
                       deleteRestrictionPoll(null,restriction)
                     }
-
-
                   }
 
                   let restricteduser={}
@@ -451,8 +475,6 @@ function delRestPoll(e,item){
                         createRestriction()
 
                         async function createRestriction(){
-
-
                         var d = new Date();
                         var n = d.getTime();
 
@@ -463,7 +485,7 @@ function delRestPoll(e,item){
                           usertorestrict:restriction.usertorestrict._id,
                           restriction:restriction.restriction,
                           explanation:restriction.explanation,
-                          groupId:props.groupId,
+                          groupIds:allGroups,
                           duration:restriction.duration,
                           timecreated:n
                         }
@@ -782,7 +804,7 @@ function delRestPoll(e,item){
 
         return (
           <>
-          <div className="postbox">
+          <div key={item._id} className="postbox">
           <div className="juryboxform">
           <h4 className="ruletext"><strong>Restriction:</strong> {item.restriction} for {item.duration} days, </h4>
           <h4 className="ruletext"><strong>User to Restrict:</strong> {item.usertorestrictname} ,</h4>
@@ -792,8 +814,10 @@ function delRestPoll(e,item){
           {approveenames&&approveenames.map((item,index)=>{return(<h4 className="ruletext"> {item}{(index<(approveenames.length-2))?", ":(index<(approveenames.length-1))?" and ":"."}</h4>)})}
           {!item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>{approve(e,item);appr(e,item);}}>Approve?</button>}
           {item.approval.includes(auth.isAuthenticated().user._id)&&<button style={{margin:"0.5vw"}} className="ruletext" onClick={(e)=>withdrawapproval(e,item)}>Withdraw Approval?</button>}
-          {(((item.createdby&&(item.createdby._id==auth.isAuthenticated().user._id))||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
-            <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Restriction Poll?</button>}
+          {group.groupabove&&<>
+            {(((item.createdby&&(item.createdby._id==auth.isAuthenticated().user._id))||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
+              <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Restriction Poll?</button>}
+            </>}
             {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e,item)}>Not sure</button>}
             {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>{deleteRestrictionPoll(e,item);delRestPoll(e,item);}}>Are you sure?</button>}
             <h4 style={{margin:"0vw",marginBottom:"0.5vw"}}><strong>Explanation:</strong> {item.explanation} </h4>
@@ -806,12 +830,15 @@ function delRestPoll(e,item){
 
           let allusers=[]
           if(group.level>0){
-            console.log("GROUPS BELOW",group.groupsbelow)
             for (let grou of group.groupsbelow){
-              allusers.push(...grou.members)
+              if(grou.members){
+                allusers.push(...grou.members)
+              }
               if(grou.groupsbelow){
                 for (let gr of grou.groupsbelow){
-                  allusers.push(...gr.members)
+                  if (gr.members){
+                    allusers.push(...gr.members)
+                  }
                 }
               }
             }
@@ -835,7 +862,7 @@ function delRestPoll(e,item){
 
           let inthisgroup=group.members.map(item=>item._id)
           inthisgroup=inthisgroup.includes(auth.isAuthenticated().user._id)
-
+          console.log("props.users[0]",props.users,props.users[`${props.users.length-1}`])
           return (
             <>
             <div style={{marginBottom:"20vw"}}>
@@ -846,9 +873,9 @@ function delRestPoll(e,item){
             <h3>Propose a punishment for a member</h3>
             </div>
             <div className="eventformbox">
-            {(group.level>1)&&<><input type='text' name='duration' id='duration' onChange={(e) => handleDurationChange(e)}/>
+            {(group.level>1)&&<><input style={{width:"30vw",margin:'1vw'}} type='text' onChange={(e) => searchMembers(e)}/>
             <p htmlFor="duration">Search for users then select from the drop down menu below</p></>}
-            <select name="room" id="room" onChange={(e) => searchMembers(e)}>
+            <select name="room" id="room" onChange={(e) => handleMemberChange(e)}>
             {allusers&&allusers.map(item=>{return (
               <option key={item._id} value={item._id}>{item.name}</option>
             )})}
@@ -889,16 +916,18 @@ function delRestPoll(e,item){
             </div>
             </div>
             <button className="formsubmitbutton" style={{margin:"0.5vw"}} onClick={(e) => handleSubmit(e)}>New Restriction Poll</button>
-            {group.groupabove.members.includes(auth.isAuthenticated().user._id)&&
-              <div style={{margin:"0.5vw",display:"inline"}}>
-              {!leaderCreatingRestriction&&<button style={{margin:"0.5vw",display:"inline"}} onClick={(e) => leaderCreateRestriction(e)}>Create Restriction Immediately</button>}
-              {leaderCreatingRestriction&&<h3 style={{margin:"0.5vw",display:"inline"}}>Uploading Restriction!!!</h3>}
-              {uploadComplete&&<h2 style={{margin:"0.5vw",display:"inline"}}>Upload Complete</h2>}
-              <p style={{margin:"0.5vw"}}>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
-              a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on. If you change your
-              mind about this punishment, you can visit the users profile by clicking on the button with their name at the top of the group page. If the user has
-              any restrictions they will be visible here and you can delete ones you have created</p>
-              </div>}
+            {group.groupabove&&<>
+              {group.groupabove.members.includes(auth.isAuthenticated().user._id)&&
+                <div style={{margin:"0.5vw",display:"inline"}}>
+                {!leaderCreatingRestriction&&<button style={{margin:"0.5vw",display:"inline"}} onClick={(e) => leaderCreateRestriction(e)}>Create Restriction Immediately</button>}
+                {leaderCreatingRestriction&&<h3 style={{margin:"0.5vw",display:"inline"}}>Uploading Restriction!!!</h3>}
+                {uploadComplete&&<h2 style={{margin:"0.5vw",display:"inline"}}>Upload Complete</h2>}
+                <p style={{margin:"0.5vw"}}>You are an group leader, you can create restrictions to enforce the rules. However, unless you are dealing with
+                a very serious issue and speed is vital, it is probably better to just propose a restriction poll for the jury to decide on. If you change your
+                mind about this punishment, you can visit the users profile by clicking on the button with their name at the top of the group page. If the user has
+                any restrictions they will be visible here and you can delete ones you have created</p>
+                </div>}
+              </>}
               <p style={{margin:"0.5vw"}}>Restriction polls are activated at 75% approval.</p>
               </form>
               </div></>}

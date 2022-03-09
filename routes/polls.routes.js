@@ -276,6 +276,7 @@ router.route('/createrestrictionpoll/:restrictionPollId').post((req, res) => {
   var newRestrictionPoll=new RestrictionPoll({
     _id: restrictionpollid,
     groupId:req.body["groupId"],
+    groupIds:req.body["groupIds"],
     local :req.body["local"],
     explanation:req.body["explanation"],
     usertorestrict:req.body["usertorestrict"],

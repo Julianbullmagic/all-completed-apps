@@ -117,12 +117,12 @@ export default function SingleUser({ match }) {
 
     const options={
       method: "Delete",
-      body: '',
+      body: JSON.stringify(item),
       headers: {
         "Content-type": "application/json; charset=UTF-8"}}
 
 
-        fetch("/groups/deleterestriction/"+item._id, options)
+        fetch("/groups/deleterestriction", options)
         .then(response => response.json())
         .then(json =>console.log(json))
           .catch(err => {
@@ -238,7 +238,7 @@ export default function SingleUser({ match }) {
                               let elapsed=n-item.timecreated
                               let dayselapsed=Math.round(elapsed/86400000)
                               let daysleft=item.duration-dayselapsed
-                              return (<div className="leader" style={{textAlign:"center",margin:"0.5vw"}}><p style={{display:"inline"}}><strong>Restriction: </strong>{item.restriction} for {daysleft} days; <strong>Explanation: </strong> {item.explanation}; </p>
+                              return (<div className="leader" style={{textAlign:"center",margin:"0.5vw"}}><p style={{display:"inline"}}><strong>Restriction: </strong>{item.restriction} for {daysleft} days. <strong>Explanation: </strong> {item.explanation}. </p>
                               {(item.createdby==auth.isAuthenticated().user._id)&&<div style={{display:"inline"}}><p style={{display:'inline'}}>You created this restriction with your leader privileges </p>
                               <button style={{display:'inline'}} onClick={(e) => deleteRestriction(e,item)}>Delete Restriction?</button></div>}</div>)})}
 

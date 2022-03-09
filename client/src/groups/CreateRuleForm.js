@@ -71,12 +71,12 @@ export default function CreateRuleForm(props) {
           <div className="eventformbox">
           <label htmlFor='name'>Rule</label>
           <input
-          className="posttextarea" 
+          className="posttextarea"
           type='text'
           name='ruleValue'
           id='ruleValue'
           ref={ruleValue}
-
+          style={{width:"95%"}}
           />
           </div>
           <div className="eventformbox">

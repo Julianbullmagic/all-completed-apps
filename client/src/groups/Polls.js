@@ -21,10 +21,10 @@ export default function Polls (props) {
 
   let server = "http://localhost:5000";
   let socket
-  if(process.env.NODE_ENV==="production"){
+  if(process.env.NODE_ENV=="production"){
     socket=io();
   }
-  if(process.env.NODE_ENV==="development"){
+  if(process.env.NODE_ENV=="development"){
     socket=io(server);
   }
 
