@@ -313,21 +313,19 @@ export default function ExplanationPage() {
     home. While hundreds of bees investigate, only the best place is chosen and they all unanimously agree to move to this new location
     because it is in everyone's interest to do this.
     </p>
-
-    <h4>Idealism vs Practicality</h4>
-    <p>
-    It is useful to try to imagine what an ideal utopian society might look like as a guide
-    for where we should be aiming to be in the long term. However, we must also consider what is
-    practical right now in current circumstances. We live in an imperfect world with imperfect human
-    beings.
-    </p>
     </div>
     <br/>
 
     </>
   )}
-
-
+  // 
+  // <h4>Idealism vs Practicality</h4>
+  // <p>
+  // It is useful to try to imagine what an ideal utopian society might look like as a guide
+  // for where we should be aiming to be in the long term. However, we must also consider what is
+  // practical right now in current circumstances. We live in an imperfect world with imperfect human
+  // beings.
+  // </p>
 
   //
   // <p>
