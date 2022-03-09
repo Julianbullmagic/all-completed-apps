@@ -334,7 +334,8 @@ router.get("/finduser/:userId", (req, res) => {
                     from: process.env.EMAIL,
                     to: email,
                     subject: req.body.subject,
-                    text: req.body.message
+                    text: `${req.body.message}. Don't forget to invite your friends and family to try
+                    the Democratic Social Network. Email them a link https://democratic-social-network.herokuapp.com`
                   };
                   return mailOptions
                 })

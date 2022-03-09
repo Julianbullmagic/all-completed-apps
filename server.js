@@ -57,8 +57,8 @@ const app = express();
 const server = require("http").createServer(app);
 let origin
 
-  // origin="https://democratic-social-network.herokuapp.com"
-  origin="http://localhost:3000"
+  origin="https://democratic-social-network.herokuapp.com"
+  // origin="http://localhost:3000"
 
 console.log("origin",origin)
 const io = require("socket.io")(server, {

@@ -239,6 +239,23 @@ export default function ExplanationPage() {
     this should not be the priority. A real leader tells you what you need to hear, not just what you want to hear.
     </p>
     <p>
+    Only two leaders are chosen from each group, however there may be many members who happen to all be
+    equally and most popular. For this reason, every three months, two leaders are chosen randomly from this
+    group. Ideally, in the long term, we should be aiming for a system where everybody takes a turn as
+    a leader. We would randomly choose people to serve a term as a leader, perhaps for three month terms, then
+    we cross their name off the list after they have served their term limit. This would mean that
+    there could not be anything even sort of like a ruling class or oligarchy and there could not be
+    any bias in favour of any particular groups. All groups within society would be proportionately
+    represented. African, Asian, European, Indigenous people etc would all have a number of representatives
+    that is proportional to the size of their population. We cannot just immediatly do this, leadership
+    requires certain qualities. Leaders must be socially conscious, willing to consult, discuss and
+    negotiate with their groups in order to find decisions that as many as people as possible are happy
+    with. It requires empathy, responsibility, integrity and other characteristics. One of the main goals
+    of the Democratic Social Network is to try to encourage these qualities within all users of the
+    application and to try to increase the number of people who take their turn as leaders. We really
+    believe everyone has the potential to do this.
+    </p>
+    <p>
     All the groups in this network are relatively small. This is intended to promote deliberative democracy. We want people to be
     making informed choices, have discussions in order to share information, correct each others mistakes and try to arrive
     at decisions that are much better informed than any individual could come up with on their own. It is not enough for people to simply consent
@@ -246,7 +263,6 @@ export default function ExplanationPage() {
     votes on all issues, people's accounts and votes will be deleted if they don't log in three times in one month.
     If this happens, you can still just easily recreate the same account.
     </p>
-
     <p>
     In this application, all voting is open. You can see exactly who has voted for what, you can even visit higher level representative groups
     in order to observe their discussions. If you are worried about people persecuting you for expressing your thoughts and
@@ -296,6 +312,14 @@ export default function ExplanationPage() {
     protection from the weather, access to food etc. The more bees they send out, the greater the chance they will find a better quality
     home. While hundreds of bees investigate, only the best place is chosen and they all unanimously agree to move to this new location
     because it is in everyone's interest to do this.
+    </p>
+
+    <h4>Idealism vs Practicality</h4>
+    <p>
+    It is useful to try to imagine what an ideal utopian society might look like as a guide
+    for where we should be aiming to be in the long term. However, we must also consider what is
+    practical right now in current circumstances. We live in an imperfect world with imperfect human
+    beings.
     </p>
     </div>
     <br/>

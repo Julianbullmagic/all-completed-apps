@@ -61,9 +61,7 @@ export default function CreateGroupForm(props) {
 
 
   function setUpperGroupOptions(){
-
     let subgroups=groups.filter(item=>item.level==(levelValue.current.value+1))
-
     setSubgroups(subgroups)
 
   }
