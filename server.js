@@ -38,8 +38,10 @@ var kmeans = new KmeansLib();
 var geocluster = require("geocluster");
 var geodist = require('geodist')
 const nodemailer = require('nodemailer');
+let sslRedirect = require('heroku-ssl-redirect');
+let secure = require('ssl-express-www');
 
-
+app.use(secure);
 cloudinary.config({
   cloud_name: process.env.CLOUDNAME,
   api_key: process.env.APIKEY,
@@ -54,6 +56,7 @@ const PORT = process.env.PORT||5000
 
 
 const app = express();
+
 const server = require("http").createServer(app);
 let origin
 
@@ -73,6 +76,7 @@ app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
+app.use(secure);
 app.use(cookieParser());
 app.use(favicon(path.join(__dirname,"client", "public","favicon.ico")))
 
