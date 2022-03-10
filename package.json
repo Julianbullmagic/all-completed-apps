@@ -35,6 +35,7 @@
     "geocluster": "^0.1.1",
     "geodist": "^0.2.1",
     "helmet": "3.22.0",
+    "heroku-ssl-redirect": "^0.1.1",
     "jsonwebtoken": "^8.5.1",
     "kmeans-same-size": "^1.0.1",
     "lodash": "^4.17.20",

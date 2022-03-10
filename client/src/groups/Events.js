@@ -531,9 +531,9 @@ render() {
         <>
         <div key={item._id} className="eventbox" style={{marginBottom:"1vw"}}>
         <div className="eventcol1">
-        <h3>Title: {item.title}</h3>
-        <h4>Description: {item.description}</h4>
-        <h4>Start: {starttime}, End: {endtime}</h4>
+        {item.title&&<h3>Title: {item.title}</h3>}
+        {item.description&&<h4>Description: {item.description}</h4>}
+        {item.starttime&&<h4>Start: {starttime}, End: {endtime}</h4>}
         {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event. {item.approval.length>0&&<>Attendees=</>}</h4>}
         {attendeenames&&attendeenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(attendeenames.length-2))?", ":(index<(attendeenames.length-1))?" and ":"."}</h4></>)})}
         <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>
