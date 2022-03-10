@@ -38,10 +38,8 @@ var kmeans = new KmeansLib();
 var geocluster = require("geocluster");
 var geodist = require('geodist')
 const nodemailer = require('nodemailer');
-let sslRedirect = require('heroku-ssl-redirect');
 let secure = require('ssl-express-www');
 
-app.use(secure);
 cloudinary.config({
   cloud_name: process.env.CLOUDNAME,
   api_key: process.env.APIKEY,
