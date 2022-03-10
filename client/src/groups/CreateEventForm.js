@@ -13,6 +13,8 @@ export default function CreateEventForm(props) {
   const titleValue = React.useRef('')
   const descriptionValue = React.useRef('')
   const locationValue = React.useRef('')
+  const startTimeValue = React.useRef(0)
+  const endTimeValue = React.useRef(0)
   const selectedFile1 = React.useRef(null)
   const [toggle, setToggle] = useState(false);
   const [numberOfImages, setNumberOfImages]=useState(1)
@@ -93,6 +95,8 @@ console.log("submitting")
           title: titleValue.current.value,
           groupIds:[props.groupId],
           level:level,
+          starttime:String(startTimeValue.current.value),
+          endtime:String(endTimeValue.current.value),
           description:descriptionValue.current.value,
           createdby:auth.isAuthenticated().user._id,
           location:locationValue.current.value,
@@ -165,6 +169,24 @@ console.log("submitting")
               ref={locationValue}
               />
               {coordError&&<p style={{color:"red"}}>Not a valid location</p>}
+              <label htmlFor='name'>Start Time</label>
+              <input
+              className="posttextarea"
+              type='datetime-local'
+              name='startTimValue'
+              style={{width:"80vw"}}
+              id='startTimeValue'
+              ref={startTimeValue}
+              />
+              <label htmlFor='name'>End Time</label>
+              <input
+              className="posttextarea"
+              type='datetime-local'
+              name='endTimeValue'
+              style={{width:"80vw"}}
+              id='endTimeValue'
+              ref={endTimeValue}
+              />
               </div>
               <div className="eventformbox">
               <label htmlFor='name'>Image</label>

@@ -102,6 +102,8 @@ router.get("/:eventId", (req, res, next) => {
       title :req.body["title"],
       description :req.body["description"],
       level :req.body["level"],
+      starttime:req.body["starttime"],
+      endtime:req.body["endtime"],
       local :req.body["local"],
       groupIds :req.body["groupIds"],
       createdby :req.body["createdby"],

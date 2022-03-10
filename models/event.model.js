@@ -8,6 +8,8 @@ const eventSchema = mongoose.Schema({
   groupIds:[{type:mongoose.Schema.Types.ObjectId,ref:"Group"}],
   local:{type:Boolean,default:false},
   sentdown:{type:Boolean,default:false},
+  starttime:String,
+  endtime:String,
   grouptitle:String,
   location:String,
   images:[{type:String}],

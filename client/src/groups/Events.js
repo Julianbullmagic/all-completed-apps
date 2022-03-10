@@ -523,13 +523,17 @@ render() {
       if (approval<75&&(n-item.timecreated)>MILLISECONDS_IN_A_WEEK){
         this.deleteEvent(null,item)
       }
-
+      let starttime=item.starttime.split('T')
+      starttime=`Date: ${starttime[0]}, Time: ${starttime[1]}`
+      let endtime=item.endtime.split('T')
+      endtime=`Date: ${endtime[0]}, Time: ${endtime[1]}`
       return(
         <>
         <div key={item._id} className="eventbox" style={{marginBottom:"1vw"}}>
         <div className="eventcol1">
-        <h3>{item.title}</h3>
-        <h4>{item.description}</h4>
+        <h3>Title: {item.title}</h3>
+        <h4>Description: {item.description}</h4>
+        <h4>Start: {starttime}, End: {endtime}</h4>
         {this.state.users&&<h4 className="ruletext">{item.approval.length} people are attending this event. {item.approval.length>0&&<>Attendees=</>}</h4>}
         {attendeenames&&attendeenames.map((item,index)=>{return(<><h4 className="ruletext">{item}{(index<(attendeenames.length-2))?", ":(index<(attendeenames.length-1))?" and ":"."}</h4></>)})}
         <div className="percentagecontainer"><div style={{width:width}} className="percentage"></div></div>

@@ -266,6 +266,9 @@ render(props) {
         very manipulative and cunning, but the term
         refers particularly to political leaders. It is nice if leaders are likeable and friendly, but
         this should not be the priority. A real leader tells you what you need to hear, not just what you want to hear.
+        Only two leaders are chosen from each group, however there may be many members who happen to all be
+        equally and most popular. For this reason, every three months, two leaders are chosen randomly from this
+        group.
         </div>
       <hr/>
       {inthisgroup&&<><h3>Vote for Members</h3>
