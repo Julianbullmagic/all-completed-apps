@@ -287,7 +287,7 @@
 }
 
 .homeimg{
-height:100vh;
+width:100vw;
 }
 
 
@@ -606,13 +606,7 @@ height:100vh;
 	text-align: left;
 }
 
-.signupinput input{
-	transform:translateY(50%);
-}
 
-.signininput input{
-	transform:translateY(50%);
-}
 
 .signupform
 {
