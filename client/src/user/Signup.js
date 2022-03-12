@@ -250,8 +250,8 @@ export default function Signup (){
               <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
               <h5 style={{marginRight:"1vw"}} className="ruletext">Are you male or female? If you identify as another category please write it below.
               We are aiming for proportionate representation for all demographic groups.</h5>
-              <h6>Male</h6><input id="expertise" checked={togglesex} style={{margin:"0.5vw"}} type="checkbox" onClick={e=>handleSexChange(e,'male')} margin="normal"/>
-              <h6>Female</h6><input id="expertise" checked={!togglesex} style={{margin:"0.5vw"}} type="checkbox" onClick={e=>handleSexChange(e,'female')} margin="normal"/>
+              <h6 style={{display:"inline"}}>Male</h6><input id="expertise" checked={togglesex} style={{margin:"0.5vw",display:"inline"}} type="checkbox" onClick={e=>handleSexChange(e,'male')} margin="normal"/>
+              <h6 style={{display:"inline"}}>Female</h6><input id="expertise" checked={!togglesex} style={{margin:"0.5vw",display:"inline"}} type="checkbox" onClick={e=>handleSexChange(e,'female')} margin="normal"/>
               </div>
               <input style={{width:"95%"}} id="expertise" type="text"/>
               <div className="signupinput"><h5 style={{marginRight:"1vw"}} className="ruletext">
@@ -260,7 +260,7 @@ export default function Signup (){
 
               <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}><h5 style={{marginRight:"1vw"}} className="ruletext">
               Do you receive any passive income from rents, dividends, interest or royalties? </h5>
-              <input id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
+              <input style={{display:"inline"}} id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
               <div className="signupinput">
               <h5 className="ruletext">  Images </h5>
               <div style={{display:((numImages.length>=1)?"block":"none")}}  className="eventformbox ruletext">
