@@ -247,7 +247,7 @@ export default function Signup (){
               need some way of evaluating if you are a good candidate.</h5>
               <textarea style={{width:"95%",height:"20vh",overflowY:"auto",display:"block"}} id="expertise" placeHolder={values.expertise} label="expertise" value={values.expertise} onChange={handleChange('expertise')} margin="normal"/></div>
 
-              <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div className="signupinput" style={{display:"flex",justifyContent:"center"}}>
               <h5 style={{marginRight:"1vw"}} className="ruletext">Are you male or female? If you identify as another category please write it below.
               We are aiming for proportionate representation for all demographic groups.</h5>
               <h6 style={{display:"inline"}}>Male</h6><input id="expertise" checked={togglesex} style={{margin:"0.5vw",display:"inline"}} type="checkbox" onClick={e=>handleSexChange(e,'male')} margin="normal"/>
@@ -258,7 +258,7 @@ export default function Signup (){
               Are you a member of any political parties? If so, which ones? </h5>
               <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>
 
-              <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}><h5 style={{marginRight:"1vw"}} className="ruletext">
+              <div className="signupinput" style={{display:"flex",justifyContent:"center"}}><h5 style={{marginRight:"1vw"}} className="ruletext">
               Do you receive any passive income from rents, dividends, interest or royalties? </h5>
               <input style={{display:"inline"}} id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
               <div className="signupinput">
