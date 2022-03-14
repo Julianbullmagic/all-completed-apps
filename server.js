@@ -433,18 +433,14 @@ var users={}
 
 
 io.on("connection", socket => {
+  
 socket.on("connect_error", (err) => {  console.log(`connect_error due to ${err.message}`);})
 
   socket.on("new user",function(data){
-
       socket.name=data
-
         users[`${socket.name}`]=socket.id
-
       let da=data
       socket.join(data)
-
-
   })
 
 
@@ -553,7 +549,6 @@ console.log(allrooms)
       }
     })
    })
-
 })
 
 

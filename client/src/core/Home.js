@@ -33,7 +33,7 @@ getGroupData()
     return (
       <>
       {!auth.isAuthenticated()&&<div style={{height:"100vh",overflow:"hidden"}}>
-      <h3 style={{margin:"5vw"}}>On the Democratic Social Network, users are much more involved in
+      <h3 style={{margin:"5vw",width:"90vw"}}>On the Democratic Social Network, users are much more involved in
       creating and enforcing the rules and the overall running of each group. Democracy is not just
       voting every few years, it is something we should practice every day in all our relationships.
       Democracy is discussing, consulting and compromising in order to form mutually beneficial group

@@ -3,7 +3,7 @@ import auth from '../auth/auth-helper'
 const mongoose = require("mongoose");
 
 
-export default function CreateRuleForm(props) {
+export default function Comment(props) {
   const commentValue = React.useRef('')
   const [comments, setComments] = useState();
 
