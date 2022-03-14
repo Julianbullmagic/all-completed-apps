@@ -259,7 +259,8 @@ export default function Signup (){
               <input id="expertise" type="text" placeHolder={values.politicalparties} label="expertise" value={values.politicalparties} onChange={handleChange('politicalparties')} margin="normal"/></div>
 
               <div className="signupinput" style={{display:"flex",alignItems:"center",justifyContent:"center"}}><h5 style={{marginRight:"1vw"}} className="ruletext">
-              Do you receive any passive income from rents, dividends, interest or royalties? </h5>
+              Do you receive any passive income from rents, dividends, interest or royalties? We are curious
+              if you are a working class person. </h5>
               <input style={{display:"inline"}} id="expertise" type="checkbox" value={false} onChange={handleCheckboxChange('passiveincome')} margin="normal"/></div>
               <div className="signupinput">
               <h5 className="ruletext">  Images </h5>

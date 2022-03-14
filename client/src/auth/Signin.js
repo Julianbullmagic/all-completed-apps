@@ -164,10 +164,10 @@ export default function Signin(props) {
             Sign In
           </h4>
           <div className="signininput">
-          <h5 className="ruletext">Email </h5><input id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/>
+          <h5 className="ruletext">Email </h5><input style={{transform:"translateY(30%)"}} id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/>
           </div>
           <div className="signininput">
-          <h5 className="ruletext">Password </h5><input id="password" type="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
+          <h5 className="ruletext">Password </h5><input style={{transform:"translateY(30%)"}} id="password" type="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
           </div>
            {
             values.error && (<Typography component="p" color="error">

@@ -33,6 +33,13 @@ getGroupData()
     return (
       <>
       {!auth.isAuthenticated()&&<div style={{height:"100vh",overflow:"hidden"}}>
+      <h3 style={{margin:"5vw"}}>On the Democratic Social Network, users are much more involved in
+      creating and enforcing the rules and the overall running of each group. Democracy is not just
+      voting every few years, it is something we should practice every day in all our relationships.
+      Democracy is discussing, consulting and compromising in order to form mutually beneficial group
+      decisions that most people are happy with, decisions that are much better informed than any
+      individual could have arrived at on their own. Democracy is trying to persuade and convince instead
+      of coerce. You don't need to wait for revolution to see the benefits of this.</h3>
       <img className="homeimg" src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
