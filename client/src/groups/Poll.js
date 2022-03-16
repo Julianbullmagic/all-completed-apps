@@ -170,7 +170,10 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
 
 
   var suggestionscopy=JSON.parse(JSON.stringify(suggestions))
+  suggestionscopy.reverse()
   suggestionscopy.push(newPollSuggestionToRender)
+  suggestionscopy.reverse()
+
   setSuggestions(suggestionscopy)
 
   const options={
@@ -344,8 +347,8 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
               <h5 className="ruletext">{approval}% of members in this group approve this suggestion, {item.approval.length}/{group.members.length}</h5>
               {group.groupabove&&<>
               {(((item.createdby._id==auth.isAuthenticated().user._id)||group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
-                <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e)}>Delete Suggestion?</button>}
-                {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e)}>Not sure</button>}
+                <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Suggestion?</button>}
+                {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e,item)}>Not sure</button>}
                 {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>deletePollSuggestion(e,item)}>Are you sure?</button>}
                 </>}
                 {!item.approval.includes(auth.isAuthenticated().user._id)&&<button className="ruletext" onClick={(e)=>approveofsuggestion(e,item._id)}>Approve this suggestion?</button>}
