@@ -116,10 +116,11 @@ app.use('/api/chat', require('./routes/chat'));
 // const MILLISECONDS_IN_A_DAY=86400000
 // const MILLISECONDS_IN_NINE_MONTHS=23668200000
 let grouptitles
+cron.schedule('0 0 0 * * *', () => {
 (async function(){
  grouptitles=await Group.find({cool:true}).exec()
  grouptitles=grouptitles.map(item=>item.title)
-})()
+})()})
 //
 // cron.schedule('0 0 0 * * *', () => {
 //
@@ -433,7 +434,7 @@ var users={}
 
 
 io.on("connection", socket => {
-  
+
 socket.on("connect_error", (err) => {  console.log(`connect_error due to ${err.message}`);})
 
   socket.on("new user",function(data){

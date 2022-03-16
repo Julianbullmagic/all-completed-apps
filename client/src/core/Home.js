@@ -40,6 +40,8 @@ getGroupData()
       decisions that most people are happy with, decisions that are much better informed than any
       individual could have arrived at on their own. Democracy is trying to persuade and convince instead
       of coerce. You don't need to wait for revolution to see the benefits of this.</h3>
+      <h3>This app is a work  in progress, to offer constructive criticism or suggestions, or to
+      report bugs, email democraticsocialnetwork@gmail.com</h3>
       <img className="homeimg" src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
