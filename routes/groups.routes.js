@@ -346,14 +346,8 @@ router.get("/finduser/:userId", (req, res) => {
                   transporter.sendMail(item, function(error, info){
                     if (error) {
                       console.error(error);
-                      res.status(401).json({
-                        data: error
-                      });
                     } else {
                       console.log('Email sent: ' + info.response)
-                      res.status(200).json({
-                        data: info.response
-                      });
                     }
                   })
 
