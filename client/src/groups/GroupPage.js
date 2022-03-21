@@ -148,6 +148,7 @@ if(auth.isAuthenticated()){
 }
     return (
       <>
+      <div style={{width:"100vw",overflowX:"hidden"}}>
       {!auth.isAuthenticated()&&<Redirect to='/'/>}
       {this.state.removefromgroup&&<h2 style={{margin:"5vw",width:"90vw"}}>You have been removed from this group. See your profile page
         for an explanation</h2>}
@@ -200,6 +201,7 @@ if(auth.isAuthenticated()){
                       {(this.state.users&&!this.state.cannotusechat)&&<ChatPage users={this.state.users} grouptitle={this.state.group.title} groupId={this.props.match.params.groupId}/>}</>
                     }</>}
                     </>}
+                    </div>
                     </>
 
                   );
