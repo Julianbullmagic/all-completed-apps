@@ -19,8 +19,14 @@ export default function Newsfeed (props) {
   const [comment, setComment] = useState("");
   const [preview, setPreview] = useState("");
   let server = "http://localhost:5000";
-  let socket = io("https://democratic-social-network.herokuapp.com");
+  let socket
 
+  if(process.env.NODE_ENV=="production"){
+    socket=io();
+  }
+  if(process.env.NODE_ENV=="development"){
+    socket=io(server);
+  }
   useEffect(() => {
 
     setGroup(props.group)
@@ -498,7 +504,7 @@ function handleSubmit(e){
                   <h4 style={{margin:"1vw"}}><strong>Post: </strong>{item.post}</h4>
                   {prev&&prev}
                   <div>
-                  {item.createdby&&<><h5 style={{margin:"1vw",display:"inline"}}><strong> Post by {item.createdby.name}</strong></h5>
+                  {item.createdby&&<><h5 style={{margin:"1vw",display:"inline",textAlign:"center"}}><strong> Post by {item.createdby.name}</strong></h5>
                   {(((item.createdby._id==auth.isAuthenticated().user._id)||
                     group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
                     <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Post?</button>}</>}

@@ -172,8 +172,8 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
       <br/>
       {auth.isAuthenticated().user.cool&&<>
         <div className="vids">
-      <iframe style={{margin:"0.5vw",width:"44vw",height:"44vh",display:"inline",borderRadius:"10px"}} src={this.state.vidone} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe style={{margin:"0.5vw",width:"44vw",height:"44vh",display:"inline",borderRadius:"10px"}} src={this.state.vidtwo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe style={{margin:"0.5vw",width:"44vw",height:"44vh",display:"inline"}} src={this.state.vidone} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe style={{margin:"0.5vw",width:"44vw",height:"44vh",display:"inline"}} src={this.state.vidtwo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       </>}
       </div>
