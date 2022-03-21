@@ -151,7 +151,8 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
       </div>
       <div style={{display:"flex",flexWrap:"wrap"}}>
       {nogroups&&<h4 style={{marginLeft:"2.5vw",margin:"0.5vw"}}>You haven't joined any groups yet, click on the group link below.
-      You can only join a maximum of three bottom level groups. If you leave one group, your votes are still recorded but not counted.
+      Join some groups, make suggestions and vote for rules. Post an introduction about yourself. You can only join a
+      maximum of three bottom level groups. If you leave one group, your votes are still recorded but not counted.
       If you choose to rejoin, they will count again.</h4>}
       {mygroupsmapped}
       </div>
