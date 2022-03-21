@@ -392,7 +392,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
                   <div>
                   <h5 className="ruletext">Create Poll Suggestion</h5>
                   <button className="pollsuggestionbutton" className="ruletext" onClick={(e) => handleSubmit(e)}>New Poll Suggestion?</button>
-                  <textarea ref={pollsuggestion} id="story" rows="2" />
+                  <textarea style={{width:"80vw"}} ref={pollsuggestion} id="story" rows="2" />
                   </div>
                   </form>
                   </div>
