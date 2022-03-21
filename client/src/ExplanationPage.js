@@ -5,126 +5,8 @@ export default function ExplanationPage() {
     <>
     <div style={{width:"92vw",marginBottom:"4vw",marginLeft:"4vw",marginRight:"4vw"}}>
     <h4>This app is a work in progress, if you have any suggestions or constructive criticism,
-    please email democraticsocialnetworkcontact@gmail.com</h4>
+    please email democraticsocialnetwork@gmail.com</h4>
 
-    <h1>How does The Democratic Social Network Work?</h1>
-    <p>The democratic social network takes what is good about the organization of worker cooperatives and trade unions and
-    tries to use the medium of the internet to enhance these strengths. This application is guided by
-    the principle that if something is relevant to you and you have the expertise to understand it, you
-    should be directly involved in making decisions about it. Democracy is something we should practice
-    every day, in all our relationships, not just once every few years. Democracy is compromising,
-    consulting, discussing, sharing information, filling in the gaps in each others understanding
-    in order to reach much better informed group decisions than any of us could have come to individually.
-    Authority should be grounded in wisdom, knowledge and moral integrity instead of coercive, exploitative
-    power. People's ability to participate should be independent of how wealthy they are and we should
-    make it as easy as possible for people to express their views. 
-    </p>
-    <p>
-    At the bottom level of the Democratic Social Network Organization there are small groups of less than 50 people, anyone can create one of
-    these. Each of these can elect delegates to higher level groups that represent larger groups of people. These teams can all create and
-    enforce rules together with direct democracy.
-    </p>
-    <p>
-    In order to promote equality and cooperation between groups there are higher level representative assemblies.
-    There are no particular election events, instead you can just vote or withdraw a vote for anyone in your groups at any time.
-    These leaders can have their authority taken away whenever the group chooses. This provides a much stronger incentive
-    for leaders to consult and discuss with people in order to make choices that most people are happy with and to lead the group in a
-    direction that is in the best interests of the group. Higher level representative groups can vote to propose rules and events to
-    the lower groups. One of our goals is for people to mostly only be choosing leaders they know personally. This allows us to have
-    more confidence in the quality of our leaders' character.
-    </p>
-    <p>
-    Representatives from higher level groups are not allowed to nominate or endorse candidates in lower level groups.
-    This helps to ensure a genuinely meritocratic but also democratic organization. There are no election campaigns on this
-    web application. However, you can post a resume in your group for other members to look at and evalutate your credentials.
-    The choice of leaders or experts should be purely based on their skill, empathy, experience, trustworthyness, wisdom, moral integrity and
-    knowledge. Leader selection should have nothing to do with how much money candidates have to spend on a political marketing campaigns
-    or how much control they have over the media.
-    </p>
-    <p>
-    In order to prevent a situation where people get selected simply because they were first to get any votes, all elected leaders
-    must receive at least 75% approval from their group and the most popular members above this threshold can become representatives.
-    When you choose who to vote for, try to priortise their actual credentials instead of whether or not you like them personally.
-    The democratic social network tries to prevent demagoguery. This is a phenomenon where people gain influence simply with charm
-    and charisma, while they may not actual have the competence for leadership. A demagogue is sort of like a sociopath,
-    very manipulative and cunning, but the term refers particularly to political leaders. It is nice if leaders are likeable and friendly, but
-    this should not be the priority. A real leader tells you what you need to hear, not just what you want to hear.
-    </p>
-    <p>
-    Only two leaders are chosen from each group, however there may be many members who happen to all be
-    equally and most popular. For this reason, every three months, two leaders are chosen randomly from this
-    group. Ideally, in the long term, we should be aiming for a system where everybody takes a turn as
-    a leader. We would randomly choose people to serve a term as a leader, perhaps for three month terms, then
-    we cross their name off the list after they have served their term limit. This would mean that
-    there could not be anything even sort of like a ruling class or oligarchy and there could not be
-    any bias in favour of any particular groups. All groups within society would be proportionately
-    represented. African, Asian, European, Indigenous people etc would all have a number of representatives
-    that is proportional to the size of their population. We cannot just immediatly do this, leadership
-    requires certain qualities. Leaders must be socially conscious, willing to consult, discuss and
-    negotiate with their groups in order to find decisions that as many as people as possible are happy
-    with. It requires empathy, responsibility, integrity and other characteristics. One of the main goals
-    of the Democratic Social Network is to try to encourage these qualities within all users of the
-    application and to try to increase the number of people who take their turn as leaders. We really
-    believe everyone has the potential to do this.
-    </p>
-    <p>
-    All the groups in this network are relatively small. This is intended to promote deliberative democracy. We want people to be
-    making informed choices, have discussions in order to share information, correct each others mistakes and try to arrive
-    at decisions that are much better informed than any individual could come up with on their own. It is not enough for people to simply consent
-    to a group decision, their should be informed consent. In order to try to prevent the votes of inactive users from distorting the outcome of
-    votes on all issues, people's accounts and votes will be deleted if they don't log in three times in one month.
-    If this happens, you can still just easily recreate the same account.
-    </p>
-    <p>
-    In this application, all voting is open. You can see exactly who has voted for what, you can even visit higher level representative groups
-    in order to observe their discussions. If you are worried about people persecuting you for expressing your thoughts and
-    opinions, there are much deeper problems in the group than whether or not voting is secret and anonymous. The real issue is that there
-    are imbalances of power that must be fixed. Anonymity mostly makes it easier for people to stab each other in the back and to conceal
-    domination or abuse. Secretive voting encourages passive aggressive behaviour. If you are going to vote for something that oppresses, abuses
-    or exploits someone else, they should be able to see this and confront you. It is much harder to dehumanize people if you
-    must interact with them personally and witness their emotional response to your abuse. Bullies are
-    like cockroaches, they hate having light shone onto them. Most bullies are cowards. Groups can enforce
-    rules with the Jury tab on each group page. If they vote to create a restriction for a user, the user
-    can always see which rules they have supposedly broken, and dispute this if they like. A rule might
-    seem like common sense to you, but to someone else with a different background, culture or beliefs,
-    it may not. For this reason, all rules are made explicit and can be viewed in the rules tab of the group page.
-    For example, in a large Capitalist business, the upper level managers and directors who make most decisions about
-    who to hire and fire practically never meet or work directly with the lower level workers and thus they very easily dispose
-    of them when their work is no longer profitable to the business.
-    In contrast to this, in worker cooperatives, democratic businesses that are owned and run by
-    their own workers, people very rarely get fired. The managers and directors are elected by the workers and usually work
-    fairly closely with them.
-    <a style={{color:"blue"}} href="https://www.researchgate.net/publication/290244575_EMPLOYMENT_STABILIZATION_INSIDE_FIRMS_AN_EMPIRICAL_INVESTIGATION_OF_WORKER_COOPERATIVES">
-    https://www.researchgate.net/publication/290244575_EMPLOYMENT_STABILIZATION_INSIDE_FIRMS_AN_EMPIRICAL_INVESTIGATION_OF_WORKER_COOPERATIVES</a>
-    </p>
-
-    <p>
-    There is greater transparency in an open voting system. We encourage users of this application to communicate through other mediums,
-    have discussions and talk about why each person voted for the things they voted for. Not only does this help everyone to
-    reach better informed choices, it also allows people to scrutineer the web application and ensure there is no voting fraud going on.
-    Open voting encourages conversation, if you disagree with people you can try to share information with each
-    other in order to reach a mutual understanding. If you don't know who has voted for what, you won't know who you need to
-    start the discussion with. If there are any very personal issues that require privacy, we recommend communicating through another medium.
-    Of course there are some sensitive issues that call for secrecy, but secret voting certainly should not be the dominant form of
-    democratic decision making.
-    </p>
-    <p>
-    Errors are a natural, inevitable and useful
-    part of the learning process. A "debate" is an irrational form of discussion that leads to sophistry. Finding the truth is not a
-    contest. If we think of our disagreements as a competition, we will try to rationalise our point of view, we will try to
-    manipulate or distort the truth in order to fit our perspective. We will selective focus on information that confirms our biases.
-    We only think this way because our society is so hierarchical. Powerful people do not need to have valid arguments,
-    they can simply impose their views onto others. Often when we disagree with people, we worry that an admission of error will be
-    interpretted as an admission of inferiority. However, whether you are right or wrong about any particular question tells us nothing about
-    your overall worth as a person. When we mutually arrive at the most accurate answers, everybody wins, regardless of whether
-    any individual is correct or incorrect. If I am correct and I fail to persuade you, we both lose. Failure to understand this is the
-    root cause of most of the bureaucratic nonesense in our society. Bees can demonstrate the benefits of this sort of thinking.
-    When honeybees need to find a new place to build a nest they
-    send out hundreds of scouts to search for one. They know exactly what they are all looking for, they need certain height, temperature,
-    protection from the weather, access to food etc. The more bees they send out, the greater the chance they will find a better quality
-    home. While hundreds of bees investigate, only the best place is chosen and they all unanimously agree to move to this new location
-    because it is in everyone's interest to do this.
-    </p>
     <h1>Why do we need something like the Democratic Social Network?</h1>
 
     <p>For the last few decades, the situation for working class people in this country has grown steadily worse and worse. Houses are
@@ -308,6 +190,125 @@ export default function ExplanationPage() {
       enterprises that provide the things people need. This is why medicine is so vastly cheaper in Australia than the USA,
       we have a strong public healthcare system.
       </p>
+
+    <h1>How does The Democratic Social Network Work?</h1>
+    <p>The democratic social network takes what is good about the organization of worker cooperatives and trade unions and
+    tries to use the medium of the internet to enhance these strengths. This application is guided by
+    the principle that if something is relevant to you and you have the expertise to understand it, you
+    should be directly involved in making decisions about it. Democracy is something we should practice
+    every day, in all our relationships, not just once every few years. Democracy is compromising,
+    consulting, discussing, sharing information, filling in the gaps in each others understanding
+    in order to reach much better informed group decisions than any of us could have come to individually.
+    Authority should be grounded in wisdom, knowledge and moral integrity instead of coercive, exploitative
+    power. People's ability to participate should be independent of how wealthy they are and we should
+    make it as easy as possible for people to express their views.
+    </p>
+    <p>
+    At the bottom level of the Democratic Social Network Organization there are small groups of less than 50 people, anyone can create one of
+    these. Each of these can elect delegates to higher level groups that represent larger groups of people. These teams can all create and
+    enforce rules together with direct democracy.
+    </p>
+    <p>
+    In order to promote equality and cooperation between groups there are higher level representative assemblies.
+    There are no particular election events, instead you can just vote or withdraw a vote for anyone in your groups at any time.
+    These leaders can have their authority taken away whenever the group chooses. This provides a much stronger incentive
+    for leaders to consult and discuss with people in order to make choices that most people are happy with and to lead the group in a
+    direction that is in the best interests of the group. Higher level representative groups can vote to propose rules and events to
+    the lower groups. One of our goals is for people to mostly only be choosing leaders they know personally. This allows us to have
+    more confidence in the quality of our leaders' character.
+    </p>
+    <p>
+    Representatives from higher level groups are not allowed to nominate or endorse candidates in lower level groups.
+    This helps to ensure a genuinely meritocratic but also democratic organization. There are no election campaigns on this
+    web application. However, you can post a resume in your group for other members to look at and evalutate your credentials.
+    The choice of leaders or experts should be purely based on their skill, empathy, experience, trustworthyness, wisdom, moral integrity and
+    knowledge. Leader selection should have nothing to do with how much money candidates have to spend on a political marketing campaigns
+    or how much control they have over the media.
+    </p>
+    <p>
+    In order to prevent a situation where people get selected simply because they were first to get any votes, all elected leaders
+    must receive at least 75% approval from their group and the most popular members above this threshold can become representatives.
+    When you choose who to vote for, try to priortise their actual credentials instead of whether or not you like them personally.
+    The democratic social network tries to prevent demagoguery. This is a phenomenon where people gain influence simply with charm
+    and charisma, while they may not actual have the competence for leadership. A demagogue is sort of like a sociopath,
+    very manipulative and cunning, but the term refers particularly to political leaders. It is nice if leaders are likeable and friendly, but
+    this should not be the priority. A real leader tells you what you need to hear, not just what you want to hear.
+    </p>
+    <p>
+    Only two leaders are chosen from each group, however there may be many members who happen to all be
+    equally and most popular. For this reason, every three months, two leaders are chosen randomly from this
+    group. Ideally, in the long term, we should be aiming for a system where everybody takes a turn as
+    a leader. We would randomly choose people to serve a term as a leader, perhaps for three month terms, then
+    we cross their name off the list after they have served their term limit. This would mean that
+    there could not be anything even sort of like a ruling class or oligarchy and there could not be
+    any bias in favour of any particular groups. All groups within society would be proportionately
+    represented. African, Asian, European, Indigenous people etc would all have a number of representatives
+    that is proportional to the size of their population. We cannot just immediatly do this, leadership
+    requires certain qualities. Leaders must be socially conscious, willing to consult, discuss and
+    negotiate with their groups in order to find decisions that as many as people as possible are happy
+    with. It requires empathy, responsibility, integrity and other characteristics. One of the main goals
+    of the Democratic Social Network is to try to encourage these qualities within all users of the
+    application and to try to increase the number of people who take their turn as leaders. We really
+    believe everyone has the potential to do this.
+    </p>
+    <p>
+    All the groups in this network are relatively small. This is intended to promote deliberative democracy. We want people to be
+    making informed choices, have discussions in order to share information, correct each others mistakes and try to arrive
+    at decisions that are much better informed than any individual could come up with on their own. It is not enough for people to simply consent
+    to a group decision, their should be informed consent. In order to try to prevent the votes of inactive users from distorting the outcome of
+    votes on all issues, people's accounts and votes will be deleted if they don't log in three times in one month.
+    If this happens, you can still just easily recreate the same account.
+    </p>
+    <p>
+    In this application, all voting is open. You can see exactly who has voted for what, you can even visit higher level representative groups
+    in order to observe their discussions. If you are worried about people persecuting you for expressing your thoughts and
+    opinions, there are much deeper problems in the group than whether or not voting is secret and anonymous. The real issue is that there
+    are imbalances of power that must be fixed. Anonymity mostly makes it easier for people to stab each other in the back and to conceal
+    domination or abuse. Secretive voting encourages passive aggressive behaviour. If you are going to vote for something that oppresses, abuses
+    or exploits someone else, they should be able to see this and confront you. It is much harder to dehumanize people if you
+    must interact with them personally and witness their emotional response to your abuse. Bullies are
+    like cockroaches, they hate having light shone onto them. Most bullies are cowards. Groups can enforce
+    rules with the Jury tab on each group page. If they vote to create a restriction for a user, the user
+    can always see which rules they have supposedly broken, and dispute this if they like. A rule might
+    seem like common sense to you, but to someone else with a different background, culture or beliefs,
+    it may not. For this reason, all rules are made explicit and can be viewed in the rules tab of the group page.
+    For example, in a large Capitalist business, the upper level managers and directors who make most decisions about
+    who to hire and fire practically never meet or work directly with the lower level workers and thus they very easily dispose
+    of them when their work is no longer profitable to the business.
+    In contrast to this, in worker cooperatives, democratic businesses that are owned and run by
+    their own workers, people very rarely get fired. The managers and directors are elected by the workers and usually work
+    fairly closely with them.
+    <a style={{color:"blue"}} href="https://www.researchgate.net/publication/290244575_EMPLOYMENT_STABILIZATION_INSIDE_FIRMS_AN_EMPIRICAL_INVESTIGATION_OF_WORKER_COOPERATIVES">
+    https://www.researchgate.net/publication/290244575_EMPLOYMENT_STABILIZATION_INSIDE_FIRMS_AN_EMPIRICAL_INVESTIGATION_OF_WORKER_COOPERATIVES</a>
+    </p>
+    <p>
+    There is greater transparency in an open voting system. We encourage users of this application to communicate through other mediums,
+    have discussions and talk about why each person voted for the things they voted for. Not only does this help everyone to
+    reach better informed choices, it also allows people to scrutineer the web application and ensure there is no voting fraud going on.
+    Open voting encourages conversation, if you disagree with people you can try to share information with each
+    other in order to reach a mutual understanding. If you don't know who has voted for what, you won't know who you need to
+    start the discussion with. If there are any very personal issues that require privacy, we recommend communicating through another medium.
+    Of course there are some sensitive issues that call for secrecy, but secret voting certainly should not be the dominant form of
+    democratic decision making.
+    </p>
+    <p>
+    Errors are a natural, inevitable and useful
+    part of the learning process. A "debate" is an irrational form of discussion that leads to sophistry. Finding the truth is not a
+    contest. If we think of our disagreements as a competition, we will try to rationalise our point of view, we will try to
+    manipulate or distort the truth in order to fit our perspective. We will selective focus on information that confirms our biases.
+    We only think this way because our society is so hierarchical. Powerful people do not need to have valid arguments,
+    they can simply impose their views onto others. Often when we disagree with people, we worry that an admission of error will be
+    interpretted as an admission of inferiority. However, whether you are right or wrong about any particular question tells us nothing about
+    your overall worth as a person. When we mutually arrive at the most accurate answers, everybody wins, regardless of whether
+    any individual is correct or incorrect. If I am correct and I fail to persuade you, we both lose. Failure to understand this is the
+    root cause of most of the bureaucratic nonesense in our society. Bees can demonstrate the benefits of this sort of thinking.
+    When honeybees need to find a new place to build a nest they
+    send out hundreds of scouts to search for one. They know exactly what they are all looking for, they need certain height, temperature,
+    protection from the weather, access to food etc. The more bees they send out, the greater the chance they will find a better quality
+    home. While hundreds of bees investigate, only the best place is chosen and they all unanimously agree to move to this new location
+    because it is in everyone's interest to do this.
+    </p>
+
       </div>
       <br/>
 
