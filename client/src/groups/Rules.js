@@ -547,7 +547,7 @@ render(props) {
         <>
         <div key={item._id} className="rule">
         {item.createdby&&<>
-        <h3 className="ruletext">{item.rule}, suggested by {item.createdby.name}</h3>
+        <h3 className="ruletext">{item.rule}{!item.rule.endsWith(".")&&<>","</>} Suggested by {item.createdby.name}</h3>
         {this.state.group.groupabove&&<>
         {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
           <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete Rule?</button>}</>}
