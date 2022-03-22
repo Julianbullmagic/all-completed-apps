@@ -467,15 +467,19 @@ function handleSubmit(e){
                     if(item.preview.image){
                       var prev=
                       <>
+                      <div style={{width:"80vw"}}>
                       <h2>{item.preview.title}</h2>
                       <img src={item.preview.image}></img>
+                      </div>
                       </>
                       if(item.preview.url){
                         prev=
                         <>
+                        <div style={{width:"80vw"}}>
                         <h2>{item.preview.title}</h2>
                         <iframe src={item.preview.url}></iframe>
                         <img src={item.preview.image}></img>
+                        </div>
                         </>
                       }
                     }
