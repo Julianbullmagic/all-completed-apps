@@ -547,7 +547,7 @@ render(props) {
         <>
         <div key={item._id} className="rule">
         {item.createdby&&<>
-        <h3 className="ruletext">{item.rule}{!item.rule.endsWith(".")&&<>","</>} Suggested by {item.createdby.name}</h3>
+        <h3 className="ruletext">{item.rule}{!item.rule.endsWith(".")&&<>,</>} Suggested by {item.createdby.name}</h3>
         {this.state.group.groupabove&&<>
         {(((item.createdby._id==auth.isAuthenticated().user._id)||this.state.group.groupabove.members.includes(auth.isAuthenticated().user._id))&&approval<75&&!item.areyousure)&&
           <button className="ruletext deletebutton" id={item.title} onClick={(e)=>this.areYouSure(e,item)}>Delete Rule?</button>}</>}
@@ -558,7 +558,7 @@ render(props) {
             {(!item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.approveofrule(e,item._id)}>Approve this rule?</button>}
             {(item.approval.includes(auth.isAuthenticated().user._id))&&<button className="ruletext approvalbutton" onClick={(e)=>this.withdrawapprovalofrule(e,item._id)}>Withdraw Approval?</button>}</>}
 
-            <h4 className="ruletext">  {item.explanation},  </h4>
+            <h4 className="ruletext">  {item.explanation}{item.explanation&&<>,</>}  </h4>
             <h4 className="ruletext">Rule Level {item.level}</h4>
             {(this.state.group.level==item.level)&&<>
               {this.state.users&&<h4 className="ruletext">, {approval}% of members approve this rule, {item.approval.length}/{this.state.users.length}. {approveenames.length>0&&<h4 style={{display:"inline"}}>Approvees=</h4>}</h4>}

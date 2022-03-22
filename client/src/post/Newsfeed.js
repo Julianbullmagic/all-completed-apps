@@ -227,6 +227,7 @@ function handleSubmit(e){
             console.error(err);
           })
           sendPostDown(newPost,postscopy)
+          setPost("")
         }
 
 

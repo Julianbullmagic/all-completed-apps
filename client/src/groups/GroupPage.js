@@ -53,6 +53,7 @@ class GroupPage extends Component {
       cannotvoteinjury:false
     }
     this.updateUser=this.updateUser.bind(this)
+    this.join=this.join.bind(this)
     let socket
   }
 
@@ -128,6 +129,106 @@ console.log("updateing user",updatedUser)
         console.error(err);
       })
     }
+
+        leave(e){
+          var memberscopy=JSON.parse(JSON.stringify(this.state.users))
+          var filteredarray = memberscopy.filter(function( obj ) {
+            return obj._id !== auth.isAuthenticated().user._id;
+          });
+          let groupcopy=JSON.parse(JSON.stringify(this.state.group))
+          groupcopy.members=filteredarray
+          this.setState({users:filteredarray,group:groupcopy});
+
+          const options = {
+            method: 'put',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: ''
+          }
+
+          fetch("/groups/leave/"+this.props.match.params.groupId+"/"+ auth.isAuthenticated().user._id, options
+        )  .then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.error(err);
+        })
+      }
+
+      async join(e){
+        let levelzerogroups=this.state.user.groupstheybelongto.filter(item=>item.level==0)
+        if(levelzerogroups>=3){
+          this.setState({error:`You have already joined the maximum number of level zero groups. You cannot have more than three, you must leave another
+            group before you can join this one. To leave a group, visit it's page and press the leave group button near the top.`})
+            setTimeout(() => {
+              this.setState({error:""});
+            }, 8000)
+          }
+
+          if(levelzerogroups<3){
+            let d = new Date();
+            let n = d.getTime();
+            let chatMessage=`has joined this group`
+            let userId=auth.isAuthenticated().user._id
+            let userName=auth.isAuthenticated().user.name
+            let nowTime=n
+            let type="text"
+            let groupId=this.state.group._id
+            let groupTitle=this.state.group.title
+            this.socket.emit("Input Chat Message", {
+              chatMessage,
+              userId,
+              userName,
+              nowTime,
+              type,
+              groupId,
+              groupTitle});
+
+            let userscopy=JSON.parse(JSON.stringify(this.state.users))
+            userscopy=userscopy.filter(user=>user.newmembers)
+            let emails=userscopy.map(item=>{return item.email})
+            let notification={
+              emails:emails,
+              subject:"New member",
+              message:`There is a new member called ${auth.isAuthenticated().user.name} in the group called ${this.state.group.title} at level ${this.state.group.level}, `
+            }
+
+            const opt = {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(notification)
+            }
+
+            fetch("/groups/sendemailnotification", opt
+          ) .then(res => {
+        console.log(res)
+          }).catch(err => {
+            console.error(err);
+          })
+
+            const options = {
+              method: 'put',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: ''
+            }
+            let memberscopy=JSON.parse(JSON.stringify(this.state.users))
+            memberscopy.push(auth.isAuthenticated().user)
+            let groupcopy=JSON.parse(JSON.stringify(this.state.group))
+            groupcopy.members=memberscopy
+
+            this.setState({users:memberscopy,members:memberscopy,group:groupcopy,error:``});
+            fetch("/groups/join/"+this.props.match.params.groupId+"/"+ auth.isAuthenticated().user._id, options
+          )  .then(res => {
+
+          }).catch(err => {
+            console.error(err);
+          })
+        }
+      }
 
 
 

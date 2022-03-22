@@ -604,6 +604,7 @@ width:100vw;
 	display: flex;
 	margin: 0.5vw;
 	text-align: left;
+	align-items:center;
 }
 
 
@@ -620,6 +621,7 @@ width:100vw;
 {
 	display: flex;
 	justify-content: space-between;
+	align-items:center;
 	margin: 0.5vw;
 }
 .slide
