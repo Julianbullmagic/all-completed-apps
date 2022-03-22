@@ -188,6 +188,16 @@ render(props) {
       if(item.votes){
         item.votes=item.votes.filter(item=>item.startsWith(splitvote))
 
+        let votesfrommembers=[]
+        let memberids=this.state.group.members.map(item=>item._id)
+
+        for (let vote of item.votes){
+          let splitvote=vote.split(",")
+          if (memberids.includes(splitvote[2])){
+            votesfrommembers.push(vote)
+          }
+        }
+        item.votes=votesfrommembers
       }
       let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
 
@@ -209,6 +219,7 @@ render(props) {
       }
       let width=`${(item.votes.length/this.state.group.members.length)*100}%`
 
+      console.log("width",width,item.votes)
 
       return(
         <>
