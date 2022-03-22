@@ -453,38 +453,19 @@ function handleSubmit(e){
                       }
 
               if(preview){
-                if(preview.image){
-                  var previewmapped=<><h2>{preview.title}</h2><img src={preview.image} style={{maxWidth:"80vw",maxHeight:"50vh"}}></img></>
-                }
+                console.log("preview",preview)
 
                 if(preview.url){
-                  var previewmapped=<><h2>{preview.title}</h2><iframe src={preview.url} style={{maxWidth:"80vw",maxHeight:"50vh"}}></iframe></>
+                  var previewmapped=<img src={preview.url} style={{marginLeft:"10vw",textAlign:"center",maxHeight:"70vh",maxWidth:"70vw",objectFit:"contain"}}></img>
                 }
               }
-
+              console.log("posts",currentPageData)
               var postsmapped=currentPageData.map((item,i)=>{
+                let prev
                 if (item.preview){
-                  if(item.preview.title){
-                    if(item.preview.image){
-                      var prev=
-                      <>
-                      <div style={{width:"80vw"}}>
-                      <h2>{item.preview.title}</h2>
-                      <img src={item.preview.image} style={{maxWidth:"80vw",maxHeight:"50vh"}}></img>
-                      </div>
-                      </>
                       if(item.preview.url){
-                        prev=
-                        <>
-                        <div style={{width:"80vw"}}>
-                        <h2>{item.preview.title}</h2>
-                        <iframe src={item.preview.url}></iframe>
-                        <img src={item.preview.image} style={{maxWidth:"80vw",maxHeight:"50vh"}}></img>
-                        </div>
-                        </>
+                         prev=<img key={item._id} style={{position:"relative",margin:"1vw",display:"block",Zindex:"-1",Position:"fixed",marginLeft:"10vw",textAlign:"center",maxHeight:"70vh",maxWidth:"70vw",objectFit:"contain"}} src={item.preview.url}></img>
                       }
-                    }
-                  }
                 }
                 let approval=<></>
                 approval=Math.round((item.politicalmarketing.length/group.members.length)*100)
@@ -500,22 +481,24 @@ function handleSubmit(e){
                   deletePost(null,item._id)
                 }
                 let width=`${(item.politicalmarketing.length/group.members.length)*100}%`
-
+                console.log("prev",prev)
                 return (
                   <>
                   <div key={item._id} className="postbox">
                   <div>
-                  <div className="postboxform">
-                  <h4 style={{margin:"1vw"}}><strong>Post: </strong>{item.post}</h4>
-                  {prev&&prev}
-                  <div>
+                  <div className="postboxform" style={{overflowX:"hidden"}}>
+                  <div style={{display:"block",margin:"1vw",textAlign:"right"}}>
                   {item.createdby&&<><h5 style={{margin:"1vw",display:"inline",textAlign:"center"}}><strong> Post by {item.createdby.name}</strong></h5>
                   {(((item.createdby._id==auth.isAuthenticated().user._id)||
                     group.groupabove.members.includes(auth.isAuthenticated().user._id))&&!item.areyousure)&&
                     <button className="ruletext deletebutton" onClick={(e)=>areYouSure(e,item)}>Delete Post?</button>}</>}
                     {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>areYouNotSure(e,item)}>Not sure</button>}
                     {item.areyousure&&<button className="ruletext deletebutton" onClick={(e)=>deletePost(e,item._id)}>Are you sure?</button>}
-                    </div></div>
+                    </div>
+                    <h4 style={{display:"block",margin:"1vw"}}><strong>Post: </strong>{item.post}</h4>
+                    {prev&&prev}
+
+                    </div>
                     {(item.level>group.level)&&
                     <div className="postboxform">
                     <div style={{width:"100%"}}><h5 style={{display:"inline"}}><strong>This post has been passed down by a

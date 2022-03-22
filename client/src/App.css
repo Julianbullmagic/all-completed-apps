@@ -530,10 +530,12 @@ width:100vw;
 	border-right-width: 5px;
 	border-style: solid;
 	border-top-width: 5px;
-	display: flex;
-	justify-content: space-between;
 	padding: 1vw;
 }
+
+
+
+
 .restrictionexplanation
 {
 	transition: height 4s;
@@ -690,7 +692,7 @@ width:100vw;
 	margin-left: 4vw;
 	margin-right: 4vw;
 	margin-bottom: 4vw;
-	width: 90vw;
+	width: 91vw;
 }
 .titlediv
 {
