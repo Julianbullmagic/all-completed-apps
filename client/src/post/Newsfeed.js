@@ -469,7 +469,7 @@ function handleSubmit(e){
                       <>
                       <div style={{width:"80vw"}}>
                       <h2>{item.preview.title}</h2>
-                      <img src={item.preview.image}></img>
+                      <img src={item.preview.image} style={{maxWidth:"80vw",maxHeight:"50vh"}}></img>
                       </div>
                       </>
                       if(item.preview.url){
@@ -478,7 +478,7 @@ function handleSubmit(e){
                         <div style={{width:"80vw"}}>
                         <h2>{item.preview.title}</h2>
                         <iframe src={item.preview.url}></iframe>
-                        <img src={item.preview.image}></img>
+                        <img src={item.preview.image} style={{maxWidth:"80vw",maxHeight:"50vh"}}></img>
                         </div>
                         </>
                       }
