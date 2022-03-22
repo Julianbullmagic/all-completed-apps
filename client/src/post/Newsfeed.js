@@ -453,11 +453,11 @@ function handleSubmit(e){
 
               if(preview){
                 if(preview.image){
-                  var previewmapped=<><h2>{preview.title}</h2><img src={preview.image}></img></>
+                  var previewmapped=<><h2>{preview.title}</h2><img src={preview.image} style={{maxWidth:"80vw",maxHeight:"50vh"}}></img></>
                 }
 
                 if(preview.url){
-                  var previewmapped=<><h2>{preview.title}</h2><iframe src={preview.url}></iframe></>
+                  var previewmapped=<><h2>{preview.title}</h2><iframe src={preview.url} style={{maxWidth:"80vw",maxHeight:"50vh"}}></iframe></>
                 }
               }
 
