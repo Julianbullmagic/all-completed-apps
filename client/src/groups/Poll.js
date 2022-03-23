@@ -93,6 +93,16 @@ export default function Poll (props) {
       pollcopy.approval.push(auth.isAuthenticated().user._id)
     }
 
+    let votesfrommembers=[]
+    let memberids=group.members.map(item=>item._id)
+
+    for (let vote of pollcopy.approval){
+      if (memberids.includes(vote)){
+        votesfrommembers.push(vote)
+      }
+    }
+    pollcopy.approval=votesfrommembers
+
     if(group.members.length>0){
       approval=Math.round((pollcopy.approval.length/group.members.length)*100)
     }
@@ -100,12 +110,7 @@ export default function Poll (props) {
     if (approval>75){
       sendPollDown()
     }
-
-
-
     setPoll(pollcopy)
-
-
     const options = {
       method: 'put',
       headers: {
@@ -222,8 +227,17 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
                 return id!==auth.isAuthenticated().user._id
               }
               for (var suggestion of suggestionscopy){
-                if (suggestion._id==id){
+                let votesfrommembers=[]
+                let memberids=group.members.map(item=>item._id)
 
+                for (let vote of suggestion.approval){
+                  if (memberids.includes(vote)){
+                    votesfrommembers.push(vote)
+                  }
+                }
+                suggestion.approval=votesfrommembers
+
+                if (suggestion._id==id){
                   if(!suggestion.approval.includes(auth.isAuthenticated().user._id)){
                     suggestion.approval.push(auth.isAuthenticated().user._id)
                   }
@@ -326,7 +340,15 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
           suggestionsmapped=suggestions.map(item=>{
             let approval=<></>
 
+            let votesfrommembers=[]
+            let memberids=group.members.map(item=>item._id)
 
+            for (let vote of item.approval){
+              if (memberids.includes(vote)){
+                votesfrommembers.push(vote)
+              }
+            }
+            item.approval=votesfrommembers
             approval=Math.round((item.approval.length/group.members.length)*100)
 
 
@@ -360,20 +382,29 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
                 </>)})
               }
               let approval=<></>
+              let votesfrommembers=[]
+              let memberids=group.members.map(item=>item._id)
+              var pollcopy=JSON.parse(JSON.stringify(poll))
 
+              for (let vote of pollcopy.approval){
+                if (memberids.includes(vote)){
+                  votesfrommembers.push(vote)
+                }
+              }
+              pollcopy.approval=votesfrommembers
               if(group.members){
-                approval=Math.round((poll.approval.length/group.members.length)*100)
+                approval=Math.round((pollcopy.approval.length/group.members.length)*100)
               }
 
               let approveenames=[]
               for (let user of group.members){
-                for (let approvee of poll.approval){
+                for (let approvee of pollcopy.approval){
                   if (approvee==user._id){
                     approveenames.push(user.name)
                   }
                 }
               }
-              let width=`${(poll.approval.length/group.members.length)*100}%`
+              let width=`${(pollcopy.approval.length/group.members.length)*100}%`
 
               return (
                 <>

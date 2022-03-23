@@ -198,7 +198,19 @@ export default class Rules extends Component {
     function checkRule() {
       return id!==auth.isAuthenticated().user._id
     }
+
+
     for (var rule of rulescopy){
+      let votesfrommembers=[]
+      let memberids=this.state.group.members.map(item=>item._id)
+
+      for (let vote of rule.approval){
+        if (memberids.includes(vote)){
+          votesfrommembers.push(vote)
+        }
+      }
+      rule.approval=votesfrommembers
+
       if (rule._id==id){
 
         if(!rule.approval.includes(auth.isAuthenticated().user._id)){
@@ -295,8 +307,6 @@ withdrawapprovalofrule(e,id){
   }
   for (var rule of rulescopy){
     if (rule._id==id){
-
-
       var filteredapproval=rule.approval.filter(checkRule)
       rule.approval=filteredapproval
     }
@@ -525,6 +535,16 @@ render(props) {
     if(this.state.rules.length>0){
     rulescomponent=this.state.currentPageData.map(item => {
       let approval=<></>
+
+      let votesfrommembers=[]
+      let memberids=this.state.group.members.map(item=>item._id)
+
+      for (let vote of item.approval){
+        if (memberids.includes(vote)){
+          votesfrommembers.push(vote)
+        }
+      }
+    item.approval=votesfrommembers
 
       if(this.state.users){
         approval=Math.round((item.approval.length/this.state.users.length)*100)

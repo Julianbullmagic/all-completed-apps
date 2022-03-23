@@ -71,8 +71,19 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
 
     var userscopy=JSON.parse(JSON.stringify(this.state.users))
     let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
+    let numreps=Math.round(userscopy.length/25)
 
     for (let user of userscopy){
+      let votesfrommembers=[]
+      let memberids=this.state.group.members.map(item=>item._id)
+
+      for (let vote of user.votes){
+        let splitvote=vote.split(",")
+        if (memberids.includes(splitvote[2])){
+          votesfrommembers.push(vote)
+        }
+      }
+      user.votes=votesfrommembers
       let splitvote=`${this.state.group.title},${this.state.group.level}`
       if(!user.votes){
         user.votes=[]
@@ -81,11 +92,6 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
         user.votes=user.votes.filter(item=>item.startsWith(splitvote))
       }
     }
-    let numreps=Math.round(userscopy.length/25)
-
-
-
-
 
     for (let user of userscopy){
       if (user._id==id){
@@ -98,7 +104,7 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
         }
       }
     }
-
+    let unsorted=JSON.parse(JSON.stringify(userscopy))
     userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
 
     let leaders=userscopy.slice(0,numreps)
@@ -114,7 +120,7 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
     }
 
 
-    this.setState({users:userscopy})
+    this.setState({users:unsorted})
 
 
     fetch("/leaders/voteforleader/" + id +"/"+ vote, options
@@ -138,17 +144,26 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
 
 withdrawapprovalofuser(e,id){
   var userscopy=JSON.parse(JSON.stringify(this.state.users))
+  let numreps=Math.round(userscopy.length/25)
 
   let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
 
-
   for (var user of userscopy){
+    let votesfrommembers=[]
+    let memberids=this.state.group.members.map(item=>item._id)
+
+    for (let vote of user.votes){
+      let splitvote=vote.split(",")
+      if (memberids.includes(splitvote[2])){
+        votesfrommembers.push(vote)
+      }
+    }
+    user.votes=votesfrommembers
     if (user._id==id){
       var filteredapproval=user.votes.filter(voted=>!(voted==vote))
       user.votes=filteredapproval
     }
   }
-  userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
 
   this.setState({users:userscopy})
 
@@ -162,11 +177,10 @@ withdrawapprovalofuser(e,id){
 
   fetch("/leaders/withdrawvoteforleader/" + id +"/"+ vote, options
 ) .then(res => {
-
+console.log(res)
 }).catch(err => {
   console.error(err);
 })
-
 }
 
 
@@ -200,11 +214,7 @@ render(props) {
         item.votes=votesfrommembers
       }
       let vote=`${this.state.group.title},${this.state.group.level},${auth.isAuthenticated().user._id}`
-
       let votees=[]
-
-
-
       if(item.votes.length>0){
         for (let vote of item.votes){
           let splitvote=vote.split(',')

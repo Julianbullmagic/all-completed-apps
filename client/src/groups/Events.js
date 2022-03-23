@@ -231,6 +231,18 @@ approveofevent(e,id){
         ev.approval.push(auth.isAuthenticated().user._id)
       }
     }
+
+    let votesfrommembers=[]
+    let memberids=this.state.group.members.map(item=>item._id)
+
+    for (let vote of ev.approval){
+      if (memberids.includes(vote)){
+        votesfrommembers.push(vote)
+      }
+    }
+    ev.approval=votesfrommembers
+
+
     let approval=Math.round((ev.approval.length/this.state.users.length)*100)
 
     if ((approval>75)&&(this.state.group.level>0)&&(ev.sentdown==false)){
@@ -282,12 +294,12 @@ withdrawapprovalofevent(e,id){
     return userid!=auth.isAuthenticated().user._id
   }
   for (var ev of eventscopy){
-    let approval=Math.round((ev.approval.length/this.state.users.length)*100)
 
     if (ev._id==id){
       var filteredapproval=ev.approval.filter(checkEvent)
       ev.approval=filteredapproval
     }
+    let approval=Math.round((ev.approval.length/this.state.users.length)*100)
 
 
     if (approval<75&&(n-ev.timecreated)>MILLISECONDS_IN_A_WEEK){
@@ -509,6 +521,15 @@ render() {
     eventscomponent=this.state.currentPageData.map(item => {
 
       let approval=<></>
+      let votesfrommembers=[]
+      let memberids=this.state.group.members.map(item=>item._id)
+
+      for (let vote of item.approval){
+        if (memberids.includes(vote)){
+          votesfrommembers.push(vote)
+        }
+      }
+      item.approval=votesfrommembers
       approval=Math.round((item.approval.length/this.state.users.length)*100)
 
       let attendeenames=[]
