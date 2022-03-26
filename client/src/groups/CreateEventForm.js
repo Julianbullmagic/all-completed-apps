@@ -18,21 +18,12 @@ export default function CreateEventForm(props) {
   const selectedFile1 = React.useRef(null)
   const [toggle, setToggle] = useState(false);
   const [numberOfImages, setNumberOfImages]=useState(1)
-  let server = "http://localhost:5000";
-  let socket
 
   useEffect(()=>{
 
     setLevel(props.level,"level")
   },[props])
 
-  if(process.env.NODE_ENV=="production"){
-    socket=io();
-  }
-  if(process.env.NODE_ENV=="development"){
-    socket=io(server);
-
-  }
 
   function addImages(){
     var numberplusone=numberOfImages+1
@@ -168,22 +159,20 @@ console.log("submitting")
               id='locationValue'
               ref={locationValue}
               />
-              {coordError&&<p style={{color:"red"}}>Not a valid location</p>}
+              {coordError&&<p style={{display:"block",color:"red"}}>Not a valid location</p>}
               <label htmlFor='name'>Start Time</label>
               <input
-              className="posttextarea"
               type='datetime-local'
               name='startTimValue'
-              style={{width:"80vw"}}
+              style={{width:"80vw",overflow:"hidden"}}
               id='startTimeValue'
               ref={startTimeValue}
               />
               <label htmlFor='name'>End Time</label>
               <input
-              className="posttextarea"
               type='datetime-local'
               name='endTimeValue'
-              style={{width:"80vw"}}
+              style={{width:"80vw",overflow:"hidden"}}
               id='endTimeValue'
               ref={endTimeValue}
               />

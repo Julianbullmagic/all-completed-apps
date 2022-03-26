@@ -22,19 +22,20 @@ export default function Jury(props) {
   const [restrictionPolls, setRestrictionPolls] = useState([]);
   const [comment, setComment] = useState("");
   const [page, setPage] = useState(1);
+  const [socket,setSocket] = useState(props.socket);
   const [pageNum, setPageNum] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const pollquestion = React.useRef('')
-  let server = "http://localhost:5000";
-  let socket
-  if(process.env.NODE_ENV=="production"){
-    socket=io();
-  }
-  if(process.env.NODE_ENV=="development"){
-    socket=io(server);
-  }
-console.log("node env",process.env.NODE_ENV)
+  // let server = "http://localhost:5000";
+  // let socket
+  // if(process.env.NODE_ENV=="production"){
+  //   socket=io();
+  // }
+  // if(process.env.NODE_ENV=="development"){
+  //   socket=io(server);
+  // }
   useEffect(()=>{
+    setSocket(props.socket)
     setGroup(props.group)
     let allgroups=[]
     if(props.group.groupsbelow){
@@ -964,7 +965,9 @@ function delRestPoll(e,item){
                 any restrictions they will be visible here and you can delete ones you have created</p>
                 </div>}
               </>}
-              <p style={{margin:"0.5vw"}}>Restriction polls are activated at 75% approval.</p>
+              <p style={{margin:"0.5vw"}}>Restriction polls are activated at 75% approval. They can be deleted before their
+              duration has ended if the creator or a leader deletes them. Restrictions are also deleted if they are more
+              than a week old and they have less than 75% approval</p>
               </form>
               </div></>}
 

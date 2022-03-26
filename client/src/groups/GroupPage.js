@@ -277,25 +277,25 @@ if(auth.isAuthenticated()){
           </TabList>
 
           {!this.state.cannotpost&&<TabPanel>
-            <Newsfeed users={this.state.users} groupId={this.props.match.params.groupId} groupTitle={this.state.group.title} group={this.state.group}/>
+            <Newsfeed socket={this.socket} users={this.state.users} groupId={this.props.match.params.groupId} groupTitle={this.state.group.title} group={this.state.group}/>
             </TabPanel>}
             <TabPanel>
             <GroupDetails users={this.state.users} group={this.state.group}/>
             </TabPanel>
             {(auth.isAuthenticated().user.cool&&!this.state.cannotvoteforleaders)&&<TabPanel>
-              <Leaders users={this.state.users} group={this.state.group}/>
+              <Leaders socket={this.socket} users={this.state.users} group={this.state.group}/>
               </TabPanel>}
               {!this.state.cannotcreatepolls&&<TabPanel>
-                <Polls users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
+                <Polls socket={this.socket} users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
                 </TabPanel>}
                 {!this.state.cannotsuggestrulesorvoteforrules&&<TabPanel>
-                  <Rules users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
+                  <Rules socket={this.socket} users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
                   </TabPanel>}
                   {!this.state.cannotseeevents&&<TabPanel>
-                    <Events users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
+                    <Events socket={this.socket} users={this.state.users} groupId={this.props.match.params.groupId} group={this.state.group}/>
                     </TabPanel>}
                     {!this.state.cannotvoteinjury&&<TabPanel>
-                      <Jury users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} group={this.state.group}/>
+                      <Jury socket={this.socket} users={this.state.users} groupId={this.props.match.params.groupId} updateUser={this.updateUser} group={this.state.group}/>
                       </TabPanel>}
                       </Tabs>
 

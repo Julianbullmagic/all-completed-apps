@@ -1153,3 +1153,10 @@ textarea:focus
 		height:64%;
 	}
 }
+
+#startTimeValue{
+	overflow-x:hidden;
+}
+#endTimeValue{
+	overflow-x:hidden;
+}

@@ -11,6 +11,7 @@ export default function Polls (props) {
   const [viewForm, setViewForm] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [polls, setPolls] = useState([]);
+  const [socket,setSocket] = useState([]);
   const [group, setGroup] = useState(props.group);
   const [poll, setPoll] = useState("");
   const [comment, setComment] = useState("");
@@ -19,14 +20,14 @@ export default function Polls (props) {
   const [currentPageData, setCurrentPageData] = useState([]);
   const pollquestion = React.useRef('')
 
-  let server = "http://localhost:5000";
-  let socket
-  if(process.env.NODE_ENV=="production"){
-    socket=io();
-  }
-  if(process.env.NODE_ENV=="development"){
-    socket=io(server);
-  }
+  // let server = "http://localhost:5000";
+  // let socket
+  // if(process.env.NODE_ENV=="production"){
+  //   socket=io();
+  // }
+  // if(process.env.NODE_ENV=="development"){
+  //   socket=io(server);
+  // }
 
   useEffect(()=>{
     if(props.group.groupabove){
@@ -37,6 +38,7 @@ export default function Polls (props) {
   },[])
 
   useEffect(() => {
+    setSocket(props.socket)
     if(props.group.groupabove){
       if (props.group.groupabove.members.includes(auth.isAuthenticated().user._id)){
         setAdmin(true)
@@ -289,7 +291,7 @@ export default function Polls (props) {
                           let pollscopy=JSON.parse(JSON.stringify(polls))
                           console.log(pollscopy)
                           for (let poll of pollscopy){
-                            if (poll._id==poll._id){
+                            if (poll._id===poll._id){
                               poll.areyousure=true
                             }}
                             console.log(pollscopy)
@@ -303,7 +305,7 @@ export default function Polls (props) {
                               let pollscopy=JSON.parse(JSON.stringify(polls))
                               console.log(pollscopy)
                               for (let poll of pollscopy){
-                                if (poll._id==item._id){
+                                if (poll._id===item._id){
                                   poll.areyousure=false
                                 }}
                                 console.log(pollscopy)
@@ -317,10 +319,8 @@ export default function Polls (props) {
 
                 return (
                   <>
-                  <div className="postbox">
-                  <div>
+                  <div key={item._id} className="postbox">
                   <Poll poll={item} key={item._id} users={props.users} deletePoll={deletePoll} sendPollNotification={sendPollEmailNotification} group={group}/>
-                  </div>
                   <Comment id={item._id}/>
                   </div>
                   </>

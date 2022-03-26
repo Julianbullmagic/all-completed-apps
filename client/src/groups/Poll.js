@@ -12,9 +12,6 @@ export default function Poll (props) {
   const pollsuggestion = React.useRef('')
 
   useEffect(() => {
-
-    setGroup(props.group)
-    setPoll(props.poll)
     fetch("/polls/getsuggestions/"+props.poll._id)
     .then(res => {
       return res.json();
@@ -24,7 +21,7 @@ export default function Poll (props) {
       .catch(err => {
         console.error(err);
       })
-    },[props])
+    },[])
 
 
 

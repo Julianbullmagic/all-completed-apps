@@ -4,16 +4,9 @@ import CreateRuleForm from './CreateRuleForm'
 import auth from './../auth/auth-helper'
 import io from "socket.io-client";
 const mongoose = require("mongoose");
-let server = "http://localhost:5000";
-let socket
+
 const MILLISECONDS_IN_A_DAY=86400000
 const MILLISECONDS_IN_A_WEEK=604800000
-if(process.env.NODE_ENV=="production"){
-  socket=io();
-}
-if(process.env.NODE_ENV=="development"){
-  socket=io(server);
-}
 
 export default class Rules extends Component {
 
@@ -29,6 +22,7 @@ export default class Rules extends Component {
       redirect: false,
       viewexplanation:false,
       updating:false,
+      socket:props.socket,
       participate:props.participate
     }
     this.updateRules= this.updateRules.bind(this)
@@ -41,19 +35,21 @@ export default class Rules extends Component {
   }
 
   componentDidMount(props){
-    let server = "http://localhost:5000";
-    if(process.env.NODE_ENV=="production"){
-      socket=io();
-    }
-    if(process.env.NODE_ENV=="development"){
-      socket=io(server);
-
-    }
+    // let server = "http://localhost:5000";
+    // if(process.env.NODE_ENV=="production"){
+    //   socket=io();
+    // }
+    // if(process.env.NODE_ENV=="development"){
+    //   socket=io(server);
+    // }
     this.getRules()
   }
 
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.socket !== this.props.socket) {
+      this.setState({socket:nextProps.socket})
+    }
     if (nextProps.users !== this.props.users) {
       this.setState({users:nextProps.users})
     }
@@ -151,7 +147,7 @@ export default class Rules extends Component {
     let groupId=this.state.group._id
     let groupTitle=this.state.group.title
 
-    socket.emit("Input Chat Message", {
+    this.state.socket.emit("Input Chat Message", {
       chatMessage,
       userId,
       userName,
@@ -372,7 +368,7 @@ sendRuleNotification(item){
       let groupId=this.state.group._id
       let groupTitle=this.state.group.title
 
-      socket.emit("Input Chat Message", {
+      this.state.socket.emit("Input Chat Message", {
         chatMessage,
         userId,
         userName,
@@ -441,7 +437,7 @@ ruleApprovedNotification(item){
       let groupTitle=this.state.group.title
 
 
-      socket.emit("Input Chat Message", {
+      this.state.socket.emit("Input Chat Message", {
         chatMessage,
         userId,
         userName,

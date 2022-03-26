@@ -20,6 +20,7 @@ export default class Events extends Component {
       title:"",
       users:props.users,
       group:props.group,
+      socket:props.socket,
       level:0,
       events:[],
       page:1,
@@ -28,7 +29,6 @@ export default class Events extends Component {
       redirect: false,
       updating:false
     }
-    let socket
     this.updateEvents= this.updateEvents.bind(this)
     this.eventApprovedNotification=this.eventApprovedNotification.bind(this)
     this.areYouSure=this.areYouSure.bind(this)
@@ -41,22 +41,25 @@ export default class Events extends Component {
 
 
   componentDidMount(){
-    let server = "http://localhost:5000";
-    if(process.env.NODE_ENV=="production"){
-      this.socket=io();
-    }
-    if(process.env.NODE_ENV=="development"){
-      this.socket=io(server);
-    }
+    // let server = "http://localhost:5000";
+    // if(process.env.NODE_ENV=="production"){
+    //   this.socket=io();
+    // }
+    // if(process.env.NODE_ENV=="development"){
+    //   this.socket=io(server);
+    // }
     this.getEvents()
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.socket !== this.props.socket) {
+      this.setState({socket:nextProps.socket})
+    }
     if (nextProps.users !== this.props.users) {
       this.setState({users:nextProps.users})
     }
     if (nextProps.group !== this.props.group) {
-      this.setState({group:nextProps.group,level:nextProps.group.level,groupsbelow:nextProps.group.groupsbelow})
+      this.setState({group:nextProps.group})
     }
   }
 
@@ -155,7 +158,7 @@ export default class Events extends Component {
   let groupId=this.state.group._id
   let groupTitle=this.state.group.title
 
-  this.socket.emit("Input Chat Message", {
+  this.state.socket.emit("Input Chat Message", {
     chatMessage,
     userId,
     userName,
@@ -319,7 +322,6 @@ withdrawapprovalofevent(e,id){
     body: ''
   }
 
-
   fetch("/events/withdrawapprovalofevent/" + id +"/"+ auth.isAuthenticated().user._id, options
 ).then(res => {
   console.log(res)
@@ -355,7 +357,7 @@ console.log(eventscopy)
       let groupId=this.state.group._id
       let groupTitle=this.state.group.title
 
-      this.socket.emit("Input Chat Message", {
+      this.state.socket.emit("Input Chat Message", {
         chatMessage,
         userId,
         userName,
@@ -459,7 +461,7 @@ sendEventNotification(item){
       let groupId=this.state.group._id
       let groupTitle=this.state.group.title
 
-      this.socket.emit("Input Chat Message", {
+      this.state.socket.emit("Input Chat Message", {
         chatMessage,
         userId,
         userName,

@@ -37,7 +37,6 @@ export default function SingleUser({ match }) {
   const [restrictions,setRestrictions]=useState([])
   const [rulesApproved,setRulesApproved]=useState(false)
   const [restrictionsApproved,setRestrictionsApproved]=useState(false)
-
   const [values, setValues] = useState({
     name: '',
     password: '',
@@ -48,13 +47,12 @@ export default function SingleUser({ match }) {
     error:'',
     open: false,
   })
-  const selectedFile1 = React.useRef(null)
-  const selectedFile2 = React.useRef(null)
-  const selectedFile3 = React.useRef(null)
-  const selectedFile4 = React.useRef(null)
-  const selectedFile5 = React.useRef(null)
-  let server = "http://localhost:5000";
-  let socket = io(server);
+  const selectedFile1 = useRef(null)
+  const selectedFile2 = useRef(null)
+  const selectedFile3 = useRef(null)
+  const selectedFile4 = useRef(null)
+  const selectedFile5 = useRef(null)
+
 
   useEffect(() => {
     getUser()
@@ -108,10 +106,6 @@ export default function SingleUser({ match }) {
   }
 
   function deleteRestriction(e,item) {
-
-    for (let rest of restrictions){
-
-    }
     let newrestrictions=restrictions.filter(restriction=>!(restriction._id==item._id))
     setRestrictions(newrestrictions)
 
@@ -121,14 +115,12 @@ export default function SingleUser({ match }) {
       headers: {
         "Content-type": "application/json; charset=UTF-8"}}
 
-
         fetch("/groups/deleterestriction", options)
         .then(response => response.json())
         .then(json =>console.log(json))
           .catch(err => {
             console.error(err);
           })
-
         }
         async function updateUser(){
           setLoading(true)
