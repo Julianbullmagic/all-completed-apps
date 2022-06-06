@@ -104,6 +104,7 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
         }
       }
     }
+    userscopy = [...new Set(userscopy)];
     let unsorted=JSON.parse(JSON.stringify(userscopy))
     userscopy.sort((a, b) => (a.votes.length < b.votes.length) ? 1 : -1)
 
@@ -125,7 +126,7 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
 
     fetch("/leaders/voteforleader/" + id +"/"+ vote, options
   ).then(res => {
-
+    console.log(res)
   }).catch(err => {
     console.error(err);
   })
@@ -161,6 +162,7 @@ withdrawapprovalofuser(e,id){
     user.votes=votesfrommembers
     if (user._id==id){
       var filteredapproval=user.votes.filter(voted=>!(voted==vote))
+      filteredapproval = [...new Set(filteredapproval)];
       user.votes=filteredapproval
     }
   }
@@ -201,6 +203,7 @@ render(props) {
 
       if(item.votes){
         item.votes=item.votes.filter(item=>item.startsWith(splitvote))
+        item.votes = [...new Set(item.votes)];
 
         let votesfrommembers=[]
         let memberids=this.state.group.members.map(item=>item._id)
@@ -221,8 +224,8 @@ render(props) {
 
           for (let user of this.state.users){
             if (user._id==splitvote[2]){
-
               votees.push(user.name)
+              votees = [...new Set(votees)];
             }
           }
         }
