@@ -36,7 +36,7 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
 "https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/x-oRmcYR5cM",
 "https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
 "https://www.youtube.com/embed/lu8lQKVcbOs","https://www.youtube.com/embed/_swnWW2NGBI",
-"https://www.youtube.com/embed/7IIEB5JiyNs","https://www.youtube.com/watch?v=sGZgWQaVwN8",
+"https://www.youtube.com/embed/7IIEB5JiyNs",
 "https://www.youtube.com/embed/wCzS2FZoB-I","https://www.youtube.com/embed/uNkADHZStDE",
 "https://www.youtube.com/embed/6s17IAj-XpU"]
 
