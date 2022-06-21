@@ -17,7 +17,7 @@ const isActive = (history, path) => {
 const Menu = withRouter(({history}) => (
   <div className="menu" style={{backgroundColor:"#759CC9"}}>
     <h2 className="menutitle">
-        Democratic Social Network
+        Democracy Social Network
       </h2>
       <div className="navbuttons">
       <Link to="/">

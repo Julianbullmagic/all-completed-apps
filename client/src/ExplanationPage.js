@@ -7,7 +7,7 @@ export default function ExplanationPage() {
     <h4>This app is a work in progress, if you have any suggestions or constructive criticism,
     please email democraticsocialnetwork@gmail.com</h4>
 
-    <h1>Why do we need something like the Democratic Social Network?</h1>
+    <h1>Why do we need something like the Democracy Social Network?</h1>
 
     <p>For the last few decades, the situation for working class people in this country has grown steadily worse and worse. Houses are
     at least five times more expensive than they were in the 1980s even taking into account inflation. Wage growth has decreased substantially.
