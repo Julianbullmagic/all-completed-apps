@@ -2,7 +2,7 @@ import React, {useRef,useState} from 'react'
 
 export default function Info() {
   return (
-    <div style={{margin:"5vw"}}>
+    <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
       <a href="/Cuba">
       <div className="articlelink">
       <h3>Cuba</h3>
