@@ -9,11 +9,11 @@ import SingleUser from './groups/SingleUser'
 import Menu from './core/Menu'
 import ExplanationPage from "./ExplanationPage"
 import Info from "./Info"
-import SovietUnion from "./sovietunion"
-import China from "./china"
+// import SovietUnion from "./sovietunion"
+// import China from "./china"
 import Cuba from "./cuba"
-import Yugoslavia from "./yugoslavia"
-import Lybia from "./lybia"
+// import Yugoslavia from "./yugoslavia"
+// import Lybia from "./lybia"
 import ForgotPassword from './auth/ForgotPassword'
 
 const MainRouter = () => {
