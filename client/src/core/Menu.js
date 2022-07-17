@@ -23,7 +23,7 @@ const Menu = withRouter(({history}) => (
       <Link to="/">
         <button style={isActive(history, "/")}>Home</button>
       </Link>
-      <Link to="/">
+      <Link to="/info">
         <button style={isActive(history, "/info")}>Info</button>
       </Link>
       {(auth.isAuthenticated()&&
