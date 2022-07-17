@@ -24,7 +24,7 @@ const Menu = withRouter(({history}) => (
         <button style={isActive(history, "/")}>Home</button>
       </Link>
       <Link to="/">
-        <button style={isActive(history, "/blog")}>Blog</button>
+        <button style={isActive(history, "/info")}>Info</button>
       </Link>
       {(auth.isAuthenticated()&&
       auth.isAuthenticated().user.cool)&&<><Link to="/explanation">
