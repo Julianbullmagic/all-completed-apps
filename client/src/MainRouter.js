@@ -28,13 +28,17 @@ const MainRouter = () => {
         <Route exact path="/explanation"    component={ExplanationPage}/>
         <Route exact path="/singleuser/:userId"    component={SingleUser}/>
         <Route exact path="/info"    component={Info}/>
-        <Route exact path="/Soviet-Union"    component={SovietUnion}/>
-        <Route exact path="/Yugoslavia"    component={Yugoslavia}/>
+        // <Route exact path="/Soviet-Union"    component={SovietUnion}/>
+        // <Route exact path="/soviet-union"    component={SovietUnion}/>
+        // <Route exact path="/Yugoslavia"    component={Yugoslavia}/>
+        // <Route exact path="/yugoslavia"    component={Yugoslavia}/>
         <Route exact path="/Cuba"    component={Cuba}/>
-        <Route exact path="/Lybia"    component={Lybia}/>
-        <Route exact path="/China"    component={China}/>
+        <Route exact path="/cuba"    component={Cuba}/>
+        // <Route exact path="/Lybia"    component={Lybia}/>
+        // <Route exact path="/lybia"    component={Lybia}/>
+        // <Route exact path="/China"    component={China}/>
+        // <Route exact path="/china"    component={China}/>
       </Switch>
-
     </div>)
 }
 
