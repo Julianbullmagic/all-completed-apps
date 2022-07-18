@@ -9,7 +9,7 @@ import SingleUser from './groups/SingleUser'
 import Menu from './core/Menu'
 import ExplanationPage from "./ExplanationPage"
 import Info from "./Info"
-// import SovietUnion from "./sovietunion"
+import SovietUnion from "./sovietunion"
 // import China from "./china"
 import Cuba from "./cuba"
 // import Yugoslavia from "./yugoslavia"
@@ -30,6 +30,8 @@ const MainRouter = () => {
         <Route exact path="/info"    component={Info}/>
         <Route exact path="/Cuba"    component={Cuba}/>
         <Route exact path="/cuba"    component={Cuba}/>
+        <Route exact path="/Soviet-Union"    component={SovietUnion}/>
+        <Route exact path="/soviet-union"    component={SovietUnion}/>
       </Switch>
     </div>)
 }
