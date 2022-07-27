@@ -33,69 +33,71 @@ I feel that if Yugoslavia had been allowed to continue, they probably would have
     <br/>
     <h2>References</h2>
     <p>
-    1)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100036-6.pdf">National Intelligence Survey 21; Yugoslavia; The Economy page 9 para 1</a>
+    <div className="references">
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100036-6.pdf">1)National Intelligence Survey 21; Yugoslavia; The Economy page 9 para 1</a>
 
-  2)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP79T01003A002200250001-9.pdf">Economic Growth In Eastern Europe in 1964 page 11 para 2</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP79T01003A002200250001-9.pdf">2)Economic Growth In Eastern Europe in 1964 page 11 para 2</a>
 
-  3)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R00904A000500020034-0.pdf">Yugoslavia and the Non-u Countries page 4 para 2</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R00904A000500020034-0.pdf">3)Yugoslavia and the Non-u Countries page 4 para 2</a>
 
-  4)<a href="http://eprints.lse.ac.uk/85079/1/WP268.pdf">Leonard Kukić, Socialist growth revisited: insights from Yugoslavia, European Review of Economic History, Volume 22, Issue 4, November 2018, Pages 403–429, https://doi.org/10.1093/ereh/hey001 Page 27, figure 1</a>
-  5)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600380337-6.pdf">Pay Schedules and Income Taxes in Yugoslavia 1951 page 2 para 2, page 2 para 7</a>
+  <a href="http://eprints.lse.ac.uk/85079/1/WP268.pdf">4)Leonard Kukić, Socialist growth revisited: insights from Yugoslavia, European Review of Economic History, Volume 22, Issue 4, November 2018, Pages 403–429, https://doi.org/10.1093/ereh/hey001 Page 27, figure 1</a>
 
-  6)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">National Intelligence Survey 21; Yugoslavia; The Society Page 30 para 2-3, page 31 para 2, page 35 para 1</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600380337-6.pdf">5)Pay Schedules and Income Taxes in Yugoslavia 1951 page 2 para 2, page 2 para 7</a>
 
-  7)<a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">Yugoslavia: Twenty Years of Self-Management Page 5 para 1</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">6)National Intelligence Survey 21; Yugoslavia; The Society Page 30 para 2-3, page 31 para 2, page 35 para 1</a>
 
-  8)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP85T00875R001500030020-7.pdf">Weekly Summary Special Report Yugoslavic The New Revolution page 9 para 2-4</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">7)Yugoslavia: Twenty Years of Self-Management Page 5 para 1</a>
 
-  9)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP85T00875R001500030020-7.pdf">Weekly Summary Special Report Yugoslavic The New Revolution Page 13 para 6</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP85T00875R001500030020-7.pdf">8)Weekly Summary Special Report Yugoslavic The New Revolution page 9 para 2-4</a>
 
-  10)<a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">Yugoslavia: Twenty Years of Self-Management Page 8 para 3</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP85T00875R001500030020-7.pdf">9)Weekly Summary Special Report Yugoslavic The New Revolution Page 13 para 6</a>
 
-  11)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP85T00875R001500030020-7.pdf">Weekly Summary Special Report Yugoslavic The New Revolution Page 10 para 3</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">10)Yugoslavia: Twenty Years of Self-Management Page 8 para 3</a>
 
-  12)<a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">Yugoslavia: Twenty Years of Self-Management Page 9 para 3-4</a>
-  
-  13)<a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">Yugoslavia: Twenty Years of Self-Management Page 9 para 1</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP85T00875R001500030020-7.pdf">11)Weekly Summary Special Report Yugoslavic The New Revolution Page 10 para 3</a>
 
-  14)<a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">Yugoslavia: Twenty Years of Self-Management Page 13 para 4</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">12)Yugoslavia: Twenty Years of Self-Management Page 9 para 3-4</a>
 
-  15)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000700090447-5.pdf">Development and Organization of the Judiciary in Yugoslavia page 2 para 11 Page 3 para 5</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">13)Yugoslavia: Twenty Years of Self-Management Page 9 para 1</a>
 
-  16)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100036-6.pdf">National Intelligence Survey 21; Yugoslavia; The Economy page 28 para 2</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp79-00927a007400070002-4">14)Yugoslavia: Twenty Years of Self-Management Page 13 para 4</a>
 
-  17)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">National Intelligence Survey 21; Yugoslavia; The Society page 38 para 7</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000700090447-5.pdf">15)Development and Organization of the Judiciary in Yugoslavia page 2 para 11 Page 3 para 5</a>
 
-  18)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600380566-2.pdf">New Yugoslav Law on Social Security for Blue and White Collar Workers page 5-6</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100036-6.pdf">16)National Intelligence Survey 21; Yugoslavia; The Economy page 28 para 2</a>
 
-  19) <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">National Intelligence Survey 21; Yugoslavia; The Society page 35 para 6</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">17)National Intelligence Survey 21; Yugoslavia; The Society page 38 para 7</a>
 
-  20)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00926A004600010022-8.pdf">Family Legislation page 45 para 7</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600380566-2.pdf">18)New Yugoslav Law on Social Security for Blue and White Collar Workers page 5-6</a>
 
-  21)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">National Intelligence Survey 21; Yugoslavia; The Society page 14 para 10</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">20)National Intelligence Survey 21; Yugoslavia; The Society page 35 para 6</a>
 
-  22)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">  National Intelligence Survey 21; Yugoslavia; The Society page 49 para 2, page 50 para 6</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00926A004600010022-8.pdf">21)Family Legislation page 45 para 7</a>
 
-  23)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000700100125-0.pdf">Schools In Yugoslavia page 1 para 1></a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">22)National Intelligence Survey 21; Yugoslavia; The Society page 14 para 10</a>
 
-  24)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600240629-7.pdf">Sociological- Education page 1 para 3</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">23)National Intelligence Survey 21; Yugoslavia; The Society page 49 para 2, page 50 para 6</a>
 
-  25)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">National Intelligence Survey 21; Yugoslavia; The Society page 40 para 7</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000700100125-0.pdf">24)Schools In Yugoslavia page 1 para 1</a>
 
-  26)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00926A006900050014-8.pdf">Status of Medicine, Medical Training, Research and Public Health page 2</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600240629-7.pdf">25)Sociological- Education page 1 para 3</a>
 
-  27)<a href="https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200100033-9">National Intelligence Survey 21 Yugoslavia; government and politics page 12 para 7, page 33, page 37 para 3 1967</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200100032-0.pdf">26)National Intelligence Survey 21; Yugoslavia; The Society page 40 para 7</a>
 
-  28)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R01141A000900090002-0.pdf">Reorganization of Economic Management in the European Satellites 1956 page 11 para 3</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00926A006900050014-8.pdf">27)Status of Medicine, Medical Training, Research and Public Health page 2</a>
 
-  29)<a href="https://www.cia.gov/readingroom/document/cia-rdp80-00809a000700120344-5">Development Of Cooperatives in Yugoslavia page 3 para 6, page 3 para 5, page 4 para 6</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200100033-9">28)National Intelligence Survey 21 Yugoslavia; government and politics page 12 para 7, page 33, page 37 para 3 1967</a>
 
-  30)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600240726-9.pdf">ECONOMIC-FARM COOPERATIVES page 2 para 6, page 2-3</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R01141A000900090002-0.pdf">29)Reorganization of Economic Management in the European Satellites 1956 page 11 para 3</a>
 
-  31)<a href="https://www.cia.gov/readingroom/document/cia-rdp80-00809a000700120344-5">Development Of Cooperatives in Yugoslavia page 2 para 6, page 5 para 1</a>
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp80-00809a000700120344-5">30)Development Of Cooperatives in Yugoslavia page 3 para 6, page 3 para 5, page 4 para 6</a>
 
-  32)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R01141A001200060002-9.pdf">Forced Labour in the USSR 1953-57 page 2 para 2, page 8 para 4</a>
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000600240726-9.pdf">31)ECONOMIC-FARM COOPERATIVES page 2 para 6, page 2-3</a>
 
+  <a href="https://www.cia.gov/readingroom/document/cia-rdp80-00809a000700120344-5">32)Development Of Cooperatives in Yugoslavia page 2 para 6, page 5 para 1</a>
+
+  <a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R01141A001200060002-9.pdf">33)Forced Labour in the USSR 1953-57 page 2 para 2, page 8 para 4</a>
+  </div>
     </p>
     </div>
   )}
