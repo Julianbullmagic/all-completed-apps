@@ -3,7 +3,7 @@ import React, {useRef,useState} from 'react'
 export default function Info() {
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
-    <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Yugoslavia">
+    <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Psychological-War">
     <div className="articlelink">
     <h2>The Psychological War On Communism</h2>
     <p>

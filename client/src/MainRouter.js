@@ -13,6 +13,8 @@ import SovietUnion from "./sovietunion"
 // import China from "./china"
 import Cuba from "./cuba"
 import Yugoslavia from "./yugoslavia"
+import PsychologicalWarfare from "./psychologicalwarfare"
+
 // import Lybia from "./lybia"
 import ForgotPassword from './auth/ForgotPassword'
 
@@ -28,6 +30,8 @@ const MainRouter = () => {
         <Route exact path="/explanation"    component={ExplanationPage}/>
         <Route exact path="/singleuser/:userId"    component={SingleUser}/>
         <Route exact path="/info"    component={Info}/>
+        <Route exact path="/Psychological-War"    component={PsychologialWarfare}/>
+        <Route exact path="/psychological-war"    component={PsychologialWarfare}/>
         <Route exact path="/Cuba"    component={Cuba}/>
         <Route exact path="/cuba"    component={Cuba}/>
         <Route exact path="/Soviet-Union"    component={SovietUnion}/>

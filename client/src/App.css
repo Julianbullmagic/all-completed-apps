@@ -2,7 +2,7 @@ p a{
 	color:blue;
 }
 
-p.articlelink{
+div.articlelink p{
 	font-size:50%;
 }
 
