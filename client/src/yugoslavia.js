@@ -1,6 +1,28 @@
-import React, {useRef,useState} from 'react'
+import React, {useEffect} from 'react'
 
 export default function Yugoslavia() {
+
+
+      useEffect(() => {
+          pageCounter()
+      }, [])
+
+  function pageCounter(){
+    const options = {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: ''
+    }
+    await fetch("/groups/addtopagecounter/yugoslavia", options
+  ).then(res => {
+    return res.json()
+  }).catch(err => {
+    console.error(err);
+  })
+  }
+
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
     <h1>Yugoslavia</h1>

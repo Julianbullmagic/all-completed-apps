@@ -9,6 +9,8 @@ const nodemailer = require('nodemailer');
 const Rule = require("../models/rule.model");
 const Restriction= require("../models/restriction.model");
 const Group = require("../models/group.model");
+const PageViews = require("../models/pageviews.model");
+
 const jwt =require( 'jsonwebtoken')
 const expressJwt =require( 'express-jwt')
 const config =require( './../config/config')
@@ -16,6 +18,27 @@ var random = require('mongoose-simple-random');
 
 const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
+
+router.put("/addtopagecounter/:page", (req, res, next) => {
+if (req.params.page=="sovietunion"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'sovietunion' : 1}}).exec(...);
+}
+if (req.params.page=="yugoslavia"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'yugoslavia' : 1}}).exec(...);
+}
+if (req.params.page=="china"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'china' : 1}}).exec(...);
+}
+if (req.params.page=="cuba"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'cuba' : 1}}).exec(...);
+}
+if (req.params.page=="psychologicalwar"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'psychologicalwar' : 1}}).exec(...);
+}
+if (req.params.page=="democracy"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'democracy' : 1}}).exec(...);
+}
+})
 
 router.post("/getpasswordresettoken/:email", (req, res) => {
 console.log(req.params.email)

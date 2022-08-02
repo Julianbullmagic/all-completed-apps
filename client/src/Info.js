@@ -3,6 +3,15 @@ import React, {useRef,useState} from 'react'
 export default function Info() {
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
+    <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Yugoslavia">
+    <div className="articlelink">
+    <h2>The Psychological War On Communism</h2>
+    <p>
+Since the birth of Socialism in the early 20th century, the capitalist ruling class have gone to great lengths to destroy socialism. They have tried their absolute best to destroy people's perception of Communism, spreading slander throughout the mass media and academic institutions. They have infiltrated many real socialist organisations and created many of their own fake ones. Divide and conquer is their primary strategy, if they perceive any divisions between socialist groups, they try to drive a wedge into it. When they build their own socialist organisations, the most common strategy is to spread ideas that sound socialistic, but are ultimately not at all useful. They will try to encourage a puritanical, vengeful, arrogant and self righteous mentality, any revolution that is less than perfect is bluntly dismissed, there is no constructive criticism or acknowledgement of the achievements of real viable socialist revolutions. They won't support any socialist experiments unless they failed, didn't last very long or didn't produce any measurable, lasting benefits to people's lives. The goal is to leave people with the feeling that communism is a Utopian fantasy, idealistic, unrealistic, a nice idea, but not practical. The bourgeoisie have also tried to meddle in the elections of countries where the population shows strong support for socialism, attempting to get more right wing candidates elected.
+   </p>
+    <h4>Read More</h4>
+    </div>
+    </a>
       <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Cuba">
       <div className="articlelink">
       <h2>Cuba</h2>
