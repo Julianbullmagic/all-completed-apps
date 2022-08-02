@@ -13,7 +13,7 @@ const options = {
   },
   body: ''
 }
-await fetch("/groups/addtopagecounter/cuba", options
+ fetch("/groups/addtopagecounter/cuba", options
 ).then(res => {
 return res.json()
 }).catch(err => {

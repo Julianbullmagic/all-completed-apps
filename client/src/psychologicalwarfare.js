@@ -14,7 +14,7 @@ const options = {
   },
   body: ''
 }
-await fetch("/groups/addtopagecounter/psychologicalwar", options
+fetch("/groups/addtopagecounter/psychologicalwar", options
 ).then(res => {
 return res.json()
 }).catch(err => {

@@ -15,7 +15,7 @@ export default function Yugoslavia() {
       },
       body: ''
     }
-    await fetch("/groups/addtopagecounter/yugoslavia", options
+     fetch("/groups/addtopagecounter/yugoslavia", options
   ).then(res => {
     return res.json()
   }).catch(err => {
