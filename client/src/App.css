@@ -2,6 +2,10 @@ p a{
 	color:blue;
 }
 
+p.articlelink{
+	font-size:50%;
+}
+
 .references a{
 	display:block;
 }
