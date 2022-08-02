@@ -30,8 +30,8 @@ const MainRouter = () => {
         <Route exact path="/explanation"    component={ExplanationPage}/>
         <Route exact path="/singleuser/:userId"    component={SingleUser}/>
         <Route exact path="/info"    component={Info}/>
-        <Route exact path="/Psychological-War"    component={PsychologialWarfare}/>
-        <Route exact path="/psychological-war"    component={PsychologialWarfare}/>
+        <Route exact path="/Psychological-War"    component={PsychologicalWarfare}/>
+        <Route exact path="/psychological-war"    component={PsychologicalWarfare}/>
         <Route exact path="/Cuba"    component={Cuba}/>
         <Route exact path="/cuba"    component={Cuba}/>
         <Route exact path="/Soviet-Union"    component={SovietUnion}/>
