@@ -5,6 +5,11 @@ p a{
 div.articlelink p{
 	font-size:80%;
 }
+iframe{
+	margin-left:1vw;
+	margin-bottom:0.5vw;
+	margin-top:0.5vw;
+}
 
 .references a{
 	display:block;
