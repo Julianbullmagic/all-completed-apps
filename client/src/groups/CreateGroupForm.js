@@ -51,7 +51,6 @@ export default function CreateGroupForm(props) {
       levels=[...new Set(levels)]
       console.log("levels",levels)
       levels=levels.sort((a, b) => a - b)
-      levels.pop()
       setLevels(levels)
     })
     .catch(error=>console.error(error))
@@ -213,7 +212,6 @@ let groupabove=auth.isAuthenticated().user.cool?parentGroupValue.current.value:n
               <div style={{display:"inline"}}>
               <label style={{display:"inline"}} style={{display:"inline"}} htmlFor='name'>Choose a Level</label>
               <select style={{display:"inline"}} onChange={setUpperGroupOptions} ref={levelValue}>
-              <option value=""></option>
               {!levels&&<option value="0">0</option>}
               {levels&&levels.map(item=><option value={item}>{item}</option>)}
               </select>
