@@ -141,7 +141,7 @@ let groupabove=auth.isAuthenticated().user.cool?parentGroupValue.current.value:n
     cool:auth.isAuthenticated().user.cool,
     timecreated:n,
     images:imageids,
-    level:levelValue.current.value,
+    level:Number(levelValue.current.value),
     members:[],
     centroid:auth.isAuthenticated().user.coordinates,
   }
