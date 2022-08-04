@@ -51,7 +51,9 @@ export default function CreateGroupForm(props) {
       levels=[...new Set(levels)]
       console.log("levels",levels)
       levels=levels.sort((a, b) => a - b)
-      levels.pop()
+      if(levels.length>1){
+        levels.pop()  
+      }
       setLevels(levels)
     })
     .catch(error=>console.error(error))
