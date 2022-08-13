@@ -70,7 +70,7 @@ console.error(err);
       <h5 style={{margin:"5vw"}}>
       {info[0]}
       </h5>
-      <img className="homeimg" style={{height:"100vh",position:"absolute",zIndex:-1}} src={require('./hands.png')} /></div>}
+      <img className="homeimg" style={{height:"100vh",width:"100vw",position:"absolute",zIndex:-1}} src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
       </>
