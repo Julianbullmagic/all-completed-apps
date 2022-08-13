@@ -6,6 +6,8 @@ const PageViewSchema = new mongoose.Schema({
   cuba:{ type: Number, default: 0 },
   democracy:{ type: Number, default: 0 },
   psychologicalwar:{ type: Number, default: 0 },
+  home:{ type: Number, default: 0 },
+  info:{ type: Number, default: 0 },
   yugoslavia: { type: Number, default: 0 }
 })
 

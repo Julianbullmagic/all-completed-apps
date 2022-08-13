@@ -20,6 +20,30 @@ const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 
 router.put("/addtopagecounter/:page", (req, res, next) => {
+  if (req.params.page==="info"){
+    PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'info' : 1}})
+    .exec(function(err,docs){
+            if(err){
+              console.error(err);
+            }else{
+              res.status(200).json({
+                data: docs
+              });
+            }
+          })
+  }
+  if (req.params.page==="home"){
+    PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'home' : 1}})
+    .exec(function(err,docs){
+            if(err){
+              console.error(err);
+            }else{
+              res.status(200).json({
+                data: docs
+              });
+            }
+          })
+  }
 if (req.params.page==="sovietunion"){
   PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'sovietunion' : 1}})
   .exec(function(err,docs){

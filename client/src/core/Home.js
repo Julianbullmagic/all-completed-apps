@@ -20,7 +20,25 @@ export default function Home({history}){
 
   useEffect(()=> {
 getGroupData()
+pageCounter()
   }, [])
+
+
+function pageCounter(){
+const options = {
+  method: 'put',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: ''
+}
+fetch("/groups/addtopagecounter/home", options
+).then(res => {
+return res.json()
+}).catch(err => {
+console.error(err);
+})
+}
 
   async function getGroupData(){
     await fetch(`/groups/getusers`)
