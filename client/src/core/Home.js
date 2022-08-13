@@ -65,7 +65,7 @@ console.error(err);
         })
   }
     return (
-      <>
+      <div style={{height:"100vh",width:"100vw"}}>
       {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",overflow:"hidden",position:"relative",zIndex:2}}>
       <h5 style={{margin:"5vw"}}>
       {info[0]}
@@ -73,6 +73,6 @@ console.error(err);
       <img className="homeimg" style={{width:"100vw",position:"absolute",zIndex:-1}} src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
-      </>
+      </div>
     )
 }
