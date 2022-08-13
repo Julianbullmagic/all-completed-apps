@@ -66,11 +66,11 @@ console.error(err);
   }
     return (
       <>
-      {!auth.isAuthenticated()&&<div style={{width:"100vw",overflow:"hidden",position:"relative",zIndex:2}}>
+      {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",overflow:"hidden",position:"relative",zIndex:2}}>
       <h5 style={{margin:"5vw"}}>
       {info[0]}
       </h5>
-      <img className="homeimg" style={{height:"100vh",width:"100vw",position:"absolute",zIndex:-1}} src={require('./hands.png')} /></div>}
+      <img className="homeimg" style={{width:"100vw",position:"absolute",zIndex:-1}} src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
       </>
