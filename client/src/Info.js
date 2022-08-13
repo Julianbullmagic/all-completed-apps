@@ -1,6 +1,27 @@
-import React, {useRef,useState} from 'react'
+import React, {useRef,useState,useEffect} from 'react'
 
 export default function Info() {
+
+    useEffect(()=> {
+  pageCounter()
+    }, [])
+
+  function pageCounter(){
+  const options = {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: ''
+  }
+  fetch("/groups/addtopagecounter/home", options
+  ).then(res => {
+  return res.json()
+  }).catch(err => {
+  console.error(err);
+  })
+  }
+
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
     <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Psychological-War">
