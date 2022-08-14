@@ -65,8 +65,8 @@ console.error(err);
         })
   }
     return (
-      <div style={{height:"100vh",width:"100vw",overflow:"hidden"}}>
-      {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",position:"relative",zIndex:2}}>
+      <div style={{height:"100vh",width:"100vw",overflow:"hidden",scroll:"none"}}>
+      {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",position:"relative",zIndex:2,overflow:"hidden"}}>
       <h5 style={{marginLeft:"8vw",marginRight:"10vw",marginTop:"5vh"}}>
       {info[0]}
       </h5>
