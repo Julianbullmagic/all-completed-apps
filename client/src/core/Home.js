@@ -65,12 +65,12 @@ console.error(err);
         })
   }
     return (
-      <div style={{height:"100vh",width:"100vw"}}>
-      {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",overflow:"hidden",position:"relative",zIndex:2}}>
-      <h5 style={{margin:"5vw"}}>
+      <div style={{height:"100vh",width:"100vw",overflow:"hidden"}}>
+      {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",position:"relative",zIndex:2}}>
+      <h5 style={{marginLeft:"8vw",marginRight:"10vw",marginTop:"5vh"}}>
       {info[0]}
       </h5>
-      <img className="homeimg" style={{objectFit:"cover",width:"100%",position:"absolute",zIndex:-1}} src={require('./hands.png')} /></div>}
+      <img className="homepageimg" src={require('./hands.png')} /></div>}
       {auth.isAuthenticated()&&<><GroupList />
         </>}
       </div>
