@@ -10,8 +10,7 @@ import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
-const { generateRobotText } = require("react-seo-robotstxt");
-generateRobotText();
+
 ReactDOM.render(
   <Provider
       store={createStoreWithMiddleware(
