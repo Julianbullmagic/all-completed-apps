@@ -30,7 +30,7 @@ console.error(err);
     When you look through the references for this essay, you may find it strange to see the worst enemies of Socialism admitting very blatantly that communism leads to superior economic performance for ordinary people. This is because the Capitalist ruling class have quite a fundamentally different point of view. Their lives are largely insulated from the consequences of their actions. They mostly spend time with other elites who think in a similar way and they reinforce each others ideology and belief in their own superiority to ordinary people. In many cases they genuinely believe that capitalism is actually meritocratic and that their own merciless sociopath behaviour makes them superior to normal people. They simply do not see wage growth, low unemployment rates and dramatic improvements to the standards of health as a good thing. As long as there is economic growth and rich people are getting richer, then the economy is going great from their point of view. They simply do not see high rates of homelessness and poverty as something shameful that reflect poorly on their leadership. Therefore, most of the statistical evidence that demonstrates the huge social problems with capitalism comes directly from the statistics bureaus of the capitalist governments themselves, they don't try to hide these issues because they just don't see them as negative.
     </p>
     <p>
-    The Cuban Communist Party have created a much more humanistic economic system that is aimed at meeting the needs of population instead of generating profits for a ruling elite. The distribution of wealth is also more equitable than most capitalist countries. For most of the history of Cuba, the average income of Cubans has tended to increase, although there was a very sharp drop in the early 1990s with the collapse of the Soviet Union, their biggest trading partner and main source of fossil fuels (ref#1). The communist party created a much more egalitarian and equitable distribution of income. They also banned passive unearned incomes from rents, dividends, interest on loans or royalties (ref#2). Unemployment rates were dramatically reduced, making it much easier to find a job and to change job (ref#3). Numerous crowd sourcing cost of living websites show that the cost of living is relatively cheap in Cuba (ref#4,ref#5,ref#6,ref#7). This is data gathered by capitalist businesses, it is not Communist government propaganda. The Cuban economic planning system largely shelters the population from the inflation experienced by other countries in Latin America. Rationing and subsidies result in fairly steady prices for food and consumer goods. The government provides many subsidies, such as for rents, public utilities, public transport and medical services. All the basic necessities of life are affordable to all Cubans (ref#8). Cuba has an unusually high rate of home-ownership and close to zero homeless people (ref #9,ref #10,ref#11).
+    The Cuban Communist Party have created a much more humanistic economic system that is aimed at meeting the needs of population instead of generating profits for a ruling elite. For most of the history of Socialist Cuba, the average income of Cubans has tended to increase, although there was a very sharp drop in the early 1990s with the collapse of the Soviet Union, their biggest trading partner and main source of fossil fuels (ref#1). The communist party created a much more egalitarian and equitable distribution of income. They also banned passive unearned incomes from rents, dividends, interest on loans or royalties (ref#2). Unemployment rates were dramatically reduced, making it much easier to find a job and to change job (ref#3). Numerous crowd sourcing cost of living websites show that the cost of living is relatively cheap in Cuba (ref#4,ref#5,ref#6,ref#7). This is data gathered by capitalist businesses, it is not Communist government propaganda. The Cuban economic planning system largely shelters the population from the inflation experienced by other countries in Latin America. Rationing and subsidies result in fairly steady prices for food and consumer goods. The government provides many subsidies, such as for rents, public utilities, public transport and medical services. All the basic necessities of life are affordable to all Cubans (ref#8). Cuba has an unusually high rate of home-ownership and close to zero homeless people (ref #9,ref #10,ref#11).
     </p>
     <p>
     The revolution has brought enormous improvements to Cuba's education system. A large-scale public education program has effectively eliminated illiteracy and has significantly upgraded Cuban educational levels. The islands educational indicators are among the best in the third world, literacy rate has risen to about 96 percent the highest in Latin America and one of the highest in the world. (ref#12). Cuba has universal free education(ref#13).
@@ -68,61 +68,61 @@ console.error(err);
     <br/>
     <h2>References</h2>
     <p>
-    1) https://wid.world/country/cuba/
-    2) The Cuban Economy: Model for third world development? Page 2, page 13 paragraph 4, page 14 paragraph 1
-    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf
-    3) The Cuban Economy: Model for third world development? Page 18 paragraph 1
-    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf
-    4) https://www.numbeo.com/cost-of-living/compare_countries_result.jsp?country1=Cuba&country2=Australia
-    5) https://livingcost.org/cost/australia/cuba
-    6) https://www.mylifeelsewhere.com/cost-of-living/australia/cuba
-    7) https://www.expatistan.com/cost-of-living/country/comparison/australia/cuba
-    8) The Cuban Economy: Model for third world development? Page 15 para 4, page 15 para 1
-    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf
-    9) https://borgenproject.org/homelessness-in-cuba/
-    10) https://www.propertyrescue.co.uk/useful-guides-articles/world-countries-highest-rates-homeownership/
-    11) https://www.worldatlas.com/articles/countries-with-the-highest-home-ownership-rates.html
-    12) The Cuban Economy: Model for third world development? Page 2,page 18 para 4
-    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf
-    13) Cuba: Social inequality page 1 para 2 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000101190001-1.pdf
-    14) Cuba: Social inequality page 2 para 5 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000101190001-1.pdf
-    15)  https://data.worldbank.org/indicator/SG.GEN.PARL.ZS
-    16) Cuba: Social inequality page 1 para 2, page 2 para 1, https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000101190001-1.pdf
-    17) A Cuban Balance Sheet; Batista and Castro regimes in Cuba, page 5 para 2
-    https://www.cia.gov/readingroom/docs/CIA-RDP79T01148A000600030049-9.pdf
-    18) The Cuban Economy: Model for third world development? page 20 para 2, Page 19 para 5, Page 19 para 4 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf
-    19) https://data.worldbank.org/indicator/SP.DYN.LE00.IN?locations=CU
-    20) Castro's reach into the third world: the cuban economic assistance program. Page 4 para 1, page 12 para 6, page 13 para 3 https://www.cia.gov/readingroom/docs/CIA-RDP90T01298R000300070001-4.pdf
-    21) World Factbook of Criminal Justice Systems – Cuba. page 8 para 6, page 8 para 7, page 12 para 4, page 12 para 12  https://bjs.ojp.gov/content/pub/pdf/wfbcjsc.pdf
-    22) https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release
-    23) The Cuban Economy: Model for third world development. Page 22 para 1-2 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf
-    24) https://ilostat.ilo.org/topics/union-membership/
-    25) https://www.wola.org/analysis/cubas-new-constitution-explained/
-    26) https://www.reuters.com/article/us-cuba-constitution-referendum-idUSKCN1QE22Y
-    27) https://en.wikipedia.org/wiki/1976_Cuban_constitutional_referendum
-    28) https://www.justice.gov/sites/default/files/eoir/legacy/2013/11/07/CUB103443.FE.pdf
-    29) https://www.ecured.cu/Comit%C3%A9s_de_Defensa_de_la_Revoluci%C3%B3n
-    30) U.S.–CUBA COOPERATIVE WORKING GROUP 2017 REPORT UNDERSTANDING COOPERATIVES IN CUBA AND OPPORTUNITIES FOR U.S.– CUBAN ENGAGEMENT Page 8 para 7 https://www.ncba.coop/images/Cuba-Photo-Gallery/Cuba-Report-2017-FINAL.pdf
-    31) Torres, Ricardo (2 June 2016). "Economic transformations in Cuba: a review". Third World Quarterly. 37 (9): 1683–1697. doi:10.1080/01436597.2016.1177454. S2CID 156099431.
-    32) https://www.greenleft.org.au/content/ten-truths-about-cuba-general-elections
-    33) https://www.greenleft.org.au/content/myth-and-reality-cuban-electoral-system
-    34) https://sites.psu.edu/sovas3a/2020/02/03/cuba-found-to-be-the-most-sustainably-developed-country-in-the-world-new-research-finds/
-    35) https://www.panoramas.pitt.edu/health-and-society/sustainable-agriculture-cuba-urban-farming-and-%E2%80%9Corganop%C3%B3nicos%E2%80%9D
-    36) https://www.permaculturenews.org/2013/09/09/how-cuba-leads-the-world-in-permaculture-podcasts-parts-i-ii/
-    37) https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf
-    38) https://www.pewresearch.org/fact-tank/2022/02/18/majorities-of-adults-see-decline-of-union-membership-as-bad-for-the-u-s-and-working-people/#:~:text=The%20share%20of%20U.S.%20workers,very%20little%20since%20last%20year.
-    39) https://link.springer.com/chapter/10.1057/9781403920171_5#:~:text=The%20public%20sector%20employs%2020.2,federal%2C%20state%20and%20local%20government.
-    40) https://www.aciamericas.coop/Economic-impact-of-the-United
-    41) https://www.epi.org/blog/growing-inequalities-reflecting-growing-employer-power-have-generated-a-productivity-pay-gap-since-1979-productivity-has-grown-3-5-times-as-much-as-pay-for-the-typical-worker/#:~:text=The%20gap%20between%20productivity%20and%20a%20typical%20worker's%20compensation%20has,hourly%20compensation%20growth%2C%201948%E2%80%932019&text=Notes%3A%20Data%20are%20for%20compensation,productivity%20of%20the%20total%20economy
-    42) https://en.wikipedia.org/wiki/List_of_countries_by_income_equality
-    43) Escalante Font, Fabián [es] (2006). Executive Action: 634 Ways to Kill Fidel Castro. Melbourne: Ocean Press. ISBN 1920888721.
-    44) https://www.abc.net.au/triplej/programs/hack/how-castro-survived-638-assassination-attempts/8064788
-    45) MEMORANDUM OF (Sanitized)MEETING HELD ON THURSDAY, OCTOBER 4, 1962. Page 8 para 7 https://www.cia.gov/readingroom/docs/CIA-RDP80B01676R001700180033-1.pdf
-    46) https://history.state.gov/historicaldocuments/frus1958-60v06/d499
-    47) https://www.reuters.com/article/us-cuba-dissidents-wikileaks-idUKTRE6BG1NJ20101217
-    48) https://www.ngo-monitor.org/ngos/human_rights_watch_hrw_/
-    49) https://www.ngo-monitor.org/reports/breaking_its_own_rules_amnesty_s_gov_t_funding_and_researcher_bias/
-    50) https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/
+    1) https://wid.world/country/cuba/ <br/>
+    2) The Cuban Economy: Model for third world development? Page 2, page 13 paragraph 4, page 14 paragraph 1<br/>
+    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf<br/>
+    3) The Cuban Economy: Model for third world development? Page 18 paragraph 1<br/>
+    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf<br/>
+    4) https://www.numbeo.com/cost-of-living/compare_countries_result.jsp?country1=Cuba&country2=Australia<br/>
+    5) https://livingcost.org/cost/australia/cuba<br/>
+    6) https://www.mylifeelsewhere.com/cost-of-living/australia/cuba<br/>
+    7) https://www.expatistan.com/cost-of-living/country/comparison/australia/cuba<br/>
+    8) The Cuban Economy: Model for third world development? Page 15 para 4, page 15 para 1<br/>
+    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf<br/>
+    9) https://borgenproject.org/homelessness-in-cuba/<br/>
+    10) https://www.propertyrescue.co.uk/useful-guides-articles/world-countries-highest-rates-homeownership/<br/>
+    11) https://www.worldatlas.com/articles/countries-with-the-highest-home-ownership-rates.html<br/>
+    12) The Cuban Economy: Model for third world development? Page 2,page 18 para 4<br/>
+    https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf<br/>
+    13) Cuba: Social inequality page 1 para 2 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000101190001-1.pdf<br/>
+    14) Cuba: Social inequality page 2 para 5 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000101190001-1.pdf<br/>
+    15)  https://data.worldbank.org/indicator/SG.GEN.PARL.ZS<br/>
+    16) Cuba: Social inequality page 1 para 2, page 2 para 1, https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000101190001-1.pdf<br/>
+    17) A Cuban Balance Sheet; Batista and Castro regimes in Cuba, page 5 para 2<br/>
+    https://www.cia.gov/readingroom/docs/CIA-RDP79T01148A000600030049-9.pdf<br/>
+    18) The Cuban Economy: Model for third world development? page 20 para 2, Page 19 para 5, Page 19 para 4 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf<br/>
+    19) https://data.worldbank.org/indicator/SP.DYN.LE00.IN?locations=CU<br/>
+    20) Castro's reach into the third world: the cuban economic assistance program. Page 4 para 1, page 12 para 6, page 13 para 3 https://www.cia.gov/readingroom/docs/CIA-RDP90T01298R000300070001-4.pdf<br/>
+    21) World Factbook of Criminal Justice Systems – Cuba. page 8 para 6, page 8 para 7, page 12 para 4, page 12 para 12  https://bjs.ojp.gov/content/pub/pdf/wfbcjsc.pdf<br/>
+    22) https://www.abs.gov.au/statistics/people/crime-and-justice/prisoners-australia/latest-release<br/>
+    23) The Cuban Economy: Model for third world development. Page 22 para 1-2 https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000100490001-9.pdf<br/>
+    24) https://ilostat.ilo.org/topics/union-membership/<br/>
+    25) https://www.wola.org/analysis/cubas-new-constitution-explained/<br/>
+    26) https://www.reuters.com/article/us-cuba-constitution-referendum-idUSKCN1QE22Y<br/>
+    27) https://en.wikipedia.org/wiki/1976_Cuban_constitutional_referendum<br/>
+    28) https://www.justice.gov/sites/default/files/eoir/legacy/2013/11/07/CUB103443.FE.pdf<br/>
+    29) https://www.ecured.cu/Comit%C3%A9s_de_Defensa_de_la_Revoluci%C3%B3n<br/>
+    30) U.S.–CUBA COOPERATIVE WORKING GROUP 2017 REPORT UNDERSTANDING COOPERATIVES IN CUBA AND OPPORTUNITIES FOR U.S.– CUBAN ENGAGEMENT Page 8 para 7 https://www.ncba.coop/images/Cuba-Photo-Gallery/Cuba-Report-2017-FINAL.pdf<br/>
+    31) Torres, Ricardo (2 June 2016). "Economic transformations in Cuba: a review". Third World Quarterly. 37 (9): 1683–1697. doi:10.1080/01436597.2016.1177454. S2CID 156099431.<br/>
+    32) https://www.greenleft.org.au/content/ten-truths-about-cuba-general-elections<br/>
+    33) https://www.greenleft.org.au/content/myth-and-reality-cuban-electoral-system<br/>
+    34) https://sites.psu.edu/sovas3a/2020/02/03/cuba-found-to-be-the-most-sustainably-developed-country-in-the-world-new-research-finds/<br/>
+    35) https://www.panoramas.pitt.edu/health-and-society/sustainable-agriculture-cuba-urban-farming-and-%E2%80%9Corganop%C3%B3nicos%E2%80%9D<br/>
+    36) https://www.permaculturenews.org/2013/09/09/how-cuba-leads-the-world-in-permaculture-podcasts-parts-i-ii/<br/>
+    37) https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf<br/>
+    38) https://www.pewresearch.org/fact-tank/2022/02/18/majorities-of-adults-see-decline-of-union-membership-as-bad-for-the-u-s-and-working-people/#:~:text=The%20share%20of%20U.S.%20workers,very%20little%20since%20last%20year.<br/>
+    39) https://link.springer.com/chapter/10.1057/9781403920171_5#:~:text=The%20public%20sector%20employs%2020.2,federal%2C%20state%20and%20local%20government.<br/>
+    40) https://www.aciamericas.coop/Economic-impact-of-the-United<br/>
+    41) https://www.epi.org/blog/growing-inequalities-reflecting-growing-employer-power-have-generated-a-productivity-pay-gap-since-1979-productivity-has-grown-3-5-times-as-much-as-pay-for-the-typical-worker/#:~:text=The%20gap%20between%20productivity%20and%20a%20typical%20worker's%20compensation%20has,hourly%20compensation%20growth%2C%201948%E2%80%932019&text=Notes%3A%20Data%20are%20for%20compensation,productivity%20of%20the%20total%20economy<br/>
+    42) https://en.wikipedia.org/wiki/List_of_countries_by_income_equality<br/>
+    43) Escalante Font, Fabián [es] (2006). Executive Action: 634 Ways to Kill Fidel Castro. Melbourne: Ocean Press. ISBN 1920888721.<br/>
+    44) https://www.abc.net.au/triplej/programs/hack/how-castro-survived-638-assassination-attempts/8064788<br/>
+    45) MEMORANDUM OF (Sanitized)MEETING HELD ON THURSDAY, OCTOBER 4, 1962. Page 8 para 7 https://www.cia.gov/readingroom/docs/CIA-RDP80B01676R001700180033-1.pdf<br/>
+    46) https://history.state.gov/historicaldocuments/frus1958-60v06/d499<br/>
+    47) https://www.reuters.com/article/us-cuba-dissidents-wikileaks-idUKTRE6BG1NJ20101217<br/>
+    48) https://www.ngo-monitor.org/ngos/human_rights_watch_hrw_/<br/>
+    49) https://www.ngo-monitor.org/reports/breaking_its_own_rules_amnesty_s_gov_t_funding_and_researcher_bias/<br/>
+    50) https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/<br/>
     </p>
     </div>
   )}

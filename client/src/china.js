@@ -53,85 +53,85 @@ The 1949 Communist Revolution brought enormous improvements to China. In the fir
     <h2>References</h2>
     <p>
     1)https://www.cia.gov/readingroom/docs/CIA-RDP80-00809A000700230243-5.pdf CHINA”S ECONOMIC ACHIEVEMENTS AND THE 1955 Leipzig SPRING FAIR
-page 2 para 2, page 2 para 3
-2)https://www.cia.gov/readingroom/docs/CIA-RDP62S00545A000100090004-3.pdf COMMUNIST CHINA'S ECONOMY – CURRENT AND FUTURE page 1 para 3, page 4 para 2, page 5 para one
-3)https://www.cia.gov/readingroom/docs/CIA-RDP78-02771R000300120006-7.pdf 'COLLECTIVE LIFE' AND THE FAMILY IN CHINA'S COMMUNES page 2 para 4
-4)https://www.cia.gov/readingroom/docs/CIA-RDP79R01142A001100040002-1.pdf THE ROLE OF WOMEN IN CHINA page 1 para 1, page 2 para 1, page 1 para 3
-5)https://www.cia.gov/readingroom/docs/CIA-RDP82-00457R007600040003-5.pdf  WOMEN IN NEW CHINA Page 19 para 3, page 23 para 2, page 45 para 3, page 46 para 5, page 54 para 3-4, page 56 para 1
-6)https://www.cia.gov/readingroom/docs/CIA-RDP79-00927A007400010002-0.pdf China Twenty Years After Communism page 3 para 3, page 7 para 2
-7)https://www.europenowjournal.org/2018/09/04/famine-and-dearth-in-medieval-england/
-8)https://en.wikipedia.org/wiki/List_of_famines
-9)https://www.historyextra.com/period/medieval/why-did-people-die-danger-medieval-period-life-expectancy/
-10)https://www.macrotrends.net/countries/CHN/china/death-rate
-11)https://data.worldbank.org/indicator/SP.DYN.CDRT.IN?locations=CN
-12)https://www.statista.com/statistics/1041350/life-expectancy-china-all-time/
-13)https://www.macrotrends.net/countries/CHN/china/life-expectancy
-14)https://www.macrotrends.net/countries/CHN/china/gdp-per-capita
-15)http://data.un.org/Data.aspx?d=SNAAMA&f=grID%3A101%3BcurrID%3AUSD%3BpcFlag%3A1%3BcrID%3A810
-16)https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=AU
-17)https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000401280001-8.pdf CHINA's ECONOMIC REFORMS: STRETCHING SOCIALISM page 1 para 3
-18)https://www.cia.gov/readingroom/docs/CIA-RDP85T01058R000201610001-6.pdf CHINA:COPING WITH ACCELERATED GROWTH 1985 page 2 para 1
-19)https://www.cia.gov/readingroom/docs/DOC_0005467611.pdf CHINA”S DOMESTIC ECONOMY AND TRADE page 1 para 1
-20)https://data.worldbank.org/indicator/NY.ADJ.NNTY.PC.CD?locations=CN
-21)https://www.numbeo.com/cost-of-living/compare_countries_result.jsp?country1=China&country2=Australia
-22)https://www.expatistan.com/cost-of-living/country/comparison/australia/china
-23)https://livingcost.org/cost/australia/china
-24)https://www.mylifeelsewhere.com/cost-of-living/china/australia
-25)https://www.nationmaster.com/country-info/compare/Australia/China/Cost-of-living
-26)https://news.harvard.edu/gazette/story/2020/07/long-term-survey-reveals-chinese-government-satisfaction/
-27)https://www.washingtonpost.com/news/worldviews/wp/2014/09/26/newly-armed-police-in-china-say-they-fear-their-guns-as-much-as-public/
-28)http://www.china.org.cn/china/2014-04/21/content_32154769.htm
-29)https://www.aic.gov.au/sites/default/files/2020-05/sarre.pdf
-30)https://www.abc.net.au/radio/programs/nightlife/history-police-guns/13622148
-31)https://www.sentencingcouncil.vic.gov.au/sentencing-statistics/international-imprisonment-rates
-32)https://law.yale.edu/china-center/resources/public-participation-china
-33)https://www.brookings.edu/blog/order-from-chaos/2020/06/08/chinese-law-requires-public-consultation-in-lawmaking-what-does-it-mean-for-the-hong-kong-national-security-legislation/
-34)https://en.wikipedia.org/wiki/Chinese_People%27s_Political_Consultative_Conference
-35)https://www.globaltimes.cn/page/202206/1269361.shtml
-36)Li, Yao (April 2019). "A Zero-Sum Game? Repression and Protest in China". Government and Opposition. 54 (2): 309–335. doi:10.1017/gov.2017.24. ISSN 0017-257X.
-37)https://www.telesurenglish.net/analysis/Scandinavias-Covert-Role-in-Western-Imperialism-20170320-0022.html
-38)https://nordics.info/show/artikel/the-colonialism-of-denmark-norway-and-its-legacies
-39)https://en.wikipedia.org/wiki/Scandinavian_colonialism
-40)https://www.forsvaret.dk/en/roles-and-responsibilities/International-operations/
-41)https://www.forsvarsmakten.se/en/activities/current-international-missions/#:~:text=Some%20360*%20Swedish%20military%20personnel,*As%20of%20February%202020.
-42)https://en.wikipedia.org/wiki/Norwegian_military_operations_abroad
-43)https://www.forsvaret.no/en/exercises-and-operations/international-operations
-44)https://www.npr.org/2019/04/15/713495558/president-trump-called-former-president-jimmy-carter-to-talk-about-china
-45)https://www.newsweek.com/donald-trump-jimmy-carter-china-war-infrastructure-economy-trade-war-church-1396086
-46) Liu, Tao Tao; Faure, David (1996). Unity and Diversity: Local Cultures and Identities in China. Hong Kong University Press. ISBN 978-9622094024. Retrieved 10 March 2014. page78
-47)Szczepanski, Kallie (31 May 2018). "Was Tibet Always Part of China?". ThoughtCo.
-48)Lamb, Alastair (1989), Tibet, China & India, 1914-1950: A history of imperial diplomacy, page 2-3 Roxford Books, ISBN 9780907129035
-49) https://www.mfa.gov.cn/ce/ceca/eng/sgxw/t1814543.htm
-50)Teng, Emma Jinhua (2004), Taiwan's Imagined Geography: Chinese Colonial Travel Writing and Pictures, 1683–1895, page 34-59, Cambridge MA: Harvard University Press, ISBN 978-0-674-01451-0.
-51) "Nam Viet | ancient kingdom, Asia". Encyclopædia Britannica. 20 July 1998. Retrieved 31 July 2020.
-52)Vinayak Bhat, Col (October 30, 2020). "Construction fast-tracked at China PLA's first overseas base in Djibouti". India Today. Retrieved November 20, 2020.
-53)Foreign Ministry Spokesperson Hong Lei's Regular Press Conference on January 21, 2016". Ministry of Foreign Affairs of the People's Republic of China. January 21, 2016. Archived from the original on May 18, 2017.
-54)https://politicstoday.org/djibouti-surrounded-by-military-bases-of-china-us-france-uk-germany-others/
-55)https://www.sciencedirect.com/science/article/pii/S2590291122000304
-56)https://openknowledge.worldbank.org/bitstream/handle/10986/33529/wber_32_3_610.pdf?sequence=1&isAllowed=y
-57)https://www.economist.com/finance-and-economics/2022/02/12/china-does-not-always-collect-its-debts-on-time
-58)http://www.sais-cari.org/debt-relief#:~:text=In%20February%20of%202021%2C%20Chinese,program%20is%20managed%20by%20CIDCA.
-59)https://www.forbes.com/sites/kenrapoza/2019/05/29/china-has-forgiven-nearly-10-billion-in-debt-cuba-accounts-for-over-half/?sh=235edfc3615b
-60)https://thediplomat.com/2019/07/which-countries-are-for-or-against-chinas-xinjiang-policies/
-61https://digitalcommons.law.uw.edu/cgi/viewcontent.cgi?article=1147&context=wilj Affirmative Action, Ethnic Minorities and China's Universities page 3-5
-62)https://www.kidney-international.org/article/S0085-2538(19)30185-1/fulltext
-63)https://www.washingtonpost.com/world/asia_pacific/in-the-face-of-criticism-china-has-been-cleaning-up-its-organ-transplant-industry/2017/09/14/d689444e-e1a2-11e6-a419-eefe8eff0835_story.html
-64)https://www.abc.net.au/religion/the-abc-is-right-that-falun-gong-teachings-are-dangerous/12538058
-65)https://www.nytimes.com/2020/10/24/technology/epoch-times-influence-falun-gong.html
-66)https://www.criticalsocialworkpublishinghouse.com/post/1989-tiananmen-square-student-massacre-was-a-hoax
-67)https://www.workers.org/2022/06/64607/
-68)https://www.indiatimes.com/technology/news/chinese-worlds-fastest-quantum-computer-552715.html
-69)https://www.scmp.com/news/china/science/article/3153727/china-launches-worlds-fastest-programmable-quantum-computers
-70)https://www.independent.co.uk/tech/china-scientists-programmable-quantum-computers-b1946018.html
-71)https://phys.org/news/2021-01-world-quantum-network.html
-72)https://www.newscientist.com/article/2281591-quantum-data-link-established-between-two-distant-chinese-cities/
-73)https://www.scmp.com/news/china/science/article/3176777/chinas-robot-built-3d-printed-dam-ready-2-years-scientists
-74)https://www.designdekko.com/featured/10-storey-building-made-in-28-hours-and-45-minutes-with-pre-fabricated-containers-in-china#:~:text=Chinese%20developer%20BROAD%20has%20made,how%20they%20accomplished%20this%20feat.&text=The%20BROAD%20group%20in%20China,28%20hours%20and%2045%20minutes.
-75)https://edition.cnn.com/travel/article/china-high-speed-rail-cmd/index.html
-76)https://edition.cnn.com/travel/article/china-fastest-maglev-train-intl-hnk/index.html
-77)https://nextshark.com/chinese-lab-sets-record-for-fastest-internet-transmission/#:~:text=faster%20than%205G-,Chinese%20lab%20claims%20world%20record%20with%206G%20breakthrough%2C%2010,20%20times%20faster%20than%205G&text=A%20state%2Drun%20lab%20in,those%20of%20most%205G%20networks.
-78)https://www.livescience.com/chinas-1-trillion-artificial-sun-fusion-reactor-just-got-five-times-hotter-than-the-sun
-79)https://www.smithsonianmag.com/smart-news/chinas-artificial-sun-reactor-broke-record-for-nuclear-fusion-180979336/
+page 2 para 2, page 2 para 3<br/>
+2)https://www.cia.gov/readingroom/docs/CIA-RDP62S00545A000100090004-3.pdf COMMUNIST CHINA'S ECONOMY – CURRENT AND FUTURE page 1 para 3, page 4 para 2, page 5 para one<br/>
+3)https://www.cia.gov/readingroom/docs/CIA-RDP78-02771R000300120006-7.pdf 'COLLECTIVE LIFE' AND THE FAMILY IN CHINA'S COMMUNES page 2 para 4<br/>
+4)https://www.cia.gov/readingroom/docs/CIA-RDP79R01142A001100040002-1.pdf THE ROLE OF WOMEN IN CHINA page 1 para 1, page 2 para 1, page 1 para 3<br/>
+5)https://www.cia.gov/readingroom/docs/CIA-RDP82-00457R007600040003-5.pdf  WOMEN IN NEW CHINA Page 19 para 3, page 23 para 2, page 45 para 3, page 46 para 5, page 54 para 3-4, page 56 para 1<br/>
+6)https://www.cia.gov/readingroom/docs/CIA-RDP79-00927A007400010002-0.pdf China Twenty Years After Communism page 3 para 3, page 7 para 2<br/>
+7)https://www.europenowjournal.org/2018/09/04/famine-and-dearth-in-medieval-england/<br/>
+8)https://en.wikipedia.org/wiki/List_of_famines<br/>
+9)https://www.historyextra.com/period/medieval/why-did-people-die-danger-medieval-period-life-expectancy/<br/>
+10)https://www.macrotrends.net/countries/CHN/china/death-rate<br/>
+11)https://data.worldbank.org/indicator/SP.DYN.CDRT.IN?locations=CN<br/>
+12)https://www.statista.com/statistics/1041350/life-expectancy-china-all-time/<br/>
+13)https://www.macrotrends.net/countries/CHN/china/life-expectancy<br/>
+14)https://www.macrotrends.net/countries/CHN/china/gdp-per-capita<br/>
+15)http://data.un.org/Data.aspx?d=SNAAMA&f=grID%3A101%3BcurrID%3AUSD%3BpcFlag%3A1%3BcrID%3A810<br/>
+16)https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=AU<br/>
+17)https://www.cia.gov/readingroom/docs/CIA-RDP85T00287R000401280001-8.pdf CHINA's ECONOMIC REFORMS: STRETCHING SOCIALISM page 1 para 3<br/>
+18)https://www.cia.gov/readingroom/docs/CIA-RDP85T01058R000201610001-6.pdf CHINA:COPING WITH ACCELERATED GROWTH 1985 page 2 para 1<br/>
+19)https://www.cia.gov/readingroom/docs/DOC_0005467611.pdf CHINA”S DOMESTIC ECONOMY AND TRADE page 1 para 1<br/>
+20)https://data.worldbank.org/indicator/NY.ADJ.NNTY.PC.CD?locations=CN<br/>
+21)https://www.numbeo.com/cost-of-living/compare_countries_result.jsp?country1=China&country2=Australia<br/>
+22)https://www.expatistan.com/cost-of-living/country/comparison/australia/china<br/>
+23)https://livingcost.org/cost/australia/china<br/>
+24)https://www.mylifeelsewhere.com/cost-of-living/china/australia<br/>
+25)https://www.nationmaster.com/country-info/compare/Australia/China/Cost-of-living<br/>
+26)https://news.harvard.edu/gazette/story/2020/07/long-term-survey-reveals-chinese-government-satisfaction/<br/>
+27)https://www.washingtonpost.com/news/worldviews/wp/2014/09/26/newly-armed-police-in-china-say-they-fear-their-guns-as-much-as-public/<br/>
+28)http://www.china.org.cn/china/2014-04/21/content_32154769.htm<br/>
+29)https://www.aic.gov.au/sites/default/files/2020-05/sarre.pdf<br/>
+30)https://www.abc.net.au/radio/programs/nightlife/history-police-guns/13622148<br/>
+31)https://www.sentencingcouncil.vic.gov.au/sentencing-statistics/international-imprisonment-rates<br/>
+32)https://law.yale.edu/china-center/resources/public-participation-china<br/>
+33)https://www.brookings.edu/blog/order-from-chaos/2020/06/08/chinese-law-requires-public-consultation-in-lawmaking-what-does-it-mean-for-the-hong-kong-national-security-legislation/<br/>
+34)https://en.wikipedia.org/wiki/Chinese_People%27s_Political_Consultative_Conference<br/>
+35)https://www.globaltimes.cn/page/202206/1269361.shtml<br/>
+36)Li, Yao (April 2019). "A Zero-Sum Game? Repression and Protest in China". Government and Opposition. 54 (2): 309–335. doi:10.1017/gov.2017.24. ISSN 0017-257X.<br/>
+37)https://www.telesurenglish.net/analysis/Scandinavias-Covert-Role-in-Western-Imperialism-20170320-0022.html<br/>
+38)https://nordics.info/show/artikel/the-colonialism-of-denmark-norway-and-its-legacies<br/>
+39)https://en.wikipedia.org/wiki/Scandinavian_colonialism<br/>
+40)https://www.forsvaret.dk/en/roles-and-responsibilities/International-operations/<br/>
+41)https://www.forsvarsmakten.se/en/activities/current-international-missions/#:~:text=Some%20360*%20Swedish%20military%20personnel,*As%20of%20February%202020.<br/>
+42)https://en.wikipedia.org/wiki/Norwegian_military_operations_abroad<br/>
+43)https://www.forsvaret.no/en/exercises-and-operations/international-operations<br/>
+44)https://www.npr.org/2019/04/15/713495558/president-trump-called-former-president-jimmy-carter-to-talk-about-china<br/>
+45)https://www.newsweek.com/donald-trump-jimmy-carter-china-war-infrastructure-economy-trade-war-church-1396086<br/>
+46) Liu, Tao Tao; Faure, David (1996). Unity and Diversity: Local Cultures and Identities in China. Hong Kong University Press. ISBN 978-9622094024. Retrieved 10 March 2014. page78<br/>
+47)Szczepanski, Kallie (31 May 2018). "Was Tibet Always Part of China?". ThoughtCo.<br/>
+48)Lamb, Alastair (1989), Tibet, China & India, 1914-1950: A history of imperial diplomacy, page 2-3 Roxford Books, ISBN 9780907129035<br/>
+49) https://www.mfa.gov.cn/ce/ceca/eng/sgxw/t1814543.htm<br/>
+50)Teng, Emma Jinhua (2004), Taiwan's Imagined Geography: Chinese Colonial Travel Writing and Pictures, 1683–1895, page 34-59, Cambridge MA: Harvard University Press, ISBN 978-0-674-01451-0.<br/>
+51) "Nam Viet | ancient kingdom, Asia". Encyclopædia Britannica. 20 July 1998. Retrieved 31 July 2020.<br/>
+52)Vinayak Bhat, Col (October 30, 2020). "Construction fast-tracked at China PLA's first overseas base in Djibouti". India Today. Retrieved November 20, 2020.<br/>
+53)Foreign Ministry Spokesperson Hong Lei's Regular Press Conference on January 21, 2016". Ministry of Foreign Affairs of the People's Republic of China. January 21, 2016. Archived from the original on May 18, 2017.<br/>
+54)https://politicstoday.org/djibouti-surrounded-by-military-bases-of-china-us-france-uk-germany-others/<br/>
+55)https://www.sciencedirect.com/science/article/pii/S2590291122000304<br/>
+56)https://openknowledge.worldbank.org/bitstream/handle/10986/33529/wber_32_3_610.pdf?sequence=1&isAllowed=y<br/>
+57)https://www.economist.com/finance-and-economics/2022/02/12/china-does-not-always-collect-its-debts-on-time<br/>
+58)http://www.sais-cari.org/debt-relief#:~:text=In%20February%20of%202021%2C%20Chinese,program%20is%20managed%20by%20CIDCA.<br/>
+59)https://www.forbes.com/sites/kenrapoza/2019/05/29/china-has-forgiven-nearly-10-billion-in-debt-cuba-accounts-for-over-half/?sh=235edfc3615b<br/>
+60)https://thediplomat.com/2019/07/which-countries-are-for-or-against-chinas-xinjiang-policies/<br/>
+61https://digitalcommons.law.uw.edu/cgi/viewcontent.cgi?article=1147&context=wilj Affirmative Action, Ethnic Minorities and China's Universities page 3-5<br/>
+62)https://www.kidney-international.org/article/S0085-2538(19)30185-1/fulltext<br/>
+63)https://www.washingtonpost.com/world/asia_pacific/in-the-face-of-criticism-china-has-been-cleaning-up-its-organ-transplant-industry/2017/09/14/d689444e-e1a2-11e6-a419-eefe8eff0835_story.html<br/>
+64)https://www.abc.net.au/religion/the-abc-is-right-that-falun-gong-teachings-are-dangerous/12538058<br/>
+65)https://www.nytimes.com/2020/10/24/technology/epoch-times-influence-falun-gong.html<br/>
+66)https://www.criticalsocialworkpublishinghouse.com/post/1989-tiananmen-square-student-massacre-was-a-hoax<br/>
+67)https://www.workers.org/2022/06/64607/<br/>
+68)https://www.indiatimes.com/technology/news/chinese-worlds-fastest-quantum-computer-552715.html<br/>
+69)https://www.scmp.com/news/china/science/article/3153727/china-launches-worlds-fastest-programmable-quantum-computers<br/>
+70)https://www.independent.co.uk/tech/china-scientists-programmable-quantum-computers-b1946018.html<br/>
+71)https://phys.org/news/2021-01-world-quantum-network.html<br/>
+72)https://www.newscientist.com/article/2281591-quantum-data-link-established-between-two-distant-chinese-cities/<br/>
+73)https://www.scmp.com/news/china/science/article/3176777/chinas-robot-built-3d-printed-dam-ready-2-years-scientists<br/>
+74)https://www.designdekko.com/featured/10-storey-building-made-in-28-hours-and-45-minutes-with-pre-fabricated-containers-in-china#:~:text=Chinese%20developer%20BROAD%20has%20made,how%20they%20accomplished%20this%20feat.&text=The%20BROAD%20group%20in%20China,28%20hours%20and%2045%20minutes.<br/>
+75)https://edition.cnn.com/travel/article/china-high-speed-rail-cmd/index.html<br/>
+76)https://edition.cnn.com/travel/article/china-fastest-maglev-train-intl-hnk/index.html<br/>
+77)https://nextshark.com/chinese-lab-sets-record-for-fastest-internet-transmission/#:~:text=faster%20than%205G-,Chinese%20lab%20claims%20world%20record%20with%206G%20breakthrough%2C%2010,20%20times%20faster%20than%205G&text=A%20state%2Drun%20lab%20in,those%20of%20most%205G%20networks.<br/>
+78)https://www.livescience.com/chinas-1-trillion-artificial-sun-fusion-reactor-just-got-five-times-hotter-than-the-sun<br/>
+79)https://www.smithsonianmag.com/smart-news/chinas-artificial-sun-reactor-broke-record-for-nuclear-fusion-180979336/<br/>
     </p>
     </div>
   )}
