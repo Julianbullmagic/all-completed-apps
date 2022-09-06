@@ -133,7 +133,7 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
     }
 
     return (
-      <div className="groupslist" style={{marginTop:"6vh"}}>
+      <div className="groupslist" style={{position:"absolute",width:"89vw",overflowY:"auto",overflowX:"hidden"}}>
       <div  style={{margin:"0vw"}}>
       <h1 className="groupstitle">Groups</h1>
       </div>

@@ -23,58 +23,25 @@ const MainRouter = () => {
       <Menu/>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
+        <div style={{position:"absolute",width:"98vw",overflowY:"auto",overflowX:"hidden"}}>
         <Route exact path="/signup" component={Signup}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/signin" component={Signin}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/forgotpassword/:token" component={ForgotPassword}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/group/:groupId"    component={GroupPage}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/explanation"    component={ExplanationPage}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/singleuser/:userId"    component={SingleUser}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
-        <Route exact path="/info"    component={Info}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
+        <Route exact path="/info" component={Info}/>
         <Route exact path="/Psychological-War"    component={PsychologicalWarfare}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/psychological-war"    component={PsychologicalWarfare}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/Cuba"    component={Cuba}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/cuba"    component={Cuba}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/Soviet-Union"    component={SovietUnion}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/soviet-union"    component={SovietUnion}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/yugoslavia"    component={Yugoslavia}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/Yugoslavia"    component={Yugoslavia}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/china"    component={China}/>
-        </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
         <Route exact path="/China"    component={China}/>
         </div>
-        <div style={{position:"absolute",height:"auto",overflowY:"scroll"}}>
       </Switch>
     </div>)
 }
