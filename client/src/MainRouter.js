@@ -20,7 +20,7 @@ import ForgotPassword from './auth/ForgotPassword'
 
 const MainRouter = () => {
     return (<div style={{height:"100vh",width:"100vw",overflow:"hidden"}}>
-    <p style={{display:"hidden"}}>democracy-social-network, Democracy-Social-Network, democracy social network, Democracy Social Network</p>
+    <p style={{display:"none"}}>democracy-social-network, Democracy-Social-Network, democracy social network, Democracy Social Network</p>
       <Menu/>
       <Switch>
         <Route exact path="/" component={Home}/>
