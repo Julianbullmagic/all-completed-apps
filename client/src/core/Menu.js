@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import HomeIcon from '@material-ui/icons/Home'
 import auth from './../auth/auth-helper'
 import {Link, withRouter} from 'react-router-dom'
-
+import { SocialIcon } from 'react-social-icons';
 
 const isActive = (history, path) => {
   if (history.location.pathname === path)
@@ -55,9 +55,14 @@ const Menu = withRouter(({history}) => (
           <button color="inherit" onClick={() => {
               auth.clearJWT(() => history.push('/'))
             }}>Sign out</button>
-
         </span>)
       }
+      <div className="socialicons" style={{display:"inline",width:"50%",height:"50%"}}>
+      <SocialIcon url="https://www.youtube.com/channel/UCrJt9I23HDhtkYD5ZPaRDzA" />
+      </div>
+      <div style={{marginLeft:"1vw",display:"inline"}}>
+      <SocialIcon url="https://www.instagram.com/democracysocialnetwork" />
+      </div>
       </div>
   </div>
 ))

@@ -36,9 +36,25 @@ let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com
 "https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/x-oRmcYR5cM",
 "https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
 "https://www.youtube.com/embed/lu8lQKVcbOs","https://www.youtube.com/embed/_swnWW2NGBI",
-"https://www.youtube.com/embed/7IIEB5JiyNs",
-"https://www.youtube.com/embed/wCzS2FZoB-I","https://www.youtube.com/embed/uNkADHZStDE",
-"https://www.youtube.com/embed/6s17IAj-XpU"]
+"https://www.youtube.com/embed/7IIEB5JiyNs","https://www.youtube.com/embed/wCzS2FZoB-I",
+"https://www.youtube.com/embed/uNkADHZStDE","https://www.youtube.com/embed/6s17IAj-XpU",
+"https://www.youtube.com/embed/xgKPyIj8Q60","https://www.youtube.com/embed/-zIqCH00V4I"]
+
+let videostwo=["https://www.youtube.com/embed/BZefVlnMz5g","https://www.youtube.com/embed/Hlb-HwxUxSU","https://www.youtube.com/embed/sjI8jwn0Upo",
+"https://www.youtube.com/embed/PiAHtm9yEu4","https://www.youtube.com/embed/WoObxp_eAiU","https://www.youtube.com/embed/_TcBj43mULY",
+"https://www.youtube.com/embed/FfLEHG85fEk","https://www.youtube.com/embed/IuyA7PBSGJo","https://www.youtube.com/embed/5jWbhDERLk4",
+"https://www.youtube.com/embed/xxFPZaurHZA","https://www.youtube.com/embed/z1mknIkBGUA","https://www.youtube.com/embed/61hYxh9x61Y",
+"https://www.youtube.com/embed/_pNBp0n08ak","https://www.youtube.com/embed/CfPq6uUO7Og","https://www.youtube.com/embed/ExHCAjRsZhA",
+"https://www.youtube.com/embed/Xcuz6BUUl20","https://www.youtube.com/embed/lRMUk1dVhsg","https://www.youtube.com/embed/6ivHHAqzMG8",
+"https://www.youtube.com/embed/e1OlTPhI0dU","https://www.youtube.com/embed/IeQv32Z5R7o","https://www.youtube.com/embed/zqwNzo5LR-0",
+"https://www.youtube.com/embed/qVHzAinRH4g","https://www.youtube.com/embed/FUWrgLpazwE","https://www.youtube.com/embed/Ei13RX2W8FQ",
+"https://www.youtube.com/embed/2ZHafA6dVBs"]
+
+let timenow=new Date().getTime()
+let usercreated=new Date(auth.isAuthenticated().user.created).getTime()
+if((timenow-usercreated)>2629800000){
+  videos.push(...videostwo)
+}
 
     let randomVids = videos.sort(() => .5 - Math.random()).slice(0, 2);
     this.setState({vidone:randomVids[0],vidtwo:randomVids[1]})

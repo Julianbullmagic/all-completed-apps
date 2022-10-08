@@ -315,7 +315,6 @@ iframe{
 width:100vw;
 }
 
-
 .groupdivone
 {
 	border: #eaeaea;
@@ -557,9 +556,6 @@ width:100vw;
 	border-top-width: 5px;
 	padding: 1vw;
 }
-
-
-
 
 .restrictionexplanation
 {
@@ -984,6 +980,44 @@ textarea:focus
 	opacity:0.4;
 	bottom:0px;
 	z-index:-1;
+}
+.socialicons{
+	margin-left:45vw;
+}
+@media only screen and (max-width: 1200px) {
+	.socialicons{
+		margin-left:35vw;
+	}
+}
+@media only screen and (max-width: 1050px) {
+	.socialicons{
+		margin-left:25vw;
+	}
+}
+@media only screen and (max-width: 900px) {
+	.socialicons{
+		margin-left:15vw;
+	}
+}
+@media only screen and (max-width: 800px) {
+	.socialicons{
+		margin-left:10vw;
+	}
+}
+@media only screen and (max-width: 750px) {
+	.socialicons{
+		margin-left:5vw;
+	}
+}
+@media only screen and (max-width: 700px) {
+	.socialicons{
+		margin-left:0vw;
+	}
+}
+@media only screen and (max-width: 400px) {
+	.socialicons SocialIcon{
+		width:1vw;
+	}
 }
 @media only screen and (max-width: 910px) {
 
