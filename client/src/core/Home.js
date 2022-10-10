@@ -121,7 +121,6 @@ console.error(err);
       Unlike most social networks, on this web application all admins are elected by the groups they represent and members are much more involved in creating and
       enforcing the rules.
       <br/><br/>
-      {info[0]}
       </h5>
       <div className="vids" style={{position:"fixed",marginLeft:"5vw",bottom:"4%"}}>
     <iframe style={{width:"40vw",height:"40vh",display:"inline"}} src={vidOne} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
