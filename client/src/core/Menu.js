@@ -28,10 +28,10 @@ const Menu = withRouter(({history}) => (
         <button id="explanation">About
         </button>
       </Link>
+      </>}
       <Link to="/info">
         <button style={isActive(history, "/info")}>Info</button>
       </Link>
-      </>}
       {
         !auth.isAuthenticated() && (<span>
           <Link style={{marginLeft:"10px",
