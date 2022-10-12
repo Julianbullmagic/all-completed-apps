@@ -20,8 +20,11 @@ const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 
 router.put("/addtopagecounter/:page", (req, res, next) => {
+  console.log(req.body,"body")
+  let visitorinfo=Object.values(req.body).join(",")
+  console.log(visitorinfo,"visitorinfo")
   if (req.params.page==="info"){
-    PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'info' : 1}})
+    PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'info' : visitorinfo}})
     .exec(function(err,docs){
             if(err){
               console.error(err);
@@ -33,7 +36,7 @@ router.put("/addtopagecounter/:page", (req, res, next) => {
           })
   }
   if (req.params.page==="home"){
-    PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'home' : 1}})
+    PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'home' : visitorinfo}})
     .exec(function(err,docs){
             if(err){
               console.error(err);
@@ -44,68 +47,8 @@ router.put("/addtopagecounter/:page", (req, res, next) => {
             }
           })
   }
-if (req.params.page==="sovietunion"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'sovietunion' : 1}})
-  .exec(function(err,docs){
-          if(err){
-            console.error(err);
-          }else{
-            res.status(200).json({
-              data: docs
-            });
-          }
-        })
-}
-if (req.params.page==="yugoslavia"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'yugoslavia' : 1}})
-  .exec(function(err,docs){
-          if(err){
-            console.error(err);
-          }else{
-            res.status(200).json({
-              data: docs
-            });
-          }
-        })
-}
-if (req.params.page==="china"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'china' : 1}})
-  .exec(function(err,docs){
-          if(err){
-            console.error(err);
-          }else{
-            res.status(200).json({
-              data: docs
-            });
-          }
-        })
-}
-if (req.params.page==="cuba"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'cuba' : 1}})
-  .exec(function(err,docs){
-          if(err){
-            console.error(err);
-          }else{
-            res.status(200).json({
-              data: docs
-            });
-          }
-        })
-}
 if (req.params.page==="psychologicalwar"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'psychologicalwar' : 1}})
-  .exec(function(err,docs){
-          if(err){
-            console.error(err);
-          }else{
-            res.status(200).json({
-              data: docs
-            });
-          }
-        })
-}
-if (req.params.page==="democracy"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$inc : {'democracy' : 1}})
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'psychologicalwar' : visitorinfo}})
   .exec(function(err,docs){
           if(err){
             console.error(err);

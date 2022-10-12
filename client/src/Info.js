@@ -1,18 +1,27 @@
 import React, {useRef,useState,useEffect} from 'react'
+import ip from 'ip-in';
 
 export default function Info() {
+  useEffect(()=> {
+    pageCounter()
+  }, [])
+let user
+async function getVisitorInfo(){
+  let ipAddress = await ip.getIpAddress()
+ console.log('ipAddress',ipAddress)
 
-    useEffect(()=> {
-  pageCounter()
-    }, [])
+ user = await ip.getCountryDetails()
+ console.log('countryDetails',user)
+}
 
-  function pageCounter(){
+  async function pageCounter(){
+    await getVisitorInfo()
   const options = {
     method: 'put',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: ''
+    body: JSON.stringify(user)
   }
   fetch("/groups/addtopagecounter/info", options
   ).then(res => {

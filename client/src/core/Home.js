@@ -10,7 +10,7 @@ import auth from './../auth/auth-helper'
 import {Image} from 'cloudinary-react'
 import {Link} from "react-router-dom";
 import GroupList from '../groups/GroupList'
-const KmeansLib = require('kmeans-same-size');
+import ip from 'ip-in';
 
 let info=["",
 "In the last few decades wage growth has declined substantially, the cost of living increased enormously and unemployment rates have tripled. These problems have fairly straightforward solutions, we just need a political system that chooses the sorts of leaders who will pursue them. We are experimenting with a new system called Democracy-social-network",
@@ -38,6 +38,7 @@ export default function Home({history}){
   const [graphThree, setGraphThree] = useState("")
   const [graphFour, setGraphFour] = useState("")
   const [viewForm, setViewForm] = useState(false);
+  let user
 
   useEffect(()=> {
 getGroupData()
@@ -45,6 +46,13 @@ pageCounter()
 setVideos()
 setGraphs()
   }, [])
+
+  async function getVisitorInfo(){
+    let ipAddress = await ip.getIpAddress()
+   console.log('ipAddress',ipAddress)
+   user = await ip.getCountryDetails()
+   console.log('countryDetails',user)
+  }
 
 function setVideos(){
   let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com/embed/34LGPIXvU5M",
@@ -74,13 +82,14 @@ setGraphThree(randomGraphs[2])
 setGraphFour(randomGraphs[3])
 }
 
-function pageCounter(){
+async function pageCounter(){
+  await getVisitorInfo()
 const options = {
   method: 'put',
   headers: {
     'Content-Type': 'application/json'
   },
-  body: ''
+  body: JSON.stringify(user)
 }
 fetch("/groups/addtopagecounter/home", options
 ).then(res => {
@@ -101,7 +110,6 @@ console.error(err);
     return (
       <div style={{height:"100vh",width:"100vw",overflow:"hidden",scroll:"none"}}>
       {!auth.isAuthenticated()&&<div style={{height:"100vh",width:"100vw",position:"relative",zIndex:2,overflow:"hidden"}}>
-      <button className="formbutton" style={{padding:"0.5vw",marginLeft:"5vw",marginRight:"10vw",marginTop:"5vh"}} onClick={(e) => setViewForm(!viewForm)}>Fill out our survey and see survey results?</button>
       {viewForm&&<>
         <div style={{position:"fixed",marginLeft:"5vw",width:"45vw",height:"75vh",overflowY:"scroll",overflowX:"hidden"}}>
         <div style={{height:"50vh"}}>
@@ -133,3 +141,4 @@ console.error(err);
       </div>
     )
 }
+// <button className="formbutton" style={{padding:"0.5vw",marginLeft:"5vw",marginRight:"10vw",marginTop:"5vh"}} onClick={(e) => setViewForm(!viewForm)}>Fill out our survey and see survey results?</button>

@@ -1,18 +1,27 @@
 import React, {useEffect} from 'react'
+import ip from 'ip-in';
 
 export default function PsychologicalWarfare() {
-
+  let user
   useEffect(() => {
       pageCounter()
   }, [])
 
-function pageCounter(){
+  async function getVisitorInfo(){
+    let ipAddress = await ip.getIpAddress()
+   console.log('ipAddress',ipAddress)
+   user = await ip.getCountryDetails()
+   console.log('countryDetails',user)
+  }
+
+async function pageCounter(){
+  await getVisitorInfo()
 const options = {
   method: 'put',
   headers: {
     'Content-Type': 'application/json'
   },
-  body: ''
+  body: JSON.stringify(user)
 }
 fetch("/groups/addtopagecounter/psychologicalwar", options
 ).then(res => {

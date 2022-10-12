@@ -55,7 +55,6 @@ const server = require("http").createServer(app);
 let origin
 
 
-console.log("origin",origin)
 const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:3000"||"https://democratic-social-network.herokuapp.com",
