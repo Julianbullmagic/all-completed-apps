@@ -43,7 +43,6 @@ export default function Home({history}){
   useEffect(()=> {
 getGroupData()
 pageCounter()
-setVideos()
 setGraphs()
   }, [])
 
@@ -54,16 +53,27 @@ setGraphs()
    console.log('countryDetails',user)
   }
 
-function setVideos(){
+function setVideos(visitorinfo,pagecounter){
+  console.log(visitorinfo,pagecounter,"visitorinfo,pagecounter in setVideos")
   let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com/embed/34LGPIXvU5M",
-  "https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/x-oRmcYR5cM",
-  "https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
-  "https://www.youtube.com/embed/lu8lQKVcbOs","https://www.youtube.com/embed/_swnWW2NGBI",
+  "https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
   "https://www.youtube.com/embed/7IIEB5JiyNs","https://www.youtube.com/embed/xgKPyIj8Q60","https://www.youtube.com/embed/-zIqCH00V4I",
-  "https://www.youtube.com/embed/wCzS2FZoB-I","https://www.youtube.com/embed/uNkADHZStDE",
-  "https://www.youtube.com/embed/6s17IAj-XpU"]
+  "https://www.youtube.com/embed/uNkADHZStDE","https://www.youtube.com/embed/6s17IAj-XpU"]
 
-      let randomVids = videos.sort(() => .5 - Math.random()).slice(0, 2);
+  let videostwo=["https://www.youtube.com/embed/x-oRmcYR5cM","https://www.youtube.com/embed/lu8lQKVcbOs","https://www.youtube.com/embed/_swnWW2NGBI",
+  "https://www.youtube.com/embed/BZefVlnMz5g","https://www.youtube.com/embed/Hlb-HwxUxSU","https://www.youtube.com/embed/sjI8jwn0Upo",
+  "https://www.youtube.com/embed/PiAHtm9yEu4","https://www.youtube.com/embed/WoObxp_eAiU","https://www.youtube.com/embed/_TcBj43mULY",
+  "https://www.youtube.com/embed/FfLEHG85fEk","https://www.youtube.com/embed/IuyA7PBSGJo","https://www.youtube.com/embed/5jWbhDERLk4",
+  "https://www.youtube.com/embed/xxFPZaurHZA","https://www.youtube.com/embed/z1mknIkBGUA","https://www.youtube.com/embed/61hYxh9x61Y",
+  "https://www.youtube.com/embed/_pNBp0n08ak","https://www.youtube.com/embed/CfPq6uUO7Og","https://www.youtube.com/embed/ExHCAjRsZhA",
+  "https://www.youtube.com/embed/Xcuz6BUUl20","https://www.youtube.com/embed/lRMUk1dVhsg","https://www.youtube.com/embed/6ivHHAqzMG8",
+  "https://www.youtube.com/embed/e1OlTPhI0dU","https://www.youtube.com/embed/IeQv32Z5R7o","https://www.youtube.com/embed/zqwNzo5LR-0",
+  "https://www.youtube.com/embed/qVHzAinRH4g","https://www.youtube.com/embed/FUWrgLpazwE","https://www.youtube.com/embed/Ei13RX2W8FQ",
+  "https://www.youtube.com/embed/2ZHafA6dVBs"]
+  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+    videos.push(...videostwo)
+  }
+      let randomVids = videos.sort(() => .5 - Math.random()).sort(() => .5 - Math.random()).slice(0, 2);
       setVidOne(randomVids[0])
       setVidTwo(randomVids[1])
 }
@@ -91,12 +101,16 @@ const options = {
   },
   body: JSON.stringify(user)
 }
-fetch("/groups/addtopagecounter/home", options
+let pagecounter=await fetch("/groups/addtopagecounter/home", options
 ).then(res => {
 return res.json()
 }).catch(err => {
 console.error(err);
 })
+console.log(pagecounter,"pagecounter")
+let visitorinfo=Object.values(user).join(",")
+console.log(visitorinfo,"visitorinfo")
+setVideos(visitorinfo,pagecounter.data)
 }
 
   async function getGroupData(){

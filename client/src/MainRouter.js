@@ -33,14 +33,9 @@ const MainRouter = () => {
         <Route exact path="/singleuser/:userId"    component={SingleUser}/>
         <Route exact path="/info" component={Info}/>
         <Route exact path="/Psychological-War"    component={PsychologicalWarfare}/>
-        <Route exact path="/psychological-war"    component={PsychologicalWarfare}/>
         <Route exact path="/Cuba"    component={Cuba}/>
-        <Route exact path="/cuba"    component={Cuba}/>
         <Route exact path="/Soviet-Union"    component={SovietUnion}/>
-        <Route exact path="/soviet-union"    component={SovietUnion}/>
-        <Route exact path="/yugoslavia"    component={Yugoslavia}/>
         <Route exact path="/Yugoslavia"    component={Yugoslavia}/>
-        <Route exact path="/china"    component={China}/>
         <Route exact path="/China"    component={China}/>
         </div>
       </Switch>

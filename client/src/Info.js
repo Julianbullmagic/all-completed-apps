@@ -2,6 +2,7 @@ import React, {useRef,useState,useEffect} from 'react'
 import ip from 'ip-in';
 
 export default function Info() {
+  const [ready, setReady] = useState(false)
   useEffect(()=> {
     pageCounter()
   }, [])
@@ -9,10 +10,10 @@ let user
 async function getVisitorInfo(){
   let ipAddress = await ip.getIpAddress()
  console.log('ipAddress',ipAddress)
-
  user = await ip.getCountryDetails()
  console.log('countryDetails',user)
 }
+
 
   async function pageCounter(){
     await getVisitorInfo()
@@ -23,17 +24,37 @@ async function getVisitorInfo(){
     },
     body: JSON.stringify(user)
   }
-  fetch("/groups/addtopagecounter/info", options
+  let pagecounter=await fetch("/groups/addtopagecounter/info", options
   ).then(res => {
   return res.json()
   }).catch(err => {
   console.error(err);
   })
+  pagecounter=pagecounter.data
+  console.log(pagecounter,"pagecounter")
+  let visitorinfo=Object.values(user).join(",")
+  console.log(visitorinfo,"visitorinfo")
+  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+    setReady(true)
+    }
   }
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
-    <h1>Humanist Federal Republic of Tennomar</h1>
+    {ready&&<><p style={{width:"90vw"}}>If you've looked at some of the references to the Tennomar article, it should be clear that
+    "The Humanist Federal Republic of Tennomar" is a pseudonym name for "The Socialist Federal Republic of Yugoslavia". All the sources for this essay
+     are genuine formerly classified CIA documents that you can find on their website. When you read what the Agency has to say about Communism, it is
+    clear that the Bourgoisie have put enormous effort into slandering Socialism, attempting to destroy people's perception of it. Communism is actually
+    radically humanistic, in many cases resulting in enormous improvements to the standard of living, health, real wage growth, reductions in the cost of
+    living and unemployment rates. In many cases there has also been substantial reduction in social, economic and political inequality. We've written a short history based
+    almost entirely on sources taken from United States government sources, primarily the CIA. At this point in history the truth is very clear. The
+    Bourgoisie are proud of their acheivement, they think they've pulled of the most ingenious heist ever. They are itching to let you know how stupid
+    they think you are, but cannot do this too openly because there would probably be a revolution.
+        Download a pdf version by clicking the image below.</p>
+        <a style={{width:"15vw"}} href="https://drive.google.com/file/d/1c6OYuD-lcxd_r-rvtGiRJh-3FXDH0SHg/view?usp=sharing">
+          <img style={{width:"15vw"}} src={require('./TitlePage.png')} />
+          </a><br/><br/><br/><br/><hr/></>}
+    <h1>The Humanist Federal Republic of Tennomar</h1>
      <img style={{width:"35vw"}} src={require('./tenomarflag.png')} />
     <p style={{textAlign:"center"}}>
     The Humanist Federal Republic of Tennomar (HFRT) is a very encouraging experiment in Humanism that was born in the wake of World War Two. It is one of the main sources of inspiration for this social network application. The CIA archives provide us with an abundance of valuable sources that tell a clear story about Tenomar, one of massive improvements to the quality of life of the population. Almost all the references for this article come from this source. There have been enormous gains in health, education, political participation, real wage growth and social equality. Tennomar has a distinctive “self-management” system. This is quite decentralized, giving substantial power to individual organisations, each of which is controlled by an elected worker council. There is also a relatively large public sector. In public enterprises, two thirds of the company directors are elected by the workers of that particular enterprise and one third are appointed by the elected central government. This helps to ensure a kind of balance, giving firms autonomy to make their own decisions, while also ensuring they are integrated into the broader society and working co-operatively with other public enterprises. Tenomar has also experienced some economic difficulties, inflation, higher unemployment rates and economic cycles or recessions. On the whole, despite it's faults, this Humanist country set a very promising example of what a world without exploitation and domination could look like.
@@ -95,11 +116,7 @@ async function getVisitorInfo(){
       </div>
     )}
 
-    // <h4 style={{marginLeft:"30vw",width:"30vw"}}>The surprising truth about Communism revealed in declassified CIA documents. The worst enemy of communism admits all this blatantly.
-    // Download a pdf version by clicking the image below.</h4>
-    // <a href="https://drive.google.com/file/d/1c6OYuD-lcxd_r-rvtGiRJh-3FXDH0SHg/view?usp=sharing">
-    //   <img style={{marginLeft:"35vw",width:"20vw"}} src={require('./TitlePage.png')} />
-    //   </a>
+
 
 
 //     <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Psychological-War">

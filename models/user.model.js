@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     required: 'Name is required'
   },
-  email: {
+  hashed_email: {
     type: String,
     trim: true,
     unique: 'Email already exists',
@@ -119,6 +119,17 @@ userSchema
   .get(function() {
     return this._password
   })
+
+  userSchema
+    .virtual('email')
+    .set(function(email) {
+      this._email = email
+      this.salt = this.makeSalt()
+      this.hashed_email = this.encryptPassword(email)
+    })
+    .get(function() {
+      return this._password
+    })
 
 userSchema.path('hashed_password').validate(function(v) {
   if (this._password && this._password.length < 6) {
