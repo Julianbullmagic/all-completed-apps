@@ -630,8 +630,6 @@ width:100vw;
 	align-items:center;
 }
 
-
-
 .signupform
 {
 	display: flex;
@@ -989,9 +987,19 @@ textarea:focus
 		margin-left:35vw;
 	}
 }
+@media only screen and (max-width: 1120px) {
+	.socialicons{
+		margin-left:30vw;
+	}
+}
 @media only screen and (max-width: 1050px) {
 	.socialicons{
 		margin-left:25vw;
+	}
+}
+@media only screen and (max-width: 960px) {
+	.socialicons{
+		margin-left:20vw;
 	}
 }
 @media only screen and (max-width: 900px) {
@@ -999,23 +1007,38 @@ textarea:focus
 		margin-left:15vw;
 	}
 }
+@media only screen and (max-width: 850px) {
+	.socialicons{
+		margin-left:12vw;
+	}
+}
 @media only screen and (max-width: 800px) {
 	.socialicons{
 		margin-left:10vw;
 	}
 }
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 790px) {
 	.socialicons{
-		margin-left:5vw;
+		margin-left:8vw;
 	}
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 770px) {
+	.socialicons{
+		margin-left:6vw;
+	}
+}
+@media only screen and (max-width: 750px) {
+	.socialicons{
+		margin-left:3vw;
+	}
+}
+@media only screen and (max-width: 730px) {
 	.socialicons{
 		margin-left:0vw;
 	}
 }
 @media only screen and (max-width: 400px) {
-	.socialicons SocialIcon{
+	.socialicons{
 		width:1vw;
 	}
 }
@@ -1030,10 +1053,13 @@ textarea:focus
 		width:60vw;
 	}
 }
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 700px) {
 	.menu{
-		height:12vw;
+		height:12vh;
 	}
+}
+@media only screen and (max-width: 640px) {
+
 	.details{
 		display:block;
 		margin-bottom:15vw;
@@ -1059,9 +1085,6 @@ textarea:focus
 }
 
 @media only screen and (max-width: 510px) {
-	.menu{
-		height:14vw;
-	}
 	.details{
 		display:block;
 		margin-bottom:20vw;
@@ -1083,9 +1106,7 @@ textarea:focus
 		height:50%;
 		object-fit:contain;
 	}
-	.menu{
-		height:16vw;
-	}
+
 	.eventformbox input{
 		display:inline;
 		width:40vw;
@@ -1097,9 +1118,7 @@ textarea:focus
 }
 
 @media only screen and (max-width: 350px) {
-	.menu{
-		height:18vw;
-	}
+
 	.eventformbox input{
 		display:inline;
 		width:30vw;
