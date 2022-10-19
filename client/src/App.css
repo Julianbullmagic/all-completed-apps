@@ -1037,9 +1037,9 @@ textarea:focus
 		margin-left:0vw;
 	}
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
 	.socialicons{
-		width:1vw;
+		display:hidden;
 	}
 }
 @media only screen and (max-width: 910px) {
