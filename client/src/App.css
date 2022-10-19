@@ -1044,7 +1044,7 @@ textarea:focus
 }
 @media only screen and (max-width: 500px) {
 	.socialicons{
-		display:hidden;
+		display:none;
 	}
 	.menu{
 		height:8vh;
