@@ -980,7 +980,7 @@ textarea:focus
 	z-index:-1;
 }
 .socialicons{
-	margin-left:45vw;
+	margin-left:40vw;
 }
 @media only screen and (max-width: 1200px) {
 	.socialicons{
@@ -1045,9 +1045,11 @@ textarea:focus
 @media only screen and (max-width: 500px) {
 	.socialicons{
 		display:none;
+		opacity:0;
 	}
-	.menu{
-		height:8vh;
+	.socialicontwo{
+		display:none;
+		opacity:0;
 	}
 }
 @media only screen and (max-width: 910px) {

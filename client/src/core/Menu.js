@@ -60,7 +60,7 @@ const Menu = withRouter(({history}) => (
       <div className="socialicons" style={{display:"inline",width:"50%",height:"50%"}}>
       <SocialIcon url="https://www.youtube.com/channel/UCrJt9I23HDhtkYD5ZPaRDzA" />
       </div>
-      <div style={{marginLeft:"1vw",display:"inline"}}>
+      <div className="socialicontwo" style={{marginLeft:"1vw",display:"inline"}}>
       <SocialIcon url="https://www.instagram.com/democracysocialnetwork" />
       </div>
       </div>
