@@ -140,7 +140,7 @@ setVideos(visitorinfo,pagecounter.data)
       </div></>}
       {!viewForm&&<>
       <h5 style={{marginLeft:"5vw",marginRight:"10vw",marginTop:"5vh"}}>
-      Unlike most social networks, on this web application all admins are elected by the groups they represent and members are much more involved in creating and
+      Unlike most social networks, on this web application, all admins are elected by the groups they represent and members are much more involved in creating and
       enforcing the rules.
       <br/><br/>
       </h5>
