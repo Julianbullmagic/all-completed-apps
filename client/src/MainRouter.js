@@ -13,6 +13,8 @@ import SovietUnion from "./sovietunion"
 import China from "./china"
 import Cuba from "./cuba"
 import Yugoslavia from "./yugoslavia"
+import LibertarianSocialism from "./LibertarianSocialism"
+
 import PsychologicalWarfare from "./psychologicalwarfare"
 
 // import Lybia from "./lybia"
@@ -37,6 +39,7 @@ const MainRouter = () => {
         <Route exact path="/Soviet-Union"    component={SovietUnion}/>
         <Route exact path="/Yugoslavia"    component={Yugoslavia}/>
         <Route exact path="/China"    component={China}/>
+        <Route exact path="/Libertarian-Socialism"    component={LibertarianSocialism}/>
         </div>
       </Switch>
     </div>)

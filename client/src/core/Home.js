@@ -58,7 +58,8 @@ function setVideos(visitorinfo,pagecounter){
   let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com/embed/34LGPIXvU5M",
   "https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
   "https://www.youtube.com/embed/7IIEB5JiyNs","https://www.youtube.com/embed/xgKPyIj8Q60","https://www.youtube.com/embed/-zIqCH00V4I",
-  "https://www.youtube.com/embed/uNkADHZStDE","https://www.youtube.com/embed/6s17IAj-XpU"]
+  "https://www.youtube.com/embed/uNkADHZStDE","https://www.youtube.com/embed/6s17IAj-XpU","https://www.youtube.com/embed/2qNGKFS9oGM",
+  "https://www.youtube.com/embed/KXvlVIXETd0","https://www.youtube.com/embed/uXBU9qcsa-I","https://www.youtube.com/embed/t4jAhVKNufs"]
 
   let videostwo=["https://www.youtube.com/embed/x-oRmcYR5cM","https://www.youtube.com/embed/lu8lQKVcbOs","https://www.youtube.com/embed/_swnWW2NGBI",
   "https://www.youtube.com/embed/BZefVlnMz5g","https://www.youtube.com/embed/Hlb-HwxUxSU","https://www.youtube.com/embed/sjI8jwn0Upo",
@@ -70,8 +71,18 @@ function setVideos(visitorinfo,pagecounter){
   "https://www.youtube.com/embed/e1OlTPhI0dU","https://www.youtube.com/embed/IeQv32Z5R7o","https://www.youtube.com/embed/zqwNzo5LR-0",
   "https://www.youtube.com/embed/qVHzAinRH4g","https://www.youtube.com/embed/FUWrgLpazwE","https://www.youtube.com/embed/Ei13RX2W8FQ",
   "https://www.youtube.com/embed/2ZHafA6dVBs"]
+
+  let anarchismvideos=["https://www.youtube.com/embed/yyqG-71zOi0","https://www.youtube.com/embed/UOGd30eFuqI","https://www.youtube.com/embed/2fipJAwje68",
+"https://www.youtube.com/embed/r8i4RAxLB-o","https://www.youtube.com/embed/Peyoc7-W0lc","https://www.youtube.com/embed/d-TT4qAKM4w",
+"https://www.youtube.com/embed/Cc5i5Xau4xs","https://www.youtube.com/embed/ihqLJ4Cayrw","https://www.youtube.com/embed/ojXxz1u1R4c",
+"https://www.youtube.com/embed/cDnenjIdnnE","https://www.youtube.com/embed/Ww46lxIc6-w","https://www.youtube.com/embed/SH2pFTx_8VE",
+"https://www.youtube.com/embed/I0XhRnJz8fU","https://www.youtube.com/embed/6-tOSrfHMBc","https://www.youtube.com/embed/zXlHGseyvfw",
+"https://www.youtube.com/embed/lDNuzFQW3uI","https://www.youtube.com/embed/pTzC_QqSqwc"]
+
   if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
     videos.push(...videostwo)
+  }else{
+    videos.push(...anarchismvideos)
   }
       let randomVids = videos.sort(() => .5 - Math.random()).sort(() => .5 - Math.random()).slice(0, 2);
       setVidOne(randomVids[0])
