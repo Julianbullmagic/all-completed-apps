@@ -59,6 +59,54 @@ if (req.params.page==="psychologicalwar"){
           }
         })
 }
+if (req.params.page==="tennomar"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'tennomar' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
+if (req.params.page==="paris"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'paris' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
+if (req.params.page==="cooperatives"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'cooperatives' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
+if (req.params.page==="tennomar"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'tennomar' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
 })
 
 router.post("/getpasswordresettoken/:email", (req, res) => {

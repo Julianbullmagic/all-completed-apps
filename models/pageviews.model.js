@@ -6,6 +6,8 @@ const PageViewSchema = new mongoose.Schema({
   info:[String],
   paris:[String],
   cooperatives:[String],
+  tennomar:[String],
+
 })
 
 module.exports=mongoose.model('pageviews', PageViewSchema)
