@@ -4,6 +4,8 @@ const PageViewSchema = new mongoose.Schema({
   psychologicalwar:[String],
   home:[String],
   info:[String],
+  paris:[String],
+  cooperatives:[String],
 })
 
 module.exports=mongoose.model('pageviews', PageViewSchema)
