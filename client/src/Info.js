@@ -58,7 +58,7 @@ return (
   <div className="articlelink">
   <h2>Co-operatives</h2>
   <p>
-  Co-operatives are democratic businesses owned and run by the people who work for the company. Decisions are made with either direct or
+  Co-operatives are democratic businesses owned and run by the people who work for them. Decisions are made with either direct or
   representative democracy. If there is a board of directors, they are elected by the people who work for the company. These are businesses
   that don't have really "bosses", the leaders of the company can be hired or fired by the workers and are therefore much more likely to
   consult and discuss with them in order to try to reach decisions that most people are happy with. This form of organization has many benefits,
