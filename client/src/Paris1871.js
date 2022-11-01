@@ -17,6 +17,8 @@ async function getVisitorInfo(){
 
   async function pageCounter(){
     await getVisitorInfo()
+    delete user.lat
+    delete user.lon
   const options = {
     method: 'put',
     headers: {

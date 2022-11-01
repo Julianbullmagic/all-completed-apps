@@ -17,6 +17,8 @@ async function getVisitorInfo(){
 
   async function pageCounter(){
     await getVisitorInfo()
+    delete user.lat
+    delete user.lon 
   const options = {
     method: 'put',
     headers: {
@@ -32,6 +34,7 @@ async function getVisitorInfo(){
   })
   pagecounter=pagecounter.data
   console.log(pagecounter,"pagecounter")
+
   let visitorinfo=Object.values(user).join(",")
   console.log(visitorinfo,"visitorinfo")
   if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){

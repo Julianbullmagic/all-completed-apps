@@ -25,6 +25,8 @@ async function getVisitorInfo(){
 
   async function pageCounter(){
     await getVisitorInfo()
+    delete user.lat
+    delete user.lon
   const options = {
     method: 'put',
     headers: {
@@ -71,8 +73,6 @@ crisis (ref #6) and more than doubled lending to small businesses between 2008 a
 overall during the same period declined by around $100 billion. Public trust in credit unions stands at 60%, compared to 30% for big banks and
 small businesses are five times less likely to be dissatisfied with a credit union than with a big bank (ref #7). It is reported universally in the literature that the prospect of laying off or firing fellow workers is very painful. This is especially so in collectives, where the communities are tightly knit and people develop bonds of friendship with each other. Even in situations where close friendships do not develop, there usually remains mutual respect and a sense of obligation to each other—a sense of “we’re in this thin together.”.As a rule, workers prefer the continued employment of as much of the workforce as possible to the retention of high revenues (ref #8). Worker-owners take their “supervisor” much less
 seriously than in conventional workplaces because his continued employment depends on their goodwill (ref #9).
-
-
 <br/><br/>
 The Mondragon Corporation in Spain is currently the largest co-operative in the world. It comprises about 250 companies that
 together employ 80,000 people and have annual sales of 13 billion

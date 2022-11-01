@@ -16,6 +16,8 @@ export default function PsychologicalWarfare() {
 
 async function pageCounter(){
   await getVisitorInfo()
+  delete user.lat
+  delete user.lon 
 const options = {
   method: 'put',
   headers: {

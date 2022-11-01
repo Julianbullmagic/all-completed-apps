@@ -17,6 +17,7 @@ import LibertarianSocialism from "./LibertarianSocialism"
 import Tennomar from "./Tennomar"
 import Paris1871 from "./Paris1871"
 import Cooperatives from "./Cooperatives"
+import Democracy from "./Democracy"
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
 
@@ -42,6 +43,7 @@ const MainRouter = () => {
         <Route exact path="/Tennomar"    component={Tennomar}/>
         <Route exact path="/Paris1871"    component={Paris1871}/>
         <Route exact path="/Cooperatives"    component={Cooperatives}/>
+        <Route exact path="/Democracy"    component={Democracy}/>
         </div>
       </Switch>
     </div>)
