@@ -16,10 +16,9 @@ export default function Info() {
 
 
   async function pageCounter(){
-
     await getVisitorInfo()
     delete user.lat
-    delete user.lon 
+    delete user.lon
     const options = {
       method: 'put',
       headers: {
@@ -105,7 +104,7 @@ return (
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Democracy">
   <div className="articlelink">
-  <h2>Australian Democracy</h2>
+  <h2>Australian Democracy?</h2>
   <p>
   Our Political system is heavily biased in favour of the rich. An elite group of wealthy people, who make up a small minority of the population, have been
   rigging the system in their own favour. For the last few decades this problem has grown gradually worse and worse and is the fundamental reason we are

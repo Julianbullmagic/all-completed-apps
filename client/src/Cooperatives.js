@@ -103,7 +103,9 @@ From the point of view of working class people, a co-operative is clearly a supe
 members are better paid, their work environment is more friendly, the work more rewarding and there is greater job security. You're probably wondering
 why you don't hear about these organizations much in the mass media. On the info page of this website we have a link to another article called
 "The Psychological War on Humanism" where we provide a comprehensive answer to this question.
+<br/><br/>
 <h3>Please fill out our survey at the bottom of this page</h3>
+<br/><br/>
     <div style={{textAlign:"left"}}>
     <h2>References</h2>
 1)WORKER COOPERATIVES AND REVOLUTION: HISTORY AND POSSIBILITIES IN THE UNITED STATES Chris Wright 2014 Published by BookLocker.com, Inc., Bradenton,

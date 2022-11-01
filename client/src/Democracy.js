@@ -67,6 +67,8 @@ risk an armed robber takes when then steal money from a shop or bank. They could
 <br/><br/>
 In conclusion, the Australian political system is largely controlled by a parasitic oligarchy who are a burden on the working class population. We should establish a better system that eliminates the influence of money. We could achieve this by banning all donations to political parties, removing nomination fees and having a guaranteed equal campaign marketing budget provided at public expense to all nominated candidates. Candidates could be chosen at public gatherings that everyone is encouraged to attend, these events would also be publicised and promoted at public expense. Anyone could submit their resume and we have group conversations about who is the most suitable. Who actually has the best leadership qualities? Who has demonstrated their ability to improve the lives of their constituency? Who is reducing the cost of living, growing real wages, creating jobs etc? Who brings out the best qualities in the people they represent? Which leaders make you believe in yourself and other human beings? This may sound outlandish and Utopian, but there are actually many organisations and even whole countries that have successfully put these principles into practice. Continue reading the other articles on this website if you would like to learn more about this.
     <br/><br/>
+    <h3>Please fill out our survey at the bottom of this page</h3>
+    <br/><br/>
     <div style={{textAlign:"left"}}>
     <h2>References</h2>
     1) https://www.abc.net.au/news/2017-04-20/australian-politician-property-ownership-details/8453782?nw=0&r=HtmlFragment<br/>
@@ -83,16 +85,17 @@ In conclusion, the Australian political system is largely controlled by a parasi
     13) WORKER COOPERATIVES AND REVOLUTION: HISTORY AND POSSIBILITIES IN THE UNITED STATES Chris Wright 2014 Published by BookLocker.com, Inc., Bradenton, Florida. page 44 para 2<br/>
     </div>
     </p>
-    <div className="vids" style={{bottom:"4%"}}>
-    <iframe style={{width:"37vw",display:"inline",top:"0vh",height:"100vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9i42lbtQCST96RuSOTAO9wICXZgi07WLVx8gUHt7Mbq_kyzEFMpjWTPkXAJmyl_lUcOIxkwc8JNX_/pubchart?oid=1601411393&amp;format=interactive"></iframe>
-    <iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/forms/d/e/1FAIpQLSfSSjXLRfogBYhRyozV60Mq9c2rGR0t4wSaMxZsxCnWPEfD5w/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-
-<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1115745066&amp;format=interactive"></iframe>
-<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1679919600&amp;format=interactive"></iframe>
-<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1941203838&amp;format=interactive"></iframe>
-<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1837810909&amp;format=interactive"></iframe>
-<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=288198991&amp;format=interactive"></iframe>
-<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=11657505&amp;format=interactive"></iframe>
+    <div style={{bottom:"4%",width:"90vw",display:"flex"}}>
+    <div style={{width:"40vw",display:"inline",top:"0vh",height:"1000vh"}}>
+<iframe style={{width:"40vw",display:"block",height:"55vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9i42lbtQCST96RuSOTAO9wICXZgi07WLVx8gUHt7Mbq_kyzEFMpjWTPkXAJmyl_lUcOIxkwc8JNX_/pubchart?oid=1601411393&amp;format=interactive"></iframe>
+<iframe style={{width:"40vw",display:"block",height:"55h"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1115745066&amp;format=interactive"></iframe>
+<iframe style={{width:"40vw",display:"block",height:"55vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1679919600&amp;format=interactive"></iframe>
+<iframe style={{width:"40vw",display:"block",height:"55vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1941203838&amp;format=interactive"></iframe>
+<iframe style={{width:"40vw",display:"block",height:"55vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1837810909&amp;format=interactive"></iframe>
+<iframe style={{width:"40vw",display:"block",height:"55vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=288198991&amp;format=interactive"></iframe>
+<iframe style={{width:"40vw",display:"block",height:"55vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=11657505&amp;format=interactive"></iframe>
+</div>
+<iframe style={{width:"40vw",display:"inline",height:"1000vh",marginLeft:"5vw"}} scrolling="no" src="https://docs.google.com/forms/d/e/1FAIpQLSfSSjXLRfogBYhRyozV60Mq9c2rGR0t4wSaMxZsxCnWPEfD5w/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
   </div>
       </div>
     )}
