@@ -84,8 +84,15 @@ In conclusion, the Australian political system is largely controlled by a parasi
     </div>
     </p>
     <div className="vids" style={{bottom:"4%"}}>
-  <iframe style={{width:"40vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/SG50bCPA8-I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  <iframe style={{marginLeft:"5vw",width:"40vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/jWrnGZ_975I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe style={{width:"37vw",display:"inline",top:"0vh",height:"100vh"}} seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9i42lbtQCST96RuSOTAO9wICXZgi07WLVx8gUHt7Mbq_kyzEFMpjWTPkXAJmyl_lUcOIxkwc8JNX_/pubchart?oid=1601411393&amp;format=interactive"></iframe>
+    <iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/forms/d/e/1FAIpQLSfSSjXLRfogBYhRyozV60Mq9c2rGR0t4wSaMxZsxCnWPEfD5w/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1115745066&amp;format=interactive"></iframe>
+<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1679919600&amp;format=interactive"></iframe>
+<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1941203838&amp;format=interactive"></iframe>
+<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=1837810909&amp;format=interactive"></iframe>
+<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=288198991&amp;format=interactive"></iframe>
+<iframe style={{marginLeft:"5vw",width:"37vw",display:"inline",height:"100vh"}} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRUuvg0SJEXcuZ49DguG8BizwVQon6CzmfaTPmp_mNWk4KL8Usb_bDBy4pmu_wVww00L0mzsdw_8nRs/pubchart?oid=11657505&amp;format=interactive"></iframe>
   </div>
       </div>
     )}

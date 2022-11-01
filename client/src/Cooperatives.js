@@ -54,16 +54,16 @@ async function getVisitorInfo(){
     <h1>Co-operatives</h1>
     <p style={{textAlign:"center"}}>
 Co-operatives, or "co-ops", are democratic businesses owned and run by the people who work for them. There are many very successful ones, notably
-The Mondragon Corporation, Huawei and Ohio Co-operatives Solar. In Australia, the Dairy Farmers Milk Co-operative and CBH are both very large prosperous
+The Mondragon Corporation, Huawei and Ohio Co-operative Solar. In Australia, the Dairy Farmers Milk Co-operative, NRMA and CBH are very large prosperous
 co-ops. In this form of organization, workers are also shareholders, they usually democratically elect the directors of the company, directly or indirectly.
 Some smaller ones practice direct democracy without representatives. This form of oganisation has many benefits, co-ops tend to be more productive,
 economically resilient, workers are better paid and there is lower income inequality.
 <br/><br/>
 
-Co-ops have substantially lower ratio of difference between their highest and lowest paid employees, they are much more equitable. In the U.S. the average
+Co-ops have a substantially lower ratio of difference between their highest and lowest incomes, they are much more equitable. In the U.S. the average
 ratio of CEO compensation in the Fortune 500 companies to the ordinary worker’s has recently been reported as 344:1,49 in co-ops the pay-differential between
-management and the average worker rarely exceeds 4:1. In collectives, everyone is usually paid the same amount (ref #1). Co-operative Workers are generally being better paid than Capitalist ones (ref #2) with
-twice the number of co-operatives (80%) surviving their first five years compared with other business ownership models (41%) according to data from United
+management and the average worker rarely exceeds 4:1. In collectives, everyone is usually paid the same amount (ref #1). Co-operative Workers are generally better paid than Capitalist ones (ref #2).
+ Democratic business are also less risky to start up, with twice the number of co-operatives (80%) surviving their first five years compared with other business ownership models (41%) according to data from United
 Kingdom (ref #3). They tend to have a longer lifespan than other types of business. This resilience has been attributed to how cooperatives share risks and rewards between members, how they harness
 the ideas of many and how members have a tangible ownership stake in the business. Additionally, "cooperative banks build up counter-cyclical buffers
 that function well in case of a crisis," and are less likely to lead members and clients towards a debt trap (ref #4).
@@ -71,14 +71,18 @@ In a 2007 study by the World Council of Credit Unions, the five-year survival ra
 to 3-5% for traditional businesses (ref#5). Credit unions, a type of cooperative bank, had five times lower failure rate than other banks during the financial
 crisis (ref #6) and more than doubled lending to small businesses between 2008 and 2016, from $30 billion to $60 billion, while lending to small businesses
 overall during the same period declined by around $100 billion. Public trust in credit unions stands at 60%, compared to 30% for big banks and
-small businesses are five times less likely to be dissatisfied with a credit union than with a big bank (ref #7). It is reported universally in the literature that the prospect of laying off or firing fellow workers is very painful. This is especially so in collectives, where the communities are tightly knit and people develop bonds of friendship with each other. Even in situations where close friendships do not develop, there usually remains mutual respect and a sense of obligation to each other—a sense of “we’re in this thin together.”.As a rule, workers prefer the continued employment of as much of the workforce as possible to the retention of high revenues (ref #8). Worker-owners take their “supervisor” much less
+small businesses are five times less likely to be dissatisfied with a credit union than with a big bank (ref #7). It is reported universally in the
+literature that the prospect of laying off or firing fellow workers is very painful. This is especially so in collectives, where the communities are tightly
+knit and people develop bonds of friendship with each other. Even in situations where close friendships do not develop, there usually remains mutual respect
+and a sense of obligation to each other—a sense of “we’re in this thin together.”. As a rule, workers prefer the continued employment of as much of the
+workforce as possible to the retention of high revenues (ref #8). Worker-owners take their “supervisor” much less
 seriously than in conventional workplaces because his continued employment depends on their goodwill (ref #9).
 <br/><br/>
 The Mondragon Corporation in Spain is currently the largest co-operative in the world. It comprises about 250 companies that
 together employ 80,000 people and have annual sales of 13 billion
 euros, elevating Mondragon into the class of major multinational
 corporations (ref #10).
-In the case of the Mondragon, if workers are made redundant, the company will pay them to retrain in a new
+In the case of the Mondragon, if workers are made redundant, perhaps because of automation, the company will pay them to retrain in a new
 job, the corporation actually owns a university for this purpose. If absolutely necessary, workers can receive unemployment insurance payments of 80%
 their normal pay.
 (ref #11).
@@ -97,7 +101,7 @@ system. Their bank is a cooperative. So is their travel agency
     <br/><br/>
 From the point of view of working class people, a co-operative is clearly a superior form of organization that much better serves their interests. Co-op
 members are better paid, their work environment is more friendly, the work more rewarding and there is greater job security. You're probably wondering
-why you don't hear about these organizations much in the mass media, on the info page of this website we have a link to another article called
+why you don't hear about these organizations much in the mass media. On the info page of this website we have a link to another article called
 "The Psychological War on Humanism" where we provide a comprehensive answer to this question.
 <h3>Please fill out our survey at the bottom of this page</h3>
     <div style={{textAlign:"left"}}>
