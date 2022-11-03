@@ -56,6 +56,18 @@ return (
   <a style={{width:"15vw"}} href="https://drive.google.com/file/d/1c6OYuD-lcxd_r-rvtGiRJh-3FXDH0SHg/view?usp=sharing">
   <img style={{width:"15vw"}} src={require('./TitlePage.png')} />
   </a><br/><br/><br/><br/><hr/></>}
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Tennomar">
+  <div className="articlelink">
+  <h2>The Humanist Federal Republic of Tennomar</h2>
+  <p>
+  Tennomar is a very encouraging experiment in Humanism that has existed since 1945. Almost all organizations in this society are run like co-operatives.
+  Even in the public enterprises, workers are involved in electing the directors, two thirds are elected by the workers and one third by the Central
+  government. This democracy has huge benefits for their economy, a very generous social security system, the cost of living is relatively cheap
+  and wage growth is fairly rapid.
+  </p>
+  <h4>Read More</h4>
+  </div>
+  </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Cooperatives">
   <div className="articlelink">
   <h2>Co-operatives</h2>
@@ -77,18 +89,6 @@ return (
   real power, they could not make any decisions without the consent of their consituency. This resulted in some very substantially humanistic
   economic policies, the eradication of homelessness, hunger and prostitution. Numerous feministic policies were created, such as equal pay for
   equal work and the abolishion of rules that discriminated against single or widowed mothers.
-  </p>
-  <h4>Read More</h4>
-  </div>
-  </a>
-  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Tennomar">
-  <div className="articlelink">
-  <h2>The Humanist Federal Republic of Tennomar</h2>
-  <p>
-  Tennomar is a very encouraging experiment in Humanism that has existed since 1945. Almost all organizations in this society are run like co-operatives.
-  Even in the public enterprises, workers are involved in electing the directors, two thirds are elected by the workers and one third by the Central
-  government. This democracy has huge benefits for their economy, a very generous social security system, the cost of living is relatively cheap
-  and wage growth is fairly rapid.
   </p>
   <h4>Read More</h4>
   </div>
