@@ -66,7 +66,7 @@ return (
   and wage growth is fairly rapid.
   </p>
   <h4>Read More</h4>
-  <img style={{width:"35vw"}} src={require('./tenomarflag.png')} />
+  <img style={{width:"15vw"}} src={require('./tenomarflag.png')} />
 
   </div>
   </a>
