@@ -66,6 +66,8 @@ return (
   and wage growth is fairly rapid.
   </p>
   <h4>Read More</h4>
+  <img style={{width:"35vw"}} src={require('./tenomarflag.png')} />
+
   </div>
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Cooperatives">
