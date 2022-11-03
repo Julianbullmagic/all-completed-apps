@@ -83,21 +83,12 @@ return (
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Paris1871">
   <div className="articlelink">
-  <h2>Paris 1871</h2>
+  <h2>Paris 1871, the First Real Humanist Revolution</h2>
   <p>
   In 1871 Paris experienced the first working class, genuinely democratic social experiment in history. Representatives were given very little
   real power, they could not make any decisions without the consent of their consituency. This resulted in some very substantially humanistic
   economic policies, the eradication of homelessness, hunger and prostitution. Numerous feministic policies were created, such as equal pay for
   equal work and the abolishion of rules that discriminated against single or widowed mothers.
-  </p>
-  <h4>Read More</h4>
-  </div>
-  </a>
-  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Psychological-War">
-  <div className="articlelink">
-  <h2>The Psychological War On Humanism</h2>
-  <p>
-  Since the birth of humanism, the Capitalist ruling class have gone to great lengths to destroy it. They have tried their absolute best to destroy people's perception of Humanism, spreading slander throughout the mass media and academic institutions. They have infiltrated many real humanist organisations and created many of their own fake ones. Divide and conquer is their primary strategy, if they perceive any divisions between humanist groups, they try to drive a wedge into it. When they build their own Humanist organisations, the most common strategy is to spread ideas that sound humanistic, but are ultimately not at all useful. They will try to encourage a puritanical, vengeful, arrogant and self righteous mentality, any revolution that is less than perfect is bluntly dismissed, there is no constructive criticism or acknowledgement of the achievements of real viable humanist revolutions. They won't support any humanist experiments unless they failed, didn't last very long or didn't produce any measurable, lasting benefits to people's lives. The goal is to leave people with the feeling that humanism is a Utopian fantasy, idealistic, unrealistic, a nice idea, but not practical. The bourgeoisie have also tried to meddle in the elections of countries where the population shows strong support for humanism, attempting to get more right wing candidates elected.
   </p>
   <h4>Read More</h4>
   </div>
@@ -109,6 +100,15 @@ return (
   Our Political system is heavily biased in favour of the rich. An elite group of wealthy people, who make up a small minority of the population,
   rig the system in their own favour. For the last few decades this problem has grown gradually worse and worse and is the fundamental reason we are
   dealing with a cost of living crisis, declining wage growth and much higher unemployment rates.
+  </p>
+  <h4>Read More</h4>
+  </div>
+  </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Psychological-War">
+  <div className="articlelink">
+  <h2>The Psychological War On Humanism</h2>
+  <p>
+  Since the birth of humanism, the Capitalist ruling class have gone to great lengths to destroy it. They have tried their absolute best to destroy people's perception of Humanism, spreading slander throughout the mass media and academic institutions. They have infiltrated many real humanist organisations and created many of their own fake ones. Divide and conquer is their primary strategy, if they perceive any divisions between humanist groups, they try to drive a wedge into it. When they build their own Humanist organisations, the most common strategy is to spread ideas that sound humanistic, but are ultimately not at all useful. They will try to encourage a puritanical, vengeful, arrogant and self righteous mentality, any revolution that is less than perfect is bluntly dismissed, there is no constructive criticism or acknowledgement of the achievements of real viable humanist revolutions. They won't support any humanist experiments unless they failed, didn't last very long or didn't produce any measurable, lasting benefits to people's lives. The goal is to leave people with the feeling that humanism is a Utopian fantasy, idealistic, unrealistic, a nice idea, but not practical. The bourgeoisie have also tried to meddle in the elections of countries where the population shows strong support for humanism, attempting to get more right wing candidates elected.
   </p>
   <h4>Read More</h4>
   </div>
