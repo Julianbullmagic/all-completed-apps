@@ -18,6 +18,7 @@ import Tennomar from "./Tennomar"
 import Paris1871 from "./Paris1871"
 import Cooperatives from "./Cooperatives"
 import Democracy from "./Democracy"
+import Neatugua from "./Neatugua"
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
 
@@ -31,19 +32,20 @@ const MainRouter = () => {
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/signin" component={Signin}/>
         <Route exact path="/forgotpassword/:token" component={ForgotPassword}/>
-        <Route exact path="/group/:groupId"    component={GroupPage}/>
-        <Route exact path="/explanation"    component={ExplanationPage}/>
-        <Route exact path="/singleuser/:userId"    component={SingleUser}/>
+        <Route exact path="/group/:groupId" component={GroupPage}/>
+        <Route exact path="/explanation" component={ExplanationPage}/>
+        <Route exact path="/singleuser/:userId" component={SingleUser}/>
         <Route exact path="/info" component={Info}/>
-        <Route exact path="/Psychological-War"    component={PsychologicalWarfare}/>
-        <Route exact path="/Cuba"    component={Cuba}/>
-        <Route exact path="/Soviet-Union"    component={SovietUnion}/>
-        <Route exact path="/Yugoslavia"    component={Yugoslavia}/>
-        <Route exact path="/China"    component={China}/>
-        <Route exact path="/Tennomar"    component={Tennomar}/>
-        <Route exact path="/Paris1871"    component={Paris1871}/>
-        <Route exact path="/Cooperatives"    component={Cooperatives}/>
-        <Route exact path="/Democracy"    component={Democracy}/>
+        <Route exact path="/Psychological-War" component={PsychologicalWarfare}/>
+        <Route exact path="/Cuba" component={Cuba}/>
+        <Route exact path="/Soviet-Union" component={SovietUnion}/>
+        <Route exact path="/Yugoslavia" component={Yugoslavia}/>
+        <Route exact path="/China" component={China}/>
+        <Route exact path="/Tennomar" component={Tennomar}/>
+        <Route exact path="/Paris1871" component={Paris1871}/>
+        <Route exact path="/Cooperatives" component={Cooperatives}/>
+        <Route exact path="/Democracy" component={Democracy}/>
+        <Route exact path="/Neatugua" component={Neatugua}/>
         </div>
       </Switch>
     </div>)
