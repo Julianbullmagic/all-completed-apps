@@ -4,32 +4,43 @@ import ip from 'ip-in';
 
 export default function Paris1871() {
   const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
+
   useEffect(()=> {
     pageCounter()
   }, [])
-let user
 async function getVisitorInfo(){
   let ipAddress = await ip.getIpAddress()
  console.log('ipAddress',ipAddress)
- user = await ip.getCountryDetails()
- console.log('countryDetails',user)
- if(!user){
-   user=ipAddress
+ let use = await ip.getCountryDetails()
+ delete use.lat
+ delete use.lon
+ if(use.status=="fail"){
+   use=ipAddress
  }
+ console.log('countryDetails',use)
+ setUser(use)
+ return use
 }
 
 
   async function pageCounter(){
-    await getVisitorInfo()
-    delete user.lat
-    delete user.lon
-  const options = {
+    let use=await getVisitorInfo()
+console.log(use,"use")
+  let options = {
     method: 'put',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(user)
   }
+  if (typeof use=="string"){
+    let item={user:use}
+    options.body=JSON.stringify(item)
+  }else{
+    let item={user:Object.values(use).join(",")}
+    options.body=JSON.stringify(item)
+  }
+  console.log(options,"options")
   let pagecounter=await fetch("/groups/addtopagecounter/democracy", options
   ).then(res => {
   return res.json()

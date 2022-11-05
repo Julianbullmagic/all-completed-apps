@@ -21,7 +21,7 @@ export default function PsychologicalWarfare() {
    let use = await ip.getCountryDetails()
    delete use.lat
    delete use.lon
-   if(use.status==="fail"){
+   if(use.status=="fail"){
      use=ipAddress
    }
    console.log('countryDetails',use)

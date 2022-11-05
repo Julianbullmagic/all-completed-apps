@@ -15,7 +15,7 @@ export default function Paris1871() {
    let use = await ip.getCountryDetails()
    delete use.lat
    delete use.lon
-   if(use.status==="fail"){
+   if(use.status=="fail"){
      use=ipAddress
    }
    console.log('countryDetails',use)
