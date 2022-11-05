@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useState} from 'react'
 import ip from 'ip-in';
+import Comment from './ArticleComment'
 
 export default function PsychologicalWarfare() {
-  let user
+  const [user, setUser] = useState("")
   useEffect(() => {
       pageCounter()
   }, [])
@@ -14,24 +15,49 @@ export default function PsychologicalWarfare() {
    console.log('countryDetails',user)
   }
 
-async function pageCounter(){
-  await getVisitorInfo()
-  delete user.lat
-  delete user.lon 
-const options = {
-  method: 'put',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(user)
-}
-fetch("/groups/addtopagecounter/psychologicalwar", options
-).then(res => {
-return res.json()
-}).catch(err => {
-console.error(err);
-})
-}
+  async function getVisitorInfo(){
+    let ipAddress = await ip.getIpAddress()
+   console.log('ipAddress',ipAddress)
+   let use = await ip.getCountryDetails()
+   delete use.lat
+   delete use.lon
+   if(use.status==="fail"){
+     use=ipAddress
+   }
+   console.log('countryDetails',use)
+   setUser(use)
+   return use
+  }
+
+
+    async function pageCounter(){
+      let use=await getVisitorInfo()
+  console.log(use,"use")
+    let options = {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+    if (typeof use=="string"){
+      let item={user:use}
+      options.body=JSON.stringify(item)
+    }else{
+      let item={user:Object.values(use).join(",")}
+      options.body=JSON.stringify(item)
+    }
+    console.log(options,"options")
+    let pagecounter=await fetch("/groups/addtopagecounter/psychologicalwar", options
+    ).then(res => {
+    return res.json()
+    }).catch(err => {
+    console.error(err);
+    })
+    pagecounter=pagecounter.data
+    console.log(pagecounter,"pagecounter")
+    let visitorinfo=Object.values(user).join(",")
+    console.log(visitorinfo,"visitorinfo")
+    }
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
     <h1>The Psychological War On Humanism</h1>
@@ -98,6 +124,8 @@ console.error(err);
 <p>35) <a href="https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/">https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/</a></p>
 <p>36) Opinion Commentary A Short Course In The Secret War page 1<a href="https://www.cia.gov/readingroom/docs/CIA-RDP91-00901R000600300001-1.pdf">https://www.cia.gov/readingroom/docs/CIA-RDP91-00901R000600300001-1.pdf</a></p>
 <p>37) Dov H. Levin 2019.   “Partisan Electoral Interventions by the Great Powers: Introducing the PEIG Dataset” Conflict Management and Peace Science, 36 (1): 88-106</p>
+<Comment id={"Psychologicalwar"} tempuser={user}/>
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/tTBWfkE7BXU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-zIqCH00V4I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/EuwmWnphqII" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
