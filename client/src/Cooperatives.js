@@ -1,4 +1,5 @@
 import React, {useRef,useState,useEffect} from 'react'
+import Comment from './ArticleComment'
 import ip from 'ip-in';
 
 export default function Cooperatives() {
@@ -127,6 +128,8 @@ the original on 14 July 2016. Retrieved 1 April 2017<br/>
 Self-Reliance page 38 para 4-5<br/>
 12)^David Morris page 2 para 4<br/>
     </div>
+    <Comment id={"Cooperatives"} tempuser={JSON.stringify(user)}/>
+
     </p>
   <iframe style={{width:"37vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/_4g4WJBVkwY"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <iframe style={{marginLeft:"5vw",width:"37vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/KXvlVIXETd0"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

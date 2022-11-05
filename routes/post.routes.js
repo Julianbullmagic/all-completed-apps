@@ -175,7 +175,6 @@ newPost.save((err,doc) => {
 router.route('/createcomment/:commentId').post((req, res) => {
   let commentId = req.params.commentId;
 
-
   var newcomment=new Comment({
     _id: commentId,
     comment:req.body["comment"],
@@ -183,7 +182,15 @@ router.route('/createcomment/:commentId').post((req, res) => {
     timecreated:req.body["timecreated"],
     createdby:req.body["createdby"]
   });
-
+  if(req.body["name"]){
+    newcomment.name=req.body["name"]
+  }
+  if(req.body["email"]){
+    newcomment.email=req.body["email"]
+  }
+  if(req.body["identifier"]){
+    newcomment.identifier=req.body["identifier"]
+  }
 console.log(newcomment)
 newcomment.save((err,doc) => {
   if(err){

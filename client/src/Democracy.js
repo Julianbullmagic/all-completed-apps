@@ -1,4 +1,5 @@
 import React, {useRef,useState,useEffect} from 'react'
+import Comment from './ArticleComment'
 import ip from 'ip-in';
 
 export default function Paris1871() {
@@ -84,6 +85,7 @@ In conclusion, the Australian political system is largely controlled by a parasi
     12)Nitzan, J., & Bichler, S. (2014). The Empirics of the Labour Theory of Value: Reply to Nitzan and Bichler<br/>
     13) WORKER COOPERATIVES AND REVOLUTION: HISTORY AND POSSIBILITIES IN THE UNITED STATES Chris Wright 2014 Published by BookLocker.com, Inc., Bradenton, Florida. page 44 para 2<br/>
     </div>
+    <Comment id={"Democracy"} tempuser={JSON.stringify(user)}/>
     </p>
     <div style={{bottom:"4%",width:"90vw",display:"flex"}}>
     <div style={{width:"40vw",display:"inline",top:"0vh",height:"1000vh"}}>

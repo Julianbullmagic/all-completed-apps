@@ -132,7 +132,7 @@ async function getVisitorInfo(){
     49) <a href="https://www.ngo-monitor.org/reports/breaking_its_own_rules_amnesty_s_gov_t_funding_and_researcher_bias/">Breaking it's Own Rules; Amnesty's Government Funding and Research Bias</a><br/>
     50) <a href="https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/">Amnesty's Accounts show government bribes</a><br/>
     </div>
-    <Comment id={"Neatugua"}/>
+    <Comment id={"Neatugua"} tempuser={JSON.stringify(user)}/>
     </p>
       </div>
     )}

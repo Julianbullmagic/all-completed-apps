@@ -178,7 +178,14 @@ iframe{
 {
 	width: 70vw;
 }
-
+.nameinput
+{
+	width: 20vw;
+}
+.emailinput
+{
+	width: 20vw;
+}
 .eventbox
 {
 	background: #f6f6f6;
@@ -916,6 +923,16 @@ textarea:focus
 .commentstuff{
 	display:inline;
 	margin:1vw;
+}
+.articlecomments
+{
+	background: white;
+	border: #eaeaea;
+	border-style: solid;
+	border-width: 5px;
+	padding-bottom: 0.3vw;
+	padding-top: 1vh;
+	margin-top: 2vh;
 }
 .comments
 {

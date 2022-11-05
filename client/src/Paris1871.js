@@ -1,4 +1,5 @@
 import React, {useRef,useState,useEffect} from 'react'
+import Comment from './ArticleComment'
 import ip from 'ip-in';
 
 export default function Paris1871() {
@@ -70,6 +71,7 @@ async function getVisitorInfo(){
     11) Florian Grams A Short History of the Paris Commune Para 13 https://www.rosalux.de/en/news/id/43896/a-short-history-of-the-paris-commune<br/>
     12) History of the Paris Commune of 1871 Prosper-Olivier Lissagaray18 March 2021 page 11 Chapter 6 https://www.marxist.com/history-of-the-paris-commune-of-1871/6.-the-mayors-and-the-assembly-combine-against-paris.htm para 12<br/>
     </div>
+    <Comment id={"Paris"} tempuser={JSON.stringify(user)}/>
     </p>
     <div className="vids" style={{bottom:"4%"}}>
   <iframe style={{width:"40vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/SG50bCPA8-I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

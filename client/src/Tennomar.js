@@ -1,4 +1,5 @@
 import React, {useRef,useState,useEffect} from 'react'
+import Comment from './ArticleComment'
 import ip from 'ip-in';
 
 export default function Tennomar() {
@@ -18,7 +19,7 @@ async function getVisitorInfo(){
   async function pageCounter(){
     await getVisitorInfo()
     delete user.lat
-    delete user.lon 
+    delete user.lon
   const options = {
     method: 'put',
     headers: {
@@ -106,6 +107,7 @@ async function getVisitorInfo(){
     31)<a href="https://www.cia.gov/readingroom/document/cia-rdp80-00809a000700120344-5">Development Of Cooperatives in Tennomar page 2 para 6, page 5 para 1</a><br/><br/>
     32)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R01141A001200060002-9.pdf">Forced Labour in the USSR 1953-57 page 2 para2, page 8 para 4</a><br/><br/>
     </div>
+    <Comment id={"Tennomar"} tempuser={JSON.stringify(user)}/>
     </p>
       </div>
     )}
