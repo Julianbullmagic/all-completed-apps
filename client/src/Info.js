@@ -69,7 +69,7 @@ return (
   <img style={{width:"15vw"}} src={require('./tenomarflag.png')} />
   </div>
   </a>
-  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Tennomar">
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Neatugua">
   <div className="articlelink">
   <h2>Neatugua</h2>
   <p>
