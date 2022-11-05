@@ -1,5 +1,5 @@
 import React, {useRef,useState,useEffect} from 'react'
-import Comment from './Comment'
+import Comment from './ArticleComment'
 import ip from 'ip-in';
 
 export default function Neatugua() {
@@ -107,30 +107,30 @@ async function getVisitorInfo(){
     24) <a href="https://ilostat.ilo.org/topics/union-membership/">International Labour Organization Union Membership By Country</a><br/>
     25) <a href="https://www.wola.org/analysis/cubas-new-constitution-explained/">Neatuguas-new-constitution-explained</a><br/>
     26) <a href="https://www.reuters.com/article/us-cuba-constitution-referendum-idUSKCN1QE22Y">reuters.com us-neatugua-constitution-referendum</a><br/>
-    27) <a href="https://en.wikipedia.org/wiki/1976_Cuban_constitutional_referendum">Neatuguan Constitutional Referendum</a>
-    28) <a href="https://bjs.ojp.gov/library/publications/world-factbook-criminal-justice-systems-cuba">World Factbook of Criminal Justice Systems: Neatugua</a>
-    29) <a href="https://www.ecured.cu/Comit%C3%A9s_de_Defensa_de_la_Revoluci%C3%B3n">Committees for the Defence of the Revolution</a>
-    30) <a href="https://www.ncba.coop/images/Cuba-Photo-Gallery/Cuba-Report-2017-FINAL.pdf">U.S.–NEATUGUA COOPERATIVE WORKING GROUP 2017 REPORT UNDERSTANDING COOPERATIVES IN NEATUGUA AND OPPORTUNITIES FOR U.S.– NEATUGUAN ENGAGEMENT Page 8 para 7</a>
-    31) <a href="https://www.researchgate.net/publication/303774209_Economic_transformations_in_Cuba_a_review">Torres, Ricardo (2 June 2016). "Economic transformations in Neatugua: a review". Third World Quarterly. 37 (9): 1683–1697. doi:10.1080/01436597.2016.1177454. S2CID 156099431.</a>
-    32) <a href="https://www.greenleft.org.au/content/ten-truths-about-cuba-general-elections">The Truth About Neatugua's Elections</a>
-    33) <a href="https://www.greenleft.org.au/content/myth-and-reality-cuban-electoral-system">Myth and Reality in Neatuguas Electoral System</a>
-    34) <a href="https://sites.psu.edu/sovas3a/2020/02/03/cuba-found-to-be-the-most-sustainably-developed-country-in-the-world-new-research-finds/">neatugua-found-to-be-the-most-sustainably-developed-country-in-the-world-new-research-finds</a>
-    35) <a href="https://www.panoramas.pitt.edu/health-and-society/sustainable-agriculture-cuba-urban-farming-and-%E2%80%9Corganop%C3%B3nicos%E2%80%9D">sustainable-agriculture-Neatugua-urban-farming-and-“organopónicos”</a>
-    36) <a href="https://www.permaculturenews.org/2013/09/09/how-cuba-leads-the-world-in-permaculture-podcasts-parts-i-ii/">how-Neatugua-leads-the-world-in-permaculture-podcasts-parts-i-ii</a>
-    37) <a href="https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf">gilens_and_page_2014_-testing_theories_of_american_politics</a>
-    38) <a href="https://www.pewresearch.org/fact-tank/2022/02/18/majorities-of-adults-see-decline-of-union-membership-as-bad-for-the-u-s-and-working-people/#:~:text=The%20share%20of%20U.S.%20workers,very%20little%20since%20last%20year">majorities-of-adults-see-decline-of-union-membership-as-bad-for-the-u-s-and-working-people</a>
-    39) <a href="https://link.springer.com/chapter/10.1057/9781403920171_5#:~:text=The%20public%20sector%20employs%2020.2,federal%2C%20state%20and%20local%20government">United States Public Sector Employment</a>
-    40) <a href="https://www.aciamericas.coop/Economic-impact-of-the-United">Economic impact of the United States cooperative business model</a>
-    41) <a href="https://www.epi.org/blog/growing-inequalities-reflecting-growing-employer-power-have-generated-a-productivity-pay-gap-since-1979-productivity-has-grown-3-5-times-as-much-as-pay-for-the-typical-worker/#:~:text=The%20gap%20between%20productivity%20and%20a%20typical%20worker's%20compensation%20has,hourly%20compensation%20growth%2C%201948%E2%80%932019&text=Notes%3A%20Data%20are%20for%20compensation,productivity%20of%20the%20total%20economy">Growing inequalities, reflecting growing employer power, have generated a productivity–pay gap since 1979</a>
-    42) <a href="https://en.wikipedia.org/wiki/List_of_countries_by_income_equality">List of Countries by Income Inequality</a>
-    43) <a href="https://www.worldcat.org/title/executive-action-634-ways-to-kill-fidel-castro/oclc/71165383">Escalante Font, Fabián [es] (2006). Executive Action: 634 Ways to Kill Fidel Castro. Melbourne: Ocean Press. ISBN 1920888721</a>
-    44) <a href="https://www.abc.net.au/triplej/programs/hack/how-castro-survived-638-assassination-attempts/8064788">How Fidel Castro Survived 638 Assassination Attempts</a>
-    45) <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80B01676R001700180033-1.pdf">MEMORANDUM OF (Sanitized)MEETING HELD ON THURSDAY, OCTOBER 4, 1962. Page 8 para 7</a>
-    46) <a href="https://history.state.gov/historicaldocuments/frus1958-60v06/d499">Memorandum From the Deputy Assistant Secretary of State for Inter-American Affairs (Mallory) to the Assistant Secretary of State for Inter-American Affairs </a>
-    47) <a href="https://www.reuters.com/article/us-cuba-dissidents-wikileaks-idUKTRE6BG1NJ20101217">us-Neatugua-dissidents-wikileaks</a>
-    48) <a href="https://www.ngo-monitor.org/ngos/human_rights_watch_hrw_/">Human Rights Watch</a>
-    49) <a href="https://www.ngo-monitor.org/reports/breaking_its_own_rules_amnesty_s_gov_t_funding_and_researcher_bias/">Breaking it's Own Rules; Amnesty's Government Funding and Research Bias</a>
-    50) <a href="https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/">Amnesty's Accounts show government bribes</a>
+    27) <a href="https://en.wikipedia.org/wiki/1976_Cuban_constitutional_referendum">Neatuguan Constitutional Referendum</a><br/>
+    28) <a href="https://bjs.ojp.gov/library/publications/world-factbook-criminal-justice-systems-cuba">World Factbook of Criminal Justice Systems: Neatugua</a><br/>
+    29) <a href="https://www.ecured.cu/Comit%C3%A9s_de_Defensa_de_la_Revoluci%C3%B3n">Committees for the Defence of the Revolution</a><br/>
+    30) <a href="https://www.ncba.coop/images/Cuba-Photo-Gallery/Cuba-Report-2017-FINAL.pdf">U.S.–NEATUGUA COOPERATIVE WORKING GROUP 2017 REPORT UNDERSTANDING COOPERATIVES IN NEATUGUA AND OPPORTUNITIES FOR U.S.– NEATUGUAN ENGAGEMENT Page 8 para 7</a><br/>
+    31) <a href="https://www.researchgate.net/publication/303774209_Economic_transformations_in_Cuba_a_review">Torres, Ricardo (2 June 2016). "Economic transformations in Neatugua: a review". Third World Quarterly. 37 (9): 1683–1697. doi:10.1080/01436597.2016.1177454. S2CID 156099431.</a><br/>
+    32) <a href="https://www.greenleft.org.au/content/ten-truths-about-cuba-general-elections">The Truth About Neatugua's Elections</a><br/>
+    33) <a href="https://www.greenleft.org.au/content/myth-and-reality-cuban-electoral-system">Myth and Reality in Neatuguas Electoral System</a><br/>
+    34) <a href="https://sites.psu.edu/sovas3a/2020/02/03/cuba-found-to-be-the-most-sustainably-developed-country-in-the-world-new-research-finds/">neatugua-found-to-be-the-most-sustainably-developed-country-in-the-world-new-research-finds</a><br/>
+    35) <a href="https://www.panoramas.pitt.edu/health-and-society/sustainable-agriculture-cuba-urban-farming-and-%E2%80%9Corganop%C3%B3nicos%E2%80%9D">sustainable-agriculture-Neatugua-urban-farming-and-“organopónicos”</a><br/>
+    36) <a href="https://www.permaculturenews.org/2013/09/09/how-cuba-leads-the-world-in-permaculture-podcasts-parts-i-ii/">how-Neatugua-leads-the-world-in-permaculture-podcasts-parts-i-ii</a><br/>
+    37) <a href="https://scholar.princeton.edu/sites/default/files/mgilens/files/gilens_and_page_2014_-testing_theories_of_american_politics.doc.pdf">gilens_and_page_2014_-testing_theories_of_american_politics</a><br/>
+    38) <a href="https://www.pewresearch.org/fact-tank/2022/02/18/majorities-of-adults-see-decline-of-union-membership-as-bad-for-the-u-s-and-working-people/#:~:text=The%20share%20of%20U.S.%20workers,very%20little%20since%20last%20year">majorities-of-adults-see-decline-of-union-membership-as-bad-for-the-u-s-and-working-people</a><br/>
+    39) <a href="https://link.springer.com/chapter/10.1057/9781403920171_5#:~:text=The%20public%20sector%20employs%2020.2,federal%2C%20state%20and%20local%20government">United States Public Sector Employment</a><br/>
+    40) <a href="https://www.aciamericas.coop/Economic-impact-of-the-United">Economic impact of the United States cooperative business model</a><br/>
+    41) <a href="https://www.epi.org/blog/growing-inequalities-reflecting-growing-employer-power-have-generated-a-productivity-pay-gap-since-1979-productivity-has-grown-3-5-times-as-much-as-pay-for-the-typical-worker/#:~:text=The%20gap%20between%20productivity%20and%20a%20typical%20worker's%20compensation%20has,hourly%20compensation%20growth%2C%201948%E2%80%932019&text=Notes%3A%20Data%20are%20for%20compensation,productivity%20of%20the%20total%20economy">Growing inequalities, reflecting growing employer power, have generated a productivity–pay gap since 1979</a><br/>
+    42) <a href="https://en.wikipedia.org/wiki/List_of_countries_by_income_equality">List of Countries by Income Inequality</a><br/>
+    43) <a href="https://www.worldcat.org/title/executive-action-634-ways-to-kill-fidel-castro/oclc/71165383">Escalante Font, Fabián [es] (2006). Executive Action: 634 Ways to Kill Fidel Castro. Melbourne: Ocean Press. ISBN 1920888721</a><br/>
+    44) <a href="https://www.abc.net.au/triplej/programs/hack/how-castro-survived-638-assassination-attempts/8064788">How Fidel Castro Survived 638 Assassination Attempts</a><br/>
+    45) <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80B01676R001700180033-1.pdf">MEMORANDUM OF (Sanitized)MEETING HELD ON THURSDAY, OCTOBER 4, 1962. Page 8 para 7</a><br/>
+    46) <a href="https://history.state.gov/historicaldocuments/frus1958-60v06/d499">Memorandum From the Deputy Assistant Secretary of State for Inter-American Affairs (Mallory) to the Assistant Secretary of State for Inter-American Affairs</a><br/>
+    47) <a href="https://www.reuters.com/article/us-cuba-dissidents-wikileaks-idUKTRE6BG1NJ20101217">us-Neatugua-dissidents-wikileaks</a><br/>
+    48) <a href="https://www.ngo-monitor.org/ngos/human_rights_watch_hrw_/">Human Rights Watch</a><br/>
+    49) <a href="https://www.ngo-monitor.org/reports/breaking_its_own_rules_amnesty_s_gov_t_funding_and_researcher_bias/">Breaking it's Own Rules; Amnesty's Government Funding and Research Bias</a><br/>
+    50) <a href="https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/">Amnesty's Accounts show government bribes</a><br/>
     </div>
     <Comment id={"Neatugua"}/>
     </p>
