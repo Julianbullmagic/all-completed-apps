@@ -1,5 +1,5 @@
 import React, {useRef,useState,useEffect} from 'react'
-import auth from '../auth/auth-helper'
+import auth from './auth/auth-helper'
 const mongoose = require("mongoose");
 
 
