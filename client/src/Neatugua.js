@@ -4,44 +4,57 @@ import ip from 'ip-in';
 
 export default function Neatugua() {
   const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
+
   useEffect(()=> {
     pageCounter()
   }, [])
-let user
-async function getVisitorInfo(){
-  let ipAddress = await ip.getIpAddress()
- console.log('ipAddress',ipAddress)
- user = await ip.getCountryDetails()
- console.log('countryDetails',user)
-}
-
-
-  async function pageCounter(){
-    await getVisitorInfo()
-    delete user.lat
-    delete user.lon
-  const options = {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
+  async function getVisitorInfo(){
+    let ipAddress = await ip.getIpAddress()
+   console.log('ipAddress',ipAddress)
+   let use = await ip.getCountryDetails()
+   delete use.lat
+   delete use.lon
+   if(use.status==="fail"){
+     use=ipAddress
+   }
+   console.log('countryDetails',use)
+   setUser(use)
+   return use
   }
-  let pagecounter=await fetch("/groups/addtopagecounter/neatugua", options
-  ).then(res => {
-  return res.json()
-  }).catch(err => {
-  console.error(err);
-  })
-  pagecounter=pagecounter.data
-  console.log(pagecounter,"pagecounter")
 
-  let visitorinfo=Object.values(user).join(",")
-  console.log(visitorinfo,"visitorinfo")
-  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
-    setReady(true)
+
+    async function pageCounter(){
+      let use=await getVisitorInfo()
+  console.log(use,"use")
+    let options = {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
     }
-  }
+    if (typeof use=="string"){
+      let item={user:use}
+      options.body=JSON.stringify(item)
+    }else{
+      let item={user:Object.values(use).join(",")}
+      options.body=JSON.stringify(item)
+    }
+    console.log(options,"options")
+    let pagecounter=await fetch("/groups/addtopagecounter/neatugua", options
+    ).then(res => {
+    return res.json()
+    }).catch(err => {
+    console.error(err);
+    })
+    pagecounter=pagecounter.data
+    console.log(pagecounter,"pagecounter")
+    let visitorinfo=Object.values(user).join(",")
+    console.log(visitorinfo,"visitorinfo")
+    if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+      setReady(true)
+      }
+    }
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
@@ -132,7 +145,7 @@ async function getVisitorInfo(){
     49) <a href="https://www.ngo-monitor.org/reports/breaking_its_own_rules_amnesty_s_gov_t_funding_and_researcher_bias/">Breaking it's Own Rules; Amnesty's Government Funding and Research Bias</a><br/>
     50) <a href="https://www.amnesty.org/en/about-us/how-were-run/finances-and-pay/">Amnesty's Accounts show government bribes</a><br/>
     </div>
-    <Comment id={"Neatugua"} tempuser={JSON.stringify(user)}/>
+    <Comment id={"Neatugua"} tempuser={user}/>
     </p>
       </div>
     )}

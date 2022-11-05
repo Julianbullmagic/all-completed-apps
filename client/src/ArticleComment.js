@@ -69,7 +69,6 @@ setUserIdentifier(props.tempuser)
               newComment.name=nameValue.current.value
               newComment.identifier=userIdentifier
 
-
             var commentscopy=JSON.parse(JSON.stringify(comments))
             commentscopy.push(newComment)
             setComments(commentscopy);
@@ -109,6 +108,7 @@ setUserIdentifier(props.tempuser)
                       <div classname="comm">
                       {item.createdby&&<p style={{display:"inline",margin:'1vw',fontSize:"small"}}><strong>Comment by {item.createdby.name}</strong></p>}
                       {item.name&&<p style={{display:"inline",margin:'1vw',fontSize:"small"}}><strong>Comment by {item.name}</strong></p>}
+                      {(item.identifier==userIdentifier)&&<button style={{display:"inline"}} onClick={(e)=>deleteComment(e,item._id)}>Delete comment?</button>}
                       {item.createdby&&<button style={{display:"inline"}} onClick={(e)=>deleteComment(e,item._id)}>Delete comment?</button>}
                       </div>
                       </div>

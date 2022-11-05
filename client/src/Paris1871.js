@@ -4,43 +4,57 @@ import ip from 'ip-in';
 
 export default function Paris1871() {
   const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
+
   useEffect(()=> {
     pageCounter()
   }, [])
-let user
-async function getVisitorInfo(){
-  let ipAddress = await ip.getIpAddress()
- console.log('ipAddress',ipAddress)
- user = await ip.getCountryDetails()
- console.log('countryDetails',user)
-}
-
-
-  async function pageCounter(){
-    await getVisitorInfo()
-    delete user.lat
-    delete user.lon
-  const options = {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
+  async function getVisitorInfo(){
+    let ipAddress = await ip.getIpAddress()
+   console.log('ipAddress',ipAddress)
+   let use = await ip.getCountryDetails()
+   delete use.lat
+   delete use.lon
+   if(use.status==="fail"){
+     use=ipAddress
+   }
+   console.log('countryDetails',use)
+   setUser(use)
+   return use
   }
-  let pagecounter=await fetch("/groups/addtopagecounter/paris", options
-  ).then(res => {
-  return res.json()
-  }).catch(err => {
-  console.error(err);
-  })
-  pagecounter=pagecounter.data
-  console.log(pagecounter,"pagecounter")
-  let visitorinfo=Object.values(user).join(",")
-  console.log(visitorinfo,"visitorinfo")
-  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
-    setReady(true)
+
+
+    async function pageCounter(){
+      let use=await getVisitorInfo()
+  console.log(use,"use")
+    let options = {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
     }
-  }
+    if (typeof use=="string"){
+      let item={user:use}
+      options.body=JSON.stringify(item)
+    }else{
+      let item={user:Object.values(use).join(",")}
+      options.body=JSON.stringify(item)
+    }
+    console.log(options,"options")
+    let pagecounter=await fetch("/groups/addtopagecounter/paris", options
+    ).then(res => {
+    return res.json()
+    }).catch(err => {
+    console.error(err);
+    })
+    pagecounter=pagecounter.data
+    console.log(pagecounter,"pagecounter")
+    let visitorinfo=Object.values(user).join(",")
+    console.log(visitorinfo,"visitorinfo")
+    if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+      setReady(true)
+      }
+    }
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
@@ -71,7 +85,7 @@ async function getVisitorInfo(){
     11) Florian Grams A Short History of the Paris Commune Para 13 https://www.rosalux.de/en/news/id/43896/a-short-history-of-the-paris-commune<br/>
     12) History of the Paris Commune of 1871 Prosper-Olivier Lissagaray18 March 2021 page 11 Chapter 6 https://www.marxist.com/history-of-the-paris-commune-of-1871/6.-the-mayors-and-the-assembly-combine-against-paris.htm para 12<br/>
     </div>
-    <Comment id={"Paris"} tempuser={JSON.stringify(user)}/>
+    <Comment id={"Paris"} tempuser={user}/>
     </p>
     <div className="vids" style={{bottom:"4%"}}>
   <iframe style={{width:"40vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/SG50bCPA8-I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

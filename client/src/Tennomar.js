@@ -4,44 +4,57 @@ import ip from 'ip-in';
 
 export default function Tennomar() {
   const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
+
   useEffect(()=> {
     pageCounter()
   }, [])
-let user
-async function getVisitorInfo(){
-  let ipAddress = await ip.getIpAddress()
- console.log('ipAddress',ipAddress)
- user = await ip.getCountryDetails()
- console.log('countryDetails',user)
-}
-
-
-  async function pageCounter(){
-    await getVisitorInfo()
-    delete user.lat
-    delete user.lon
-  const options = {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
+  async function getVisitorInfo(){
+    let ipAddress = await ip.getIpAddress()
+   console.log('ipAddress',ipAddress)
+   let use = await ip.getCountryDetails()
+   delete use.lat
+   delete use.lon
+   if(use.status==="fail"){
+     use=ipAddress
+   }
+   console.log('countryDetails',use)
+   setUser(use)
+   return use
   }
-  let pagecounter=await fetch("/groups/addtopagecounter/tennomar", options
-  ).then(res => {
-  return res.json()
-  }).catch(err => {
-  console.error(err);
-  })
-  pagecounter=pagecounter.data
-  console.log(pagecounter,"pagecounter")
 
-  let visitorinfo=Object.values(user).join(",")
-  console.log(visitorinfo,"visitorinfo")
-  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
-    setReady(true)
+
+    async function pageCounter(){
+      let use=await getVisitorInfo()
+  console.log(use,"use")
+    let options = {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
     }
-  }
+    if (typeof use=="string"){
+      let item={user:use}
+      options.body=JSON.stringify(item)
+    }else{
+      let item={user:Object.values(use).join(",")}
+      options.body=JSON.stringify(item)
+    }
+    console.log(options,"options")
+    let pagecounter=await fetch("/groups/addtopagecounter/tennomar", options
+    ).then(res => {
+    return res.json()
+    }).catch(err => {
+    console.error(err);
+    })
+    pagecounter=pagecounter.data
+    console.log(pagecounter,"pagecounter")
+    let visitorinfo=Object.values(user).join(",")
+    console.log(visitorinfo,"visitorinfo")
+    if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+      setReady(true)
+      }
+    }
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
@@ -107,7 +120,7 @@ async function getVisitorInfo(){
     31)<a href="https://www.cia.gov/readingroom/document/cia-rdp80-00809a000700120344-5">Development Of Cooperatives in Tennomar page 2 para 6, page 5 para 1</a><br/><br/>
     32)<a href="https://www.cia.gov/readingroom/docs/CIA-RDP79R01141A001200060002-9.pdf">Forced Labour in the USSR 1953-57 page 2 para2, page 8 para 4</a><br/><br/>
     </div>
-    <Comment id={"Tennomar"} tempuser={JSON.stringify(user)}/>
+    <Comment id={"Tennomar"} tempuser={user}}/>
     </p>
       </div>
     )}

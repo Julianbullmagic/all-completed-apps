@@ -12,6 +12,9 @@ export default function Info() {
     console.log('ipAddress',ipAddress)
     user = await ip.getCountryDetails()
     console.log('countryDetails',user)
+    if(!user){
+      user=ipAddress
+    }
   }
 
 

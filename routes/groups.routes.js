@@ -21,7 +21,7 @@ mongoose.set('useFindAndModify', false);
 
 router.put("/addtopagecounter/:page", (req, res, next) => {
   console.log(req.body,"body")
-  let visitorinfo=Object.values(req.body).join(",")
+  let visitorinfo=req.body.user
   console.log(visitorinfo,"visitorinfo")
   if (req.params.page==="info"){
     PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'info' : visitorinfo}})

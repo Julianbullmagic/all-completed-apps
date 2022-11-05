@@ -111,14 +111,12 @@ router.route('/marksentdown/:postId').put((req, res) => {
 
 
 router.route('/getcomments/:postId').get((req, res) => {
-  console.log("getting comments",req.params.postId)
   Comment.find({postid:req.params.postId})
   .populate('createdby')
   .exec(function(err,docs){
     if(err){
             console.error(err);
         }else{
-          console.log("docs",docs)
             res.status(200).json({
                         data: docs
                     });

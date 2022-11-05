@@ -4,6 +4,8 @@ import ip from 'ip-in';
 
 export default function Cooperatives() {
   const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
+
   let videos=["https://www.youtube.com/embed/tTBWfkE7BXU","https://www.youtube.com/embed/34LGPIXvU5M",
   "https://www.youtube.com/embed/8ZoI0C1mPek","https://www.youtube.com/embed/emnYMfjYh1Q","https://www.youtube.com/embed/Hgwtd4X_qFM",
   "https://www.youtube.com/embed/7IIEB5JiyNs","https://www.youtube.com/embed/xgKPyIj8Q60","https://www.youtube.com/embed/-zIqCH00V4I",
@@ -15,26 +17,38 @@ export default function Cooperatives() {
   useEffect(()=> {
     pageCounter()
   }, [])
-let user
 async function getVisitorInfo(){
   let ipAddress = await ip.getIpAddress()
  console.log('ipAddress',ipAddress)
- user = await ip.getCountryDetails()
- console.log('countryDetails',user)
+ let use = await ip.getCountryDetails()
+ delete use.lat
+ delete use.lon
+ if(use.status==="fail"){
+   use=ipAddress
+ }
+ console.log('countryDetails',use)
+ setUser(use)
+ return use
 }
 
 
   async function pageCounter(){
-    await getVisitorInfo()
-    delete user.lat
-    delete user.lon
-  const options = {
+    let use=await getVisitorInfo()
+console.log(use,"use")
+  let options = {
     method: 'put',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(user)
   }
+  if (typeof use=="string"){
+    let item={user:use}
+    options.body=JSON.stringify(item)
+  }else{
+    let item={user:Object.values(use).join(",")}
+    options.body=JSON.stringify(item)
+  }
+  console.log(options,"options")
   let pagecounter=await fetch("/groups/addtopagecounter/cooperatives", options
   ).then(res => {
   return res.json()
@@ -128,7 +142,7 @@ the original on 14 July 2016. Retrieved 1 April 2017<br/>
 Self-Reliance page 38 para 4-5<br/>
 12)^David Morris page 2 para 4<br/>
     </div>
-    <Comment id={"Cooperatives"} tempuser={JSON.stringify(user)}/>
+    <Comment id={"Cooperatives"} tempuser={user}/>
 
     </p>
   <iframe style={{width:"37vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/_4g4WJBVkwY"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
