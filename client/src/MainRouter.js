@@ -19,6 +19,11 @@ import Paris1871 from "./Paris1871"
 import Cooperatives from "./Cooperatives"
 import Democracy from "./Democracy"
 import Neatugua from "./Neatugua"
+import ManufacturingConsentVideos from "./ManufacturingConsentVideos"
+import CooperativesVideos from "./CooperativesVideos"
+import LibertarianSocialismVideos from "./LibertarianSocialismVideos"
+import DemocracyVideos from "./DemocracyVideos"
+
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
 
@@ -46,6 +51,10 @@ const MainRouter = () => {
         <Route exact path="/Cooperatives" component={Cooperatives}/>
         <Route exact path="/Democracy" component={Democracy}/>
         <Route exact path="/Neatugua" component={Neatugua}/>
+        <Route exact path="/manufacturingconsentvideos" component={ManufacturingConsentVideos}/>
+        <Route exact path="/cooperativesvideos" component={CooperativesVideos}/>
+        <Route exact path="/democracyvideos" component={DemocracyVideos}/>
+        <Route exact path="/libertariansocialismvideos" component={LibertarianSocialismVideos}/>
         </div>
       </Switch>
     </div>)

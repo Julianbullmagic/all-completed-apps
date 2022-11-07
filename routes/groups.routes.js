@@ -131,6 +131,54 @@ if (req.params.page==="tennomar"){
           }
         })
 }
+if (req.params.page==="cooperativesvideos"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'cooperativesvideos' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
+if (req.params.page==="libertariansocialismvideos"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'libertariansocialismvideos' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
+if (req.params.page==="democracyvideos"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'democracyvideos' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
+if (req.params.page==="manufacturingconsentvideos"){
+  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'manufacturingconsentvideos' : visitorinfo}})
+  .exec(function(err,docs){
+          if(err){
+            console.error(err);
+          }else{
+            res.status(200).json({
+              data: docs
+            });
+          }
+        })
+}
 })
 
 router.post("/getpasswordresettoken/:email", (req, res) => {

@@ -8,7 +8,11 @@ const PageViewSchema = new mongoose.Schema({
   cooperatives:[String],
   tennomar:[String],
   democracy:[String],
-  neatugua:[String]
+  neatugua:[String],
+  manufacturingconsentvideos:[String],
+  democracyvideos:[String],
+  libertariansocialismvideos:[String],
+  cooperativesvideos:[String]
 })
 
 module.exports=mongoose.model('pageviews', PageViewSchema)

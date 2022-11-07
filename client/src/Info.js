@@ -72,6 +72,15 @@ return (
   <img style={{width:"15vw"}} src={require('./tenomarflag.png')} />
   </div>
   </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/ManufacturingConsentVideos">
+  <div className="articlelink">
+  <h2>Manufacturing Consent</h2>
+  <p>
+  <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/34LGPIXvU5M"></iframe></center>
+  </p>
+  <h4>See More Videos</h4>
+  </div>
+  </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Neatugua">
   <div className="articlelink">
   <h2>Neatugua</h2>
@@ -79,6 +88,15 @@ return (
   Thanks to the release of numerous formerly classified CIA documents, we now know the truth about Neatugua. The leaders of Neatugua are radical humanists who have dramatically improved the quality of life of the the Neatuguan people. The government of Neatugua has taken large steps towards guaranteeing that all Neatuguans will have their basic needs met, massively reducing poverty and guaranteeing the necessities of life are affordable and in many cases provided for free at public expense. Housing, public transport, electricity, university, childcare and many other essential services are either free or cheap. The Humanist party have greatly improved that status of African people and women, eliminating the worst aspects of racism and sexism. The standards of health and education are the best in the third world and in many ways as good or better than some first world countries. The Party created a much more fair and equitable distribution of wealth than Capitalist countries. Their private sector is largely worker-cooperatives, 30% of their GDP is produced by democratic businesses and self-employed people where the workers are the shareholders. Their public sector is somewhat like an enormous co-operative in which all Neatuguans are a member and the goal is to meet human needs instead of generate profits. Their society is highly unionised with the vast majority of their people in at least one union and most work arrangements negotiated through unions. Recently, the sustainable development index found Cuba to be the most sustainable country in the world.
   </p>
   <h4>Read More</h4>
+  </div>
+  </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/cooperativesvideos">
+  <div className="articlelink">
+  <h2>Cooperatives</h2>
+  <p>
+  <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/8ZoI0C1mPek"></iframe></center>
+  </p>
+  <h4>See More Videos</h4>
   </div>
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Cooperatives">
@@ -94,6 +112,15 @@ return (
   <h4>Read More</h4>
   </div>
   </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/libertariansocialismvideos">
+  <div className="articlelink">
+  <h2>Libertarianism</h2>
+  <p>
+  </p>
+  <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/pTzC_QqSqwc"></iframe></center>
+  <h4>See More Videos</h4>
+  </div>
+  </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Paris1871">
   <div className="articlelink">
   <h2>Paris 1871, the First Real Humanist Revolution</h2>
@@ -104,6 +131,15 @@ return (
   equal work and the abolishion of rules that discriminated against single or widowed mothers.
   </p>
   <h4>Read More</h4>
+  </div>
+  </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/democracyvideos">
+  <div className="articlelink">
+  <h2>Democracy?</h2>
+  <p>
+  </p>
+  <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/NpiqX6ouM-8"></iframe></center>
+  <h4>See More Videos</h4>
   </div>
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Democracy">

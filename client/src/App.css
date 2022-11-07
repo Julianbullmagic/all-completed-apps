@@ -999,6 +999,12 @@ textarea:focus
 .socialicons{
 	margin-left:40vw;
 }
+
+.infovid{
+	width:50vw;
+	height:65vh;
+	display:block;
+}
 @media only screen and (max-width: 1200px) {
 	.socialicons{
 		margin-left:35vw;
@@ -1123,6 +1129,10 @@ textarea:focus
 }
 
 @media only screen and (max-width: 450px) {
+	.infovid{
+		width:70vw;
+		height:30vh;
+	}
 	.homepageimg{
 		bottom:0px;
 		width:170%;
