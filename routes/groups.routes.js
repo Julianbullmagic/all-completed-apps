@@ -119,18 +119,7 @@ if (req.params.page==="cooperatives"){
           }
         })
 }
-if (req.params.page==="tennomar"){
-  PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'tennomar' : visitorinfo}})
-  .exec(function(err,docs){
-          if(err){
-            console.error(err);
-          }else{
-            res.status(200).json({
-              data: docs
-            });
-          }
-        })
-}
+
 if (req.params.page==="cooperativesvideos"){
   PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'cooperativesvideos' : visitorinfo}})
   .exec(function(err,docs){
