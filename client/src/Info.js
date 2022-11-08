@@ -39,21 +39,21 @@ export default function Info() {
   console.log(pagecounter,"pagecounter")
   let visitorinfo=Object.values(user).join(",")
   console.log(visitorinfo,"visitorinfo")
-  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+  if(pagecounter.psychologicalwar.includes(visitorinfo)&&(pagecounter.neatugua.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo))){
     setReady(true)
   }
 }
 
 return (
   <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
-  {ready&&<><p style={{width:"90vw"}}>If you've looked at some of the references to the Tennomar article, it should be clear that
-  "The Humanist Federal Republic of Tennomar" is a pseudonym name for "The Socialist Federal Republic of Yugoslavia". All the sources for this essay
+  {ready&&<><p style={{width:"90vw"}}>If you've looked at some of the references to the Tennomar or Neatugua articles, it should be clear that
+  these countries have pseudonym names, really they are Communist countries, Tennomar is Yugoslavia and Neatugua is Cuba. All the sources for these essays
   are genuine formerly classified CIA documents that you can find on their website. When you read what the Agency has to say about Communism, it is
   clear that the Bourgoisie have put enormous effort into slandering Socialism, attempting to destroy people's perception of it. Communism is actually
   radically humanistic, in many cases resulting in enormous improvements to the standard of living, health, real wage growth, reductions in the cost of
-  living and unemployment rates. In many cases there has also been substantial reduction in social, economic and political inequality. We've written a short history based
+  living and unemployment rates. In many cases there has also been substantial improvement to social, economic and political equality. We've written a short history based
   almost entirely on sources taken from United States government sources, primarily the CIA. At this point in history the truth is very clear. The
-  Bourgoisie are proud of their acheivement, they think they've pulled of the most ingenious heist ever. They are itching to let you know how stupid
+  Bourgoisie are proud of their achievement, they think they've pulled of the most ingenious heist ever. They are itching to let you know how stupid
   they think you are, but cannot do this too openly because there would probably be a revolution.
   Download a pdf version by clicking the image below.</p>
   <a style={{width:"15vw"}} href="https://drive.google.com/file/d/1c6OYuD-lcxd_r-rvtGiRJh-3FXDH0SHg/view?usp=sharing">
@@ -72,15 +72,6 @@ return (
   <img style={{width:"20vw"}} src={require('./tenomarflag.png')} />
   </div>
   </a>
-  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/ManufacturingConsentVideos">
-  <div className="articlelink">
-  <h2>Manufacturing Consent</h2>
-  <p>
-  <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/34LGPIXvU5M"></iframe></center>
-  </p>
-  <h4>See More Videos</h4>
-  </div>
-  </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Neatugua">
   <div className="articlelink">
   <h2>Neatugua</h2>
@@ -89,6 +80,15 @@ return (
   </p>
   <h4>Read More</h4>
   <img style={{width:"20vw"}} src={require('./neatuguaflag.png')} />
+  </div>
+  </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/ManufacturingConsentVideos">
+  <div className="articlelink">
+  <h2>Manufacturing Consent, the mass media is much less democratic than it seems</h2>
+  <p>
+  <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/34LGPIXvU5M"></iframe></center>
+  </p>
+  <h4>See More Videos</h4>
   </div>
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/cooperativesvideos">
