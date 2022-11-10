@@ -38,7 +38,8 @@ export default function Home({history}){
   const [graphThree, setGraphThree] = useState("")
   const [graphFour, setGraphFour] = useState("")
   const [viewForm, setViewForm] = useState(false);
-  let user
+  const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
 
   useEffect(()=> {
 getGroupData()
@@ -46,12 +47,6 @@ pageCounter()
 setGraphs()
   }, [])
 
-  async function getVisitorInfo(){
-    let ipAddress = await ip.getIpAddress()
-   console.log('ipAddress',ipAddress)
-   user = await ip.getCountryDetails()
-   console.log('countryDetails',user)
-  }
 
 function setVideos(visitorinfo,pagecounter){
   console.log(visitorinfo,pagecounter,"visitorinfo,pagecounter in setVideos")
@@ -103,26 +98,51 @@ setGraphThree(randomGraphs[2])
 setGraphFour(randomGraphs[3])
 }
 
-async function pageCounter(){
-  await getVisitorInfo()
-const options = {
-  method: 'put',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(user)
+async function getVisitorInfo(){
+  let ipAddress = await ip.getIpAddress()
+ console.log('ipAddress',ipAddress)
+ let use = await ip.getCountryDetails()
+ delete use.lat
+ delete use.lon
+ if(use.status=="fail"){
+   use=ipAddress
+ }
+ console.log('countryDetails',use)
+ setUser(use)
+ return use
 }
-let pagecounter=await fetch("/groups/addtopagecounter/home", options
-).then(res => {
-return res.json()
-}).catch(err => {
-console.error(err);
-})
-console.log(pagecounter,"pagecounter")
-let visitorinfo=Object.values(user).join(",")
-console.log(visitorinfo,"visitorinfo")
-setVideos(visitorinfo,pagecounter.data)
-}
+
+  async function pageCounter(){
+    let use=await getVisitorInfo()
+console.log(use,"use")
+  let options = {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  }
+  if (typeof use=="string"){
+    let item={user:use}
+    options.body=JSON.stringify(item)
+  }else{
+    let item={user:Object.values(use).join(",")}
+    options.body=JSON.stringify(item)
+  }
+  console.log(options,"options")
+  let pagecounter=await fetch("/groups/addtopagecounter/home", options
+  ).then(res => {
+  return res.json()
+  }).catch(err => {
+  console.error(err);
+  })
+  pagecounter=pagecounter.data
+  console.log(pagecounter,"pagecounter")
+  let visitorinfo=Object.values(user).join(",")
+  console.log(visitorinfo,"visitorinfo")
+  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+    setReady(true)
+    }
+  }
 
   async function getGroupData(){
     await fetch(`/groups/getusers`)

@@ -3,46 +3,56 @@ import ip from 'ip-in';
 
 export default function Info() {
   const [ready, setReady] = useState(false)
+  const [user, setUser] = useState("")
+
   useEffect(()=> {
     pageCounter()
   }, [])
-  let user
   async function getVisitorInfo(){
     let ipAddress = await ip.getIpAddress()
-    console.log('ipAddress',ipAddress)
-    user = await ip.getCountryDetails()
-    console.log('countryDetails',user)
-    if(!user){
-      user=ipAddress
-    }
+   console.log('ipAddress',ipAddress)
+   let use = await ip.getCountryDetails()
+   delete use.lat
+   delete use.lon
+   if(use.status=="fail"){
+     use=ipAddress
+   }
+   console.log('countryDetails',use)
+   setUser(use)
+   return use
   }
 
-
-  async function pageCounter(){
-    await getVisitorInfo()
-    delete user.lat
-    delete user.lon
-    const options = {
+    async function pageCounter(){
+      let use=await getVisitorInfo()
+  console.log(use,"use")
+    let options = {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(user)
     }
+    if (typeof use=="string"){
+      let item={user:use}
+      options.body=JSON.stringify(item)
+    }else{
+      let item={user:Object.values(use).join(",")}
+      options.body=JSON.stringify(item)
+    }
+    console.log(options,"options")
     let pagecounter=await fetch("/groups/addtopagecounter/info", options
-  ).then(res => {
+    ).then(res => {
     return res.json()
-  }).catch(err => {
+    }).catch(err => {
     console.error(err);
-  })
-  pagecounter=pagecounter.data
-  console.log(pagecounter,"pagecounter")
-  let visitorinfo=Object.values(user).join(",")
-  console.log(visitorinfo,"visitorinfo")
-  if(pagecounter.psychologicalwar.includes(visitorinfo)&&(pagecounter.neatugua.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo))){
-    setReady(true)
-  }
-}
+    })
+    pagecounter=pagecounter.data
+    console.log(pagecounter,"pagecounter")
+    let visitorinfo=Object.values(user).join(",")
+    console.log(visitorinfo,"visitorinfo")
+    if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+      setReady(true)
+      }
+    }
 
 return (
   <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
@@ -93,7 +103,7 @@ return (
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/cooperativesvideos">
   <div className="articlelink">
-  <h2>Cooperatives</h2>
+  <h2>Cooperatives Videos</h2>
   <p>
   <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/8ZoI0C1mPek"></iframe></center>
   </p>
@@ -102,7 +112,7 @@ return (
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Cooperatives">
   <div className="articlelink">
-  <h2>Co-operatives</h2>
+  <h2>Co-operatives Article</h2>
   <p>
   Co-operatives are democratic businesses owned and run by the people who work for them. Decisions are made with either direct or
   representative democracy. If there is a board of directors, they are elected by the people who work for the company. These are businesses

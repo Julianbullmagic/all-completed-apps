@@ -88,8 +88,8 @@ export default function Paris1871() {
     <Comment id={"Paris"} tempuser={user}/>
     </p>
     <div className="vids" style={{bottom:"4%"}}>
-  <iframe style={{width:"40vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/SG50bCPA8-I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  <iframe style={{marginLeft:"5vw",width:"40vw",height:"40vh",display:"inline"}} src={"https://www.youtube.com/embed/jWrnGZ_975I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe className="iframeleft" src={"https://www.youtube.com/embed/SG50bCPA8-I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe className="iframeright" src={"https://www.youtube.com/embed/jWrnGZ_975I"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
       </div>
     )}
