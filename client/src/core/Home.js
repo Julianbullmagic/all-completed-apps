@@ -171,8 +171,16 @@ console.log(use,"use")
       </div></>}
       {!viewForm&&<>
       <h5 style={{marginLeft:"5vw",marginRight:"10vw",marginTop:"5vh"}}>
-      Unlike most social networks, on this web application, all admins are elected by the groups they represent and members are much more involved in creating and
-      enforcing the rules.
+      There are a number of economic problems that working people are facing at the moment, the rising cost of living, a widening gap between the growth of
+      productivity and wage growth, shrinking public services and social security. Unemployment rates are about three times higher than they used to be in
+      the 1970s. Fundamentally, these problems are a result of the fact that our political system is heavily biased in favour of the rich and is also much
+      less democratic than it is presented as being. A new form of political system is needed, one that is more democratic, technocratic and meritocratic.
+      Being rich tells us little about your leadership qualities.
+      <br/><br/>
+      Unlike most social networks, on this web application, all admins are elected by the groups they represent and members are much more involved in
+      creating and enforcing the rules. Money has no influence over the selection of leaders, there are no political marketing campaigns, no lobbying
+      nor candidate nomination fees. This application demonstrates how social media could be used to greatly enhance political participation, facilitating
+      group decisions that are much better informed with expert advice, but also that more people are happy with.
       <br/><br/>
       </h5>
       <div className="vids" style={{position:"fixed",marginLeft:"5vw",bottom:"4%"}}>
