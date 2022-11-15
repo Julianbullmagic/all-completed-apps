@@ -4,7 +4,6 @@ import ip from 'ip-in';
 export default function Info() {
   const [ready, setReady] = useState(false)
   const [extraReady, setExtraReady] = useState(false)
-
   const [user, setUser] = useState("")
 
   useEffect(()=> {
@@ -49,12 +48,13 @@ export default function Info() {
     })
     pagecounter=pagecounter.data
     console.log(pagecounter,"pagecounter")
-    let visitorinfo=Object.values(user).join(",")
+    let visitorinfo=Object.values(use).join(",")
     console.log(visitorinfo,"visitorinfo")
     if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
       setReady(true)
       }
       if(pagecounter.cooperatives.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo)||pagecounter.neatugua.includes(visitorinfo)){
+        console.log("TRUE")
         setExtraReady(true)
         }
     }
@@ -77,23 +77,14 @@ return (
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Tennomar">
   <div className="articlelink">
   <h2>The Humanist Federal Republic of Tennomar</h2>
-  <p>
-  Tennomar is a very encouraging experiment in Humanism that has existed since 1945. Almost all organizations in this society are run like co-operatives.
-  Even in the public enterprises, workers are involved in electing the directors, two thirds are elected by the workers and one third by the Central
-  government. This democracy has huge benefits for their economy, a very generous social security system, the cost of living is relatively cheap
-  and wage growth is fairly rapid.
-  </p>
-  <h2>Read More</h2>
+  <h3>Read More</h3>
   <img style={{width:"20vw"}} src={require('./tenomarflag.png')} />
   </div>
   </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Neatugua">
   <div className="articlelink">
   <h2>Neatugua</h2>
-  <p>
-  Thanks to the release of numerous formerly classified CIA documents, we now know the truth about Neatugua. The leaders of Neatugua are radical humanists who have dramatically improved the quality of life of the the Neatuguan people. The government of Neatugua has taken large steps towards guaranteeing that all Neatuguans will have their basic needs met, massively reducing poverty and guaranteeing the necessities of life are affordable and in many cases provided for free at public expense. Housing, public transport, electricity, university, childcare and many other essential services are either free or cheap. The Humanist party have greatly improved that status of African people and women, eliminating the worst aspects of racism and sexism. The standards of health and education are the best in the third world and in many ways as good or better than some first world countries. The Party created a much more fair and equitable distribution of wealth than Capitalist countries. Their private sector is largely worker-cooperatives, 30% of their GDP is produced by democratic businesses and self-employed people where the workers are the shareholders. Their public sector is somewhat like an enormous co-operative in which all Neatuguans are a member and the goal is to meet human needs instead of generate profits. Their society is highly unionised with the vast majority of their people in at least one union and most work arrangements negotiated through unions. Recently, the sustainable development index found Cuba to be the most sustainable country in the world.
-  </p>
-  <h2>Read More</h2>
+  <h3>Read More</h3>
   <img style={{width:"20vw"}} src={require('./neatuguaflag.png')} />
   </div>
   </a>
