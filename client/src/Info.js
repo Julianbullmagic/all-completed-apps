@@ -54,7 +54,7 @@ export default function Info() {
     if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
       setReady(true)
       }
-      if(pagecounter.info.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo)||pagecounter.neatugua.includes(visitorinfo)){
+      if(pagecounter.cooperatives.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo)||pagecounter.neatugua.includes(visitorinfo)){
         setExtraReady(true)
         }
     }
