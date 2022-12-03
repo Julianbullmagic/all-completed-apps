@@ -47,6 +47,18 @@ router.put("/addtopagecounter/:page", (req, res, next) => {
             }
           })
   }
+  if (req.params.page==="youtube"){
+    PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'youtube' : visitorinfo}})
+    .exec(function(err,docs){
+            if(err){
+              console.error(err);
+            }else{
+              res.status(200).json({
+                data: docs
+              });
+            }
+          })
+  }
   if (req.params.page==="democracy"){
     PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'democracy' : visitorinfo}})
     .exec(function(err,docs){

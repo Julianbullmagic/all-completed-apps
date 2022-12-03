@@ -45,7 +45,7 @@ async function getVisitorInfo(){
     },
     body: JSON.stringify(user)
   }
-  let pagecounter=await fetch("/groups/addtopagecounter/info", options
+  let pagecounter=await fetch("/groups/addtopagecounter/youtube", options
   ).then(res => {
   return res.json()
   }).catch(err => {
@@ -55,12 +55,9 @@ async function getVisitorInfo(){
   console.log(pagecounter,"pagecounter")
   let visitorinfo=Object.values(user).join(",")
   console.log(visitorinfo,"visitorinfo")
-  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
-    setReady(true)
-    }
   }
 
-function goYoutube() {
+function GoYoutube(){
   pageCounter()
   return <Redirect to="https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu" />;
 }
@@ -94,7 +91,7 @@ const MainRouter = () => {
         <Route exact path="/cooperativesvideos" component={CooperativesVideos}/>
         <Route exact path="/democracyvideos" component={DemocracyVideos}/>
         <Route exact path="/libertariansocialismvideos" component={LibertarianSocialismVideos}/>
-        <Route path='/youtube' component={ <Redirect to="https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu" /> }/>
+        <Route path='/youtube' component={ GoYoutube }/>
         </div>
       </Switch>
     </div>)
