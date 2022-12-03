@@ -57,8 +57,8 @@ async function getVisitorInfo(){
   console.log(visitorinfo,"visitorinfo")
   }
 
-function GoYoutube(){
-  pageCounter()
+async function GoYoutube(){
+  await pageCounter()
   window.location.href = 'https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu'
   return null;
 }
