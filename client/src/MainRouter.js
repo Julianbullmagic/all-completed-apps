@@ -26,9 +26,41 @@ import DemocracyVideos from "./DemocracyVideos"
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
 
-function goYoutube() {
+async function getVisitorInfo(){
+  let ipAddress = await ip.getIpAddress()
+ console.log('ipAddress',ipAddress)
+ user = await ip.getCountryDetails()
+ console.log('countryDetails',user)
+}
 
-  return <h1>{greeting}</h1>;
+
+  async function pageCounter(){
+    await getVisitorInfo()
+  const options = {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  }
+  let pagecounter=await fetch("/groups/addtopagecounter/info", options
+  ).then(res => {
+  return res.json()
+  }).catch(err => {
+  console.error(err);
+  })
+  pagecounter=pagecounter.data
+  console.log(pagecounter,"pagecounter")
+  let visitorinfo=Object.values(user).join(",")
+  console.log(visitorinfo,"visitorinfo")
+  if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+    setReady(true)
+    }
+  }
+
+function goYoutube() {
+  pageCounter()
+  return <Redirect to="https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu" />;
 }
 
 
