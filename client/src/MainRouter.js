@@ -59,7 +59,8 @@ async function getVisitorInfo(){
 
 function GoYoutube(){
   pageCounter()
-  return <Redirect to="https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu" />;
+  window.location.href = 'https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu'
+  return null;
 }
 
 
