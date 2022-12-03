@@ -29,22 +29,38 @@ import ip from 'ip-in';
 
 let user
 
+
 async function getVisitorInfo(){
   let ipAddress = await ip.getIpAddress()
  console.log('ipAddress',ipAddress)
- user = await ip.getCountryDetails()
- console.log('countryDetails',user)
+ let use = await ip.getCountryDetails()
+ delete use.lat
+ delete use.lon
+ if(use.status=="fail"){
+   use=ipAddress
+ }
+ console.log('countryDetails',use)
+ user=use
+ return use
 }
 
   async function pageCounter(){
-    await getVisitorInfo()
-  const options = {
+    let use=await getVisitorInfo()
+console.log(use,"use")
+  let options = {
     method: 'put',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(user)
   }
+  if (typeof use=="string"){
+    let item={user:use}
+    options.body=JSON.stringify(item)
+  }else{
+    let item={user:Object.values(use).join(",")}
+    options.body=JSON.stringify(item)
+  }
+  console.log(options,"options")
   let pagecounter=await fetch("/groups/addtopagecounter/youtube", options
   ).then(res => {
   return res.json()
@@ -54,15 +70,15 @@ async function getVisitorInfo(){
   pagecounter=pagecounter.data
   console.log(pagecounter,"pagecounter")
   let visitorinfo=Object.values(user).join(",")
-  console.log(visitorinfo,"visitorinfo")
+  console.log(visitorinfo,"visitorinfo","finished")
+  return visitorinfo
   }
 
 async function GoYoutube(){
-  await pageCounter()
-  window.location.href = 'https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu'
-  return null;
+   await pageCounter()
+   window.location.replace('https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu')
+  return (<div></div>);
 }
-
 
 const MainRouter = () => {
     return (<div style={{height:"100vh",width:"100vw",overflow:"hidden"}}>

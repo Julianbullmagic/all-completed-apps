@@ -48,6 +48,7 @@ router.put("/addtopagecounter/:page", (req, res, next) => {
           })
   }
   if (req.params.page==="youtube"){
+    console.log("updating youtube")
     PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'youtube' : visitorinfo}})
     .exec(function(err,docs){
             if(err){
