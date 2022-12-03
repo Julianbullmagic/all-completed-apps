@@ -25,6 +25,7 @@ import LibertarianSocialismVideos from "./LibertarianSocialismVideos"
 import DemocracyVideos from "./DemocracyVideos"
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
+let user
 
 async function getVisitorInfo(){
   let ipAddress = await ip.getIpAddress()
@@ -32,7 +33,6 @@ async function getVisitorInfo(){
  user = await ip.getCountryDetails()
  console.log('countryDetails',user)
 }
-
 
   async function pageCounter(){
     await getVisitorInfo()
