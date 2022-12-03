@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import Home from './core/Home'
 import Signup from './user/Signup'
 import Signin from './auth/Signin'
@@ -25,7 +25,12 @@ import LibertarianSocialismVideos from "./LibertarianSocialismVideos"
 import DemocracyVideos from "./DemocracyVideos"
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
-import { Redirect } from 'react-router-dom';
+
+function goYoutube() {
+
+  return <h1>{greeting}</h1>;
+}
+
 
 const MainRouter = () => {
     return (<div style={{height:"100vh",width:"100vw",overflow:"hidden"}}>
@@ -55,7 +60,7 @@ const MainRouter = () => {
         <Route exact path="/cooperativesvideos" component={CooperativesVideos}/>
         <Route exact path="/democracyvideos" component={DemocracyVideos}/>
         <Route exact path="/libertariansocialismvideos" component={LibertarianSocialismVideos}/>
-        <Route path='/youtube' element={ <Redirect to="https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu" /> }/>
+        <Route path='/youtube' component={ <Redirect to="https://www.youtube.com/watch?v=atVYW0UinOU&list=PLoBMIS_SbLUjqKE2lNFH2EcU3dfLGa4Gu" /> }/>
         </div>
       </Switch>
     </div>)
