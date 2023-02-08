@@ -80,6 +80,12 @@ async function GoYoutube(){
   return (<div></div>);
 }
 
+async function GoDiscord(){
+   await pageCounter()
+   window.location.replace('https://discord.gg/caUvjJ6MMR')
+  return (<div></div>);
+}
+
 const MainRouter = () => {
     return (<div style={{height:"100vh",width:"100vw",overflow:"hidden"}}>
     <p style={{display:"none"}}>democracy-social-network, Democracy-Social-Network, democracy social network, Democracy Social Network</p>
@@ -109,6 +115,8 @@ const MainRouter = () => {
         <Route exact path="/democracyvideos" component={DemocracyVideos}/>
         <Route exact path="/libertariansocialismvideos" component={LibertarianSocialismVideos}/>
         <Route path='/youtube' component={ GoYoutube }/>
+        <Route path='/Discord' component={ GoDiscord }/>
+
         </div>
       </Switch>
     </div>)
