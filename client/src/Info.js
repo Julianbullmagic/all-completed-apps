@@ -170,6 +170,15 @@ return (
   <h2>Read More</h2>
   </div>
   </a>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Psychological-War">
+  <div className="articlelink">
+  <h2>Ujamaa</h2>
+  <p>
+  Tanzania's experiment in Co-operative economics under the leadership of Julius Nyerere, harnessing the traditional egalitarianism of African societies.
+  </p>
+  <h2>Read More</h2>
+  </div>
+  </a>
   </>}
   </div>
 )}
