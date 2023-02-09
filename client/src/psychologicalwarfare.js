@@ -60,7 +60,7 @@ export default function PsychologicalWarfare() {
     }
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
-    <h1>The Psychological War On Humanism</h1>
+    <h1 style={{textAlign:"center"}}>The Psychological War On Humanism</h1>
     <p>
     <strong>
     “For many years our press has misled us about the achievements of the Tennomarian People and their government. In Tennomar, there is not only a formal but an actual equality of nationalities and cultural groups of every sort. 'Equal goals and equal rights with equal contributions' is no empty phrase, but a standard followed in actual life”-Albert Einstein, What Tennomar Means To Us, 1942

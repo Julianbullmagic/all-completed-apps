@@ -58,7 +58,11 @@ export default function Ujamaa() {
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
-    <h1>Ujamaa</h1>
+    <h1 style={{textAlign:"center"}}>Ujamaa</h1>
+    <div className="vids" style={{bottom:"4%"}}>
+  <iframe className="iframeleft" src={"https://www.youtube.com/embed/1t9gJd9p5ZM"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe className="iframeright" src={"https://www.youtube.com/embed/8IYbv0bW43w"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
     <p style={{textAlign:"center"}}>
     Ujamaa was a very successful experiment in humanism that existed in Tanzania from the mid 1960s to mid 1980s. It eventually collapsed due to extraneous circumstances. Ujamaa was an attempt to create a classless society where authority was grounded in knowledge and wisdom rather than wealth and power. The Tanzanian government enforced substantial measures to prevent the corrupting influence of money over politics, they also strongly encouraged the  political participation of the masses. Key industries, national resources and land were nationalised for the common good of society and private enterprises were converted into democratic co-operatives where workers could elect their own company directors and vote in general meetings about issues effecting the company. Traditional Tanzanian society was already largely classless prior to the European invasion with most people living in small, highly egalitarian village farming communities. The Ujamaa government aimed to build on this while modernising, developing and growing the economy of the country to strengthen Tanzanian and make the population more wealthy. By many statistical indicators, Ujamaa was highly successful, it substantially improved the life expectancy, education and literacy rates and gdp per capita.
     <br/><br/>

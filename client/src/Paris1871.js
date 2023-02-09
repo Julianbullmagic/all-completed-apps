@@ -58,7 +58,7 @@ export default function Paris1871() {
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
-    <h1>The Paris Commune, the First Real Humanist Revolution</h1>
+    <h1 style={{textAlign:"center"}}>The Paris Commune, the First Real Humanist Revolution</h1>
      <img style={{width:"40vw"}} src={require('./communards.jpg')} />
     <p style={{textAlign:"center"}}>
     The Paris Commune of 1871 is a little known social revolution that is rarely discussed in the mass media despite it's great historic significance. It was the first sincerely democratic social experiment in history, a genuine working class revolution (ref #1). This event
