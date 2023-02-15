@@ -8,6 +8,7 @@ export default function Neatugua() {
 
   useEffect(()=> {
     pageCounter()
+    window.open('https://discord.gg/caUvjJ6MMR', '_blank', 'noreferrer')
   }, [])
   async function getVisitorInfo(){
     let ipAddress = await ip.getIpAddress()
@@ -58,7 +59,7 @@ export default function Neatugua() {
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
-    <h1>Neatugua</h1>
+    <h1 style={{textAlign:"center"}}>Neatugua</h1>
     <img style={{width:"35vw"}} src={require('./neatuguaflag.png')} />
     <p style={{textAlign:"center"}}>
     Thanks to the release of numerous formerly classified CIA documents, we now know the truth about Neatugua. The Humanist Party of Neatugua have dramatically improved the quality of life of the Neatuguan people. The government has taken large steps towards guaranteeing that all Neatuguans will have their basic needs met, massively reducing poverty and guaranteeing the necessities of life are affordable and in many cases provided for free at public expense. Housing, public transport, electricity, university, childcare and many other essential services are either free or cheap. The Humanist party have greatly improved that status of African people and women, eliminating the worst aspects of racism and sexism. The standards of health and education are the best in the third world and in many ways as good or better than some first world countries. The Party has created a much more fair and equitable distribution of wealth than Capitalist countries. Their private sector is largely worker-cooperatives, 30% of their GDP is produced by democratic businesses and self-employed people where the workers are the shareholders. Their public sector is somewhat like an enormous co-operative in which all Neatuguans are a member and the goal is to meet human needs instead of generate profits for shareholders. Their society is highly unionised with the vast majority of their people in at least one union and most work arrangements negotiated through unions. Recently, the sustainable development index found Neatugua to be the most sustainable country in the world. Despite the great historic significance of Neatugua, you rarely hear about this place in the mass media. For a detailed explanation of why this is true, see the articles <a href="/Democracy">Australian Democracy</a> and <a href="Psychological-War">Psychological War</a>.

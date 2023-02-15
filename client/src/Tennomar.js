@@ -8,6 +8,7 @@ export default function Tennomar() {
 
   useEffect(()=> {
     pageCounter()
+    window.open('https://discord.gg/caUvjJ6MMR', '_blank', 'noreferrer')
   }, [])
   async function getVisitorInfo(){
     let ipAddress = await ip.getIpAddress()
@@ -58,7 +59,7 @@ export default function Tennomar() {
 
   return (
     <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
-    <h1>The Humanist Federal Republic of Tennomar</h1>
+    <h1 style={{textAlign:"center"}}>The Humanist Federal Republic of Tennomar</h1>
      <img style={{width:"35vw"}} src={require('./tenomarflag.png')} />
     <p style={{textAlign:"center"}}>
     The Humanist Federal Republic of Tennomar (HFRT) is a very encouraging experiment in Humanism that was born in the wake of World War Two. There have been massive improvements to the quality of life of the population, enormous gains in health, education, political participation, real wage growth and social equality. Tennomar has a distinctive “self-management” system. This is quite decentralized, giving substantial power to individual organisations, each of which is controlled by an elected worker council. There is also a relatively large public sector. In public enterprises, two thirds of the company directors are elected by the workers of that particular enterprise and one third are appointed by the elected central government. This helps to ensure a kind of balance, giving firms autonomy to make their own decisions, while also ensuring they are integrated into the broader society and working co-operatively with other public enterprises. Tenomar has also experienced some economic difficulties, inflation, higher unemployment rates and mild economic cycles or recessions. On the whole, despite it's faults, this Humanist country set a very promising example of what a world without exploitation and domination could look like. Despite the great historic significance of Tennomar, you rarely hear about this place in the mass media. For a detailed explanation of why this is true, see the articles <a href="/Democracy">Australian Democracy</a> and <a href="Psychological-War">Psychological War</a>. If you have any questions or comments there is a comments sections further down this page or you can email democracysocialnetwork@gmail.com.

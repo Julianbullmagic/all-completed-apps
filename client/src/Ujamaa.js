@@ -8,6 +8,7 @@ export default function Ujamaa() {
 
   useEffect(()=> {
     pageCounter()
+    window.open('https://discord.gg/caUvjJ6MMR', '_blank', 'noreferrer')
   }, [])
   async function getVisitorInfo(){
     let ipAddress = await ip.getIpAddress()
