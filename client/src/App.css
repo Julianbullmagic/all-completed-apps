@@ -1030,6 +1030,11 @@ textarea:focus
 		margin-left:13vw;
 	}
 }
+@media only screen and (max-width: 980px) {
+	.socialicons{
+		margin-left:10vw;
+	}
+}
 
 @media only screen and (max-width: 900px) {
 	.socialicons{
@@ -1056,7 +1061,7 @@ textarea:focus
 		margin-left:0vw;
 	}
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 920px) {
 	.menu{
 		height:14vh;
 	}
