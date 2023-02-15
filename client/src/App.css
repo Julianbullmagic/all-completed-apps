@@ -1022,30 +1022,16 @@ textarea:focus
 }
 @media only screen and (max-width: 1050px) {
 	.socialicons{
-		margin-left:20vw;
-	}
-}
-@media only screen and (max-width: 960px) {
-	.socialicons{
-		margin-left:20vw;
-	}
-}
-@media only screen and (max-width: 900px) {
-	.socialicons{
 		margin-left:15vw;
 	}
 }
-@media only screen and (max-width: 850px) {
-	.socialicons{
-		margin-left:12vw;
-	}
-}
-@media only screen and (max-width: 800px) {
+
+@media only screen and (max-width: 900px) {
 	.socialicons{
 		margin-left:10vw;
 	}
 }
-@media only screen and (max-width: 790px) {
+@media only screen and (max-width: 850px) {
 	.socialicons{
 		margin-left:8vw;
 	}
@@ -1067,18 +1053,11 @@ textarea:focus
 }
 @media only screen and (max-width: 800px) {
 	.menu{
-		height:12vh;
+		height:14vh;
 	}
 }
 @media only screen and (max-width: 500px) {
-	.socialicons{
-		display:none;
-		opacity:0;
-	}
-	.socialicontwo{
-		display:none;
-		opacity:0;
-	}
+
 }
 @media only screen and (max-width: 910px) {
 
