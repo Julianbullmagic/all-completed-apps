@@ -1066,6 +1066,11 @@ textarea:focus
 		height:14vh;
 	}
 }
+@media only screen and (max-width: 420px) {
+	.menu{
+		height:20vh;
+	}
+}
 @media only screen and (max-width: 500px) {
 
 }
