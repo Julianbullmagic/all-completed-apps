@@ -1010,40 +1010,45 @@ textarea:focus
 	height:65vh;
 	display:block;
 }
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1250px) {
 	.socialicons{
 		margin-left:25vw;
 	}
 }
+@media only screen and (max-width: 1200px) {
+	.socialicons{
+		margin-left:23vw;
+	}
+}
 @media only screen and (max-width: 1120px) {
 	.socialicons{
-		margin-left:20vw;
+		margin-left:18vw;
 	}
 }
 @media only screen and (max-width: 1050px) {
 	.socialicons{
-		margin-left:15vw;
+		margin-left:13vw;
 	}
 }
 
 @media only screen and (max-width: 900px) {
 	.socialicons{
-		margin-left:10vw;
+		margin-left:8vw;
 	}
 }
 @media only screen and (max-width: 850px) {
 	.socialicons{
-		margin-left:8vw;
+		margin-left:6vw;
 	}
 }
 @media only screen and (max-width: 770px) {
 	.socialicons{
-		margin-left:6vw;
+		margin-left:4vw;
 	}
 }
 @media only screen and (max-width: 750px) {
 	.socialicons{
-		margin-left:3vw;
+		margin-left:2vw;
 	}
 }
 @media only screen and (max-width: 730px) {
@@ -1051,7 +1056,7 @@ textarea:focus
 		margin-left:0vw;
 	}
 }
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
 	.menu{
 		height:14vh;
 	}
