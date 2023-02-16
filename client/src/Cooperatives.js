@@ -119,7 +119,6 @@ members are better paid, their work environment is more friendly, the work more 
 why you don't hear about these organizations much in the mass media. On the info page of this website we have a link to another article called
 "The Psychological War on Humanism" where we provide a comprehensive answer to this question.
 <br/><br/>
-<h3>Please fill out our survey at the bottom of this page</h3>
 <br/><br/>
     <div style={{textAlign:"left"}}>
     <h2>References</h2>
@@ -151,7 +150,5 @@ Self-Reliance page 38 para 4-5<br/>
   <iframe className="iframeright" src={"https://www.youtube.com/embed/TGT2CzkUfdM"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <iframe className="iframeleft" src={"https://www.youtube.com/embed/8ZoI0C1mPek"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <iframe className="iframeright" src={"https://www.youtube.com/embed/5dm114sD4I8"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  <iframe className="iframeleft" seamless frameborder="0" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9i42lbtQCST96RuSOTAO9wICXZgi07WLVx8gUHt7Mbq_kyzEFMpjWTPkXAJmyl_lUcOIxkwc8JNX_/pubchart?oid=1601411393&amp;format=interactive"></iframe>
-  <iframe className="iframeright" src="https://docs.google.com/forms/d/e/1FAIpQLSd0ZLCkp2UK-3Rd8TSvUScSQMqMVRZRgB-BIoAS88I6tdiG6w/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
   </div>
     )}
