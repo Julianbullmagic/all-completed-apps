@@ -50,13 +50,16 @@ export default function Info() {
     console.log(pagecounter,"pagecounter")
     let visitorinfo=Object.values(use).join(",")
     console.log(visitorinfo,"visitorinfo")
-    if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
-      setReady(true)
-      }
-      if(pagecounter.cooperatives.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo)||pagecounter.neatugua.includes(visitorinfo)){
-        console.log("TRUE")
-        setExtraReady(true)
-        }
+    setReady(true)
+    setExtraReady(true)
+
+    // if(pagecounter.psychologicalwar.includes(visitorinfo)&&pagecounter.info.includes(visitorinfo)){
+    //   setReady(true)
+    //   }
+    //   if(pagecounter.cooperatives.includes(visitorinfo)||pagecounter.tennomar.includes(visitorinfo)||pagecounter.neatugua.includes(visitorinfo)){
+    //     console.log("TRUE")
+    //     setExtraReady(true)
+    //     }
     }
 
 return (
@@ -114,6 +117,14 @@ return (
     <center><iframe className="infovid" seamless frameborder="0" scrolling="no" src="https://www.youtube.com/embed/8ZoI0C1mPek"></iframe></center>
     </p>
     <h2>See More Videos</h2>
+    </div>
+    </a>
+    <a style={{color:"black",textDecoration:"none",display:"block"}} href="/spain">
+    <div className="articlelink">
+    <h2>Spanish Worker Self Management during the Civil War</h2>
+    <p>
+    </p>
+    <h2>Read More</h2>
     </div>
     </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/libertariansocialismvideos">
