@@ -19,6 +19,7 @@ import Tennomar from "./Tennomar"
 import Paris1871 from "./Paris1871"
 import Cooperatives from "./Cooperatives"
 import Democracy from "./Democracy"
+import Spain from "./spain"
 import Neatugua from "./Neatugua"
 import ManufacturingConsentVideos from "./ManufacturingConsentVideos"
 import CooperativesVideos from "./CooperativesVideos"
@@ -111,6 +112,7 @@ const MainRouter = () => {
         <Route exact path="/Paris1871" component={Paris1871}/>
         <Route exact path="/Cooperatives" component={Cooperatives}/>
         <Route exact path="/Democracy" component={Democracy}/>
+        <Route exact path="/Spain" component={Spain}/>
         <Route exact path="/Neatugua" component={Neatugua}/>
         <Route exact path="/manufacturingconsentvideos" component={ManufacturingConsentVideos}/>
         <Route exact path="/cooperativesvideos" component={CooperativesVideos}/>

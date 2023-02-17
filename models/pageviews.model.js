@@ -14,7 +14,8 @@ const PageViewSchema = new mongoose.Schema({
   libertariansocialismvideos:[String],
   cooperativesvideos:[String],
   youtube:[String],
-  ujamaa:[String]
+  ujamaa:[String],
+  spain:[String]
 })
 
 module.exports=mongoose.model('pageviews', PageViewSchema)
