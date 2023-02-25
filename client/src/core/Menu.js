@@ -67,7 +67,7 @@ const Menu = withRouter(({history}) => (
       <SocialIcon url="https://www.facebook.com/groups/665099298462762" />
       </div>
       <div className="socialicontwo" style={{marginLeft:"1vw",display:"inline"}}>
-      <SocialIcon url="https://www.instagram.com/democracysocialnetwork" />
+      <SocialIcon url="https://www.meetup.com/en-AU/sydney-humanism-meetup-group/" />
       </div>
       </div>
   </div>
