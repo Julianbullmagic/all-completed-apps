@@ -83,7 +83,7 @@ export default function PsychologicalWarfare() {
   </p>
   Since Humanism began in the 20th century, the Capitalist ruling class have tried their absolute best to destroy people's perception of it, spreading lies in the mass media and academic institutions. They have infiltrated many real socialist organisations and created many of their own fake ones. The Bourgeoisie try to create divisions within and demoralise left wing groups. Capitalists have also tried to meddle in the elections of countries where the population shows strong support for Humanism, attempting to get more right wing candidates elected.
     </p>
-    <h3>Refernces</h3>
+    <h3>References</h3>
 <p>1) Manufacturing Consent: The Political Economy of the Mass Media Noam Chomsky, Edward S. Herman 1988</p>
 <p>2) Inventing Reality: The Politics of News Media Michael Parenti 1993</p>
 <p>3) https://www.abc.net.au/news/2019-03-06/ato-whistleblower-faces-161-years-prison-possibility/10872350</p>
