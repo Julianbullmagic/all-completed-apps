@@ -14,6 +14,7 @@ import China from "./china"
 import Cuba from "./cuba"
 import Yugoslavia from "./yugoslavia"
 import Ujamaa from "./Ujamaa"
+import Jamahiriya from "./Jamahiriya"
 import LibertarianSocialism from "./LibertarianSocialism"
 import Tennomar from "./Tennomar"
 import Paris1871 from "./Paris1871"
@@ -28,9 +29,7 @@ import DemocracyVideos from "./DemocracyVideos"
 import PsychologicalWarfare from "./psychologicalwarfare"
 import ForgotPassword from './auth/ForgotPassword'
 import ip from 'ip-in';
-
 let user
-
 
 async function getVisitorInfo(){
   let ipAddress = await ip.getIpAddress()
@@ -109,6 +108,7 @@ const MainRouter = () => {
         <Route exact path="/China" component={China}/>
         <Route exact path="/Tennomar" component={Tennomar}/>
         <Route exact path="/Ujamaa" component={Ujamaa}/>
+        <Route exact path="/Jamahiriya" component={Jamahiriya}/>
         <Route exact path="/Paris1871" component={Paris1871}/>
         <Route exact path="/Cooperatives" component={Cooperatives}/>
         <Route exact path="/Democracy" component={Democracy}/>

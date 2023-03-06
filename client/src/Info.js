@@ -64,6 +64,13 @@ export default function Info() {
 
 return (
   <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Jamahiriya">
+  <div className="articlelink">
+  <h2>Jamahiriya</h2>
+  <h3>State of the Masses, a humanist direct democracy</h3>
+  <h3>Read More</h3>
+  </div>
+  </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Tennomar">
   <div className="articlelink">
   <h2>The Humanist Federal Republic of Tennomar</h2>
