@@ -120,7 +120,6 @@ const MainRouter = () => {
         <Route exact path="/libertariansocialismvideos" component={LibertarianSocialismVideos}/>
         <Route path='/youtube' component={ GoYoutube }/>
         <Route path='/Discord' component={ GoDiscord }/>
-
         </div>
       </Switch>
     </div>)

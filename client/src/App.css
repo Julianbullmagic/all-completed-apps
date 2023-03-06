@@ -1087,7 +1087,6 @@ textarea:focus
 }
 
 @media only screen and (max-width: 640px) {
-
 	.details{
 		display:block;
 		margin-bottom:15vw;
@@ -1100,7 +1099,6 @@ textarea:focus
 	}
 	.detailsimg{
 		width:90vw;
-
 	}
 	.eventformbox input{
 		display:inline;
@@ -1256,18 +1254,15 @@ display:inline;
 	.comment{
 		display:block;
 	}
-
 	.comm{
 		display:block;
 	}
   .commp{
 		display:block;
 	}
-
 	.detailsimg{
 		object-fit:contain;
 	}
-
 .chat textarea{
 	height:70%;
 }
@@ -1287,9 +1282,6 @@ display:inline;
 		width:80vw;
 	}
 
-	.vids{
-		display:none;
-	}
 	.groupslist{
 		transform:translateY(-3%);
 		margin-left:3vw;
