@@ -9,6 +9,7 @@ const PageViewSchema = new mongoose.Schema({
   tennomar:[String],
   democracy:[String],
   neatugua:[String],
+  jamahiriya:[String],
   manufacturingconsentvideos:[String],
   democracyvideos:[String],
   libertariansocialismvideos:[String],

@@ -60,6 +60,19 @@ router.put("/addtopagecounter/:page", (req, res, next) => {
             }
           })
   }
+  if (req.params.page==="jamahiriya"){
+    console.log("updating youtube")
+    PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'jamahiriya' : visitorinfo}})
+    .exec(function(err,docs){
+            if(err){
+              console.error(err);
+            }else{
+              res.status(200).json({
+                data: docs
+              });
+            }
+          })
+  }
   if (req.params.page==="ujamaa"){
     PageViews.findOneAndUpdate({name:"pageviews"},{$addToSet : {'ujamaa' : visitorinfo}})
     .exec(function(err,docs){
