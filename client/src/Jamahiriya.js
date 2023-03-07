@@ -82,18 +82,18 @@ In conclusion, Jamahiriya was a very successful Humanistic society. It was genui
 <br/><br/>
 <h2>References</h2>
 1) NATIONAL INTELLIGENCE SURVEY 49; LIBYA; (NISL) THE ECONOMY page 7 para 1-2
-<a href=”https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf”>https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf</a>
+<a href='https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf'>https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf</a>
 <br/>
-2) NISL;  THE ECONOMY page 22 para 3 <a href=”https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf”>https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf</a>
+2) NISL;  THE ECONOMY page 22 para 3 <a href='https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf'>https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf</a>
 <br/>
 3) NISL; THE ECONOMY page 9 para 6
-<a href=”https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf”>https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf</a>
+<a href='https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf'>https://www.cia.gov/readingroom/docs/CIA-RDP01-00707R000200080012-4.pdf</a>
 <br/>
-4)NATIONAL INTELLIGENCE SURVEY 49; LIBYA; GOVERNMENT AND POLITICS Feb 1974 page 22 para 5 <a href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>, St. John 1983, p. 484; Blundy & Lycett 1987, p. 111; Kawczynski 2011, p. 221; St. John 2012, pp. 171–172. Bearman 1986, p. 191; Blundy & Lycett 1987, pp. 110–111; St. John 2012, p. 168.
+4)NATIONAL INTELLIGENCE SURVEY 49; LIBYA; GOVERNMENT AND POLITICS Feb 1974 page 22 para 5 <a href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>, St. John 1983, p. 484; Blundy & Lycett 1987, p. 111; Kawczynski 2011, p. 221; St. John 2012, pp. 171–172. Bearman 1986, p. 191; Blundy & Lycett 1987, pp. 110–111; St. John 2012, p. 168.
 <br/>
-5)NISL; GOVERNMENT AND POLITICS Feb 1974 page 7 para 5 <a href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
+5)NISL; GOVERNMENT AND POLITICS Feb 1974 page 7 para 5 <a href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
 <br/>
-6)NISL; GOVERNMENT AND POLITICS Feb 1974 page 21 para 2-3 <a href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
+6)NISL; GOVERNMENT AND POLITICS Feb 1974 page 21 para 2-3 <a href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
 <br/>
 7) Bearman, Jonathan (1986). Qadhafi's Libya. London: Zed Books, p. 275;  St. John, Ronald Bruce (2008). "Redefining the Libyan Revolution: The Changing Ideology of Muammar al-Qaddafi". The Journal of North African Studies. 13 (1): 91–106. , p. 172.
 <br/>
@@ -117,21 +117,21 @@ In conclusion, Jamahiriya was a very successful Humanistic society. It was genui
 <br/>
 17) Kawczynski, p22
 <br/>
-18)<a href=”http://hdr.undp.org/en”>http://hdr.undp.org/en</a>
+18)<a href='http://hdr.undp.org/en'>http://hdr.undp.org/en</a>
 <br/>
-19)<a href=”http://www.ly.undp.org/content/libya/en/home/countryinfo.html”>http://www.ly.undp.org/content/libya/en/home/countryinfo.html</a>
+19)<a href='http://www.ly.undp.org/content/libya/en/home/countryinfo.html'>http://www.ly.undp.org/content/libya/en/home/countryinfo.html</a>
 <br/>
-20)<a href=”http://www.who.int/countryfocus/cooperation_strategy/ccsbrief_lby_en.pdf”>http://www.who.int/countryfocus/cooperation_strategy/ccsbrief_lby_en.pdf</a>
+20)<a href='http://www.who.int/countryfocus/cooperation_strategy/ccsbrief_lby_en.pdf'>http://www.who.int/countryfocus/cooperation_strategy/ccsbrief_lby_en.pdf</a>
 <br/>
-21)Gaddafi, Muamar; The Green Book Page 49-51 http://openanthropology.org/libya/gaddafi-green-book.pdf)
+21)Gaddafi, Muamar; The Green Book Page 49-51 <a href='http://openanthropology.org/libya/gaddafi-green-book.pdf'>http://openanthropology.org/libya/gaddafi-green-book.pdf</a>
 <br/>
 22)Gaddafi p51
 <br/>
 23)Gaddafi P57
 <br/>
-24) NISL; GOVERNMENT AND POLITICS Feb 1974 page 23 para 1 <a  href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
+24) NISL; GOVERNMENT AND POLITICS Feb 1974 page 23 para 1 <a  href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
 <br/>
-25)NISL; GOVERNMENT AND POLITICS Feb 1974 page 22 para 4 <a href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
+25)NISL; GOVERNMENT AND POLITICS Feb 1974 page 22 para 4 <a href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
 <br/>
 26)Bearman 1986, p. 199.
 <br/>
@@ -143,9 +143,9 @@ In conclusion, Jamahiriya was a very successful Humanistic society. It was genui
 <br/>
 30)Bearman, p197-198
 <br/>
-31)NISL; GOVERNMENT AND POLITICS Feb 1974 page 18 para 4 <a href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
+31)NISL; GOVERNMENT AND POLITICS Feb 1974 page 18 para 4 <a href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
 <br/>
-32) NISL; GOVERNMENT AND POLITICS Feb 1974 page 27 para 3  <a href=”https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3”>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
+32) NISL; GOVERNMENT AND POLITICS Feb 1974 page 27 para 3  <a href='https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3'>https://www.cia.gov/readingroom/document/cia-rdp01-00707r000200080013-3</a>
 <br/>
 33)Bearman 1986, pp. 154–155; Blundy & Lycett 1987, p. 105; Kawczynski 2011, pp. 26–27; St. John 2012, pp. 166–168.
 <br/>
