@@ -64,6 +64,13 @@ export default function Info() {
 
 return (
   <div style={{marginLeft:"5vw",marginTop:"2vw",width:"90vw",textAlign:"center"}}>
+  <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Kerala">
+  <div className="articlelink">
+  <h2>Kerala</h2>
+  <h3>India most humanistic State</h3>
+  <h3>Read More</h3>
+  </div>
+  </a>
   <a style={{color:"black",textDecoration:"none",display:"block"}} href="/Jamahiriya">
   <div className="articlelink">
   <h2>Jamahiriya</h2>

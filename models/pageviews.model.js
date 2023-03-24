@@ -16,7 +16,8 @@ const PageViewSchema = new mongoose.Schema({
   cooperativesvideos:[String],
   youtube:[String],
   ujamaa:[String],
-  spain:[String]
+  spain:[String],
+  kerala:[String]
 })
 
 module.exports=mongoose.model('pageviews', PageViewSchema)
