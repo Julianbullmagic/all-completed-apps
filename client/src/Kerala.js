@@ -64,7 +64,7 @@ export default function Kerala() {
   <iframe className="iframeright" src={"https://www.youtube.com/embed/8IYbv0bW43w"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
     <p style={{textAlign:"center"}}>
-    The State of Kerala in India has a highly successful humanistic political-economic-social system. This region has the highest human development indicators of any part of India, figures that are on a similar level to many first world countries and in some cases even better. Kerala has the lowest poverty rates in India, highest life expectancy, highest literacy rates and the fewest homeless people to name a few of the many positive characteristics. Most private enterprises are co-operatives, democratic businesses owned and run by the workers themselves. Company directors are elected by the people who work for the business. Most of the state's energy is produced from renewable sources.
+    The State of Kerala in India has a highly successful humanistic political-economic-social system. This region has the highest human development indicators of any part of India, figures that are on a similar level to many first world countries and in some cases even better. Kerala has the second lowest poverty rate in India, highest life expectancy, highest literacy rates and the fewest homeless people to name a few of the many positive characteristics. Most private enterprises are co-operatives, democratic businesses owned and run by the workers themselves. Company directors are elected by the people who work for the business. Most of the state's energy is produced from renewable sources.
     <br/><br/><br/>
     <h2>Economy</h2>
     <br/><br/>
@@ -124,11 +124,11 @@ export default function Kerala() {
     <br/><br/>
     <div style={{textAlign:"left"}}>
     <h2>References</h2>
-  1)Sourav, Kumar, Status of Human Development in India (November 14, 2019). Available at SSRN: https://ssrn.com/abstract=3541151 or http://dx.doi.org/10.2139/ssrn.3541151</br>
+  1)Sourav, Kumar, Status of Human Development in India (November 14, 2019). Available at SSRN: https://ssrn.com/abstract=3541151 or http://dx.doi.org/10.2139/ssrn.3541151<br/>
   2)"Table 162, Number and Population Below Poverty Line". Reserve Bank of India, Government of India. 2013. Archived from the original on 2 June 2017.<br/>
   3)"SDGs India Index". https://sdgindiaindex.niti.gov.in/#/ranking 31 December 2019<br/>
   4)"India Human Development Report 2011: Towards Social Inclusion"(PDF). Institute of Applied Manpower Research, Planning Commission, Government of India. Retrieved 24 October 2014.https://www.im4change.org/docs/340IHDR_Summary.pdf<br/>
-  5)Parayil, Govindan (December 1996). "The 'Kerala model' of development: Development and sustainability in the Third World". Third World Quarterly. 17 (5): 941–958. http://www.tandfonline.com/doi/abs/10.1080/01436599615191</br/>
+  5)Parayil, Govindan (December 1996). "The 'Kerala model' of development: Development and sustainability in the Third World". Third World Quarterly. 17 (5): 941–958. http://www.tandfonline.com/doi/abs/10.1080/01436599615191<br/>
   6)Economic Review 2020 - Volume I (PDF). Thiruvananthapuram: Kerala State Planning Board. 2021. https://spb.kerala.gov.in/sites/default/files/2021-01/English-Vol-1_0.pdf<br/>
   7) Heller, Patrick (18 April 2020). "A virus, social democracy, and dividends for Kerala". The Hindu. Retrieved 2 February 2021 https://www.thehindu.com/opinion/lead/a-virus-social-democracy-and-dividends-for-kerala/article31370554.ece<br/>
   8)"Gross State Domestic Product of Kerala". Department of Economics and Statistics, Govt. of Kerala. Government of Kerala. Retrieved 4 December 2020. https://www.ecostat.kerala.gov.in/index.php/economy<br/>
