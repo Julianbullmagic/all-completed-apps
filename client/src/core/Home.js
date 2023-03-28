@@ -161,7 +161,7 @@ console.log(use,"use")
       </div></>}
       {!viewForm&&<>
       <h3 style={{marginLeft:"5vw",marginRight:"10vw",marginTop:"5vh"}}>
-A democratic social network, admins are elected by and accountable to the groups. All groups are federated together with a higher level elected representative groups. Representatives can be chosen or recalled at any time, there are no particular election events. Group members can create, vote on and enforce their own rules.
+A democratic social network. Admins are elected by and accountable to the groups. All groups are federated together with a higher level elected representative groups. Representatives can be chosen or recalled at any time, there are no particular election events. Group members can create, vote on and enforce their own rules.
       </h3>
       <div className="vids" style={{position:"fixed",marginLeft:"5vw",bottom:"4%"}}>
     <iframe style={{width:"40vw",height:"40vh",display:"inline"}} src={vidOne} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
