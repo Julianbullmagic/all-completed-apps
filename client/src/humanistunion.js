@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
+import ip from 'ip-in';
 
 export default function HumanistUnion() {
-
   useEffect(() => {
       pageCounter()
   }, [])
