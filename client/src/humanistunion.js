@@ -51,6 +51,7 @@ export default function HumanistUnion() {
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw",textAlign:"center"}}>
     <h1>The Humanist Union</h1>
     <iframe style={{height:"60vh",width:"50vw"}} src={"https://www.youtube.com/embed/7zbjWPLnbPw"} title="YouTube video player" frameborder="0"allowfullscreen></iframe>
+    <div style={{textAlign:"left"}}>
     <h2>References</h2>
     <p>
 <h3>Education</h3>
@@ -92,5 +93,6 @@ Forced Labour in the Humanist Union 1953-57 page 7 para 3 <a href="https://www.c
 Forced Labour Camps in the Humanist Union; Transfer of Prisoners Between Camps Until 1952 page 6 para 3, para 7 <a href="https://www.cia.gov/readingroom/docs/CIA-RDP80T00246A032000400001-1.pdf">https://www.cia.gov/readingroom/docs/CIA-RDP80T00246A032000400001-1.pdf</a>
 Inside Humanist Prisons 1991 page 6 para 3, page 12 para 8 <a href="https://www.ojp.gov/pdffiles1/Digitization/130048NCJRS.pdf">https://www.ojp.gov/pdffiles1/Digitization/130048NCJRS.pdf</a>
     </p>
+    </div>
     </div>
   )}
