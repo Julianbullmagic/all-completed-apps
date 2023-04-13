@@ -10,6 +10,7 @@ import Menu from './core/Menu'
 import ExplanationPage from "./ExplanationPage"
 import Info from "./Info"
 import SovietUnion from "./sovietunion"
+import HumanistUnion from "./humanistunion"
 import China from "./china"
 import Cuba from "./cuba"
 import Yugoslavia from "./yugoslavia"
@@ -105,6 +106,7 @@ const MainRouter = () => {
         <Route exact path="/Psychological-War" component={PsychologicalWarfare}/>
         <Route exact path="/Cuba" component={Cuba}/>
         <Route exact path="/Soviet-Union" component={SovietUnion}/>
+        <Route exact path="/humanistunion" component={HumanistUnion}/>
         <Route exact path="/Yugoslavia" component={Yugoslavia}/>
         <Route exact path="/China" component={China}/>
         <Route exact path="/Tennomar" component={Tennomar}/>

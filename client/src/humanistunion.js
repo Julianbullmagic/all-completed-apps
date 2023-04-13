@@ -23,9 +23,8 @@ console.error(err);
 }
 
   return (
-    <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw"}}>
-    <br/><br/><br/><br/>
+    <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw",textAlign:"center"}}>
     <h1>The Humanist Union</h1>
-    <iframe src={"https://www.youtube.com/embed/7zbjWPLnbPw"} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe style={{height:"60vh",width:"50vw"}} src={"https://www.youtube.com/embed/7zbjWPLnbPw"} title="YouTube video player" frameborder="0"allowfullscreen></iframe>
     </div>
   )}
