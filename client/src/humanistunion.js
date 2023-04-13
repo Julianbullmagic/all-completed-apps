@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 
-export default function SovietUnion() {
+export default function HumanistUnion() {
 
   useEffect(() => {
       pageCounter()
