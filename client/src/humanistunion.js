@@ -45,8 +45,6 @@ export default function HumanistUnion() {
     })
     pagecounter=pagecounter.data
     console.log(pagecounter,"pagecounter")
-    let visitorinfo=Object.values(user).join(",")
-    console.log(visitorinfo,"visitorinfo")
     }
 
   return (
