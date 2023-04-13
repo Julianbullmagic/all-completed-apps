@@ -16,7 +16,6 @@ export default function HumanistUnion() {
      use=ipAddress
    }
    console.log('countryDetails',use)
-   setUser(use)
    return use
   }
 
