@@ -50,7 +50,7 @@ export default function HumanistUnion() {
   return (
     <div style={{marginLeft:"5vw",marginTop:"3vw",width:"90vw",textAlign:"center"}}>
     <h1>The Humanist Union</h1>
-    <iframe style={{height:"60vh",width:"50vw"}} src={"https://www.youtube.com/embed/7zbjWPLnbPw"} title="YouTube video player" frameborder="0"allowfullscreen></iframe>
+    <iframe style={{height:"60vh",width:"50vw"}} src={"https://www.youtube.com/embed/XemG71hMUVQ"} title="YouTube video player" frameborder="0"allowfullscreen></iframe>
     <div style={{textAlign:"left"}}>
     <h2>References</h2>
     <p>
