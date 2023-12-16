@@ -124,7 +124,7 @@ userscopy=userscopy.sort(() => Math.random() - 0.5);
     this.setState({users:unsorted})
 
 
-    fetch("/leaders/voteforleader/" + id +"/"+ vote, options
+    fetch("https://democracy-social-network-server.onrender.com/leaders/voteforleader/" + id +"/"+ vote, options
   ).then(res => {
     console.log(res)
   }).catch(err => {
