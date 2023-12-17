@@ -28,6 +28,7 @@
     "kmeans-same-size": "^1.0.1",
     "leaflet": "^1.7.1",
     "moment": "^2.29.1",
+    "mongoose": "^8.0.3",
     "node-kmeans": "^1.1.9",
     "postcss-sort-alphabetically": "^1.1.1",
     "react": "^17.0.2",
