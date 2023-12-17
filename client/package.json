@@ -2,7 +2,6 @@
   "name": "todo",
   "version": "0.1.0",
   "private": true,
-  
   "dependencies": {
     "@capacitor/android": "^3.6.0",
     "@capacitor/cli": "^3.6.0",
@@ -76,5 +75,8 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  }
 }
