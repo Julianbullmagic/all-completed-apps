@@ -38,6 +38,7 @@ var kmeans = new KmeansLib();
 var geocluster = require("geocluster");
 var geodist = require('geodist')
 const nodemailer = require('nodemailer');
+require('dotenv').config()
 // let secure = require('ssl-express-www');
 
 cloudinary.config({
