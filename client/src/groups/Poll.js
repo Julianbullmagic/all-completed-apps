@@ -52,7 +52,7 @@ export default function Poll (props) {
 
 
 
-          fetch("/polls/marksentdown/" + poll._id, options
+          fetch("https://democracy-social-network-server.onrender.com/polls/marksentdown/" + poll._id, options
         ).then(res => {
           console.log(res)
         }).catch(err => {
@@ -71,7 +71,7 @@ export default function Poll (props) {
 
         for (let gr of lowergroupids){
 
-          fetch("/polls/sendpolldown/" + poll._id +"/"+ gr, options
+          fetch("https://democracy-social-network-server.onrender.com/polls/sendpolldown/" + poll._id +"/"+ gr, options
         ).then(res => {
           console.log(res)
         }).catch(err => {
@@ -116,7 +116,7 @@ export default function Poll (props) {
       body: ''
     }
 
-    fetch("/polls/approveofsendingpolldown/" + pollId +"/"+ auth.isAuthenticated().user._id, options
+    fetch("https://democracy-social-network-server.onrender.com/polls/approveofsendingpolldown/" + pollId +"/"+ auth.isAuthenticated().user._id, options
   ).then(res => {
     console.log(res)
   }).catch(err => {
@@ -144,7 +144,7 @@ function withdrawApprovalOfSendingPollDown(e,pollId){
     body: ''
   }
 
-  fetch("/polls/withdrawapprovalofsendingpolldown/" + pollId +"/"+ auth.isAuthenticated().user._id, options
+  fetch("https://democracy-social-network-server.onrender.com/polls/withdrawapprovalofsendingpolldown/" + pollId +"/"+ auth.isAuthenticated().user._id, options
 ).then(res => {
   console.log(res)
 }).catch(err => {
@@ -185,7 +185,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
       "Content-type": "application/json; charset=UTF-8"}}
 
 
-      fetch("/polls/createpollsuggestion/"+pollSuggestionId, options)
+      fetch("https://democracy-social-network-server.onrender.com/polls/createpollsuggestion/"+pollSuggestionId, options)
       .then(response => response.json())
       .then(json =>console.log(json))
         .catch(err => {
@@ -208,7 +208,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
             "Content-type": "application/json; charset=UTF-8"}}
 
 
-            fetch("/polls/deletesuggestion/"+item._id, options)
+            fetch("https://democracy-social-network-server.onrender.com/polls/deletesuggestion/"+item._id, options)
             .then(response => response.json())
             .then(json =>console.log(json))
               .catch(err => {
@@ -254,7 +254,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
                 body: ''
               }
 
-              fetch("/polls/approveofsuggestion/" + id +"/"+ auth.isAuthenticated().user._id, options
+              fetch("https://democracy-social-network-server.onrender.com/polls/approveofsuggestion/" + id +"/"+ auth.isAuthenticated().user._id, options
             ).catch(err => {
               console.error(err);
             })
@@ -283,7 +283,7 @@ newPollSuggestionToRender.createdby=auth.isAuthenticated().user
               body: ''
             }
 
-            fetch("/polls/withdrawapprovalofsuggestion/" + id +"/"+ auth.isAuthenticated().user._id, options
+            fetch("https://democracy-social-network-server.onrender.com/polls/withdrawapprovalofsuggestion/" + id +"/"+ auth.isAuthenticated().user._id, options
           ).catch(err => {
             console.error(err);
           })
